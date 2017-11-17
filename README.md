@@ -88,18 +88,12 @@ You can run tests with the command lines below :
 
 # Contributors 
 
-[<img alt="Gina Maria Wolf" src="https://avatars3.githubusercontent.com/u/21662088?s=460&v=4" width="117">](https://github.com/GiMaWolf) |
-:---:
-|[Gina Maria Wolf](https://github.com/GiMaWolf)|
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+| [<img src="https://avatars3.githubusercontent.com/u/21662088?s=460&v=4" width="100px;"/><br /><sub>Gina Maria Wolf</sub>](https://github.com/GiMaWolf)<br />| [<img src="https://avatars2.githubusercontent.com/u/4850601?s=460&v=4" width="100px;"/><br /><sub>Ewald Reinhard</sub>](https://github.com/Owlwald)<br />| [<img src="https://avatars0.githubusercontent.com/u/7516526?s=460&v=4" width="100px;"/><br /><sub>Felix Kalley</sub>](https://github.com/FelixKalley)<br />| [<img src="https://avatars2.githubusercontent.com/u/6153088?s=460&v=4" width="100px;"/><br /><sub>Markus Guder</sub>](https://github.com/marc101101)<br /> |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-[<img alt="Ewald Reinhard" src="https://avatars2.githubusercontent.com/u/4850601?s=460&v=4" width="117">](https://github.com/Owlwald) |
-:---:
-|[Ewald Reinhard](https://github.com/Owlwald)|
 
-[<img alt="Felix Kalley" src="https://avatars0.githubusercontent.com/u/7516526?s=460&v=4" width="117">](https://github.com/FelixKalley) |
-:---:
-|[Felix Kalley](https://github.com/FelixKalley)|
+## License
 
-[<img alt="Markus Guder" src="https://avatars2.githubusercontent.com/u/6153088?s=460&v=4" width="117">](https://github.com/marc101101) |
-:---:
-|[Markus Guder](https://github.com/marc101101)|
+Licensed under the [MIT](LICENSE.txt) License.
