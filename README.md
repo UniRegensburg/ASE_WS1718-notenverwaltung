@@ -1,10 +1,9 @@
-<img src="https://i.imgur.com/GofAwGb.png" width="400px" alt="" />
-
-[![Build Status](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master)](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung)
+<a>
+<img align="left" src="https://i.imgur.com/GofAwGb.png" width="400px" alt="" />
+<img align="right" src="https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master" alt="Build status" /><br><hr>
+</a>
 
 # Introduction
-
-Bootstrap and package your project with Angular 5(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
 
 Currently runs with:
 
@@ -44,12 +43,6 @@ npm install -g @angular/cli
 
 - **in a terminal window** -> npm start  
 
-Voila! You can use your Angular + Electron app in a local development environment with hot reload !
-
-The application code is managed by `main.ts`. In this sample, the app runs with a simple Electron window and "Developer Tools" is open.  
-The Angular component contains an example of Electron and NodeJS native lib import. See [Use NodeJS Native libraries](#use-nodejs-native-libraries) charpter if you want to import other native libraries in your project.  
-You can desactivate "Developer Tools" by commenting `win.webContents.openDevTools();` in `main.ts`.
-
 ## To build for production
 
 - Using development variables (environments/index.ts) :  `npm run electron:dev`
@@ -84,10 +77,6 @@ If you need to use NodeJS native libraries, you **MUST** add it manually in the 
 
 Notice that all NodeJS v7 native libs are already added in this sample. Feel free to remove those you don't need.
 
-## Browser mode
-
-Maybe you want to execute the application in the browser (WITHOUT HOT RELOAD ACTUALLY...) ? You can do it with `npm run start:web`.  
-Note that you can't use Electron or NodeJS native libraries in this case. Please check `providers/electron.service.ts` to watch how conditional import of electron/Native libraries is done.
 
 ## Execute E2E tests
 
