@@ -7,10 +7,6 @@
 [![Apache 2 License][license-badge]][license]
 [![Donate][donate-badge]][donate]
 
-[![Watch on GitHub][github-watch-badge]][github-watch]
-[![Star on GitHub][github-star-badge]][github-star]
-[![Tweet][twitter-badge]][twitter]
-
 # Introduction
 
 Bootstrap and package your project with Angular 5(+) and Electron (Typescript + SASS + Hot Reload) for creating Desktop applications.
@@ -22,24 +18,22 @@ Currently runs with:
 - Electron v1.7.6
 - Electron Packager v9.0.1
 
-With this sample, you can :
-
-- Run your app in a local development environment with Electron & Hot reload
-- Run your app in a production environment
-- Package your app into an executable file for Linux, Windows & Mac
-
 ## Getting Started
 
 Clone this repository locally :
 
 ``` bash
-git clone https://github.com/maximegris/angular-electron.git
+git clone https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung.git
 ```
 
 Install dependencies with npm :
 
 ``` bash
 npm install
+```
+or recommended:
+``` bash
+yarn install
 ```
 
 There is an issue with `yarn` and `node_modules` that are only used in electron on the backend when the application is built by the packager. Please use `npm` as dependencies manager.
@@ -110,23 +104,18 @@ You can run tests with the command lines below :
 
 # Contributors 
 
-[<img alt="Maxime GRIS" src="https://avatars2.githubusercontent.com/u/10827551?v=3&s=117" width="117">](https://github.com/maximegris) |
+[<img alt="Gina Maria Wolf" src="https://avatars3.githubusercontent.com/u/21662088?s=460&v=4" width="117">](https://github.com/GiMaWolf) |
 :---:
-|[Maxime GRIS](https://github.com/maximegris)|
+|[Gina Maria Wolf](https://github.com/GiMaWolf)|
 
-[build-badge]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
-[build]: https://travis-ci.org/maximegris/angular-electron.svg?branch=master
-[dependencyci-badge]: https://dependencyci.com/github/maximegris/angular-electron/badge
-[dependencyci]: https://dependencyci.com/github/maximegris/angular-electron
-[license-badge]: https://img.shields.io/badge/license-Apache2-blue.svg?style=flat
-[license]: https://github.com/maximegris/angular-electron/blob/master/LICENSE.md
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-[prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[donate]: https://www.paypal.me/maximegris/10
-[github-watch-badge]: https://img.shields.io/github/watchers/maximegris/angular-electron.svg?style=social
-[github-watch]: https://github.com/maximegris/angular-electron/watchers
-[github-star-badge]: https://img.shields.io/github/stars/maximegris/angular-electron.svg?style=social
-[github-star]: https://github.com/maximegris/angular-electron/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20angular-electron!%20https://github.com/maximegris/angular-electron%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/maximegris/angular-electron.svg?style=social
+[<img alt="Ewald Reinhard" src="https://avatars2.githubusercontent.com/u/4850601?s=460&v=4" width="117">](https://github.com/Owlwald) |
+:---:
+|[Ewald Reinhard](https://github.com/Owlwald)|
+
+[<img alt="Felix Kalley" src="https://avatars0.githubusercontent.com/u/7516526?s=460&v=4" width="117">](https://github.com/FelixKalley) |
+:---:
+|[Felix Kalley](https://github.com/FelixKalley)|
+
+[<img alt="Markus Guder" src="https://avatars2.githubusercontent.com/u/6153088?s=460&v=4" width="117">](https://github.com/marc101101) |
+:---:
+|[Markus Guder](https://github.com/marc101101)|
