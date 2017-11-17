@@ -1,4 +1,6 @@
-#Notenverwaltung
+<img src="https://i.imgur.com/GofAwGb.png" width="400px" alt="" />
+
+# Notenverwaltung
 
 [![Build Status](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master)](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung)
 
