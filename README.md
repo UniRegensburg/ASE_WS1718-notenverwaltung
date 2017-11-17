@@ -1,11 +1,6 @@
-[![Angular Logo](./logo-angular.jpg)](https://angular.io/) [![Electron Logo](./logo-electron.jpg)](https://electron.atom.io/)
+#Notenverwaltung
 
-
-[![Travis Build Status][build-badge]][build]
-[![Dependencies Status][dependencyci-badge]][dependencyci]
-[![Make a pull request][prs-badge]][prs]
-[![Apache 2 License][license-badge]][license]
-[![Donate][donate-badge]][donate]
+[![Build Status](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master)](https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung)
 
 # Introduction
 
