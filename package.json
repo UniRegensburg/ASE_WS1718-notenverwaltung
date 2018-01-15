@@ -1,11 +1,9 @@
 {
-  "name": "angular-electron",
-  "version": "2.0.0",
-  "description": "Angular 5 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "ASE-Notenverwaltung",
+  "version": "0.0.0",
+  "description": "Tool for grade management.",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    
   },
   "keywords": [
     "angular",
