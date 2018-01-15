@@ -2,9 +2,7 @@
   "name": "ASE-Notenverwaltung",
   "version": "0.0.0",
   "description": "Tool for grade management.",
-  "author": {
-    
-  },
+  "author": {},
   "keywords": [
     "angular",
     "angular 5",
@@ -45,6 +43,7 @@
     "@angular/router": "5.0.1",
     "core-js": "2.4.1",
     "enhanced-resolve": "3.3.0",
+    "materialize-css": "^0.100.2",
     "rxjs": "5.5.2",
     "zone.js": "0.8.17"
   },
