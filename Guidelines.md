@@ -24,3 +24,28 @@ Version 1.0 vom 30.11.2017
 5. Auf diesem neuen Branch wird immer, wenn ein Teilerfolg erzielt wird, committet
 6. Ist der Bug behoben oder das Feature implementiert, stelle ich einen Pull Request
 7. Jeder andere Entwickler darf diesen Branch nun auschecken und testen, sowie den Code begutachten. Ist beides ok, darf dieser Entwickler den PR mergen, ist er nicht ok, wird kommentiert warum und der PR geschlossen
+
+
+## Versions-Tags
+Bei jedem Merge auf Master muss die Version getaggt werden.
+Unser Versionstagging hat folgendes Schema, wobei die Buchstaben für ganze Zahlen stehen:
+
+|a.| b. | c. | d
+|--|--|--|--|
+| Relase |  Milestone| Development Stage | Merge in Master 
+
+### Development Stage
+
+>  - 0 for alpha (status)
+>  - 1 for beta (status)
+>  - 2 for release candidate
+>  - 3 for (final) release
+>  
+https://en.wikipedia.org/wiki/Software_versioning#Designating_development_stage
+
+
+### Beispiel
+| Tag | Beschreibung|
+| --- | --- |
+| `0.0.0.1` | SW noch nie released, 0ter Milestone, Alpha-Status, erster Merge in Masterbranch |
+| `1.12.1.102` | nach dem ersten Release, zwölfter Milestone, Beta-Status, hundertzweiter Merge in Masterbranch |
