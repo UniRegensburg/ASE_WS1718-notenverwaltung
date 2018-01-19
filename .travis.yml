@@ -3,6 +3,5 @@ node_js:
   - "8"
 install:
   - yarn install
-  - npm install --save-dev @ngtools/webpack
 script:
   - npm run build
