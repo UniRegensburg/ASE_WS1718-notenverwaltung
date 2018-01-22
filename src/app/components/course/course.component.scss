@@ -1,4 +1,28 @@
-.container {
-  color: black;
-  padding: 20px;
+.menu-button{
+  margin-top: 20px;
+  padding: 0 32px;
+}
+
+.btn-floating{
+  z-index: 99999;
+  margin-left: 273px;
+  margin-bottom: 20px;
+  bottom: 0px;
+  position: fixed;
+}
+
+.active{
+  background-color: #b16783;
+}
+
+.menu-collapse{
+  width: 50px;
+}
+
+.btn-floating-collapse{
+  margin-left: 25px;
+}
+
+.li-collapse{
+  margin-left: -18px;
 }

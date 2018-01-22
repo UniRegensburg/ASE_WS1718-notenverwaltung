@@ -13,4 +13,8 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
   }
 
+  setCollpased(new_status): void{
+    this.collpase = new_status;     
+  }
+
 }
