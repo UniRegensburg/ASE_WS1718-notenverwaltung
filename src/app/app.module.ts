@@ -8,8 +8,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { StudentsComponent } from './components/students/students.component';
 import { CourseComponent } from './components/course/course.component';
+
+import { OverviewComponent, StudentsComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -20,6 +21,7 @@ import { ElectronService } from './providers/electron.service';
     AppComponent,
     HomeComponent,
     CourseComponent,
+    OverviewComponent,
     StudentsComponent
   ],
   imports: [
