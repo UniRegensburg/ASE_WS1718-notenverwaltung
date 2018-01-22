@@ -8,6 +8,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { StudentsComponent } from './components/students/students.component';
+import { CourseComponent } from './components/course/course.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -16,7 +18,9 @@ import { ElectronService } from './providers/electron.service';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CourseComponent,
+    StudentsComponent
   ],
   imports: [
     BrowserModule,
