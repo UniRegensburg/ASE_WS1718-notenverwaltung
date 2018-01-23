@@ -29,7 +29,8 @@
         <h6 class="active">Zuletzt verwendet</h6>
       </div>
       <h6 class="sidebar_hover">Neu erstellen</h6>
-      <h6 class="sidebar_hover">Öffnen</h6>
+      <!--h6 class="sidebar_hover">Öffnen</h6-->
+      <input type="file" #file (change)="onChange(file.files)"/>
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">

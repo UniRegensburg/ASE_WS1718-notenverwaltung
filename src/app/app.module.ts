@@ -14,7 +14,7 @@ import { OverviewComponent, StudentsComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService } from './providers/electron.service';
+import { ElectronService, GlobalDataService } from './providers/index';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { ElectronService } from './providers/electron.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, GlobalDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,9 +14,12 @@
     "bewertungsschema" : {
         "allgemeine_infos" : {
             "notenschluessel" : [
-                ["note", "punkte"],
-                ["note", "punkte"],
-                ["note", "punkte"]
+                {
+                    "note": "punkte"
+                },
+                {
+                    "note": "punkte"
+                }
             ],
             "bewertungseinheit" : ""
         },
@@ -36,7 +39,7 @@
     "bewertung" : [
         {
             "student_id" : 1,
-            "aufgaben" :  [
+            "einzelwertungen" :  [
                 {
                     "aufgaben_id" : 0,
                     "erreichte_punkte" : 0,

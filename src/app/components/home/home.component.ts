@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { log, error } from 'util';
+import { Router } from '@angular/router';
+
+import { GlobalDataService } from '../../providers/index';
 
 @Component({
   selector: 'app-home',
@@ -23,9 +27,19 @@ export class HomeComponent implements OnInit {
   ];
   private view_mode: boolean = true;
 
-  constructor() { }
+  constructor(
+    public dataService: GlobalDataService,
+    public router: Router
+  ) { }
 
   ngOnInit() {
   }
 
+  onChange(file) {   
+    this.dataService.getLocalFile(file["0"].path).subscribe(
+      data => {
+          console.log("1:", data);      
+          this.router.navigate(['course/1']);    
+    });
+  }
 }
