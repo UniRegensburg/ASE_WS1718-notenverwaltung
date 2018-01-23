@@ -35,6 +35,7 @@ h6{
 }
 
 .home-card:hover{
+  cursor: pointer;
   border: 1px solid #C2185B;
   border-left: 4px solid #C2185B;
 }
@@ -58,6 +59,16 @@ h6{
 
 .hr_table{
   margin-top: -10px;
+}
+
+.row_hover:hover{
+  cursor: pointer;
+  color: #C2185B;
+}
+
+.sidebar_hover:hover{
+  cursor: pointer;
+  color: #C2185B;
 }
 
 

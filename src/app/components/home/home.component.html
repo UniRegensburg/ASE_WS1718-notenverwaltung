@@ -28,8 +28,8 @@
       <div class="font-active">
         <h6 class="active">Zuletzt verwendet</h6>
       </div>
-      <h6>Neu erstellen</h6>
-      <h6>Öffnen</h6>
+      <h6 class="sidebar_hover">Neu erstellen</h6>
+      <h6 class="sidebar_hover">Öffnen</h6>
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
@@ -63,7 +63,7 @@
           </div>
           <hr class="hr_table">
           <div *ngFor="let file of last_files">
-            <div class="row">
+            <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
               <div class="col s4">
                 {{file.file_name}}
               </div>
