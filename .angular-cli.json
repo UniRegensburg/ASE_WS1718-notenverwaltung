@@ -25,6 +25,7 @@
         "node_modules/materialize-css/bin/materialize.js"
       ],
       "scripts": [
+        "node_modules/pouchdb"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

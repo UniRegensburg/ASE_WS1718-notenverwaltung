@@ -10,16 +10,13 @@ import "rxjs/add/observable/of";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-declare var require: any;
-
-var PouchDB = require('pouchdb');
-
 @Injectable()
 export class GlobalDataService {
   public current_project: Schema; //this is the project data object 
   private pouch: any;
 
   constructor(private http: Http) {
+
   }
 
   /**
