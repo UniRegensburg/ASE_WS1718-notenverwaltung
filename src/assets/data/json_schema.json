@@ -1,0 +1,300 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "properties": {
+    "teilnehmer": {
+      "$id": "/properties/teilnehmer",
+      "type": "array",
+      "items": {
+        "$id": "/properties/teilnehmer/items",
+        "type": "object",
+        "properties": {
+          "id": {
+            "$id": "/properties/teilnehmer/items/properties/id",
+            "type": "integer",
+            "title": "The Id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              1
+            ]
+          },
+          "mtknr": {
+            "$id": "/properties/teilnehmer/items/properties/mtknr",
+            "type": "integer",
+            "title": "The Mtknr Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              1655429
+            ]
+          },
+          "name": {
+            "$id": "/properties/teilnehmer/items/properties/name",
+            "type": "string",
+            "title": "The Name Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "Guder"
+            ]
+          },
+          "vorname": {
+            "$id": "/properties/teilnehmer/items/properties/vorname",
+            "type": "string",
+            "title": "The Vorname Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "Markus"
+            ]
+          },
+          "studiengang": {
+            "$id": "/properties/teilnehmer/items/properties/studiengang",
+            "type": "string",
+            "title": "The Studiengang Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "M.Sc. Medieninfo (1)"
+            ]
+          },
+          "fachsemester": {
+            "$id": "/properties/teilnehmer/items/properties/fachsemester",
+            "type": "integer",
+            "title": "The Fachsemester Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              1
+            ]
+          },
+          "mail": {
+            "$id": "/properties/teilnehmer/items/properties/mail",
+            "type": "string",
+            "title": "The Mail Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "markus.guder@gmail.com"
+            ]
+          },
+          "status": {
+            "$id": "/properties/teilnehmer/items/properties/status",
+            "type": "string",
+            "title": "The Status Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "ZU"
+            ]
+          }
+        }
+      }
+    },
+    "bewertungsschema": {
+      "$id": "/properties/bewertungsschema",
+      "type": "object",
+      "properties": {
+        "allgemeine_infos": {
+          "$id": "/properties/bewertungsschema/properties/allgemeine_infos",
+          "type": "object",
+          "properties": {
+            "notenschluessel": {
+              "$id": "/properties/bewertungsschema/properties/allgemeine_infos/properties/notenschluessel",
+              "type": "array",
+              "items": {
+                "$id": "/properties/bewertungsschema/properties/allgemeine_infos/properties/notenschluessel/items",
+                "type": "object",
+                "properties": {
+                  "note": {
+                    "$id": "/properties/bewertungsschema/properties/allgemeine_infos/properties/notenschluessel/items/properties/note",
+                    "type": "string",
+                    "title": "The Note Schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                      "punkte"
+                    ]
+                  }
+                }
+              }
+            },
+            "bewertungseinheit": {
+              "$id": "/properties/bewertungsschema/properties/allgemeine_infos/properties/bewertungseinheit",
+              "type": "string",
+              "title": "The Bewertungseinheit Schema",
+              "description": "An explanation about the purpose of this instance.",
+              "default": "",
+              "examples": [
+                ""
+              ]
+            }
+          }
+        },
+        "aufgaben": {
+          "$id": "/properties/bewertungsschema/properties/aufgaben",
+          "type": "array",
+          "items": {
+            "$id": "/properties/bewertungsschema/properties/aufgaben/items",
+            "type": "object",
+            "properties": {
+              "id": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/id",
+                "type": "integer",
+                "title": "The Id Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                  0
+                ]
+              },
+              "position": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/position",
+                "type": "integer",
+                "title": "The Position Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                  0
+                ]
+              },
+              "gewichtung": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/gewichtung",
+                "type": "integer",
+                "title": "The Gewichtung Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                  1
+                ]
+              },
+              "max_punkt": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/max_punkt",
+                "type": "integer",
+                "title": "The Max_punkt Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                  0
+                ]
+              },
+              "comment_public": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/comment_public",
+                "type": "boolean",
+                "title": "The Comment_public Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": false,
+                "examples": [
+                  true
+                ]
+              },
+              "comment_privat": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/comment_privat",
+                "type": "boolean",
+                "title": "The Comment_privat Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": false,
+                "examples": [
+                  true
+                ]
+              },
+              "beschreibung": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/beschreibung",
+                "type": "string",
+                "title": "The Beschreibung Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "its bad!"
+                ]
+              },
+              "bewertungs_hinweis": {
+                "$id": "/properties/bewertungsschema/properties/aufgaben/items/properties/bewertungs_hinweis",
+                "type": "string",
+                "title": "The Bewertungs_hinweis Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                  "its really bad!"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "bewertung": {
+      "$id": "/properties/bewertung",
+      "type": "array",
+      "items": {
+        "$id": "/properties/bewertung/items",
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "$id": "/properties/bewertung/items/properties/student_id",
+            "type": "integer",
+            "title": "The Student_id Schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+              1
+            ]
+          },
+          "einzelwertungen": {
+            "$id": "/properties/bewertung/items/properties/einzelwertungen",
+            "type": "array",
+            "items": {
+              "$id": "/properties/bewertung/items/properties/einzelwertungen/items",
+              "type": "object",
+              "properties": {
+                "aufgaben_id": {
+                  "$id": "/properties/bewertung/items/properties/einzelwertungen/items/properties/aufgaben_id",
+                  "type": "integer",
+                  "title": "The Aufgaben_id Schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": 0,
+                  "examples": [
+                    0
+                  ]
+                },
+                "erreichte_punkte": {
+                  "$id": "/properties/bewertung/items/properties/einzelwertungen/items/properties/erreichte_punkte",
+                  "type": "integer",
+                  "title": "The Erreichte_punkte Schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": 0,
+                  "examples": [
+                    0
+                  ]
+                },
+                "comment_privat": {
+                  "$id": "/properties/bewertung/items/properties/einzelwertungen/items/properties/comment_privat",
+                  "type": "string",
+                  "title": "The Comment_privat Schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                },
+                "comment_public": {
+                  "$id": "/properties/bewertung/items/properties/einzelwertungen/items/properties/comment_public",
+                  "type": "string",
+                  "title": "The Comment_public Schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": "",
+                  "examples": [
+                    ""
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

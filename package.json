@@ -43,6 +43,7 @@
     "@angular/router": "5.0.1",
     "@types/pouchdb": "^6.3.2",
     "angular2-indexeddb": "^1.2.2",
+    "babel-polyfill": "^6.26.0",
     "core-js": "2.4.1",
     "enhanced-resolve": "3.3.0",
     "materialize-css": "^0.100.2",

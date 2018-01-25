@@ -14,7 +14,7 @@ import { OverviewComponent, StudentsComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, PouchDBService } from './providers/index';
+import { ElectronService, GlobalDataService, LastOpened } from './providers/index';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { ElectronService, GlobalDataService, PouchDBService } from './providers/
     HttpModule,
     AppRoutingModule
   ],
-  providers: [PouchDBService, ElectronService, GlobalDataService],
+  providers: [ElectronService, GlobalDataService, LastOpened],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
