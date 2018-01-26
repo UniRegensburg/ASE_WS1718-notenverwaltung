@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,7 +22,8 @@ import { ElectronService } from './providers/electron.service';
     HomeComponent,
     CourseComponent,
     OverviewComponent,
-    StudentsComponent
+    StudentsComponent,
+    GradingComponent
   ],
   imports: [
     BrowserModule,
