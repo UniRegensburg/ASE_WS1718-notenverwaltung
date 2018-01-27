@@ -1,59 +1,83 @@
 <div class="container">
     <h1>Bewertungsschema</h1>
-    <p> Auf dieser Seite können Sie das Bewertungsschema nach ihren Wünschen anpassen.</p>
+    <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
+
+
+    <div>json.bewertungsschema</div>
 
     <!-- Schema erstellen -->
-    <a *ngIf="!schemeCreateMode" class='scheme-new btn' (click)='setCreateMode(true)'>Neues Schema erstellen </a>
 
 
-    <div *ngIf="schemeCreateMode" id='scheme-content2'>
+    <div id='scheme-content'>
         <div class='content-block row'>
-            <div class='title-block row'>Notenschlüssel / Noteneinheit</div>
-            <div class='col s6' id='grading-key'>notenschlüssel
-                <ul id='grading-table'>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                </ul>
+            <div class='title-block col s12'>Notenschlüssel / Noteneinheit</div>
+            <div class='col s6' id='grading-key'>Notenschlüssel
+                <table class='striped' id='grading-table'>
+                    <thead>
+                        <tr>
+                            <th>Note</th>
+                            <th>Obergrenze</th>
+                            <th>Untergrenze</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>100</td>
+                            <td>95</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>95</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>90</td>
+                            <td>85</td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
-            <div class='col s6' id='grading-unit'>bewertungseinheit</div>
-            <form action="#">
-                <p>
-                    <input class="with-gap" name="group1" type="radio" id="test1" />
-                    <label for="test1">Red</label>
-                </p>
-                <p>
-                    <input class="with-gap" name="group1" type="radio" id="test2" />
-                    <label for="test2">Yellow</label>
-                </p>
-                <p>
-                    <input class="with-gap" name="group1" type="radio" id="test3" />
-                    <label for="test3">Green</label>
-                </p>
-            </form>
+            <div class='col s6' id='grading-unit'>Bewertungseinheit
+                <form action="#" id='grading-form'>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="test1" />
+                        <label for="test1">Punkte</label>
+                    </p>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="test2" />
+                        <label for="test2">Prozent</label>
+                    </p>
+                    <p>
+                        <input class="with-gap" name="group1" type="radio" id="test3" />
+                        <label for="test3">???</label>
+                    </p>
+                </form>
+            </div>
         </div>
         <div class='content-block row'>
-            <div class='title-block row'>Aufgaben / Fragen</div>
-            <div class='content-block row'>1</div>
-            <div class='content-block row'>2</div>
-            <div class='content-block row'>3</div>
-            <div class='content-block row'>4</div>
-            <div class='content-block row'>3</div>
+            <div class='title-block col s12'>Aufgaben / Fragen</div>
+            <div class='content-block col s12'>
+                <div class='question'>Aufgabe 1</div>
+            </div>
+            <div class='content-block col s12'>
+                <div class='question'>Aufgabe 2</div>
+            </div>
+            <div class='content-block col s12'>
+                <div class='question'>Aufgabe 3</div>
+            </div>
         </div>
 
 
+
+
+        <a *ngIf="!schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(true)'>Bearbeiten </a>
+        <a *ngIf="schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(false)'>Speichern </a>
+
+        <div *ngIf="!schemeCreateMode" id='scheme-content'>
+            <div>Toller Text</div>
+        </div>
     </div>
-
-
-
-
-    <a *ngIf="schemeCreateMode" class='scheme-save btn' (click)='setCreateMode(false)'>Speichern </a>
-
-    <div *ngIf="!schemeCreateMode" id='scheme-content'>
-        <div>Toller Text</div>
-    </div>
-</div>

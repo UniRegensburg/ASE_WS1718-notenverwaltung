@@ -4,21 +4,41 @@
 }
 
 .content-block {
-    color: red;
+    color: black;
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
 }
 
 .title-block {
-    background-color: blue;
-    color: aquamarine;
+    background-color: #C2185B;
+    color: white;
     font-size: 30px;
 }
 
 #grading-key {
-    color: green;
-    background-color: pink;
+    color: black;
+    background-color: white;
 }
 
 #grading-unit {
-    color: coral;
-    background-color: grey;
+    color: black;
+    background-color: white;
+}
+
+#grading-form {
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+    align-self: center;
+}
+
+#grading-table {
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+}
+
+.scheme-btn {
+    background-color: #C2185B;
 }
