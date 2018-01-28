@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
 
 import { OverviewComponent, StudentsComponent } from './components/course/index'
@@ -22,7 +22,8 @@ import { ElectronService, GlobalDataService, LastOpened } from './providers/inde
     HomeComponent,
     CourseComponent,
     OverviewComponent,
-    StudentsComponent
+    StudentsComponent,
+    NewCourseComponent
   ],
   imports: [
     BrowserModule,

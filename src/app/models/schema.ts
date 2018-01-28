@@ -2,9 +2,9 @@ import { Bewertung, Teilnehmer, Bewertungsschema } from './index'
 
 export class Schema {
     constructor(
-        teilnehmer: Array<Teilnehmer>,
-        bewertungsschema: Bewertungsschema,
-        bewertung: Array<Bewertung>
+        teilnehmer?: Array<Teilnehmer>,
+        bewertungsschema?: Bewertungsschema,
+        bewertung?: Array<Bewertung>
     ){
         this.teilnehmer = teilnehmer;
         this.bewertungsschema = bewertungsschema;

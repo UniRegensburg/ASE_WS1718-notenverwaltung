@@ -13,19 +13,29 @@ export class LastOpened {
 
     private isInstantiated: boolean;
     private lastOpendFilePath: string = "/assets/data/lastOpend.json";
-    private loadedFiles: FileExplorer;
+    private loadedFiles;
+    private demoData = [{
+        "id": 0,
+        "file_name": "DH_WS_17_18.nvwt",
+        "last_opened": "07.01.2018",
+        "title": "Digital Humanities WS 2017/2018",
+        "path": "X"
+      }, {
+        "id": 1,
+        "file_name": "ASE_SS.nvwt",
+        "last_opened": "07.01.2018",
+        "title": "Digital Humanities WS 2017/2018",
+        "path": "X"
+      }];
+      
 
     public constructor(public http: Http) {
         
     }
 
-    public getLastOpendFiles(): Observable<FileExplorer> {
-        return this.http.get(this.lastOpendFilePath)
-                            // ...and calling .json() on the response to return data
-                             .map((res:Response) => this.loadedFiles = res.json())
-                             //...errors if any
-                             .catch((error:any) => Observable.throw(error.json().error || 'Reading error'));
-      }
+    public getLastOpendFiles() {
+        return this.demoData;
+    }
 
 
      

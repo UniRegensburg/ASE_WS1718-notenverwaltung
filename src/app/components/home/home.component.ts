@@ -22,20 +22,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.lastOpened.getLastOpendFiles().subscribe(
-      data=>{
-      console.log(data);
-    },
-    error => {
-      console.log(error);
-      
-    });
+    this.last_files = this.lastOpened.getLastOpendFiles();
   }
 
   onChange(file) {   
     this.dataService.getLocalFile(file["0"].path).subscribe(
       data => {
-          console.log("1:", data);      
           this.router.navigate(['course/1']);    
     });
   }

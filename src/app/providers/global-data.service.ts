@@ -4,19 +4,24 @@ import { log } from 'util';
 import { Http, Response } from '@angular/http';
 import { Schema } from '../models/schema';
 import { Observable } from 'rxjs/Observable';
+import { File } from '../models/index'
 
 import "rxjs/add/observable/of";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { readdir, stat, writeFile } from 'fs';
+import { resolve } from 'path';
+
 @Injectable()
 export class GlobalDataService {
-  public current_project: Schema; //this is the project data object 
+  public current_project: any; //this is the project data object 
   private pouch: any;
+  
 
-  constructor(private http: Http) {
-
+  constructor(
+    private http: Http) {
   }
 
   /**
@@ -39,6 +44,26 @@ export class GlobalDataService {
    */
   public getCurrentProject(): Schema{
     return this.current_project;
+  }
+
+  public createFile(file:any): any{
+    let filePath = file.path + "/" + file.title + ".json";
+    let basic_schema = {
+        "teilnehmer": [],
+        "bewertungsschema": {},
+        "bewertung": []
+    };
+    this.current_project = basic_schema;
+    writeFile(filePath, JSON.stringify(basic_schema), (err) => {
+        if(err){
+            alert("An error ocurred creating the file "+ err.message);
+            return true;
+        }          
+        else{
+          alert("The file has been succesfully saved");
+          return false;
+      }
+    });    
   }
 
 }

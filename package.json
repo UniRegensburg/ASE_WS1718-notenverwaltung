@@ -46,6 +46,7 @@
     "babel-polyfill": "^6.26.0",
     "core-js": "2.4.1",
     "enhanced-resolve": "3.3.0",
+    "fs": "0.0.1-security",
     "materialize-css": "^0.100.2",
     "pouchdb": "^6.4.1",
     "rxdb": "^7.3.1",
