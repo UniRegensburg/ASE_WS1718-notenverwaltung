@@ -1,52 +1,174 @@
 {
-    "teilnehmer": [
-        {
-            "id" : 1,
-            "mtknr" : 1655429,	
-            "name" : "Guder",
-            "vorname" : "Markus",
-            "studiengang" : "M.Sc. Medieninfo (1)",
-            "fachsemester" : 1,
-            "mail" : "markus.guder@gmail.com",
-            "status" : "ZU"
-        }
-    ],
-    "bewertungsschema" : {
-        "allgemeine_infos" : {
-            "notenschluessel" : [
-                {
-                    "note": "punkte"
-                },
-                {
-                    "note": "punkte"
-                }
-            ],
-            "bewertungseinheit" : ""
-        },
-        "aufgaben" : [
-            {
-                "id" : 0,
-                "position" : 0,
-                "gewichtung" : 1.0,
-                "max_punkt" : 0,
-                "comment_public" : true,
-                "comment_privat" : true,
-                "beschreibung" : "its bad!",
-                "bewertungs_hinweis" : "its really bad!"
-            }
-        ]
+  "teilnehmer": [{
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
-    "bewertung" : [
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    }
+  ],
+  "bewertungsschema": {
+    "allgemeine_infos": {
+      "notenschluessel": [{
+          "note": "punkte"
+        },
         {
-            "student_id" : 1,
-            "einzelwertungen" :  [
-                {
-                    "aufgaben_id" : 0,
-                    "erreichte_punkte" : 0,
-                    "comment_privat" : "",
-                    "comment_public" : ""
-                }
-            ]
+          "note": "punkte"
         }
-    ]
+      ],
+      "bewertungseinheit": ""
+    },
+    "aufgaben": [{
+      "id": 0,
+      "position": 0,
+      "gewichtung": 1.0,
+      "max_punkt": 0,
+      "comment_public": true,
+      "comment_privat": true,
+      "beschreibung": "its bad!",
+      "bewertungs_hinweis": "its really bad!"
+    }]
+  },
+  "bewertung": [{
+    "student_id": 1,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 0,
+      "comment_privat": "",
+      "comment_public": ""
+    }]
+  }]
 }

@@ -16,6 +16,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ElectronService, GlobalDataService, LastOpened } from './providers/index';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,8 @@ import { ElectronService, GlobalDataService, LastOpened } from './providers/inde
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [ElectronService, GlobalDataService, LastOpened],
   bootstrap: [AppComponent]

@@ -7,3 +7,21 @@
 .side-nav.fixed{
     transform: translateX(0%) !important;
 }
+
+.progress {
+    margin-top: 15px;
+    background-color: lightgray;
+    height: 20px;
+}
+
+.progress .determinate {
+    background-color: #C2185B;
+}
+
+h5{
+    font-size: 1.34rem;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    background: #C2185B !important;
+}
