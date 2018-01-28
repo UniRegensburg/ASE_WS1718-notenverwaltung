@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalDataService } from '../../../providers/index';
 
 @Component({
   selector: 'app-course-overview',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class OverviewComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
 
-  constructor() { }
+  constructor(public dataService: GlobalDataService) { }
 
   ngOnInit() {
+    console.log("HERE");
+    
+    console.log(this.dataService.getCurrentProject());
   }
 
 }

@@ -2,3 +2,75 @@
   color: black;
   padding: 20px;
 }
+
+.home-icon{
+  font-size: 30px;
+}
+
+.active{
+  color: #C2185B;
+}
+
+h5{
+  margin-top: -10px;
+}
+
+h6{
+  font-size: 1.24rem;
+  line-height: 130%;
+  margin-left: 10px;
+}
+
+.font-active{
+  border-left: 3px solid #C2185B;
+}
+
+.card-title{
+  font-size: 18px;
+}
+
+.home-card{
+  border: 1px solid black;
+  border-left: 4px solid black;
+}
+
+.home-card:hover{
+  cursor: pointer;
+  border: 1px solid #C2185B;
+  border-left: 4px solid #C2185B;
+}
+
+.z-depth-1{
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0), 0 1px 5px 0 rgba(0,0,0,0), 0 3px 1px -2px rgba(0,0,0,0) !important;
+}
+
+.btn{
+  padding: 0px;
+  background-color: white;
+  color: black;
+}
+
+.hr_welcome{
+  width: 50px;
+  float: left;
+  border: 2px solid #C2185B;
+  margin-top: -10px;
+}
+
+.hr_table{
+  margin-top: -10px;
+}
+
+.row_hover:hover{
+  cursor: pointer;
+  color: #C2185B;
+}
+
+.sidebar_hover:hover{
+  cursor: pointer;
+  color: #C2185B;
+}
+
+
+
+
