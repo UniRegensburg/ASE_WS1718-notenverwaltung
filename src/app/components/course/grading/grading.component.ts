@@ -9,13 +9,7 @@ export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
   schemeCreateMode = false;
   schemeEdit = false;
-
-  
-  constructor() { }
-
-  ngOnInit() {
-  
-      var json = {
+  json = {
         "teilnehmer": [
             {
                 "id": 1,
@@ -30,12 +24,12 @@ export class GradingComponent implements OnInit {
         ],
         "bewertungsschema": {
             "allgemeine_infos": {
-                "notenschluessel": [
-                    ["note", "obergrenze", "untergrenze"],
-                    ["note", "obergrenze", "untergrenze"],
-                    ["note", "obergrenze", "untergrenze"]
+                "notenschluessel": {
+                    "note": ["1", "2", "3"],
+                    "obergrenze": ["100", "95", "90"],
+                    "untergrenze": ["95", "90", "80"]
 
-                ],
+                },
                 "bewertungseinheit": ""
             },
             "aufgaben": [
@@ -64,17 +58,32 @@ export class GradingComponent implements OnInit {
                 ]
             }
         ]
-    }
-
+    };
+    
+    gradingKey = this.json.bewertungsschema.allgemeine_infos.notenschluessel;
+    gradingGrade = this.json.bewertungsschema.allgemeine_infos.notenschluessel.note;
+    gradingMax = this.json.bewertungsschema.allgemeine_infos.notenschluessel.obergrenze;
+    gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel.untergrenze;
   
-    console.log(json);
-    console.log(this.schemeCreateMode);
+  constructor() {
+  
+  }
+
+  ngOnInit() {
+  
+   
+    console.log(this.json.teilnehmer[0].name);
+    console.log(this.json.bewertungsschema.allgemeine_infos.notenschluessel);
+    console.log("hier");
 
   
   }
   
+  
+
+  
   setCreateMode(new_status): void{
-  this.schemeCreateMode = new_status;
+    this.schemeCreateMode = new_status;
   console.log(this.schemeCreateMode);
   }
 

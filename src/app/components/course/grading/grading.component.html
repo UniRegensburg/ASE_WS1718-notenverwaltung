@@ -2,11 +2,10 @@
     <h1>Bewertungsschema</h1>
     <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
 
-
-    <div>json.bewertungsschema</div>
-
-    <!-- Schema erstellen -->
-
+    <ul *ngFor='let item of gradingGrade'>
+        <li>{{item}}</li>
+    </ul>
+    <a id='test'>{{json.teilnehmer[0].name}}</a>
 
     <div id='scheme-content'>
         <div class='content-block row'>
@@ -22,21 +21,19 @@
                     </thead>
 
                     <tbody>
+
                         <tr>
-                            <td>1</td>
-                            <td>100</td>
-                            <td>95</td>
+
+                            <!-- HIER STIMMT WAS NICHT!!! -->
+                            <td *ngFor='let grade of gradingGrade; let i=index'>{{grade[i]}}</td>
+                            <td *ngFor='let max of gradingMax; let y=index'>{{max[y]}}</td>
+                            <td *ngFor='let min of gradingMin; let z=index'>{{min[z]}}</td>
+
+
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>95</td>
-                            <td>90</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>90</td>
-                            <td>85</td>
-                        </tr>
+
+
+
                     </tbody>
                 </table>
 
