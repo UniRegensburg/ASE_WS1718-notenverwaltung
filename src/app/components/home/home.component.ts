@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   onChange(file) {   
     this.dataService.getLocalFile(file["0"].path).subscribe(
       data => {
-          this.router.navigate(['course/1']);    
+          this.router.navigate(['course/overview']);    
     });
   }
 }

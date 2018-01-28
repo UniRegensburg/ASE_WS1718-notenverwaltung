@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { File } from '../../../models/index'
 import { GlobalDataService } from '../../../providers/index';
 import { Observable } from 'rxjs/Observable';
-
+import { readdir, stat, writeFile } from 'fs';
+import { resolve } from 'path';
 
 @Component({
   selector: 'app-home-newCourse',
@@ -36,25 +37,25 @@ export class NewCourseComponent implements OnInit {
   createCourse(): void{    
     this.course_oject.file_name = this.course_oject.title + ".json";
 
-    /*const promise = new Promise((resolve, reject) => {
-      this.dataService.createFile(this.course_oject);
-    });
-
-    promise.then((res) => {
-      console.log(res);
-    });
-    promise.catch((err) => {
-       console.log(err);    
-    });*/
-
-    var testO = new Observable(() => {
-      this.dataService.createFile(this.course_oject);
-    })
-
-    testO.subscribe((datadares)=>{
-      console.log(res);
-    });
-    
+    let filePath = this.course_oject.path + "/" + this.course_oject.title + ".json";
+    let basic_schema = {
+        "teilnehmer": [],
+        "bewertungsschema": {},
+        "bewertung": []
+    };
+      
+    writeFile(filePath, JSON.stringify(basic_schema), (err) => {
+        if(err){
+            alert("An error ocurred creating the file "+ err.message);            
+        }          
+        else{
+          alert("The file has been succesfully saved");
+          this.dataService.getLocalFile(filePath).subscribe(
+            data => {
+                this.router.navigate(['course/overview']);    
+          });
+      }
+    }); 
   }
   
 }

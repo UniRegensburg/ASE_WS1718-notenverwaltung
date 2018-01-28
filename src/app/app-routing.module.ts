@@ -23,7 +23,7 @@ const routes: Routes = [
         component: NewCourseComponent, 
     },
     {
-        path: 'course/:id',
+        path: 'course',
         component: CourseComponent,
         children:[
             {

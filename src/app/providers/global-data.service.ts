@@ -46,24 +46,4 @@ export class GlobalDataService {
     return this.current_project;
   }
 
-  public createFile(file:any): any{
-    let filePath = file.path + "/" + file.title + ".json";
-    let basic_schema = {
-        "teilnehmer": [],
-        "bewertungsschema": {},
-        "bewertung": []
-    };
-    this.current_project = basic_schema;
-    writeFile(filePath, JSON.stringify(basic_schema), (err) => {
-        if(err){
-            alert("An error ocurred creating the file "+ err.message);
-            return true;
-        }          
-        else{
-          alert("The file has been succesfully saved");
-          return false;
-      }
-    });    
-  }
-
 }
