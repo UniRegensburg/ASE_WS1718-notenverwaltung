@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
+import { GlobalDataService } from '../../../providers/index'
+
+declare var require: any;
+declare var $: any;
+
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -7,10 +12,23 @@ import * as XLSX from 'ts-xlsx'
 })
 export class StudentsComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
+  private current_project: any;
+  private current_project_name: String;
+  private participants: Array<any>;
 
-  constructor() { }
+  constructor(public dataService: GlobalDataService) { }
 
   ngOnInit() {
+      this.dataService.getCurrentProject().subscribe(current_project => {
+         this.current_project = current_project;
+         this.participants = this.current_project.participants;
+         this.dataService.getCurrentProjectName().subscribe(current_project_name =>{
+             this.current_project_name = current_project_name;
+         })
+         this.dataService.getParticipants().subscribe(teilnehmer =>{
+            this.participants = teilnehmer;
+        });
+      });
   }
 
   openDialog(): void{
@@ -93,9 +111,11 @@ export class StudentsComponent implements OnInit {
         students.push(student)
         cell+=1
         address= String.fromCharCode(65+row)+cell;
+        this.dataService.setNewStudents(student);
       }
       console.log(students)
-
+      console.log("paricipants:",this.participants)
+      
     }
 
 

@@ -1,3 +1,45 @@
 <div class="container">
-<a class='btn' href="#!" (click)="openDialog()">Load File</a>
+    <h1>Teilnehmer</h1>
+    <hr class="hr_welcome">
+    <br>
+    <h5>{{current_project_name}}</h5>
+    <div class="row">
+        <div class="col s12">
+            <a class='btn waves-effect waves-light pink darken-2' (click)="openDialog()"><i class="material-icons left">create</i> Teilnehmer importieren</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l14" *ngFor="let participant of participants | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
+            <div class="row row_hover">
+                <div class="col s0">
+                    {{participant.id}}
+                </div>
+                <div class="col s3">
+                    {{participant.name}}, {{participant.vorname}}
+                </div>
+                <div class="col s2">
+                    {{participant.mtknr}}
+                </div>
+                <div class="col s3">
+                    {{participant.studiengang}}
+                </div>
+                <div class="col s0">
+                    {{participant.fachsemester}}
+                </div>
+                <div class="col s4">
+                    {{participant.mail}}
+                </div>
+                <div class="col s1">
+                    {{participant.status}}
+                </div>
+
+        </div>
+        <hr class="hr_table">
+    </div>
+    <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+
+
 </div>
