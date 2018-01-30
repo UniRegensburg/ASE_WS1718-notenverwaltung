@@ -331,6 +331,10 @@
   version "2.53.43"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.43.tgz#2de3d718819bc20165754c4a59afb7e9833f6707"
 
+"@types/xlsx@0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/xlsx/-/xlsx-0.0.34.tgz#2b49e60dcbd3553a6bf211a3af1a6f4c7cb2c8b9"
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -7028,6 +7032,12 @@ ts-node@3.3.0:
     tsconfig "^6.0.0"
     v8flags "^3.0.0"
     yn "^2.0.0"
+
+ts-xlsx@0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/ts-xlsx/-/ts-xlsx-0.0.11.tgz#5a5fbcdd0f59d558c287af4c74fd5ea9a4bbeb39"
+  dependencies:
+    "@types/xlsx" "0.0.34"
 
 tsconfig@^6.0.0:
   version "6.0.0"
