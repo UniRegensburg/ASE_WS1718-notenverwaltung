@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 
@@ -15,8 +15,8 @@ export class StudentsComponent implements OnInit {
   private current_project: any;
   private current_project_name: String;
   private participants: Array<any>;
-
-  constructor(public dataService: GlobalDataService) { }
+  // const zone: NgZone=moduleRef.injector.get(NgZone);
+  constructor(public dataService: GlobalDataService, private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.dataService.getCurrentProject().subscribe(current_project => {
@@ -25,9 +25,10 @@ export class StudentsComponent implements OnInit {
          this.dataService.getCurrentProjectName().subscribe(current_project_name =>{
              this.current_project_name = current_project_name;
          })
-         this.dataService.getParticipants().subscribe(teilnehmer =>{
-            this.participants = teilnehmer;
-        });
+      });
+      this.dataService.getParticipants().subscribe(teilnehmer =>{
+              this.participants = teilnehmer;
+              this.changeDetectorRef.markForCheck();
       });
   }
 
@@ -115,7 +116,13 @@ export class StudentsComponent implements OnInit {
       }
       console.log(students)
       console.log("paricipants:",this.participants)
-      
+      this.changeDetectorRef.detectChanges();
+
+
+    }
+
+    enableGroups(): void{
+        console.log("NYI")
     }
 
 

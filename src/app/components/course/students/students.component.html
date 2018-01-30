@@ -2,22 +2,25 @@
     <h1>Teilnehmer</h1>
     <hr class="hr_welcome">
     <br>
-    <h5>{{current_project_name}}</h5>
+
     <div class="row">
-        <div class="col s12">
+        <div class="col s5">
             <a class='btn waves-effect waves-light pink darken-2' (click)="openDialog()"><i class="material-icons left">create</i> Teilnehmer importieren</a>
+        </div>
+        <div class="col s5">
+            <a class='btn waves-effect waves-light pink darken-2' (click)="enableGroups()"><i class="material-icons left">create</i> Gruppen aktivieren</a>
         </div>
     </div>
     <div class="row">
-        <div class="col l14" *ngFor="let participant of participants | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
+        <div class="col l12" *ngFor="let participant of this.participants  | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
             <div class="row row_hover">
                 <div class="col s0">
                     {{participant.id}}
                 </div>
-                <div class="col s3">
+                <div class="col s2">
                     {{participant.name}}, {{participant.vorname}}
                 </div>
-                <div class="col s2">
+                <div class="col s1">
                     {{participant.mtknr}}
                 </div>
                 <div class="col s3">
@@ -26,7 +29,7 @@
                 <div class="col s0">
                     {{participant.fachsemester}}
                 </div>
-                <div class="col s4">
+                <div class="col s3">
                     {{participant.mail}}
                 </div>
                 <div class="col s1">

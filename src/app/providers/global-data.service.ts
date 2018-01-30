@@ -21,7 +21,7 @@ export class GlobalDataService {
   public current_project_name: any;
   private pouch: any;
   public teilnehmer: Array<any>;
-
+  private temp: Array<any>;
 
   constructor(
     private http: Http) {
@@ -39,6 +39,7 @@ export class GlobalDataService {
                          .map((res:Response) => {
                             this.current_project = res.json();
                             this.current_project_name = file_path;
+                            // console.log(file_path.split('\\').pop().split('/').pop());
                           })
                          //...errors if any
                          .catch((error:any) => Observable.throw(error.json().error || 'Reading error'));
