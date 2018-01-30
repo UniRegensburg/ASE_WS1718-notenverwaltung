@@ -2,27 +2,26 @@
     <h1>Ergebnisse</h1>
     <hr class="hr_welcome">
     <br>
-    <div class="row">
 
-        <ul class="collapsible" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header">
-                    <i class="material-icons">add</i>Available Exports</div>
-                <div class="collapsible-body">
-                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')">
-                        <i class="material-icons left">file_download</i> LSF </a>
-
-                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
-                        <i class="material-icons left">file_download</i> GRIPS </a>
-
-                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
-                        <i class="material-icons left">file_download</i> PDF </a>
-                </div>
-            </li>
-        </ul>
+    <div class="row exports">
+        <div class="col s2">
+            <span>Available Donwloads</span>
+        </div>
+        <div class="col 3">
+            <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')">
+                <i class="material-icons left">file_download</i> LSF </a>
+        </div>
+        <div class="col 3">
+            <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+                <i class="material-icons left">file_download</i> GRIPS </a>
+        </div>
+        <div class="col 3">
+            <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+                <i class="material-icons left">file_download</i> PDF </a>
+        </div>
     </div>
-    <div class="row">
 
+    <div class="row">
 
     </div>
 
