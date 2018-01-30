@@ -10,11 +10,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, CorrectionComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { ElectronService, GlobalDataService, LastOpened } from './providers/index';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -23,13 +26,15 @@ import { ElectronService, GlobalDataService, LastOpened } from './providers/inde
     CourseComponent,
     OverviewComponent,
     StudentsComponent,
+    CorrectionComponent,
     NewCourseComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
   providers: [ElectronService, GlobalDataService, LastOpened],
   bootstrap: [AppComponent]

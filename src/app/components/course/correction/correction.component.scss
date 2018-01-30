@@ -25,3 +25,7 @@ h5{
 .my-pagination /deep/ .ngx-pagination .current {
     background: #C2185B !important;
 }
+
+.card-panel:hover{
+    cursor: pointer;
+}
