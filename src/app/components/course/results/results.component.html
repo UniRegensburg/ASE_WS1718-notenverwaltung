@@ -1,15 +1,44 @@
 <div class="container">
-<h1>Ergebnisse</h1>
-<hr class="hr_welcome">
-<br>
+    <h1>Ergebnisse</h1>
+    <hr class="hr_welcome">
+    <br>
+    <div class="row">
 
-<div class="row">
-    <div class="col s5">
-        <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')"><i class="material-icons left">create</i> LSF Export</a>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header">
+                    <i class="material-icons">add</i>Available Exports</div>
+                <div class="collapsible-body">
+                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')">
+                        <i class="material-icons left">file_download</i> LSF </a>
+
+                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+                        <i class="material-icons left">file_download</i> GRIPS </a>
+
+                    <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+                        <i class="material-icons left">file_download</i> PDF </a>
+                </div>
+            </li>
+        </ul>
     </div>
-    <div class="col s5">
-        <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')"><i class="material-icons left">create</i> GRIPS Export</a>
+    <div class="row">
+
+
     </div>
 
-</div>
+    <div class="row" style="margin-top: 40px">
+        <div class="col l4">
+            <h5>{{participants.length}} Teilnehmer</h5>
+            <h5>2,7 Durchschnittsnote</h5>
+            <div class="progress white-text">
+
+                <div class="determinate" style="width: 70%"></div>
+                <div style="position: absolute; margin-left: 20px">70% bewertet</div>
+            </div>
+        </div>
+        <div class="col l8" style="height: 200px!important;">
+            <canvas #graphCanvas style="position: relative; height:40vh; width:80vw"></canvas>
+        </div>
+    </div>
+
 </div>
