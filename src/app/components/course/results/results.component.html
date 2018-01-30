@@ -21,23 +21,22 @@
         </div>
     </div>
 
+    <!--http://materializecss.com/forms.html Autocomplete-->
     <div class="row">
-
-    </div>
-
-    <div class="row" style="margin-top: 40px">
-        <div class="col l4">
-            <h5>{{participants.length}} Teilnehmer</h5>
-            <h5>2,7 Durchschnittsnote</h5>
-            <div class="progress white-text">
-
-                <div class="determinate" style="width: 70%"></div>
-                <div style="position: absolute; margin-left: 20px">70% bewertet</div>
+        <div class="col s12">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <input type="text" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input">Suche Studierende</label>
+                </div>
             </div>
         </div>
-        <div class="col l8" style="height: 200px!important;">
-            <canvas #graphCanvas style="position: relative; height:40vh; width:80vw"></canvas>
-        </div>
+    </div>
+
+
+    <div class="row" style="margin-top: 40px">
+        <span>TODO Hier könnte Ihr Diagramm stehen:</span>
     </div>
 
 </div>

@@ -9,15 +9,14 @@ import { GlobalDataService, ExportService } from '../../../providers/index';
 export class ResultsComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
 
-
   constructor(public exportService: ExportService) { }
 
   ngOnInit() {
 
   }
 
-  export(string):void{
-      this.exportService.export(string)
+  export(string): void {
+    this.exportService.export(string)
   }
 
 }
