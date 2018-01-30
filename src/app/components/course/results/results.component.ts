@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalDataService } from '../../../providers/index';
+import { GlobalDataService, ExportService } from '../../../providers/index';
 
 @Component({
   selector: 'app-results',
@@ -9,9 +9,15 @@ import { GlobalDataService } from '../../../providers/index';
 export class ResultsComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
 
-  constructor() { }
+
+  constructor(public exportService: ExportService) { }
 
   ngOnInit() {
+
+  }
+
+  export(string):void{
+      this.exportService.export(string)
   }
 
 }

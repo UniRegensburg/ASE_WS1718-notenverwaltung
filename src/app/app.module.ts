@@ -14,7 +14,7 @@ import { OverviewComponent, StudentsComponent, ResultsComponent, CorrectionCompo
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, LastOpened } from './providers/index';
+import { ElectronService, GlobalDataService, LastOpened, ExportService, lsfExportService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -37,7 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxPaginationModule
   ],
-  providers: [ElectronService, GlobalDataService, LastOpened],
+  providers: [ElectronService, GlobalDataService, LastOpened, ExportService, lsfExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
