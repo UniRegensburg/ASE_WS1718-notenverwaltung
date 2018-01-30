@@ -1,5 +1,8 @@
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
+
+import {APP_BASE_HREF} from '@angular/common';
+
 
 import { OverviewComponent, StudentsComponent } from './components/course/index'
 
@@ -10,6 +13,14 @@ const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'home',
+        component: HomeComponent
+    },
+    {
+        path: 'newcourse',
+        component: NewCourseComponent, 
     },
     {
         path: 'course',

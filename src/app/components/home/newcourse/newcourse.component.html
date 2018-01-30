@@ -1,0 +1,32 @@
+<div class="container">
+  <a [routerLink]="['/home']" style="color: black">
+    <i class="material-icons left back-button">keyboard_arrow_left</i>
+  </a>
+  <h1>NEUEN KURS ERSTELLEN</h1>
+  <hr class="hr_welcome">
+  <br>
+  <div class="row">
+    <form class="col s12">
+      <div class="col s12 row">
+        <div class="input-field col s12">
+          <input placeholder="e.g. WS17/18 Advanced Software Engineering" [(ngModel)]="course_oject.title" required [ngModelOptions]="{standalone: true}" class="validate">
+        </div>
+        <div class="col s12 row" style="margin-left: -15px">
+          <div class="col s3">
+            Speicherort festlegen
+          </div>
+          <div class="col s4">
+            <input type="file" id="storage" (change)="store($event.target.files[0])" required webkitdirectory directory multiple/>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 row" style="margin-left: -15px">
+        <br>
+        <div class="input-field col s12">
+          <a class="waves-effect waves-light btn" (click)="createCourse()" type="submit">
+            <i class="material-icons left">create_new_folder</i>Kurs erstellen</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
