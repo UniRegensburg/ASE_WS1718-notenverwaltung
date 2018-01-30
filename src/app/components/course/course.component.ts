@@ -15,7 +15,7 @@ export class CourseComponent implements OnInit {
   }
 
   setCollpased(new_status): void{
-    this.collpase = new_status;     
+    this.collpase = new_status;
   }
 
 }
