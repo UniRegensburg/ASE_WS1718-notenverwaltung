@@ -8,36 +8,42 @@
     <div class="col l4">
       <h5>{{participants.length}} Teilnehmer</h5>
       <h5>2,7 Durchschnittsnote</h5>
-      <div class="progress white-text" >
-            
-            <div class="determinate" style="width: 70%"></div>
-            <div style="position: absolute; margin-left: 20px">70% bewertet</div>
-        </div>
+      <div class="progress white-text">
+
+        <div class="determinate" style="width: 70%"></div>
+        <div style="position: absolute; margin-left: 20px">70% bewertet</div>
+      </div>
     </div>
     <div class="col l8" style="height: 200px!important;">
       <canvas #graphCanvas style="position: relative; height:40vh; width:80vw"></canvas>
     </div>
   </div>
-  
-<div class="row" style="margin-top: 50px">
-  <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
-    <div class="row row_hover">
-      <div class="col s3">
-        {{participant.name}}, {{participant.vorname}}
-      </div>
-      <div class="col s3">
-        {{participant.mtknr}}
-      </div>
-      <div class="col s3">
-        55%
-      </div>
-      <div class="col s3">
-        1,0
-      </div>
+
+  <div class="row">
+    <div class="col s12">
+      <a class="waves-effect waves-light btn pink darken-2" [routerLink]="correction" type="submit">
+        <i class="material-icons left">create</i>Korrektur fortsetzen</a>
     </div>
-    <hr class="hr_table">
   </div>
-  <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
-</div>
+  <div class="row" style="margin-top: 50px">
+    <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
+      <div class="row row_hover">
+        <div class="col s3">
+          {{participant.name}}, {{participant.vorname}}
+        </div>
+        <div class="col s3">
+          {{participant.mtknr}}
+        </div>
+        <div class="col s3">
+          55%
+        </div>
+        <div class="col s3">
+          1,0
+        </div>
+      </div>
+      <hr class="hr_table">
+    </div>
+    <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
+  </div>
 
 </div>

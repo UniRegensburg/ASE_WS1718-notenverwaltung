@@ -4,7 +4,7 @@ import { CourseComponent } from './components/course/course.component';
 import {APP_BASE_HREF} from '@angular/common';
 
 
-import { OverviewComponent, StudentsComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, CorrectionComponent } from './components/course/index'
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -33,6 +33,10 @@ const routes: Routes = [
             {
                 path: 'students',
                 component: StudentsComponent, 
+            },
+            {
+                path: 'correction',
+                component: CorrectionComponent, 
             }
         ]
     }

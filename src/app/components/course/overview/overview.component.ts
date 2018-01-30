@@ -65,10 +65,10 @@ export class OverviewComponent implements OnInit {
             'rgba(194, 24, 91, 1)',
             'rgba(194, 24, 91, 1)',
             'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
+            'rgba(194, 24, 91, 1)',   
+            'rgba(194, 24, 91, 1)',   
+            'rgba(194, 24, 91, 1)',               
+            'rgba(194, 24, 91, 1)',   
           ],
         }]
       },
@@ -89,10 +89,8 @@ export class OverviewComponent implements OnInit {
   }
 
   createUserGradingList(): void{
-    console.log(this.current_project.teilnehmer);
     
     this.current_project.teilnehmer.forEach(element => {
-      console.log(element);      
     });
   }
 
