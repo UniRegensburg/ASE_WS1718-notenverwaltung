@@ -6,24 +6,27 @@
   <i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="screen_mode">fullscreen</i>
   <div class="row" style="margin-top: 40px">
     <div class="col s12 center-align">
-      <a class="waves-effect waves-light btn grey" (click)="setCorretionMode('task')">Nach Aufgaben</a>
+      <h5><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe {{current_task.id}}</h5>
+    </div>
+    <div class="col s12 center-align" style="margin-top: 30px">
       <a class="waves-effect waves-light btn pink darken-2" (click)="setCorretionMode('student')">Nach Student</a>
+      <a class="waves-effect waves-light btn grey" (click)="setCorretionMode('task')">Nach Aufgaben</a>
     </div>
   </div>
 
   <div class="row">
     <div class="col s4">
-      <i class="material-icons left" style="font-size: 40px">chevron_left</i>
+      <i class="material-icons left card-panel" style="font-size: 40px" (click)="setCurrentTask('previous')">chevron_left</i>
     </div>
     <div class="col s4">
       <div class="row">
         <div class="col s8">
-          <input class="right" 
-          placeholder="0" 
-          type="number" 
-          [(ngModel)]="current_correction.erreichte_punkte" 
-          [attr.max]="current_task.max_punkt" 
-          min="0" 
+          <input class="right"
+          placeholder="0"
+          type="number"
+          [(ngModel)]="current_correction.erreichte_punkte"
+          [attr.max]="current_task.max_punkt"
+          min="0"
           lass="validate">
         </div>
         <div class="col s4" style="margin-top: 5px">
@@ -32,7 +35,7 @@
       </div>
     </div>
     <div class="col s4">
-      <i class="material-icons right" style="font-size: 40px" (click)="setCurrentTask()">chevron_right</i>
+      <i class="material-icons right card-panel" style="font-size: 40px" (click)="setCurrentTask('next')">chevron_right</i>
     </div>
   </div>
 

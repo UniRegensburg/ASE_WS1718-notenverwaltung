@@ -1,5 +1,15 @@
 {
   "teilnehmer": [{
+      "id": 0,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
       "id": 1,
       "mtknr": 1655429,
       "name": "Guder",
@@ -21,16 +31,6 @@
     },
     {
       "id": 3,
-      "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
-      "studiengang": "M.Sc. Medieninfo (1)",
-      "fachsemester": 1,
-      "mail": "markus.guder@gmail.com",
-      "status": "ZU"
-    },
-    {
-      "id": 4,
       "mtknr": 1655429,
       "name": "Guder",
       "vorname": "Markus",
@@ -160,6 +160,26 @@
       "comment_privat": false,
       "beschreibung": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
       "bewertungs_hinweis": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."
+    },
+    {
+      "id": 1,
+      "position": 0,
+      "gewichtung": 1.0,
+      "max_punkt": 5,
+      "comment_public": true,
+      "comment_privat": false,
+      "beschreibung": "t ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+      "bewertungs_hinweis": "OLOEEEOLEEEE."
+    },
+    {
+      "id": 2,
+      "position": 0,
+      "gewichtung": 1.0,
+      "max_punkt": 5,
+      "comment_public": true,
+      "comment_privat": false,
+      "beschreibung": "TEST2",
+      "bewertungs_hinweis": "sadasdasd"
     }]
   },
   "bewertung": []
