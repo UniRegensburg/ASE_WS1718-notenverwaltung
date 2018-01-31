@@ -41,12 +41,16 @@
     "@angular/platform-browser": "5.0.1",
     "@angular/platform-browser-dynamic": "5.0.1",
     "@angular/router": "5.0.1",
+    "@ngtools/webpack": "^1.5.1",
+    "@types/file-saver": "^1.3.0",
     "@types/pouchdb": "^6.3.2",
+    "angular2-csv": "^0.2.5",
     "angular2-indexeddb": "^1.2.2",
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.1",
     "core-js": "2.4.1",
     "enhanced-resolve": "3.3.0",
+    "file-saver": "^1.3.3",
     "fs": "0.0.1-security",
     "materialize-css": "^0.100.2",
     "ng2-pagination": "^2.0.2",
@@ -55,8 +59,7 @@
     "rxdb": "^7.3.1",
     "rxjs": "5.5.2",
     "webpack": "^3.10.0",
-    "zone.js": "0.8.17",
-    "@ngtools/webpack": "^1.5.1"
+    "zone.js": "0.8.17"
   },
   "devDependencies": {
     "@angular/cli": "1.5.0",
