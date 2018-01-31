@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
-  schemeCreateMode = false;
-  schemeEdit = false;
+  schemeEditMode = false;
   json = {
         "teilnehmer": [
             {
@@ -85,10 +84,10 @@ export class GradingComponent implements OnInit {
     };
     
     gradingKey = this.json.bewertungsschema.allgemeine_infos.notenschluessel;
-   gradingGrade = this.json.bewertungsschema.allgemeine_infos.notenschluessel[0];
+    gradingGrade = this.json.bewertungsschema.allgemeine_infos.notenschluessel[0];
     gradingMax = this.json.bewertungsschema.allgemeine_infos.notenschluessel[1];
-     gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel[2];
-     gradingQuestion = this.json.bewertungsschema.aufgaben;
+    gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel[2];
+    gradingQuestion = this.json.bewertungsschema.aufgaben;
   
   constructor() {
   
@@ -98,7 +97,7 @@ export class GradingComponent implements OnInit {
   
    
    console.log("hier");
-   console.log(this.gradingQuestion[0].id);
+   console.log(this.gradingQuestion[1].title);
 
   
   }
@@ -106,9 +105,10 @@ export class GradingComponent implements OnInit {
   
 
   
-  setCreateMode(new_status): void{
-    this.schemeCreateMode = new_status;
-  //console.log(this.schemeCreateMode);
+  setEditMode(new_status): void{
+    this.schemeEditMode = new_status;
+  //console.log(this.schemeEditMode);
+  console.log("EDITIER MODUS KNOPF GEKLICKT");
   }
 
 }

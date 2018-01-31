@@ -2,7 +2,7 @@
     <h1>Bewertungsschema</h1>
     <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.
         <br>...</p>
-
+    <div>{{json.bewertungsschema.aufgaben[0].title}}</div>
 
     <div id='scheme-content'>
         <div class='content-block row'>
@@ -12,14 +12,12 @@
                     <thead>
                         <tr>
                             <th>Note</th>
-                            <th>Obergrenze</th>
-                            <th>Untergrenze</th>
+                            <th>Max</th>
+                            <th>Min</th>
                             <th>Einheit</th>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         <tr>
                             <td *ngFor='let key of gradingKey; let i=index'>{{key[0]}} </td>
                         </tr>
@@ -32,14 +30,8 @@
                         <tr>
                             <td *ngFor='let key of gradingKey; let i=index'>{{key}} </td>
                         </tr>
-
-
-
-
-
                     </tbody>
                 </table>
-
             </div>
             <div class='col s6' id='grading-unit'>Bewertungseinheit
                 <form action="#" id='grading-form'>
@@ -60,12 +52,10 @@
         </div>
         <div class='content-block row'>
             <div class='title-block col s12'>Aufgaben / Fragen</div>
-
-
-
             <ul class="collapsible" data-collapsible="expandable">
                 <li *ngFor='let question of gradingQuestion; let i=index'>
-                    <div class="collapsible-header"><i class="material-icons">expand_more</i> Aufgaben Name = {{question[i].title}}
+                    <div class="collapsible-header"><i class="material-icons">expand_more</i>{{json.bewertungsschema.aufgaben[i].title}}
+                        <!-- Aufgaben Name = {{question[i].title}} -->
                         <div><i class="material-icons">edit</i> <i class="material-icons">remove_circle</i> </div>
                     </div>
                     <div class="collapsible-body"><span>{{question[i]}}</span></div>
@@ -79,14 +69,10 @@
                 </li>
             </ul>
         </div>
-
-
         <div>_______DEV QUATSCH__________</div>
-
-        <a *ngIf="!schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(true)'>Bearbeiten </a>
-        <a *ngIf="schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(false)'>Speichern </a>
-
-        <div *ngIf="!schemeCreateMode" id='scheme-content'>
+        <a *ngIf="!schemeEditMode" class='scheme-btn btn' (click)='setEditMode(true)'>Bearbeiten </a>
+        <a *ngIf="schemeEditMode" class='scheme-btn btn' (click)='setEditMode(false)'>Speichern </a>
+        <div *ngIf="!schemeEditMode" id='scheme-content'>
             <div>Toller Text</div>
         </div>
     </div>
