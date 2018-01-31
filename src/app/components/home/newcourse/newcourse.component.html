@@ -12,12 +12,9 @@
           <input placeholder="e.g. WS17/18 Advanced Software Engineering" [(ngModel)]="course_oject.title" required [ngModelOptions]="{standalone: true}" class="validate">
         </div>
         <div class="col s12 row" style="margin-left: -15px">
-          <div class="col s3">
-            Speicherort festlegen
-          </div>
-          <div class="col s4">
-            <input type="file" id="storage" (change)="store($event.target.files[0])" required webkitdirectory directory multiple/>
-          </div>
+          <a a class="waves-effect waves-light btn pink darken-2"  (click)="chooseFolder()">Speicherort festlegen</a>
+
+
         </div>
       </div>
       <div class="col s12 row" style="margin-left: -15px">
