@@ -24,18 +24,42 @@ export class GradingComponent implements OnInit {
         ],
         "bewertungsschema": {
             "allgemeine_infos": {
-                "notenschluessel": {
-                    "note": ["1", "2", "3"],
-                    "obergrenze": ["100", "95", "90"],
-                    "untergrenze": ["95", "90", "80"]
+                "notenschluessel": [
+                     [1, 2, 3],
+                     ["100", "95", "90"],
+                     ["95", "90", "80"],
+                     ["%","%","%"]
 
-                },
+                ],
                 "bewertungseinheit": ""
             },
             "aufgaben": [
                 {
                     "id": 0,
+                    "title": "Aufgabe 1",
                     "position": 0,
+                    "gewichtung": 1.0,
+                    "max_punkt": 0,
+                    "comment_public": true,
+                    "comment_privat": true,
+                    "beschreibung": "its bad!",
+                    "bewertungs_hinweis": "its really bad!"
+                },
+                 {
+                    "id": 1,
+                    "title": "Aufgabe 2",
+                    "position": 1,
+                    "gewichtung": 1.0,
+                    "max_punkt": 0,
+                    "comment_public": true,
+                    "comment_privat": true,
+                    "beschreibung": "its bad!",
+                    "bewertungs_hinweis": "its really bad!"
+                },
+                 {
+                    "id": 2,
+                    "title": "Aufgabe 3",
+                    "position": 2,
                     "gewichtung": 1.0,
                     "max_punkt": 0,
                     "comment_public": true,
@@ -61,9 +85,10 @@ export class GradingComponent implements OnInit {
     };
     
     gradingKey = this.json.bewertungsschema.allgemeine_infos.notenschluessel;
-    gradingGrade = this.json.bewertungsschema.allgemeine_infos.notenschluessel.note;
-    gradingMax = this.json.bewertungsschema.allgemeine_infos.notenschluessel.obergrenze;
-    gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel.untergrenze;
+   gradingGrade = this.json.bewertungsschema.allgemeine_infos.notenschluessel[0];
+    gradingMax = this.json.bewertungsschema.allgemeine_infos.notenschluessel[1];
+     gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel[2];
+     gradingQuestion = this.json.bewertungsschema.aufgaben;
   
   constructor() {
   
@@ -72,9 +97,8 @@ export class GradingComponent implements OnInit {
   ngOnInit() {
   
    
-    console.log(this.json.teilnehmer[0].name);
-    console.log(this.json.bewertungsschema.allgemeine_infos.notenschluessel);
-    console.log("hier");
+   console.log("hier");
+   console.log(this.gradingQuestion[0].id);
 
   
   }
@@ -84,7 +108,7 @@ export class GradingComponent implements OnInit {
   
   setCreateMode(new_status): void{
     this.schemeCreateMode = new_status;
-  console.log(this.schemeCreateMode);
+  //console.log(this.schemeCreateMode);
   }
 
 }

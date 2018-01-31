@@ -1,11 +1,8 @@
 <div class="container">
     <h1>Bewertungsschema</h1>
-    <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
+    <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.
+        <br>...</p>
 
-    <ul *ngFor='let item of gradingGrade'>
-        <li>{{item}}</li>
-    </ul>
-    <a id='test'>{{json.teilnehmer[0].name}}</a>
 
     <div id='scheme-content'>
         <div class='content-block row'>
@@ -17,20 +14,26 @@
                             <th>Note</th>
                             <th>Obergrenze</th>
                             <th>Untergrenze</th>
+                            <th>Einheit</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
                         <tr>
-
-                            <!-- HIER STIMMT WAS NICHT!!! -->
-                            <td *ngFor='let grade of gradingGrade; let i=index'>{{grade[i]}}</td>
-                            <td *ngFor='let max of gradingMax; let y=index'>{{max[y]}}</td>
-                            <td *ngFor='let min of gradingMin; let z=index'>{{min[z]}}</td>
-
-
+                            <td *ngFor='let key of gradingKey; let i=index'>{{key[0]}} </td>
                         </tr>
+                        <tr>
+                            <td *ngFor='let key of gradingKey; let i=index'>{{key[1]}} </td>
+                        </tr>
+                        <tr>
+                            <td *ngFor='let key of gradingKey; let i=index'>{{key[2]}} </td>
+                        </tr>
+                        <tr>
+                            <td *ngFor='let key of gradingKey; let i=index'>{{key}} </td>
+                        </tr>
+
+
 
 
 
@@ -57,19 +60,28 @@
         </div>
         <div class='content-block row'>
             <div class='title-block col s12'>Aufgaben / Fragen</div>
-            <div class='content-block col s12'>
-                <div class='question'>Aufgabe 1</div>
-            </div>
-            <div class='content-block col s12'>
-                <div class='question'>Aufgabe 2</div>
-            </div>
-            <div class='content-block col s12'>
-                <div class='question'>Aufgabe 3</div>
-            </div>
+
+
+
+            <ul class="collapsible" data-collapsible="expandable">
+                <li *ngFor='let question of gradingQuestion; let i=index'>
+                    <div class="collapsible-header"><i class="material-icons">expand_more</i> Aufgaben Name = {{question[i].title}}
+                        <div><i class="material-icons">edit</i> <i class="material-icons">remove_circle</i> </div>
+                    </div>
+                    <div class="collapsible-body"><span>{{question[i]}}</span></div>
+                </li>
+            </ul>
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">add_circle</i> Aufgabe hinzufügen
+                    </div>
+                    <div class="collapsible-body"><span></span></div>
+                </li>
+            </ul>
         </div>
 
 
-
+        <div>_______DEV QUATSCH__________</div>
 
         <a *ngIf="!schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(true)'>Bearbeiten </a>
         <a *ngIf="schemeCreateMode" class='scheme-btn btn' (click)='setCreateMode(false)'>Speichern </a>
