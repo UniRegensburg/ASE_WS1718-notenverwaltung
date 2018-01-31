@@ -14,10 +14,14 @@
     "bewertungsschema": {
         "allgemeine_infos": {
             "notenschluessel": [
-                ["note", "punkte"],
-                ["note", "punkte"],
-                ["note", "punkte"]
-
+                {
+                    "note": 1.0,
+                    "wert_min": 90
+                },
+                {
+                    "note": 1.3,
+                    "wert_min": 80
+                }
             ],
             "bewertungseinheit": ""
         },

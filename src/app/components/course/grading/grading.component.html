@@ -54,11 +54,12 @@
             <div class='title-block col s12'>Aufgaben / Fragen</div>
             <ul class="collapsible" data-collapsible="expandable">
                 <li *ngFor='let question of gradingQuestion; let i=index'>
-                    <div class="collapsible-header"><i class="material-icons">expand_more</i>{{json.bewertungsschema.aufgaben[i].title}}
+                    <div class="collapsible-header">
+                        <i class="material-icons">expand_more</i>{{question.title}}
                         <!-- Aufgaben Name = {{question[i].title}} -->
                         <div><i class="material-icons">edit</i> <i class="material-icons">remove_circle</i> </div>
                     </div>
-                    <div class="collapsible-body"><span>{{question[i]}}</span></div>
+                    <div class="collapsible-body"><span>{{question.id}}</span></div>
                 </li>
             </ul>
             <ul class="collapsible" data-collapsible="expandable">
