@@ -28,17 +28,23 @@
   <div class="row" style="margin-top: 50px">
     <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
       <div class="row row_hover">
+        <div class="col s1">
+          {{participant.id}}
+        </div>
         <div class="col s3">
           {{participant.name}}, {{participant.vorname}}
         </div>
         <div class="col s3">
           {{participant.mtknr}}
         </div>
-        <div class="col s3">
+        <div class="col s2">
           55%
         </div>
-        <div class="col s3">
+        <div class="col s2">
           1,0
+        </div>
+        <div class="col s1">
+          <i class="material-icons left edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">edit</i>
         </div>
       </div>
       <hr class="hr_table">

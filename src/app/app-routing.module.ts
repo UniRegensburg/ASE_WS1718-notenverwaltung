@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     {
         path: 'newcourse',
-        component: NewCourseComponent, 
+        component: NewCourseComponent,
     },
     {
         path: 'course',
@@ -28,15 +28,15 @@ const routes: Routes = [
         children:[
             {
                 path: 'overview',
-                component: OverviewComponent, 
+                component: OverviewComponent,
             },
             {
                 path: 'students',
-                component: StudentsComponent, 
+                component: StudentsComponent,
             },
             {
                 path: 'correction',
-                component: CorrectionComponent, 
+                component: CorrectionComponent,
             }
         ]
     }

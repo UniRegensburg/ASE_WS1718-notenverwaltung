@@ -12,16 +12,23 @@ import {
   AfterViewInit
 } from '@angular/core/src/metadata/lifecycle_hooks';
 import electron from 'electron';
-import { log } from 'util';
+import {
+  log
+} from 'util';
+
+import { ActivatedRoute } from '@angular/router';
+
 
 declare var require: any;
 declare var $: any
 
-const { remote } = electron;
+const {
+  remote
+} = electron;
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
-  LEFT_ARROW = 37
+    LEFT_ARROW = 37
 }
 
 @Component({
@@ -48,31 +55,30 @@ export class CorrectionComponent implements OnInit {
   private task_counter: number;
   private student_counter: number;
   private current_student_grading;
-  /**
-  *
-  {
-    'student_id': 1,
-    'einzelwertungen': [{
-      'aufgaben_id': 0,
-      'erreichte_punkte': 0,
-      'comment_privat': '',
-      'comment_public': ''
-    }]
-  }
-  */
 
-  constructor(public dataService: GlobalDataService) {
+  private show_next: boolean = false;
+  private show_previous: boolean = false;
+
+  private sub: any;
+
+  constructor(
+    public dataService: GlobalDataService,
+    private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
-
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
-      this.setCurrentTask('next');
+      this.sub = this.route.params.subscribe(params => {
+        if(params){
+          this.student_counter = Number(params.user_to_edit_id);
+        }
+        this.setCurrentTask('next');
+     });
     });
   }
 
@@ -99,45 +105,56 @@ export class CorrectionComponent implements OnInit {
 
   setCurrentTask(direction): void {
 
-    this.setCounter(direction);
-
-    this.current_task = this.tasks[this.task_counter];
-    this.current_student = this.students[this.student_counter];
-
-    console.log(this.grading);
-
-    if(this.grading.length == 0){
-     this.createNewStudentGrading();
+    if(this.show_next){
+      this.student_counter = this.student_counter -1;
+      this.show_next = false;
     }
-    else{
-      let found_student_grading = false;
+    if(this.show_previous){
+      this.student_counter = this.student_counter + 1;
+      this.show_previous = false;
+    }
 
-      //get the current_student_grading based on current student
-      this.grading.forEach(element =>{
-        if(element.student_id == this.current_student.id){
-          this.current_student_grading = element;
-          found_student_grading = true;
-        }
-      });
+    this.dataService.setNewGrading(this.grading);
+    console.log("1", this.student_counter);
+    this.setCounter(direction);
+    console.log("2", this.student_counter);
 
-      //if current current_student_grading is not already created for student
-      if(!found_student_grading){
+    if (!this.show_next && !this.show_previous) {
+
+      this.current_task = this.tasks[this.task_counter];
+      this.current_student = this.students[this.student_counter];
+
+      if (this.grading.length == 0) {
         this.createNewStudentGrading();
-      }
+      } else {
+        let found_student_grading = false;
 
-      let found_task_grading = false;
-      console.log(this.current_student_grading);
+        //get the current_student_grading based on current student
+        this.grading.forEach(element => {
+          if (element.student_id == this.current_student.id) {
+            this.current_student_grading = element;
+            found_student_grading = true;
+          }
+        });
 
-      //get the current current_correction for current task
-      this.current_student_grading['einzelwertungen'].forEach(element =>{
-        if(element.aufgaben_id == this.current_task.id){
-          this.current_correction = element;
-          found_task_grading = true;
+        //if current current_student_grading is not already created for student
+        if (!found_student_grading) {
+          this.createNewStudentGrading();
         }
-      });
 
-      if(!found_task_grading){
-        this.createCurrentCorrection();
+        let found_task_grading = false;
+
+        //get the current current_correction for current task
+        this.current_student_grading['einzelwertungen'].forEach(element => {
+          if (element.aufgaben_id == this.current_task.id) {
+            this.current_correction = element;
+            found_task_grading = true;
+          }
+        });
+
+        if (!found_task_grading) {
+          this.createCurrentCorrection();
+        }
       }
     }
   }
@@ -151,40 +168,59 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  setCounter(direction):void{
-    if ((this.task_counter == null) || (this.student_counter == null)) {
-        this.task_counter = 0;
-        this.student_counter = 0;
-    }
-    else{
+  setCounter(direction): void {
+    if (this.task_counter == null || (this.student_counter == null)) {
+      if(this.task_counter == null) this.task_counter = 0;
+      if(this.student_counter == null) this.student_counter = 0;
+    } else {
       if (this.correction_mode === 'student') {
-        if(direction === 'next'){
-          this.task_counter = this.task_counter +1;
+        if (direction === 'next') {
+          if(this.show_previous){
+            this.show_previous = false;
+            this.show_next = false;
+          }
+          if (this.task_counter >= this.tasks.length - 1) {
+            console.log("1.5", this.student_counter);
+            this.student_counter = this.student_counter + 1;
+            console.log("1.6", this.student_counter);
+            this.task_counter = 0;
+          } else {
+            this.task_counter = this.task_counter + 1;
+          }
         }
-        if(direction === 'previous'){
-           this.task_counter = this.task_counter -1;
+        if (direction === 'previous') {
+          if(this.show_next){
+            this.show_previous = false;
+            this.show_next = false;
+          }
+          if (this.task_counter <= 0) {
+            this.student_counter = this.student_counter - 1;
+            this.task_counter = this.tasks.length;
+          } else {
+            this.task_counter = this.task_counter - 1;
+          }
         }
       } else {
-        if(direction === 'next'){
-          this.student_counter = this.student_counter +1;
+        if (direction === 'next') {
+          this.student_counter = this.student_counter + 1;
         }
-        if(direction === 'previous'){
-           this.student_counter = this.student_counter -1;
+        if (direction === 'previous') {
+          this.student_counter = this.student_counter - 1;
         }
       }
     }
   }
 
-  createNewStudentGrading():void{
-     this.current_student_grading = {
-        'student_id': this.current_student.id,
-        'einzelwertungen': []
-      };
-      this.grading.push(this.current_student_grading);
-      this.createCurrentCorrection();
+  createNewStudentGrading(): void {
+    this.current_student_grading = {
+      'student_id': this.current_student.id,
+      'einzelwertungen': []
+    };
+    this.grading.push(this.current_student_grading);
+    this.createCurrentCorrection();
   }
 
-  createCurrentCorrection(): void{
+  createCurrentCorrection(): void {
     this.current_correction = {
       'aufgaben_id': this.current_task.id,
       'erreichte_punkte': 0,
@@ -192,7 +228,6 @@ export class CorrectionComponent implements OnInit {
       'comment_public': ''
     }
     this.current_student_grading['einzelwertungen'].push(this.current_correction);
-    console.log("2", this.current_student_grading);
   }
 
   @HostListener('window:keyup', ['$event'])
