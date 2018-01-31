@@ -155,20 +155,14 @@
       "id": 0,
       "position": 0,
       "gewichtung": 1.0,
-      "max_punkt": 0,
+      "max_punkt": 5,
       "comment_public": true,
-      "comment_privat": true,
+      "comment_privat": false,
       "beschreibung": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
       "bewertungs_hinweis": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."
     }]
   },
-  "bewertung": [{
-    "student_id": 1,
-    "einzelwertungen": [{
-      "aufgaben_id": 0,
-      "erreichte_punkte": 0,
-      "comment_privat": "",
-      "comment_public": ""
-    }]
-  }]
+  "bewertung": []
 }
+
+
