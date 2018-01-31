@@ -4,7 +4,7 @@ import { CourseComponent } from './components/course/course.component';
 import {APP_BASE_HREF} from '@angular/common';
 
 
-import { OverviewComponent, StudentsComponent, CorrectionComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, CorrectionComponent, ResultsComponent } from './components/course/index'
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     {
         path: 'newcourse',
-        component: NewCourseComponent, 
+        component: NewCourseComponent,
     },
     {
         path: 'course',
@@ -28,11 +28,15 @@ const routes: Routes = [
         children:[
             {
                 path: 'overview',
-                component: OverviewComponent, 
+                component: OverviewComponent,
             },
             {
                 path: 'students',
                 component: StudentsComponent, 
+            },
+            {
+                path: 'results',
+                component: ResultsComponent,
             },
             {
                 path: 'correction',
