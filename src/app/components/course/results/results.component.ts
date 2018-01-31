@@ -24,12 +24,19 @@ export class ResultsComponent implements OnInit {
   private polarChart: any;
   private scatterChart: any;
 
-  constructor(public exportService: ExportService) {
+  constructor(
+    public dataService: GlobalDataService,
+    public exportService: ExportService) {
 
   }
 
   ngOnInit() {
-    this.initGraphView();
+    this.dataService.getCurrentProject().subscribe(data =>{
+      this.current_project = data;
+      console.log(this.current_project);
+      
+      this.initGraphView();
+    });
   }
 
   initGraphView(): void {
