@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalDataService, gripsExportService, lsfExportService } from '../../../providers/index';
 
+
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -17,16 +19,13 @@ export class ResultsComponent implements OnInit {
   }
 
   export(string):void{
-      // this.exportService.export(string)
       switch(string){
           case "lsf":
-              // this.lsfService.export(this.current_project)
               this.lsf.export()
               break;
           case "grips":
               this.grips.export()
               break;
-              // this.grips.export(this.current_project)
       }
   }
 
