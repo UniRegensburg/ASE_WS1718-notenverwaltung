@@ -7,14 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent, GradingComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent } from './components/course/index'
+
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService } from './providers/electron.service';
+import { ElectronService, GlobalDataService, LastOpened, gripsExportService, lsfExportService } from './providers/index';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -23,15 +27,20 @@ import { ElectronService } from './providers/electron.service';
     CourseComponent,
     OverviewComponent,
     StudentsComponent,
-    GradingComponent
+
+    GradingComponent,
+    NewCourseComponent,
+    ResultsComponent,
+    CorrectionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxPaginationModule
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, GlobalDataService, LastOpened, gripsExportService, lsfExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
