@@ -38,6 +38,7 @@ const routes: Routes = [
                 path: 'results',
                 component: ResultsComponent,
             },
+            {
                 path: 'grading',
                 component: GradingComponent, 
             },
