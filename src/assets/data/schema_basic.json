@@ -40,9 +40,19 @@
       "status": "ZU"
     },
     {
+      "id": 4,
+      "mtknr": 1655429,
+      "name": "Gudasdasder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
       "id": 5,
       "mtknr": 1655429,
-      "name": "Guder",
+      "name": "Gude22222222r",
       "vorname": "Markus",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
@@ -122,18 +132,8 @@
     {
       "id": 13,
       "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
-      "studiengang": "M.Sc. Medieninfo (1)",
-      "fachsemester": 1,
-      "mail": "markus.guder@gmail.com",
-      "status": "ZU"
-    },
-    {
-      "id": 14,
-      "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
+      "name": "Hort",
+      "vorname": "Franz",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
       "mail": "markus.guder@gmail.com",
