@@ -10,11 +10,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent, CorrectionComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, ResultsComponent, CorrectionComponent } from './components/course/index'
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, LastOpened } from './providers/index';
+import { ElectronService, GlobalDataService, LastOpened, gripsExportService, lsfExportService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -26,8 +26,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CourseComponent,
     OverviewComponent,
     StudentsComponent,
-    CorrectionComponent,
-    NewCourseComponent
+    NewCourseComponent,
+    ResultsComponent,
+    CorrectionComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxPaginationModule
   ],
-  providers: [ElectronService, GlobalDataService, LastOpened],
+  providers: [ElectronService, GlobalDataService, LastOpened, gripsExportService, lsfExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

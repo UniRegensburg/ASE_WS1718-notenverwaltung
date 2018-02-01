@@ -182,7 +182,93 @@
       "bewertungs_hinweis": "sadasdasd"
     }]
   },
-  "bewertung": []
+  "bewertung": [{
+    "student_id": 1,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 4,
+      "comment_privat": "yo homie",
+      "comment_public": "Guten Tag"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 7,
+      "comment_privat": "B",
+      "comment_public": "A"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "sdaasd",
+      "comment_public": " "
+    }
+	]
+  },
+{
+    "student_id": 2,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    }
+	]
+  },
+  {
+    "student_id": 3,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 3,
+      "comment_privat": "TEst",
+      "comment_public": "s sa"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    }]
+  },
+  {
+    "student_id": 4,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 0,
+      "comment_privat": "Test",
+      "comment_public": "Test"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    }]
+  }
+  ]
 }
 
 
