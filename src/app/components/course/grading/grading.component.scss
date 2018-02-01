@@ -1,13 +1,5 @@
-.container {
-    color: black;
-    padding: 20px;
-}
-
 .content-block {
     color: black;
-    border: 1px;
-    border-color: gray;
-    border-style: solid;
 }
 
 .title-block {
@@ -16,28 +8,16 @@
     font-size: 30px;
 }
 
+.table-header {
+    font-weight: bold;
+}
+
 #grading-key {
     color: black;
     background-color: white;
 }
 
-#grading-unit {
-    color: black;
-    background-color: white;
-}
-
-#grading-form {
-    border: 1px;
-    border-color: gray;
-    border-style: solid;
-    align-self: center;
-}
-
-#grading-table {
-    border: 1px;
-    border-color: gray;
-    border-style: solid;
-}
+#grading-table {}
 
 .scheme-btn {
     background-color: #C2185B;
@@ -49,4 +29,15 @@
     width: 30px;
     height: 89px;
     background-color: blue;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:after {
+    background-color: #C2185B;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:before,
+[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #C2185B;
 }

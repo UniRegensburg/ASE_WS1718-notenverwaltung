@@ -151,6 +151,42 @@
                 {
                     "note": 1.3,
                     "wert_min": 80
+                },
+                {
+                    "note": 1.7,
+                    "wert_min": 75
+                },
+                {
+                    "note": 2.0,
+                    "wert_min": 70
+                },
+                {
+                    "note": 2.3,
+                    "wert_min": 65
+                },
+                {
+                    "note": 2.7,
+                    "wert_min": 60
+                },
+                {
+                    "note": 3.0,
+                    "wert_min": 55
+                },
+                {
+                    "note": 3.3,
+                    "wert_min": 50
+                },
+                {
+                    "note": 3.7,
+                    "wert_min": 45
+                },
+                {
+                    "note": 4.0,
+                    "wert_min": 40
+                },
+                {
+                    "note": 5.0,
+                    "wert_min": 0
                 }
 
       ],
@@ -159,13 +195,36 @@
         "aufgaben": [{
             "id": 0,
             "position": 0,
+            "name": "Aufgabe 1",
             "gewichtung": 1.0,
             "max_punkt": 0,
             "comment_public": true,
             "comment_privat": true,
             "beschreibung": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
             "bewertungs_hinweis": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."
-    }]
+    },
+    {
+            "id": 1,
+            "position": 1,
+            "name": "Aufgabe 2",
+            "gewichtung": 1.0,
+            "max_punkt": 0,
+            "comment_public": true,
+            "comment_privat": true,
+            "beschreibung": "ich bin eine beschreibung.",
+            "bewertungs_hinweis": "ich bin ein bewertungshinweis."
+    },{
+            "id": 2,
+            "position": 2,
+            "name": "Aufgabe 3",
+            "gewichtung": 1.0,
+            "max_punkt": 0,
+            "comment_public": true,
+            "comment_privat": true,
+            "beschreibung": "Beschreibung hier.",
+            "bewertungs_hinweis": "Hinweis hier."
+    }
+    ]
     },
     "bewertung": [{
             "student_id": 1,

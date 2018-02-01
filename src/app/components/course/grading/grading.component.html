@@ -1,79 +1,78 @@
 <div class="container">
     <h1>Bewertungsschema</h1>
-    <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.
-        <br>...</p>
-    <div>{{json.bewertungsschema.aufgaben[0].title}}</div>
+    <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
 
-    <div id='scheme-content'>
-        <div class='content-block row'>
-            <div class='title-block col s12'>Notenschlüssel / Noteneinheit</div>
-            <div class='col s6' id='grading-key'>Notenschlüssel
-                <table class='striped' id='grading-table'>
-                    <thead>
-                        <tr>
-                            <th>Note</th>
-                            <th>Max</th>
-                            <th>Min</th>
-                            <th>Einheit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td *ngFor='let key of gradingKey; let i=index'>{{key[0]}} </td>
-                        </tr>
-                        <tr>
-                            <td *ngFor='let key of gradingKey; let i=index'>{{key[1]}} </td>
-                        </tr>
-                        <tr>
-                            <td *ngFor='let key of gradingKey; let i=index'>{{key[2]}} </td>
-                        </tr>
-                        <tr>
-                            <td *ngFor='let key of gradingKey; let i=index'>{{key}} </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="row title-block">Notenschlüssel / Einheit</div>
+    <div class="row">
+        <div class="col l6">
+            <div class="row row_hover">
+
+                <div class="col s4 table-header">
+                    Notenstufe
+                </div>
+                <div class="col s4 table-header">
+                    Mindestwert
+                </div>
+                <div class="col s4 table-header">
+                    Einheit
+                </div>
             </div>
-            <div class='col s6' id='grading-unit'>Bewertungseinheit
-                <form action="#" id='grading-form'>
-                    <p>
-                        <input class="with-gap" name="group1" type="radio" id="test1" />
-                        <label for="test1">Punkte</label>
-                    </p>
-                    <p>
-                        <input class="with-gap" name="group1" type="radio" id="test2" />
-                        <label for="test2">Prozent</label>
-                    </p>
-                    <p>
-                        <input class="with-gap" name="group1" type="radio" id="test3" />
-                        <label for="test3">???</label>
-                    </p>
-                </form>
+            <hr class="hr_table">
+
+            <div class="row row_hover" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
+
+                <div class="col s4">
+                    {{entry.note}}
+                </div>
+                <div class="col s4">
+                    {{entry.wert_min}}
+                </div>
+                <div class="col s4">
+                    Punkte
+                </div>
             </div>
+            <hr class="hr_table">
         </div>
-        <div class='content-block row'>
-            <div class='title-block col s12'>Aufgaben / Fragen</div>
-            <ul class="collapsible" data-collapsible="expandable">
-                <li *ngFor='let question of gradingQuestion; let i=index'>
-                    <div class="collapsible-header">
-                        <i class="material-icons">expand_more</i>{{question.title}}
-                        <!-- Aufgaben Name = {{question[i].title}} -->
-                        <div><i class="material-icons">edit</i> <i class="material-icons">remove_circle</i> </div>
-                    </div>
-                    <div class="collapsible-body"><span>{{question.id}}</span></div>
-                </li>
-            </ul>
-            <ul class="collapsible" data-collapsible="expandable">
-                <li>
-                    <div class="collapsible-header"><i class="material-icons">add_circle</i> Aufgabe hinzufügen
-                    </div>
-                    <div class="collapsible-body"><span></span></div>
-                </li>
-            </ul>
-        </div>
-        <div>_______DEV QUATSCH__________</div>
-        <a *ngIf="!schemeEditMode" class='scheme-btn btn' (click)='setEditMode(true)'>Bearbeiten </a>
-        <a *ngIf="schemeEditMode" class='scheme-btn btn' (click)='setEditMode(false)'>Speichern </a>
-        <div *ngIf="!schemeEditMode" id='scheme-content'>
-            <div>Toller Text</div>
+        <div class='col l6' id='grading-unit'>Bewertungseinheit
+            <form action="#" id='grading-form'>
+                <p>
+                    <input class="with-gap" name="group1" type="radio" id="test1" checked/>
+                    <label for="test1">Punkte</label>
+                </p>
+                <p>
+                    <input class="with-gap" name="group1" type="radio" id="test2" />
+                    <label for="test2">Prozent</label>
+                </p>
+            </form>
         </div>
     </div>
+
+
+    <div class='row title-block'>Aufgaben / Fragen</div>
+    <div class="row">
+        <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index">
+            <div class="card-panel white" (click)="openCollapsible[i] = !openCollapsible[i]">
+                <span>{{question.name}}</span>
+                <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
+                <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+            </div>
+            <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
+                <span class="black-text">{{question.beschreibung}}</span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div>_______DEV QUATSCH__________</div>
+    <a *ngIf="!schemeEditMode" class='scheme-btn btn' (click)='setEditMode(true)'>Bearbeiten </a>
+    <a *ngIf="schemeEditMode" class='scheme-btn btn' (click)='setEditMode(false)'>Speichern </a>
+    <div *ngIf="!schemeEditMode" id='scheme-content'>
+        <div>Toller Text</div>
+    </div>
+</div>
