@@ -49,7 +49,7 @@ export class CorrectionComponent implements OnInit {
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
-  private screen_mode: boolean;
+  private screen_mode: boolean = true;
   private old_window_state: any;
 
   private task_counter: number;
@@ -74,8 +74,9 @@ export class CorrectionComponent implements OnInit {
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
       this.sub = this.route.params.subscribe(params => {
-        if(params){
+        if(params){         
           this.student_counter = Number(params.user_to_edit_id);
+          if(Number.isNaN(this.student_counter)) this.student_counter = 0
         }
         this.setCurrentTask('next');
      });
@@ -115,9 +116,7 @@ export class CorrectionComponent implements OnInit {
     }
 
     this.dataService.setNewGrading(this.grading);
-    console.log("1", this.student_counter);
     this.setCounter(direction);
-    console.log("2", this.student_counter);
 
     if (!this.show_next && !this.show_previous) {
 
@@ -180,9 +179,7 @@ export class CorrectionComponent implements OnInit {
             this.show_next = false;
           }
           if (this.task_counter >= this.tasks.length - 1) {
-            console.log("1.5", this.student_counter);
             this.student_counter = this.student_counter + 1;
-            console.log("1.6", this.student_counter);
             this.task_counter = 0;
           } else {
             this.task_counter = this.task_counter + 1;
