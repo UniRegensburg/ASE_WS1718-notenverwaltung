@@ -28,18 +28,17 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("herereee");
+    
     this.dataService.getCurrentProject().subscribe(current_project => {      
       this.current_project = current_project;
       this.participants = this.current_project.teilnehmer;
+      this.current_project_name = this.current_project.title;
 
-      this.dataService.getCurrentProjectName().subscribe( current_project_name => {
-        this.current_project_name = current_project_name;
-        
-        this.createUserGradingList();
-        this.initGraphView();
-      });
-    });
-    
+      //this.getCorrectionCompletion();
+      this.createUserGradingList();
+      this.initGraphView();
+    });    
   }
 
   initGraphView(): void{
@@ -85,13 +84,30 @@ export class OverviewComponent implements OnInit {
         }
       }
     });
-    
   }
 
-  createUserGradingList(): void{
-    
+  createUserGradingList(): void{    
     this.current_project.teilnehmer.forEach(element => {
     });
   }
 
+  getCorrectionCompletion(){
+    let all_tasks_number = this.current_project.bewertungsschema.aufgaben.length;
+
+    this.participants.forEach(student => {
+      let completion_value: number = 0;
+      let graded_student = this.getCurrentStudent(student.id);
+      let completion_done = graded_student.einzelwertungen.length;
+      completion_value = (all_tasks_number / completion_done) *100;
+      student.completionRate = completion_value + "%";      
+    });
+  }
+
+  getCurrentStudent(id): any{
+    console.log(id);
+    
+    this.current_project.bewertung.forEach(element => {     
+      if(element.student_id == id) return element;
+    }); 
+  }
 }

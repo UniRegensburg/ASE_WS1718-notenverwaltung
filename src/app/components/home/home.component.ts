@@ -39,17 +39,18 @@ export class HomeComponent implements OnInit {
   }
   openDialog(){
       var app = require('electron').remote;
-      var dialog = app.dialog
-      // var fs = require('fs')
-      var self= this
+      var dialog = app.dialog;      
+
       dialog.showOpenDialog((fileNames) =>{
         if (fileNames === undefined){
           console.log("No file selected")
           return;
         }
-         self.dataService.getLocalFile(fileNames[0]).subscribe(data =>{
-             self.changeDetectorRef.detectChanges();
-             self.router.navigate(['course/overview']);
+        this.router.navigate(['course/overview']);
+        
+        this.dataService.getLocalFile(fileNames[0]).subscribe(data =>{
+           ///this.changeDetectorRef.detectChanges();
+           this.router.navigate(['course/overview']);
          });
       });
   }
