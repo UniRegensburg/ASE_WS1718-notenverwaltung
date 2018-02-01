@@ -32,7 +32,7 @@ const routes: Routes = [
             },
             {
                 path: 'students',
-                component: StudentsComponent, 
+                component: StudentsComponent,
             },
             {
                 path: 'results',
@@ -40,7 +40,7 @@ const routes: Routes = [
             },
             {
                 path: 'correction',
-                component: CorrectionComponent, 
+                component: CorrectionComponent,
             }
         ]
     }

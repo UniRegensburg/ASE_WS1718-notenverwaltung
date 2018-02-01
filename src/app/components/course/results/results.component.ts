@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalDataService, ExportService } from '../../../providers/index';
+import { GlobalDataService, gripsExportService, lsfExportService } from '../../../providers/index';
+
+
 
 declare var $: any
 
@@ -26,11 +28,7 @@ export class ResultsComponent implements OnInit {
   private polarChart: any;
   private scatterChart: any;
 
-  constructor(
-    public dataService: GlobalDataService,
-    public exportService: ExportService) {
-
-  }
+  constructor(public grips: gripsExportService, public lsf: lsfExportService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(data => {
@@ -216,8 +214,20 @@ export class ResultsComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   export(string): void {
     this.exportService.export(string)
+=======
+  export(string):void{
+      switch(string){
+          case "lsf":
+              this.lsf.export()
+              break;
+          case "grips":
+              this.grips.export()
+              break;
+      }
+>>>>>>> development
   }
 
 }

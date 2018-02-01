@@ -1,0 +1,13 @@
+StudentID,StudentName,StudentVorname,Aufgabe,Punkte,PrivaterKommentar,OeffentlicherKommentar
+1,Guder,Markus,0;4,yo homie,Guten Tag
+1,Guder,Markus,1;7,B,A
+1,Guder,Markus,2;10,sdaasd, 
+2,Guder,Markus,0;10,Privat,Öffentlich
+2,Guder,Markus,1;10,Privat,Öffentlich
+2,Guder,Markus,2;10,Privat,Öffentlich
+3,Guder,Markus,0;3,TEst,s sa
+3,Guder,Markus,1;10,Privat,Öffentlich
+3,Guder,Markus,2;10,Privat,Öffentlich
+4,Guder,Markus,0;0,Test,Test
+4,Guder,Markus,1;10,Privat,Öffentlich
+4,Guder,Markus,2;10,Privat,Öffentlich

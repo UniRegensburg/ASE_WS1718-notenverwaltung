@@ -1,9 +1,19 @@
 {
   "teilnehmer": [{
-      "id": 1,
+      "id": 0,
       "mtknr": 1655429,
       "name": "Guder",
       "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Wolff",
+      "vorname": "Gina Maria Wolf",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
       "mail": "markus.guder@gmail.com",
@@ -12,8 +22,8 @@
     {
       "id": 2,
       "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
+      "name": "Felix",
+      "vorname": "Kalley",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
       "mail": "markus.guder@gmail.com",
@@ -22,8 +32,8 @@
     {
       "id": 3,
       "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
+      "name": "Ewald",
+      "vorname": "Reinhardddd",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
       "mail": "markus.guder@gmail.com",
@@ -32,7 +42,7 @@
     {
       "id": 4,
       "mtknr": 1655429,
-      "name": "Guder",
+      "name": "Gudasdasder",
       "vorname": "Markus",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
@@ -42,7 +52,7 @@
     {
       "id": 5,
       "mtknr": 1655429,
-      "name": "Guder",
+      "name": "Gude22222222r",
       "vorname": "Markus",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
@@ -122,18 +132,8 @@
     {
       "id": 13,
       "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
-      "studiengang": "M.Sc. Medieninfo (1)",
-      "fachsemester": 1,
-      "mail": "markus.guder@gmail.com",
-      "status": "ZU"
-    },
-    {
-      "id": 14,
-      "mtknr": 1655429,
-      "name": "Guder",
-      "vorname": "Markus",
+      "name": "Hort",
+      "vorname": "Franz",
       "studiengang": "M.Sc. Medieninfo (1)",
       "fachsemester": 1,
       "mail": "markus.guder@gmail.com",
@@ -155,20 +155,120 @@
       "id": 0,
       "position": 0,
       "gewichtung": 1.0,
-      "max_punkt": 0,
+      "max_punkt": 5,
       "comment_public": true,
-      "comment_privat": true,
+      "comment_privat": false,
       "beschreibung": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
       "bewertungs_hinweis": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."
+    },
+    {
+      "id": 1,
+      "position": 0,
+      "gewichtung": 1.0,
+      "max_punkt": 15,
+      "comment_public": true,
+      "comment_privat": true,
+      "beschreibung": "t ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+      "bewertungs_hinweis": "OLOEEEOLEEEE."
+    },
+    {
+      "id": 2,
+      "position": 0,
+      "gewichtung": 1.0,
+      "max_punkt": 4,
+      "comment_public": true,
+      "comment_privat": false,
+      "beschreibung": "TEST2",
+      "bewertungs_hinweis": "sadasdasd"
     }]
   },
   "bewertung": [{
     "student_id": 1,
     "einzelwertungen": [{
       "aufgaben_id": 0,
-      "erreichte_punkte": 0,
-      "comment_privat": "",
-      "comment_public": ""
+      "erreichte_punkte": 4,
+      "comment_privat": "yo homie",
+      "comment_public": "Guten Tag"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 7,
+      "comment_privat": "B",
+      "comment_public": "A"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "sdaasd",
+      "comment_public": " "
+    }
+	]
+  },
+{
+    "student_id": 2,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    }
+	]
+  },
+  {
+    "student_id": 3,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 3,
+      "comment_privat": "TEst",
+      "comment_public": "s sa"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
     }]
-  }]
+  },
+  {
+    "student_id": 4,
+    "einzelwertungen": [{
+      "aufgaben_id": 0,
+      "erreichte_punkte": 0,
+      "comment_privat": "Test",
+      "comment_public": "Test"
+    },
+	{
+      "aufgaben_id": 1,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    },
+	{
+      "aufgaben_id": 2,
+      "erreichte_punkte": 10,
+      "comment_privat": "Privat",
+      "comment_public": "Öffentlich"
+    }]
+  }
+  ]
 }
+
+
