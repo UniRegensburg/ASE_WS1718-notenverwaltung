@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalDataService, gripsExportService, lsfExportService } from '../../../providers/index';
 
-
-
 declare var $: any
-
 var chartJs = require('chart.js');
-
 
 @Component({
   selector: 'app-results',
