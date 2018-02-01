@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalDataService, ExportService } from '../../../providers/index';
 
 @Component({
   selector: 'app-grading',
@@ -7,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
+  
+  private current_project: any;
+  
   schemeEditMode = false;
   json = {
         "teilnehmer": [
@@ -89,17 +93,17 @@ export class GradingComponent implements OnInit {
     gradingMin = this.json.bewertungsschema.allgemeine_infos.notenschluessel[2];
     gradingQuestion = this.json.bewertungsschema.aufgaben;
   
-  constructor() {
-  
+  constructor(public dataService: GlobalDataService) {
+    
   }
 
   ngOnInit() {
-  
-   
+    this.dataService.getCurrentProject().subscribe(data =>{
+    this.current_project = data;
+    console.log(this.current_project);
+   });
    console.log("hier");
    console.log(this.gradingQuestion[1].title);
-
-  
   }
   
   
