@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { GlobalDataService} from './index';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 
 declare var require: any;

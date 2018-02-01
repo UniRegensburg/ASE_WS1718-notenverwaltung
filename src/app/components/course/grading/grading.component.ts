@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalDataService, ExportService } from '../../../providers/index';
+import { GlobalDataService } from '../../../providers/index';
 
 @Component({
   selector: 'app-grading',
