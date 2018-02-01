@@ -3,7 +3,10 @@
     <hr class="hr_welcome">
     <br>
 
+
     <div class="row exports">
+        <div ng-show="condition()">{{value2}}</div>
+
         <div class="col s2">
             <span>Available Donwloads</span>
         </div>
@@ -23,7 +26,7 @@
 
     <!--http://materializecss.com/forms.html Autocomplete-->
     <div class="row">
-        <div class="col s12">
+        <div class="col s6">
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">search</i>
@@ -32,22 +35,33 @@
                 </div>
             </div>
         </div>
+        <div class="col switch">
+            <span>Diagramme</span>
+            <div class="switch">
+                <label>
+                    Aus
+                    <input type="checkbox" (click)="condition()">
+                    <span class="lever"></span>
+                    An
+                </label>
+            </div>
+        </div>
     </div>
+    <div class="diagrams" [hidden]="display_diagrams" >
+        <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
+        <div class="row" style="margin-top: 40px">
+            <h2 class="diagramm">Notenspiegel</h2>
+            <canvas id="bar-chart" width="800" height="450"></canvas>
+        </div>
 
-    <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
-    <div class="row" style="margin-top: 40px">
-        <h2 class="diagramm">Notenspiegel</h2>
-        <canvas id="bar-chart" width="800" height="450"></canvas>
-    </div>
+        <div class="row" style="margin-top: 40px">
+            <h2 class="diagramm">Durchschnittlich erreichte Prozent pro Aufgabe</h2>
+            <canvas id="polar-chart" width="800" height="450"></canvas>
+        </div>
 
-    <div class="row" style="margin-top: 40px">
-        <h2 class="diagramm">Durchschnittlich erreichte Prozent pro Aufgabe</h2>
-        <canvas id="polar-chart" width="800" height="450"></canvas>
-    </div>
-
-    <div class="row" style="margin-top: 40px">
+        <div class="row" style="margin-top: 40px">
             <h2 class="diagramm">Erreichte Prozent pro Aufgabe</h2>
             <canvas id="scatter-chart" width="800" height="450"></canvas>
         </div>
-
+    </div>
 </div>

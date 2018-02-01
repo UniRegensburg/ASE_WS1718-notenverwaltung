@@ -20,6 +20,8 @@ export class ResultsComponent implements OnInit {
   private display_user_list: boolean = false;
   private user_grading_list: any;
 
+  private display_diagrams: boolean = true;
+
   private barChart: any;
   private polarChart: any;
   private scatterChart: any;
@@ -31,10 +33,9 @@ export class ResultsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(data =>{
+    this.dataService.getCurrentProject().subscribe(data => {
       this.current_project = data;
       console.log(this.current_project);
-      
       this.initGraphView();
     });
   }
@@ -43,6 +44,11 @@ export class ResultsComponent implements OnInit {
     this.initBarChart();
     this.initPolarChart();
     this.initScatterChart();
+  }
+
+  condition(): any {
+    console.log("look at me");
+    this.display_diagrams = !this.display_diagrams;
   }
 
   initBarChart(): void {
