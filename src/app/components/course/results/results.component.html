@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-    <div class="diagrams" [hidden]="display_diagrams" >
+    <div class="diagrams" [hidden]="display_diagrams">
         <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
         <div class="row" style="margin-top: 40px">
             <h2 class="diagramm">Notenspiegel</h2>
@@ -63,5 +63,24 @@
             <h2 class="diagramm">Erreichte Prozent pro Aufgabe</h2>
             <canvas id="scatter-chart" width="800" height="450"></canvas>
         </div>
+    </div>
+    <div class="row" class="participants">
+        <h2>Teilnehmer</h2>
+        <table>
+            <tr>
+                <th sortable-column="name" class="participants">Nachname</th>
+                <th sortable-column="firstname" class="participants">Vorname</th>
+                <th sortable-column="matrikelnr" class="participants">Matrikelnummer</th>
+                <th sortable-column="wip" class="participants">Korrektur</th>
+                <th sortable-column="grade" class="participants">aktuelle Note</th>
+            </tr>
+            <tr *ngFor="let participant of participants; let i = index ">
+                <td>{{participant.name}}</td>
+                <td>{{participant.vorname}}</td>
+                <td class="number">{{participant.mtknr}}</td>
+                <td class="number">50</td>
+                <td class="number">1.3</td>
+            </tr>
+        </table>
     </div>
 </div>

@@ -19,34 +19,40 @@ export class ResultsComponent implements OnInit {
   private current_project: any;
   private current_project_name: String;
   private participants: Array<any>;
-  private display_user_list: boolean = false;
+
   private user_grading_list: any;
 
   private display_diagrams: boolean = true;
-
   private barChart: any;
   private polarChart: any;
   private scatterChart: any;
 
-  constructor(public grips: gripsExportService, public lsf: lsfExportService) { }
+  constructor(public dataService: GlobalDataService, public grips: gripsExportService, public lsf: lsfExportService) { }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(data => {
-      this.current_project = data;
+    this.dataService.getCurrentProject().subscribe(current_project => {
+      this.current_project = current_project;
+      this.participants = this.current_project.teilnehmer;
+      console.log("START");
       console.log(this.current_project);
       this.initGraphView();
     });
+  }
+
+  createUserGradingList(): void {
+
+    this.current_project.teilnehmer.forEach(element => {
+    });
+  }
+
+  condition(): any {
+    this.display_diagrams = !this.display_diagrams;
   }
 
   initGraphView(): void {
     this.initBarChart();
     this.initPolarChart();
     this.initScatterChart();
-  }
-
-  condition(): any {
-    console.log("look at me");
-    this.display_diagrams = !this.display_diagrams;
   }
 
   initBarChart(): void {
@@ -214,20 +220,15 @@ export class ResultsComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
   export(string): void {
-    this.exportService.export(string)
-=======
-  export(string):void{
-      switch(string){
-          case "lsf":
-              this.lsf.export()
-              break;
-          case "grips":
-              this.grips.export()
-              break;
-      }
->>>>>>> development
+    switch (string) {
+      case "lsf":
+        this.lsf.export()
+        break;
+      case "grips":
+        this.grips.export()
+        break;
+    }
   }
 
 }
