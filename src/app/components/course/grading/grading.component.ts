@@ -21,19 +21,27 @@ export class GradingComponent implements OnInit {
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(data =>{
     this.current_project = data;
-    console.log(this.current_project.bewertungsschema.allgemeine_infos.notenschluessel[0].note);
    });
-   console.log("hier");
   }
-  
-  
-
   
   setEditMode(new_status): void{
     this.schemeEditMode = new_status;
-  //console.log(this.schemeEditMode);
-  console.log("EDITIER MODUS KNOPF GEKLICKT");
   }
-
-
+  
+  addNewTask(): void{
+    this.current_project.bewertungsschema.aufgaben.push({
+      "id": this.current_project.bewertungsschema.aufgaben.length,
+      "position": this.current_project.bewertungsschema.aufgaben.length,
+      "name": "Aufgabe 1",
+      "gewichtung": 1.0,
+      "max_punkt": 0,
+      "comment_public": true,
+      "comment_privat": true,
+      "beschreibung": "",
+      "bewertungs_hinweis": ""
+    });
+  }
+  changeDetected(event):void{
+    this.dataService.setNewGrading(this.current_project.bewertungsschema);
+  }
 }

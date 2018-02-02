@@ -60,6 +60,11 @@ export class GlobalDataService {
   public setNewStudents(student): void{
     this.current_project.teilnehmer.push(student);
   }
+
+  public setNewGrading(grading): void{
+    this.current_project.bewertungsschema = grading;
+  }
+
   public getParticipants(): Observable<Array<any>>{
       return of(this.current_project.teilnehmer)
   }
