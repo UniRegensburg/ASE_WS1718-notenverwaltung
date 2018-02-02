@@ -32,7 +32,7 @@ export class GradingComponent implements OnInit {
     this.current_project.bewertungsschema.aufgaben.push({
       "id": this.current_project.bewertungsschema.aufgaben.length,
       "position": this.current_project.bewertungsschema.aufgaben.length,
-      "name": "Aufgabe 1",
+      "name": "Aufgabe " + (this.current_project.bewertungsschema.aufgaben.length + 1),
       "gewichtung": 1.0,
       "max_punkt": 0,
       "comment_public": true,
