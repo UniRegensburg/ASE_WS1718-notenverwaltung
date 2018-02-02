@@ -62,7 +62,7 @@ export class GlobalDataService {
   }
 
   public setNewGrading(grading): void{
-    this.current_project.bewertung = grading;
+    this.current_project.bewertungsschema = grading;
   }
 
   public getParticipants(): Observable<Array<any>>{

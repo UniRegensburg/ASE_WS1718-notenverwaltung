@@ -57,7 +57,6 @@
     "rxjs": "5.5.2",
     "ts-xlsx": "0.0.11",
     "webpack": "^3.10.0",
-    "@ngtools/webpack" : "^1.5.1",
     "zone.js": "0.8.17"
   },
   "devDependencies": {
