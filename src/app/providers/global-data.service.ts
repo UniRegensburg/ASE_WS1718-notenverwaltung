@@ -18,9 +18,11 @@ import { resolve } from 'path';
 @Injectable()
 export class GlobalDataService {
   public current_project: any; //this is the project data object
+  public current_project_name: any;
   private pouch: any;
   public teilnehmer: Array<any>;
   private temp: Array<any>;
+  private filePath: any;
 
   constructor(
     private http: Http) {
@@ -32,11 +34,13 @@ export class GlobalDataService {
    * Loads local schema json file
    * Maps local file to Schema structure
    */
-  public getLocalFile(file_path): Observable<Schema> {    
+  public getLocalFile(file_path): Observable<Schema> {
     return this.http.get(file_path)
                         // ...and calling .json() on the response to return data
                          .map((res:Response) => {
-                            this.current_project = res.json();                            
+                            this.current_project = res.json();
+                            this.current_project_name = file_path;
+                            this.filePath = file_path;
                             // console.log(file_path.split('\\').pop().split('/').pop());
                           })
                          //...errors if any
@@ -51,16 +55,34 @@ export class GlobalDataService {
     return of(this.current_project);
   }
 
+  public getCurrentProjectName(): Observable<String>{
+    return of(this.current_project_name);
+  }
+
   public setNewStudents(student): void{
     this.current_project.teilnehmer.push(student);
+    this.saveJson();
   }
 
   public setNewGrading(grading): void{
-    this.current_project.bewertungsschema = grading;
+    this.current_project.bewertung = grading;
+    this.saveJson();
   }
 
   public getParticipants(): Observable<Array<any>>{
       return of(this.current_project.teilnehmer)
   }
 
+  private saveJson(): void{
+    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+        if(err){
+            alert("An error ocurred creating the file "+ err.message);
+        }
+        else{
+          // alert("The file has been succesfully saved");
+          console.log("The file has been saved")
+      }
+    });
+
+  }
 }
