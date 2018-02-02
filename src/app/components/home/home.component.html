@@ -29,7 +29,7 @@
         <h6 class="active">Zuletzt verwendet</h6>
       </div>
       <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
-      <h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6>
+      <!--h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6-->
       <input type="file" #file (change)="onChange(file.files)"/>
     </div>
     <div class="col l8" *ngIf="view_mode">
@@ -41,47 +41,67 @@
               <p>Zuletzt geöffnet: {{file.last_opened}}</p>
               <p>Titel: {{file.title}}</p>
             </div>
-          </div>
         </div>
-        <div class="col s12 m6" *ngIf="last_files.length == 0">
-          No recent opened files available.
-        </div>
-      </div>
     </div>
-    <div class="col l8" *ngIf="!view_mode">
-      <div class="row">
-        <div class="col s12">
-          <div class="row">
-            <div class="col s4">
-              Name
+    <div class="row">
+        <div class="col l4">
+            <div class="font-active">
+                <h6 class="active">Zuletzt verwendet</h6>
             </div>
-            <div class="col s4">
-              Titel
-            </div>
-            <div class="col s4">
-              Zuletzt geöffnet
-            </div>
-          </div>
-          <hr class="hr_table">
-          <div *ngFor="let file of last_files">
-            <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
-              <div class="col s4">
-                {{file.file_name}}
-              </div>
-              <div class="col s4">
-                {{file.title}}
-              </div>
-              <div class="col s4">
-                {{file.last_opened}}
-              </div>
-            </div>
-            <hr class="hr_table">
-          </div>
+            <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
+            <!--h6 class="sidebar_hover">Öffnen</h6-->
+            <input type="file" #file (change)="onChange(file.files)" />
         </div>
-        <div class="col s12 m6" *ngIf="last_files.length == 0">
-          No recent opened files available.
+        <div class="col l8" *ngIf="view_mode">
+            <div class="row">
+                <div class="col s12 m6" *ngFor="let file of last_files">
+                    <div class="card home-card z-depth-1" [routerLink]="'course/' + file.id + '/overview'">
+                        <div class="card-content black-text ">
+                            <span class="card-title">{{file.file_name}}</span>
+                            <p>Zuletzt geöffnet: {{file.last_opened}}</p>
+                            <p>Titel: {{file.title}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6" *ngIf="last_files.length == 0">
+                    No recent opened files available.
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col l8" *ngIf="!view_mode">
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="col s4">
+                            Name
+                        </div>
+                        <div class="col s4">
+                            Titel
+                        </div>
+                        <div class="col s4">
+                            Zuletzt geöffnet
+                        </div>
+                    </div>
+                    <hr class="hr_table">
+                    <div *ngFor="let file of last_files">
+                        <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
+                            <div class="col s4">
+                                {{file.file_name}}
+                            </div>
+                            <div class="col s4">
+                                {{file.title}}
+                            </div>
+                            <div class="col s4">
+                                {{file.last_opened}}
+                            </div>
+                        </div>
+                        <hr class="hr_table">
+                    </div>
+                </div>
+                <div class="col s12 m6" *ngIf="last_files.length == 0">
+                    No recent opened files available.
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

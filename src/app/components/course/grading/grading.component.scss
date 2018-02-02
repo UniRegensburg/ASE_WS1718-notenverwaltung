@@ -1,0 +1,43 @@
+.content-block {
+    color: black;
+}
+
+.title-block {
+    background-color: #C2185B;
+    color: white;
+    font-size: 30px;
+}
+
+.table-header {
+    font-weight: bold;
+}
+
+#grading-key {
+    color: black;
+    background-color: white;
+}
+
+#grading-table {}
+
+.scheme-btn {
+    background-color: #C2185B;
+}
+
+#test {
+    color: red;
+    margin: 30px;
+    width: 30px;
+    height: 89px;
+    background-color: blue;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:after {
+    background-color: #C2185B;
+}
+
+[type="radio"]:checked+label:after,
+[type="radio"].with-gap:checked+label:before,
+[type="radio"].with-gap:checked+label:after {
+    border: 2px solid #C2185B;
+}

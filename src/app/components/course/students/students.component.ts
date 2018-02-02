@@ -22,9 +22,7 @@ export class StudentsComponent implements OnInit {
       this.dataService.getCurrentProject().subscribe(current_project => {
          this.current_project = current_project;
          this.participants = this.current_project.participants;
-         this.dataService.getCurrentProjectName().subscribe(current_project_name =>{
-             this.current_project_name = current_project_name;
-         })
+         this.current_project_name = this.current_project.title;
       });
       this.dataService.getParticipants().subscribe(teilnehmer =>{
               this.participants = teilnehmer;

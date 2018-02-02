@@ -19,13 +19,13 @@
     </div>
   </div>
 
-  <div class="row">
+  <!--div class="row">
     <div class="col s12">
       <a class="waves-effect waves-light btn pink darken-2" [routerLink]="correction" type="submit">
         <i class="material-icons left">create</i>Korrektur fortsetzen</a>
     </div>
-  </div>
-  <div class="row" style="margin-top: 50px">
+  </div-->
+  <div class="row" style="margin-top: 150px">
     <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
       <div class="row row_hover">
         <div class="col s1">
@@ -34,17 +34,23 @@
         <div class="col s3">
           {{participant.name}}, {{participant.vorname}}
         </div>
-        <div class="col s3">
+        <div class="col s2">
           {{participant.mtknr}}
         </div>
-        <div class="col s2">
-          55%
+        <div class="col s1">
+          {{participant.completionRate}}
         </div>
-        <div class="col s2">
+        <div class="col s1">
           1,0
         </div>
         <div class="col s1">
-          <i class="material-icons left edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">edit</i>
+          <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
+        </div>
+        <div class="col s1">
+          <i class="material-icons right edit-btn" [routerLink]="['/course/students']">create</i>
+        </div>
+        <div class="col s1">
+          <i class="material-icons right edit-btn" [routerLink]="['/course/results']">pie_chart</i>
         </div>
       </div>
       <hr class="hr_table">
