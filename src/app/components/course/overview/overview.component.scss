@@ -25,3 +25,8 @@ h5{
 .my-pagination /deep/ .ngx-pagination .current {
     background: #C2185B !important;
 }
+
+.edit-btn:hover{
+  color: #C2185B;
+  cursor: pointer;
+}

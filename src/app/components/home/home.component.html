@@ -1,25 +1,45 @@
 <div class="container">
-    <h1>WILLKOMMEN!</h1>
-    <hr class="hr_welcome">
-    <br>
-    <h5>NOTENVERWALTUNG</h5>
-    <div class="row">
-        <div class="col l8 offset-l4 ">
-            <div *ngIf="view_mode">
-                <a class="btn z-depth-1" (click)="view_mode = true">
-                    <i class="material-icons home-icon active">apps</i>
-                </a>
-                <a class="btn z-depth-1" (click)="view_mode = false">
-                    <i class="material-icons home-icon">list</i>
-                </a>
-            </div>
-            <div *ngIf="!view_mode">
-                <a class="btn z-depth-1" (click)="view_mode = true">
-                    <i class="material-icons home-icon">apps</i>
-                </a>
-                <a class="btn z-depth-1" (click)="view_mode = false">
-                    <i class="material-icons home-icon active">list</i>
-                </a>
+  <h1>WILLKOMMEN!</h1>
+  <hr class="hr_welcome">
+  <br>
+  <h5>NOTENVERWALTUNG</h5>
+  <div class="row">
+    <div class="col l8 offset-l4 ">
+      <div *ngIf="view_mode">
+        <a class="btn z-depth-1" (click)="view_mode = true">
+          <i class="material-icons home-icon active">apps</i>
+        </a>
+        <a class="btn z-depth-1" (click)="view_mode = false">
+          <i class="material-icons home-icon">list</i>
+        </a>
+      </div>
+      <div *ngIf="!view_mode">
+          <a class="btn z-depth-1" (click)="view_mode = true">
+            <i class="material-icons home-icon">apps</i>
+          </a>
+          <a class="btn z-depth-1" (click)="view_mode = false">
+            <i class="material-icons home-icon active">list</i>
+          </a>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col l4">
+      <div class="font-active">
+        <h6 class="active">Zuletzt verwendet</h6>
+      </div>
+      <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
+      <h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6>
+      <input type="file" #file (change)="onChange(file.files)"/>
+    </div>
+    <div class="col l8" *ngIf="view_mode">
+      <div class="row">
+        <div class="col s12 m6" *ngFor="let file of last_files">
+          <div class="card home-card z-depth-1" [routerLink]="'course/' + file.id + '/overview'">
+            <div class="card-content black-text ">
+              <span class="card-title">{{file.file_name}}</span>
+              <p>Zuletzt geöffnet: {{file.last_opened}}</p>
+              <p>Titel: {{file.title}}</p>
             </div>
         </div>
     </div>

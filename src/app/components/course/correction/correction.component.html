@@ -1,32 +1,41 @@
 <div class="container">
-  <h1 *ngIf="!correctionMode">KORREKTUR</h1>
-  <hr class="hr_welcome" *ngIf="!correctionMode">
+  <h1 *ngIf="screen_mode">KORREKTUR</h1>
+  <hr class="hr_welcome" *ngIf="!screenMode">
   <br>
-  <i class="material-icons right" (click)="setCorrectionMode()" style="font-size: 30px" *ngIf="!correctionMode">fullscreen_exit</i>
-  <i class="material-icons right" (click)="setCorrectionMode()" style="font-size: 30px" *ngIf="correctionMode">fullscreen</i>
+  <i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="!screen_mode">fullscreen_exit</i>
+  <i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="screen_mode">fullscreen</i>
   <div class="row" style="margin-top: 40px">
     <div class="col s12 center-align">
-      <a class="waves-effect waves-light btn grey">Nach Aufgaben</a>
-      <a class="waves-effect waves-light btn pink darken-2">Nach Student</a>
+      <h5><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe {{current_task.id}}</h5>
+    </div>
+    <div class="col s12 center-align" style="margin-top: 30px">
+      <a class="waves-effect waves-light btn pink darken-2" (click)="setCorretionMode('student')">Nach Student</a>
+      <a class="waves-effect waves-light btn grey" (click)="setCorretionMode('task')">Nach Aufgaben</a>
     </div>
   </div>
 
   <div class="row">
     <div class="col s4">
-      <i class="material-icons left" style="font-size: 40px">chevron_left</i>
+      <i class="material-icons left card-panel" style="font-size: 40px" (click)="setCurrentTask('previous')">chevron_left</i>
     </div>
     <div class="col s4">
       <div class="row">
         <div class="col s8">
-          <input class="right" placeholder="0" type="number" class="validate">
+          <input class="right"
+          placeholder="0"
+          type="number"
+          [(ngModel)]="current_correction.erreichte_punkte"
+          [attr.max]="current_task.max_punkt"
+          min="0"
+          lass="validate">
         </div>
         <div class="col s4" style="margin-top: 5px">
-          <span class="left"> <h5>/18</h5></span>
+          <span class="left"> <h5>/{{current_task.max_punkt}}</h5></span>
         </div>
       </div>
     </div>
     <div class="col s4">
-      <i class="material-icons right" style="font-size: 40px">chevron_right</i>
+      <i class="material-icons right card-panel" style="font-size: 40px" (click)="setCurrentTask('next')">chevron_right</i>
     </div>
   </div>
 
@@ -55,7 +64,7 @@
     </div>
   </div>
 
-  <div class="col s12">
+  <div class="col s12" *ngIf="current_task.comment_public">
     <div class="card-panel white" (click)="open_3 = !open_3">
       <span>Öffentlicher Kommentar</span>
       <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
@@ -63,12 +72,12 @@
     </div>
     <div *ngIf="open_3" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
       <div class="input-field col s12">
-        <textarea id="textarea1" class="materialize-textarea" placeholder="Öffentlicher Kommentar"></textarea>
+        <textarea [(ngModel)]="current_correction.comment_public" class="materialize-textarea" placeholder="Öffentlicher Kommentar"></textarea>
       </div>
     </div>
   </div>
 
-  <div class="col s12">
+  <div class="col s12" *ngIf="current_task.comment_privat">
     <div class="card-panel white" (click)="open_4 = !open_4">
       <span>Privater Kommentar</span>
       <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
@@ -76,7 +85,7 @@
     </div>
     <div *ngIf="open_4" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
       <div class="input-field col s12">
-        <textarea id="textarea1" class="materialize-textarea" placeholder="Privater Kommentar"></textarea>
+        <textarea [(ngModel)]="current_correction.comment_privat" class="materialize-textarea" placeholder="Privater Kommentar"></textarea>
       </div>
     </div>
   </div>

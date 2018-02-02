@@ -31,11 +31,28 @@ export class NewCourseComponent implements OnInit {
   }
 
   store(file){
-    this.course_oject.path = file.path;
+    this.course_oject.path = file;
+    //TODO: schöner machen
+    alert("Speicherort festgelegt: "+file)
+  }
+  chooseFolder(){
+      var app = require('electron').remote;
+      var dialog = app.dialog
+
+      dialog.showOpenDialog({properties: ['openDirectory']},(fileNames) =>{
+        if (fileNames === undefined){
+          console.log("No file selected")
+          return;
+        }
+        this.store(fileNames[0])
+      });
   }
 
-  createCourse(): void{    
+  createCourse(): void{
     this.course_oject.file_name = this.course_oject.title + ".json";
+    console.log(this.course_oject.path)
+
+    if(this.course_oject.path){
 
     let filePath = this.course_oject.path + "/" + this.course_oject.title + ".json";
     let basic_schema = {
@@ -43,19 +60,21 @@ export class NewCourseComponent implements OnInit {
         "bewertungsschema": {},
         "bewertung": []
     };
-      
+
     writeFile(filePath, JSON.stringify(basic_schema), (err) => {
         if(err){
-            alert("An error ocurred creating the file "+ err.message);            
-        }          
+            alert("An error ocurred creating the file "+ err.message);
+        }
         else{
           alert("The file has been succesfully saved");
           this.dataService.getLocalFile(filePath).subscribe(
             data => {
-                this.router.navigate(['course/overview']);    
+                this.router.navigate(['course/overview']);
           });
       }
-    }); 
+    });
+    }else{        alert("Please select a directory!")
+    }
   }
-  
+
 }

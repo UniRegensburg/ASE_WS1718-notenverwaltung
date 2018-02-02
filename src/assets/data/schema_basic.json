@@ -1,54 +1,63 @@
 {
-
-    "teilnehmer": [{
-            "id": 1,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+  "teilnehmer": [{
+      "id": 0,
+      "mtknr": 1655429,
+      "name": "Guder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
-        {
-            "id": 2,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+    {
+      "id": 1,
+      "mtknr": 1655429,
+      "name": "Wolff",
+      "vorname": "Gina Maria Wolf",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
-        {
-            "id": 3,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+    {
+      "id": 2,
+      "mtknr": 1655429,
+      "name": "Felix",
+      "vorname": "Kalley",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
-        {
-            "id": 4,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+    {
+      "id": 3,
+      "mtknr": 1655429,
+      "name": "Ewald",
+      "vorname": "Reinhardddd",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
-        {
-            "id": 5,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+    {
+      "id": 4,
+      "mtknr": 1655429,
+      "name": "Gudasdasder",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
+    },
+    {
+      "id": 5,
+      "mtknr": 1655429,
+      "name": "Gude22222222r",
+      "vorname": "Markus",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     },
         {
             "id": 6,
@@ -120,25 +129,15 @@
             "mail": "markus.guder@gmail.com",
             "status": "ZU"
     },
-        {
-            "id": 13,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
-    },
-        {
-            "id": 14,
-            "mtknr": 1655429,
-            "name": "Guder",
-            "vorname": "Markus",
-            "studiengang": "M.Sc. Medieninfo (1)",
-            "fachsemester": 1,
-            "mail": "markus.guder@gmail.com",
-            "status": "ZU"
+    {
+      "id": 13,
+      "mtknr": 1655429,
+      "name": "Hort",
+      "vorname": "Franz",
+      "studiengang": "M.Sc. Medieninfo (1)",
+      "fachsemester": 1,
+      "mail": "markus.guder@gmail.com",
+      "status": "ZU"
     }
   ],
     "bewertungsschema": {
@@ -190,7 +189,7 @@
                 }
 
       ],
-            "bewertungseinheit": ""
+          "bewertungseinheit": ""
         },
         "aufgaben": [{
             "id": 0,
@@ -314,3 +313,5 @@
   }
   ]
 }
+
+
