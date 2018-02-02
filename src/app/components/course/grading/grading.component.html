@@ -57,7 +57,63 @@
                 <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
             </div>
             <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
-                <span class="black-text">{{question.beschreibung}}</span>
+                <a *ngIf="!schemeEditMode" class='scheme-btn btn right' (click)='setEditMode(true)'>Bearbeiten </a>
+                <a *ngIf="schemeEditMode" class='scheme-btn btn right' (click)='setEditMode(false)'>Speichern </a>
+
+                <div class="col s12">
+                    Titel der Aufgabe:
+                    <div class="input-field inline">
+                        <input value="{{question.name}}" id="title" type="text">
+                        <label for="title" class="active">z.B. Aufgabe 1</label>
+                    </div>
+                </div>
+                <div class="col s12">
+                    Erreichbare Punkte:
+                    <div class="input-field inline">
+                        <input value={{question.max_punkt}} id="max_punkt" type="number" class="validate" step="0.5">
+                        <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="col s12">
+                    Dezimale Gewichtung:
+                    <div class="input-field inline">
+                        <input value="{{question.gewichtung}}" id="gewichtung" type="number" class="validate" step="0.1">
+                        <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 0.5</label>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="col s12">Aufgabenbeschreibung:</div>
+                <div class="input-field col s12">
+                    <!--input value="{{question.beschreibung}}" placeholder="Aufgabenbeschreibung" id="beschreibung" type="text"-->
+                    <textarea value="{{question.beschreibung}}" id="beschreibung" class="materialize-textarea" placeholder="Aufgabenbeschreibung"></textarea>
+                    <label for="beschreibung" class="active">z.B. Programmieren Sie eine Software zur Notenverwaltung.</label>
+                </div>
+                <br>
+                <br>
+                <div class="col s12">Bewertungshinweis:</div>
+                <div class="input-field col s12">
+                    <textarea value="{{question.bewertungs_hinweis}}" id="hinweis" class="materialize-textarea" placeholder="Bewertungshinweis"></textarea>
+                    <label for="hinweis" class="active">z.B. 2 Punkte für tolle Demo.</label>
+                </div>
+                <br>
+                <br>
+                <form action="#">
+                    <div class="col s12">Erlaubte Kommentare:</div>
+                    <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box1" checked="checked" />
+                        <label for="filled-in-box1">Öffentlicher Kommentar</label>
+                    </p>
+                    <p>
+                        <input type="checkbox" class="filled-in" id="filled-in-box2" checked="checked" />
+                        <label for="filled-in-box2">Privater Kommentar</label>
+                    </p>
+                </form>
+
             </div>
         </div>
     </div>
@@ -69,10 +125,4 @@
 
 
 
-    <div>_______DEV QUATSCH__________</div>
-    <a *ngIf="!schemeEditMode" class='scheme-btn btn' (click)='setEditMode(true)'>Bearbeiten </a>
-    <a *ngIf="schemeEditMode" class='scheme-btn btn' (click)='setEditMode(false)'>Speichern </a>
-    <div *ngIf="!schemeEditMode" id='scheme-content'>
-        <div>Toller Text</div>
-    </div>
 </div>

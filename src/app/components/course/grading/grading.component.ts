@@ -35,4 +35,5 @@ export class GradingComponent implements OnInit {
   console.log("EDITIER MODUS KNOPF GEKLICKT");
   }
 
+
 }
