@@ -35,6 +35,7 @@ export class NewCourseComponent implements OnInit {
     //TODO: schöner machen
     alert("Speicherort festgelegt: "+file)
   }
+  
   chooseFolder(){
       var app = require('electron').remote;
       var dialog = app.dialog
