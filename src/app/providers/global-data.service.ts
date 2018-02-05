@@ -28,12 +28,11 @@ export class GlobalDataService {
     private http: Http) {
   }
 
-  /**
-   *
-   * @param file_path: path to requested file
-   * Loads local schema json file
-   * Maps local file to Schema structure
+   /**
+   * Getter methods to load local projects 
+   * and to dispatch data to each component
    */
+
   public getLocalFile(file_path): Observable<Schema> {
     return this.http.get(file_path)
                         // ...and calling .json() on the response to return data
@@ -47,11 +46,8 @@ export class GlobalDataService {
                          .catch((error:any) => Observable.throw(error.json().error || 'Reading error'));
   }
 
-  /**
-   *
-   * Returns current schema object
-   */
   public getCurrentProject(): Observable<Schema>{
+    this.checkCurrentValidity();
     return of(this.current_project);
   }
 
@@ -59,18 +55,48 @@ export class GlobalDataService {
     return of(this.current_project_name);
   }
 
-  public setNewStudents(student): void{
-    this.current_project.teilnehmer.push(student);
-    this.saveJson();
-  }
-
-  public setNewGrading(grading): void{
-    this.current_project.bewertung = grading;
-    this.saveJson();
-  }
-
   public getParticipants(): Observable<Array<any>>{
       return of(this.current_project.teilnehmer)
+  }
+
+   /**
+   * Validations methods
+   */
+
+
+  private checkCurrentValidity(): void{
+    if(this.current_project.bewertung.length == 0){
+      this.createNewStudentGrading();
+    }
+  }
+
+  public createNewStudentGrading(): any {
+    let gradings = [];
+
+    this.current_project.teilnehmer.forEach(student => {
+      let single_student_corretion = {
+        'student_id': student.id,
+        'einzelwertungen': this.createCurrentCorrection()
+      };
+      gradings.push(single_student_corretion)
+    });    
+
+    this.setNewGrading(gradings);
+  }
+
+  public createCurrentCorrection(): any {
+    let corretions = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      let single_corretion = {
+        'aufgaben_id': task.id,
+        'erreichte_punkte': 0,
+        'comment_privat': '',
+        'comment_public': ''
+      }
+      corretions.push(single_corretion);      
+    });
+    return corretions;
   }
 
   private saveJson(): void{
@@ -85,4 +111,19 @@ export class GlobalDataService {
     });
 
   }
+
+  /**
+   * Setter methods to update global project
+   */
+
+  public setNewStudents(student): void{
+    this.current_project.teilnehmer.push(student);
+    this.saveJson();
+  }
+
+  public setNewGrading(grading): void{
+    this.current_project.bewertung = grading;
+    this.saveJson();
+  }
+
 }
