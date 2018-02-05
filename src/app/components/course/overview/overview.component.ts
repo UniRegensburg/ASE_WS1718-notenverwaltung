@@ -17,6 +17,7 @@ export class OverviewComponent implements OnInit {
 
   private current_project: any;
   private current_project_name: String;
+  private grading: any;
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
@@ -28,16 +29,19 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("herereee");
-    
     this.dataService.getCurrentProject().subscribe(current_project => {      
       this.current_project = current_project;
       this.participants = this.current_project.teilnehmer;
       this.current_project_name = this.current_project.title;
 
-      //this.getCorrectionCompletion();
-      this.createUserGradingList();
-      this.initGraphView();
+      this.dataService.getStudentGrading().subscribe(data => {
+        this.participants = data;
+        console.log(this.participants);
+        
+        //this.getCorrectionCompletion();
+        this.createUserGradingList();
+        this.initGraphView();
+      });
     });    
   }
 
