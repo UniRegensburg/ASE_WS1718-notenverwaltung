@@ -36,9 +36,8 @@ export class OverviewComponent implements OnInit {
 
       this.dataService.getStudentGrading().subscribe(data => {
         this.participants = data;
-        console.log(this.participants);
+        console.log(data);
         
-        //this.getCorrectionCompletion();
         this.createUserGradingList();
         this.initGraphView();
       });

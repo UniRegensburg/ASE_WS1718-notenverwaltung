@@ -26,6 +26,29 @@
     </div>
   </div-->
   <div class="row" style="margin-top: 150px">
+      <div class="col l12">
+          <div class="row row_hover">
+            <div class="col s1">
+                <b>ID</b>
+            </div>
+            <div class="col s3">
+                <b>Name, Vorname</b>
+            </div>
+            <div class="col s2">
+                <b>Martrikelnummer</b>
+            </div>
+            <div class="col s1">
+              <b>Korrigiert</b>
+            </div>
+            <div class="col s1">
+                <b>Note</b>
+            </div>
+            <div class="col s3">             
+            </div>
+          </div>
+          <hr class="hr_table">
+        </div>
+
     <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
       <div class="row row_hover">
         <div class="col s1">
@@ -38,10 +61,10 @@
           {{participant.mtknr}}
         </div>
         <div class="col s1">
-          {{participant.completionRate}}
+          {{participant.finish * 100}}%
         </div>
         <div class="col s1">
-          1,0
+          {{participant.grade}}
         </div>
         <div class="col s1">
           <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>

@@ -63,14 +63,16 @@ export class GlobalDataService {
     let gradings = this.current_project.bewertung;
     let task_counter = this.current_project.bewertungsschema.aufgaben.length;    
 
+    this.current_project.teilnehmer.forEach(student => {
+      student.grade = 0;
+      student.finish = 0;
+    });
+
     gradings.forEach(grading => {      
-      this.current_project.teilnehmer.forEach(student => {
-        student.grade = 0;
-        student.finisehd = 0;
-        
-        if(student.id == grading.student_id){
-          grading.grade = this.getCurrentStudentGrade(grading);
-          grading.finisehd = task_counter / grading.einzelwertungen.length;
+      this.current_project.teilnehmer.forEach(student => {        
+        if(student.id == grading.student_id){          
+          student.grade = this.getCurrentStudentGrade(grading);
+          student.finish = task_counter / grading.einzelwertungen.length;
         }
       });
       
