@@ -169,10 +169,14 @@ export class CorrectionComponent implements OnInit {
     }
   }
   
-  setCurrentCorretion() {
+  setCurrentCorretion() {    
     this.grading.forEach(student => {
       if (student.student_id == this.student_counter) this.current_student = student;
     });
+
+    if(this.current_student == undefined){
+      this.current_student = this.grading[0];
+    }    
 
     this.current_student["einzelwertungen"].forEach(correction => {
       if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;

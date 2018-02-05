@@ -59,18 +59,62 @@ export class GlobalDataService {
       return of(this.current_project.teilnehmer)
   }
 
+  public getStudentGrading(): Observable<any>{
+    let gradings = this.current_project.bewertung;
+    let task_counter = this.current_project.bewertungsschema.aufgaben.length;    
+
+    this.current_project.teilnehmer.forEach(student => {
+      student.grade = 0;
+      student.finish = 0;
+    });
+
+    gradings.forEach(grading => {      
+      this.current_project.teilnehmer.forEach(student => {        
+        if(student.id == grading.student_id){          
+          student.grade = this.getCurrentStudentGrade(grading);
+          student.finish = task_counter / grading.einzelwertungen.length;
+        }
+      });
+      
+    });
+
+    return of(this.current_project.teilnehmer);
+  }
+
+  private getCurrentStudentGrade(student): number{
+    let sum_grades = 0;
+
+    student.einzelwertungen.forEach(grade => {
+      sum_grades = sum_grades + grade.erreichte_punkte;
+    });
+    
+    return this.getGradeByScale(sum_grades);
+  }
+
+  private getGradeByScale(sum_grade): number{
+    let grading_schema = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    let returnValue = 0;    
+
+    grading_schema.forEach(element => {
+      if(element.wert_min <= sum_grade){
+        returnValue = element.note;
+      }
+    });
+
+    return returnValue;
+  }
+
    /**
    * Validations methods
    */
 
-
   private checkCurrentValidity(): void{
     if(this.current_project.bewertung.length == 0){
       this.createNewStudentGrading();
-    }
+    }   
   }
 
-  public createNewStudentGrading(): any {
+  private createNewStudentGrading(): any {
     let gradings = [];
 
     this.current_project.teilnehmer.forEach(student => {
@@ -84,7 +128,7 @@ export class GlobalDataService {
     this.setNewGrading(gradings);
   }
 
-  public createCurrentCorrection(): any {
+  private createCurrentCorrection(): any {
     let corretions = [];
 
     this.current_project.bewertungsschema.aufgaben.forEach(task => {
