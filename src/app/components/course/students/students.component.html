@@ -14,7 +14,7 @@
     <div class="row" style="margin-top: 50px;">
         <div class="col l12">
             <div class="row row_hover">
-              <div class="col s0">
+              <div class="col s1">
                   <b>ID</b>
               </div>
               <div class="col s2">
@@ -37,7 +37,7 @@
           </div>
         <div class="col l12" *ngFor="let participant of this.participants  | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
             <div class="row row_hover">
-                <div class="col s0">
+                <div class="col s1">
                     {{participant.id}}
                 </div>
                 <div class="col s2">
@@ -51,7 +51,10 @@
                 </div>
 
                 <div class="col s4">
-                   Gruppe
+                    <select class="browser-default" [(ngModel)]="participant.group" (change)="changeDetected($event)">
+                      <option value="" disabled selected>Choose your option</option>
+                      <option *ngFor="let group of groups" [ngValue]="group.name">{{group.name}}</option>
+                    </select>
                 </div>
                 <div class="col s1">
                     <i class="material-icons right edit-btn" [routerLink]="['/course/students']">create</i>

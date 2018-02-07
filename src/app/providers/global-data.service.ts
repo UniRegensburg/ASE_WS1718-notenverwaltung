@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, group } from '@angular/core';
 import { log } from 'util';
 
 import { Http, Response } from '@angular/http';
@@ -68,6 +68,8 @@ export class GlobalDataService {
       student.finish = 0;
     });
 
+    console.log(gradings);
+    
     gradings.forEach(grading => {      
       this.current_project.teilnehmer.forEach(student => {        
         if(student.id == grading.student_id){          
@@ -102,6 +104,26 @@ export class GlobalDataService {
     });
 
     return returnValue;
+  }
+
+  public getStudentsWithGroup(): Observable<Array<any>>{
+    let students = this.current_project.teilnehmer;
+    let groups = this.current_project.gruppen;
+
+    students.forEach(student => {
+      student.group = "";
+    });
+
+    groups.forEach(group => {
+      group.studenten.forEach(student_id => {
+        students.forEach(student => {
+          if(student.id == student_id){
+            student.group = group.name;            
+          }
+        });
+      });
+    });
+    return of(students);
   }
 
    /**
@@ -160,14 +182,29 @@ export class GlobalDataService {
    * Setter methods to update global project
    */
 
-  public setNewStudents(student): void{
-    this.current_project.teilnehmer.push(student);
+  public setNewStudents(students): void{
+    this.current_project.teilnehmer.push(students);
     this.saveJson();
   }
 
   public setNewGrading(grading): void{
     this.current_project.bewertung = grading;
     this.saveJson();
+  }
+
+  public setNewGroups(grouped_students): void{
+    let groups = this.current_project.gruppen;
+    groups.forEach(group => {
+      group.studenten = [];
+      grouped_students.forEach(student => {
+        if(student.group == group.name){
+          group.studenten.push(student.id);
+        }
+      });
+    });   
+    console.log(groups);
+    this.current_project.gruppen = groups;
+    //this.saveJson();     
   }
 
 }
