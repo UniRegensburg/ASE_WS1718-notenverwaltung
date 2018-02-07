@@ -67,17 +67,14 @@ export class GlobalDataService {
       student.grade = 0;
       student.finish = 0;
     });
-
-    console.log(gradings);
     
     gradings.forEach(grading => {      
       this.current_project.teilnehmer.forEach(student => {        
         if(student.id == grading.student_id){          
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = task_counter / grading.einzelwertungen.length;
+          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));      
         }
-      });
-      
+      });      
     });
 
     return of(this.current_project.teilnehmer);
@@ -110,6 +107,8 @@ export class GlobalDataService {
     let students = this.current_project.teilnehmer;
     let groups = this.current_project.gruppen;
 
+    console.log(groups);
+    
     students.forEach(student => {
       student.group = "";
     });
