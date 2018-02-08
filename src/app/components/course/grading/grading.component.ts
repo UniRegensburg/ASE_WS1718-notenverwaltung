@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-grading',
@@ -8,14 +11,14 @@ import { GlobalDataService } from '../../../providers/index';
 })
 export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
-  
+
   private current_project: any;
-  
+
   schemeEditMode = false;
   openCollapsible: any = {};
-  
-  constructor(public dataService: GlobalDataService) {
-    
+
+  constructor(public dataService: GlobalDataService, private http: Http,  private changeDetectorRef: ChangeDetectorRef) {
+
   }
 
   ngOnInit() {
@@ -23,11 +26,11 @@ export class GradingComponent implements OnInit {
     this.current_project = data;
    });
   }
-  
+
   setEditMode(new_status): void{
     this.schemeEditMode = new_status;
   }
-  
+
   addNewTask(): void{
     this.current_project.bewertungsschema.aufgaben.push({
       "id": this.current_project.bewertungsschema.aufgaben.length,
@@ -44,4 +47,23 @@ export class GradingComponent implements OnInit {
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
   }
+  importScheme(): void{
+      var app = require('electron').remote;
+      var dialog = app.dialog
+      var fs = require('fs')
+      dialog.showOpenDialog((fileNames) =>{
+        if (fileNames === undefined){
+          console.log("No file selected")
+          return;
+        }
+        this.processImport(fileNames[0])
+      });
+  }
+  processImport(file): void{
+      console.log("opening",file)
+      this.http.get(file).subscribe(res => {
+                            this.current_project.bewertungsschema = res.json().bewertungsschema
+                            this.changeDetectorRef.detectChanges();
+                            })
+   }
 }
