@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent, NewCourseComponent } from './components/home/index';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent,DetailComponent } from './components/course/index'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,7 +31,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     GradingComponent,
     NewCourseComponent,
     ResultsComponent,
-    CorrectionComponent
+    CorrectionComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

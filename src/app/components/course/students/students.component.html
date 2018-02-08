@@ -8,6 +8,9 @@
             <a class='btn waves-effect waves-light pink darken-2' (click)="openDialog()"><i class="material-icons left">create</i> Teilnehmer importieren</a>
         </div>
         <div class="col s5">
+            <a class='btn waves-effect waves-light pink darken-2' [routerLink]="['/course/students/detail']"><i class="material-icons left">create</i> Teilnehmer hinzufügen</a>
+        </div>
+        <div class="col s5">
             <a class='btn waves-effect waves-light pink darken-2' (click)="enableGroups()"><i class="material-icons left">create</i> Gruppen aktivieren</a>
         </div>
     </div>
@@ -23,7 +26,7 @@
                 <div class="col s1">
                     {{participant.mtknr}}
                 </div>
-                <div class="col s3">
+                <div class="col s2">
                     {{participant.studiengang}}
                 </div>
                 <div class="col s0">
@@ -32,10 +35,12 @@
                 <div class="col s3">
                     {{participant.mail}}
                 </div>
-                <div class="col s1">
+                <div class="col s0">
                     {{participant.status}}
                 </div>
-
+                <div class="col s1">
+                  <i class="material-icons right edit-btn" [routerLink]="['/course/students/detail']">create</i>
+                </div>
         </div>
         <hr class="hr_table">
     </div>

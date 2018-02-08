@@ -4,7 +4,7 @@ import { CourseComponent } from './components/course/course.component';
 import {APP_BASE_HREF} from '@angular/common';
 
 
-import { OverviewComponent, StudentsComponent, GradingComponent, CorrectionComponent, ResultsComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, CorrectionComponent, ResultsComponent, DetailComponent } from './components/course/index'
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -33,6 +33,10 @@ const routes: Routes = [
             {
                 path: 'students',
                 component: StudentsComponent,
+                children:[{
+                    path:'detail',
+                    component: DetailComponent,}
+                ]
             },
             {
                 path: 'results',
@@ -40,7 +44,7 @@ const routes: Routes = [
             },
             {
                 path: 'grading',
-                component: GradingComponent, 
+                component: GradingComponent,
             },
             {
                 path: 'correction',
