@@ -2,7 +2,11 @@
   <h1>Bewertungsschema</h1>
   <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
   <hr class="hr_welcome">
-
+  <div class="row">
+      <div class="col s8">
+          <a class='btn waves-effect waves-light pink darken-2 pull-left' (click)="importScheme()"><i class="material-icons left">create</i> Bewertungsschema importieren</a>
+      </div>
+  </div>
   <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
   <div class="row">
     <div class="col l6">
@@ -51,7 +55,7 @@
   <div class='row title-block' style="padding:10px">Aufgaben / Fragen</div>
   <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewTask()" style="margin-bottom: 15px">
     <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
-    
+
   <div class="row">
     <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index" (change)="changeDetected($event)">
       <div class="card-panel white" (click)="openCollapsible[i] = !openCollapsible[i]">
