@@ -22,6 +22,8 @@ export class ResultsComponent implements OnInit {
   private notenstufen: any;
   private teilnehmernoten: any;
 
+  private test: any;
+
 
   private display_diagrams: boolean = true;
   private barChart: any;
@@ -56,8 +58,8 @@ export class ResultsComponent implements OnInit {
   }
 
   getResultsData(): void {
-    this.notenstufen = ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0"];
-    this.teilnehmernoten = this.results;
+    this.notenstufen = this.dataService.getGradingSteps();
+    this.teilnehmernoten = this.dataService.getGradesPerStep(this.notenstufen.length)
   }
 
   initBarChart(): void {
@@ -67,9 +69,9 @@ export class ResultsComponent implements OnInit {
         labels: this.notenstufen,
         datasets: [
           {
-            //label: "Population (millions)",
+            label: "Population (millions)",
             backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60",],
-            data: [1, 3, 7, 7, 2, 7, 3, 2, 1, 10, 4, 0]
+            data: this.teilnehmernoten
           }
         ]
       },
