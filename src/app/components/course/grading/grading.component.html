@@ -27,8 +27,11 @@
           <div class="col s4">
             <input [(ngModel)]="entry.wert_min" class="validate">
           </div>
-          <div class="col s4" style="margin-top: 20px">
+          <div class="col s4" style="margin-top: 20px" *ngIf="schemePoints">
             Punkte
+          </div>
+          <div class="col s4" style="margin-top: 20px" *ngIf="schemePercentage">
+            Prozent
           </div>
         </div>
       </div>
@@ -36,12 +39,12 @@
     <div class='col l6' id='grading-unit'>Bewertungseinheit
       <form action="#" id='grading-form'>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test1" checked/>
+          <input class="with-gap" name="group1" type="radio" id="test1" (click)="pointsSelected()" value="0" checked/>
           <label for="test1">Punkte</label>
         </p>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test2" />
-          <label for="test2">Prozent</label>
+          <input class="with-gap" name="group1" type="radio" id="test2" (click)="percentageSelected()" value="1"/>
+          <label for="test2">Prozent</label> 
         </p>
       </form>
     </div>
@@ -68,7 +71,8 @@
           </div>
         </div>
         <div class="col s12">
-          Erreichbare Punkte:
+        <div *ngIf="this.schemePoints">Erreichbare Punkte</div>
+        <div *ngIf="this.schemePercentage">Erreichbare Prozentzahl</div>
           <div class="input-field inline">
             <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
             <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
@@ -119,3 +123,4 @@
   </div>
 
 </div>
+
