@@ -71,8 +71,8 @@
           </div>
         </div>
         <div class="col s12">
-        <div *ngIf="this.schemePoints">Erreichbare Punkte</div>
-        <div *ngIf="this.schemePercentage">Erreichbare Prozentzahl</div>
+        <div *ngIf="this.schemePoints">Erreichbare Punkte:</div>
+        <div *ngIf="this.schemePercentage">Erreichbare Prozentzahl:</div>
           <div class="input-field inline">
             <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
             <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
