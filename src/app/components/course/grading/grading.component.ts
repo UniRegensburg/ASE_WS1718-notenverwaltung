@@ -41,6 +41,7 @@ export class GradingComponent implements OnInit {
       "bewertungs_hinweis": ""
     });
   }
+  
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
   }
