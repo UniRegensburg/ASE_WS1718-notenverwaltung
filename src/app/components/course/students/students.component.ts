@@ -22,6 +22,7 @@ export class StudentsComponent implements OnInit {
   private current_project_name: String;
   private participants: Array <any> ;
   private groups: Array <any>;
+  private group_mode: boolean = false;
 
   // const zone: NgZone=moduleRef.injector.get(NgZone);
   constructor(public dataService: GlobalDataService, private changeDetectorRef: ChangeDetectorRef) {}
@@ -37,6 +38,7 @@ export class StudentsComponent implements OnInit {
           this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup =>{
             this.participants = studentsWithGroup;
             this.groups = this.current_project.gruppen;
+            console.log(this.groups);
           });
         }
       }
@@ -62,6 +64,17 @@ export class StudentsComponent implements OnInit {
         return;
       }
       this.processData(fileNames[0])
+    });
+  }
+
+  delteGroup(element_index): void{    
+    this.groups.splice(element_index, 1);
+  }
+
+  addGroup(): void{       
+    this.groups.push({
+      "name": "",
+      "studenten":[]
     });
   }
 
