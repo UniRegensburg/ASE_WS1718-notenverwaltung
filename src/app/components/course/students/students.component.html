@@ -38,8 +38,8 @@
                 <div class="col s0">
                     {{participant.status}}
                 </div>
-                <div class="col s1">
-                  <i class="material-icons right edit-btn" [routerLink]="['/course/students/detail']">create</i>
+                <div class="col s1" [routerLink]="['/course/students/detail/', {user_to_edit_id: participant.id}]">
+                  <i class="material-icons right edit-btn">create</i>
                 </div>
         </div>
         <hr class="hr_table">
