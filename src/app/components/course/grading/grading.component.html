@@ -39,11 +39,11 @@
     <div class='col l6' id='grading-unit'>Bewertungseinheit
       <form action="#" id='grading-form'>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test1" (click)="pointsSelected()" value="0" checked/>
+          <input class="with-gap" name="group1" type="radio" id="test1" (click)="pointsSelected()" value="0" (change)="changeDetected($event)" checked/>
           <label for="test1">Punkte</label>
         </p>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test2" (click)="percentageSelected()" value="1"/>
+          <input class="with-gap" name="group1" type="radio" id="test2" (click)="percentageSelected()" (change)="changeDetected($event)" value="1"/>
           <label for="test2">Prozent</label> 
         </p>
       </form>
