@@ -18,6 +18,11 @@ export class ResultsComponent implements OnInit {
 
   private user_grading_list: any;
 
+  private results: any;
+  private notenstufen: any;
+  private teilnehmernoten: any;
+
+
   private display_diagrams: boolean = true;
   private barChart: any;
   private polarChart: any;
@@ -29,14 +34,12 @@ export class ResultsComponent implements OnInit {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       this.participants = this.current_project.teilnehmer;
-      console.log("START");
-      console.log(this.current_project);
+      this.results = this.current_project.bewertungen;
       this.initGraphView();
     });
   }
 
   createUserGradingList(): void {
-
     this.current_project.teilnehmer.forEach(element => {
     });
   }
@@ -46,16 +49,22 @@ export class ResultsComponent implements OnInit {
   }
 
   initGraphView(): void {
+    this.getResultsData();
     this.initBarChart();
     this.initPolarChart();
     this.initScatterChart();
+  }
+
+  getResultsData(): void {
+    this.notenstufen = ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0"];
+    this.teilnehmernoten = this.results;
   }
 
   initBarChart(): void {
     this.barChart = new chartJs(document.getElementById("bar-chart"), {
       type: 'bar',
       data: {
-        labels: ["1.0", "1.3", "1.7", "2.0", "2.3", "2.7", "3.0", "3.3", "3.7", "4.0", "5.0"],
+        labels: this.notenstufen,
         datasets: [
           {
             //label: "Population (millions)",
