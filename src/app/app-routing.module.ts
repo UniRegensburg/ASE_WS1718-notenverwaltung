@@ -33,10 +33,10 @@ const routes: Routes = [
             {
                 path: 'students',
                 component: StudentsComponent,
-                children:[{
-                    path:'detail',
-                    component: DetailComponent,}
-                ]
+            },
+            {
+                path:'student_detail',
+                component: DetailComponent
             },
             {
                 path: 'results',

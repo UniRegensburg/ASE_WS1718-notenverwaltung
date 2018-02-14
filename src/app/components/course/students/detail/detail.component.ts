@@ -15,16 +15,24 @@ declare var $: any;
 export class DetailComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
   private sub: any;
+  private participants: any;
+  private current_student: any;
 
   constructor(public dataService: GlobalDataService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      if (params) {
-        console.log(params);
-        
-      }
-    });
+  ngOnInit() {   
+      this.sub = this.route.params.subscribe(params => {
+        this.dataService.getCurrentProject().subscribe(current_project => {
+          this.participants = current_project["teilnehmer"];          
+          if (params) {
+            this.participants.forEach(student => {
+              if(student.id == params.student_id){
+                this.current_student = student;                                
+              }
+            }); 
+          } 
+        });       
+      });
   }
 
 }

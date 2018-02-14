@@ -47,7 +47,7 @@ export class GlobalDataService {
   }
 
   public getCurrentProject(): Observable<Schema>{
-    this.checkCurrentValidity();
+    //this.checkCurrentValidity();
     return of(this.current_project);
   }
 
