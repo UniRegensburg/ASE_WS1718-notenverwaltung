@@ -24,15 +24,32 @@ export class DetailComponent implements OnInit {
       this.sub = this.route.params.subscribe(params => {
         this.dataService.getCurrentProject().subscribe(current_project => {
           this.participants = current_project["teilnehmer"];          
-          if (params) {
-            this.participants.forEach(student => {
-              if(student.id == params.student_id){
-                this.current_student = student;                                
-              }
-            }); 
+          if (params) {            
+            if(params.student_id == "createNewStudent"){              
+              this.getNewStudent();
+            }
+            else{
+              this.setCurrentStudent(params.student_id);
+            }
           } 
         });       
       });
+  }
+
+  setCurrentStudent(id): void{
+    this.participants.forEach(student => {
+      if(student.id == id){
+        this.current_student = student;                                
+      }
+    }); 
+  }
+
+  getNewStudent(): void{
+    this.dataService.createNewStudent().subscribe(data => {
+      this.participants = data.current_project["teilnehmer"];
+      this.setCurrentStudent(data.id);
+    });
+    
   }
 
 }

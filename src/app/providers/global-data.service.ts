@@ -135,6 +135,21 @@ export class GlobalDataService {
     }   
   }
 
+  public createNewStudent(): Observable<any>{
+    let user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length-1].id +1;
+    this.current_project.teilnehmer.push({
+      "id": user_id,
+      "mtknr": 0,
+      "name": "",
+      "vorname": "",
+      "studiengang": "",
+      "fachsemester": 0,
+      "mail": "",
+      "status": ""
+    });
+    return of({'current_project': this.current_project, 'id': user_id});
+  }
+
   private createNewStudentGrading(): any {
     let gradings = [];
 

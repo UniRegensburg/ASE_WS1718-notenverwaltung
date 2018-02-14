@@ -16,11 +16,14 @@
         </div>
       </div>
     </div>
-    <div class="col s6 clickHover">
-      <span *ngIf="!group_mode" (click)="openDialog()" class="right">
+    <div class="col s6">
+      <span *ngIf="!group_mode" class="right clickHover" [routerLink]="['/course/student_detail', {student_id: 'createNewStudent'}]">
+        <i class="material-icons left">add</i> Teilnehmer hinzufügen
+      </span>
+      <span *ngIf="!group_mode" (click)="openDialog()" class="right clickHover">
         <i class="material-icons left">import_export</i> Teilnehmer importieren
       </span>
-      <span *ngIf="group_mode" class="right" (click)="addGroup()">
+      <span *ngIf="group_mode" class="right clickHover" (click)="addGroup()">
         <i class="material-icons left">add</i> Neu Gruppe hinzufügen
       </span>
     </div>
