@@ -27,12 +27,16 @@
           <div class="col s4">
             <input [(ngModel)]="entry.wert_min" class="validate" (change)="changeDetected($event)">
           </div>
-          <div class="col s4" style="margin-top: 20px" *ngIf="schemePoints">
+          <div class="col s3" style="margin-top: 20px" *ngIf="schemePoints">
             Punkte
           </div>
           <div class="col s4" style="margin-top: 20px" *ngIf="schemePercentage">
             Prozent
           </div>
+          <div class="col s1" style="margin-top: 20px" id="deleteBtn" (click)="deleteEntry">
+            <i class="material-icons right">highlight_off</i>
+          </div>
+          
         </div>
         <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px">
           <i class="material-icons left">add</i>Notenstufe hinzufügen</a>
@@ -63,6 +67,7 @@
         <span>{{question.name}}</span>
         <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
         <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+        <i class="material-icons right">highlight_off</i>
       </div>
       <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
         <div class="col s12">

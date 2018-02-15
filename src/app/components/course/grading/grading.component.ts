@@ -43,12 +43,10 @@ maxPoints=0;
   }
 
   addNewGrade(): void{
-    console.log("fire");
     this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
       "note": 6.6,
       "wert_min": 10
     });
-    console.log("fire2");
   }
   
   changeDetected(event):void{
@@ -67,6 +65,9 @@ maxPoints=0;
     this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = "Prozent";
   }
 
+  deleteEntry(){
+    console.log("phew phew");
+  }
 
 
 }
