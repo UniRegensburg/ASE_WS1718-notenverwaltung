@@ -105,10 +105,7 @@ export class GlobalDataService {
 
   public getStudentsWithGroup(): Observable<Array<any>>{
     let students = this.current_project.teilnehmer;
-    let groups = this.current_project.gruppen;
-
-    console.log(groups);
-    
+    let groups = this.current_project.gruppen;    
     students.forEach(student => {
       student.group = "";
     });
@@ -221,7 +218,6 @@ export class GlobalDataService {
         }
       });
     });   
-    console.log(groups);
     this.current_project.gruppen = groups;
     //this.saveJson();     
   }

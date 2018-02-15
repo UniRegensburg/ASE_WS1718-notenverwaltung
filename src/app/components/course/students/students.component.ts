@@ -159,15 +159,12 @@ export class StudentsComponent implements OnInit {
       address = String.fromCharCode(65 + row) + cell;
       this.dataService.setNewStudents(student);
     }
-    console.log(students)
-    console.log("paricipants:", this.participants)
     this.changeDetectorRef.detectChanges();
 
 
   }
 
   enableGroups(): void {
-    console.log("NYI")
   }
 
 
