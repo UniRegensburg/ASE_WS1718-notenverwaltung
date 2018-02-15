@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GlobalDataService } from '../../../../providers/index'
 import {
-  ActivatedRoute
+  ActivatedRoute, Router
 } from '@angular/router';
+
 
 declare var require: any;
 declare var $: any;
@@ -17,8 +18,12 @@ export class DetailComponent implements OnInit {
   private sub: any;
   private participants: any;
   private current_student: any;
+  private current_student_index: number;
 
-  constructor(public dataService: GlobalDataService, private route: ActivatedRoute) { }
+  constructor(
+    public dataService: GlobalDataService, 
+    private route: ActivatedRoute,
+    public router: Router) { }
 
   ngOnInit() {   
       this.sub = this.route.params.subscribe(params => {
@@ -39,7 +44,8 @@ export class DetailComponent implements OnInit {
   setCurrentStudent(id): void{
     this.participants.forEach(student => {
       if(student.id == id){
-        this.current_student = student;                                
+        this.current_student = student;  
+        this.current_student_index = id;                              
       }
     }); 
   }
@@ -49,7 +55,14 @@ export class DetailComponent implements OnInit {
       this.participants = data.current_project["teilnehmer"];
       this.setCurrentStudent(data.id);
     });
+  }
+
+  deleteStudent(): void{
+    this.participants.splice(this.current_student_index, 1);
+    console.log(this.participants);
     
+    this.dataService.setNewStudents(this.participants);
+    this.router.navigate(['/course/students']);
   }
 
 }

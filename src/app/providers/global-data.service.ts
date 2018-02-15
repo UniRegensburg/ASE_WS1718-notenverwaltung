@@ -180,7 +180,7 @@ export class GlobalDataService {
   }
 
   private saveJson(): void{
-    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+    /*writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
         if(err){
             alert("An error ocurred creating the file "+ err.message);
         }
@@ -188,7 +188,7 @@ export class GlobalDataService {
           // alert("The file has been succesfully saved");
           console.log("The file has been saved")
       }
-    });
+    });*/
 
   }
 
