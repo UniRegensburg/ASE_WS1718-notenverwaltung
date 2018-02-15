@@ -41,6 +41,15 @@ maxPoints=0;
       "bewertungs_hinweis": ""
     });
   }
+
+  addNewGrade(): void{
+    console.log("fire");
+    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
+      "note": 6.6,
+      "wert_min": 10
+    });
+    console.log("fire2");
+  }
   
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
