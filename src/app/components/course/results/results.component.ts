@@ -224,6 +224,9 @@ export class ResultsComponent implements OnInit {
       case "grips":
         this.grips.export()
         break;
+      case "print":
+        window.print();
+        break;
     }
   }
 
