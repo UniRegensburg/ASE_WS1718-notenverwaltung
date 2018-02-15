@@ -58,9 +58,7 @@ export class DetailComponent implements OnInit {
   }
 
   deleteStudent(): void{
-    this.participants.splice(this.current_student_index, 1);
-    console.log(this.participants);
-    
+    this.participants.splice(this.current_student_index, 1);    
     this.dataService.setNewStudents(this.participants);
     this.router.navigate(['/course/students']);
   }

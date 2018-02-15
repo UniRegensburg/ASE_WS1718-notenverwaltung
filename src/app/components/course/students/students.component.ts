@@ -7,6 +7,9 @@ import * as XLSX from 'ts-xlsx'
 import {
   GlobalDataService
 } from '../../../providers/index'
+import {
+  ActivatedRoute, Router
+} from '@angular/router';
 
 declare var require: any;
 declare var $: any;
@@ -25,7 +28,10 @@ export class StudentsComponent implements OnInit {
   private group_mode: boolean = false;
 
   // const zone: NgZone=moduleRef.injector.get(NgZone);
-  constructor(public dataService: GlobalDataService, private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    public dataService: GlobalDataService, 
+    private changeDetectorRef: ChangeDetectorRef,
+    public router: Router) {}
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -76,6 +82,12 @@ export class StudentsComponent implements OnInit {
       "name": "",
       "studenten":[]
     });
+  }
+
+  deleteStudent(id): void{
+    this.participants.splice(id, 1);                           
+    this.dataService.setNewStudentsComplete(this.participants);
+    this.router.navigate(['/course/students']);
   }
 
   processData(filepath): void {

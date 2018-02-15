@@ -201,6 +201,11 @@ export class GlobalDataService {
     this.saveJson();
   }
 
+  public setNewStudentsComplete(students): void{
+    this.current_project.teilnehmer = students;
+    this.saveJson();
+  }
+
   public setNewGrading(grading): void{
     this.current_project.bewertung = grading;
     this.saveJson();
