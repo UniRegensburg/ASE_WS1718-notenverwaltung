@@ -28,12 +28,7 @@ export class ResultsComponent implements OnInit {
     });
   }
 
-  createUserGradingList(): void {
-    this.current_project.teilnehmer.forEach(element => {
-    });
-  }
-
-  condition(): any {
+  switch_diagrams(): any {
     this.display_diagrams = !this.display_diagrams;
   }
 
@@ -45,10 +40,10 @@ export class ResultsComponent implements OnInit {
     this.chartService.initScatterChart();
   }
 
-getDiagramData(): void {
-  this.notenstufen = this.dataService.getGradingSteps();
-  this.teilnehmernoten = this.dataService.getGradesPerStep(this.notenstufen.length)
-}
+  getDiagramData(): void {
+    this.notenstufen = this.dataService.getGradingSteps();
+    this.teilnehmernoten = this.dataService.getGradesPerStep(this.notenstufen.length)
+  }
 
   export(string): void {
     switch (string) {
