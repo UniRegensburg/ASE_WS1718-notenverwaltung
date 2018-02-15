@@ -59,6 +59,29 @@ export class GlobalDataService {
       return of(this.current_project.teilnehmer)
   }
 
+  public getGradingSteps(): any{
+    var gradingSteps = [];
+
+    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
+      gradingSteps.push(step.note);
+    });    
+    return gradingSteps;
+  }
+
+  public getGradesPerStep(nSteps): Array<any>{
+    var gradesPerStep = new Array(nSteps).fill(0);
+    var gradingSteps = this.getGradingSteps();
+
+    this.current_project.teilnehmer.forEach(student => {
+      for (var i = 0; i<nSteps; i++){
+        if (student.grade == gradingSteps[i]){
+          gradesPerStep[i] = gradesPerStep[i]+1;
+        }
+      }
+    });
+    return gradesPerStep;
+  }
+
   public getStudentGrading(): Observable<any>{
     let gradings = this.current_project.bewertung;
     let task_counter = this.current_project.bewertungsschema.aufgaben.length;    
