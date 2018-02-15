@@ -70,7 +70,7 @@
           <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
         </div>
         <div class="col s1">
-          <i class="material-icons right edit-btn" [routerLink]="['/course/students']">create</i>
+          <i class="material-icons right edit-btn" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
         </div>
         <div class="col s1">
           <i class="material-icons right edit-btn" [routerLink]="['/course/results']">pie_chart</i>

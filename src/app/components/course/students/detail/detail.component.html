@@ -1,0 +1,39 @@
+<div class="container">
+
+  <h1>Detailansicht - {{current_student.vorname}}, {{current_student.name}}</h1>
+
+  <div class="row" style="margin-top:50px">
+    <div class="col s12">
+      <b>Name</b>
+      <div class="input-field inline right input_detail">
+        <input type="text" [(ngModel)]="current_student.name">
+      </div>
+    </div>
+    <div class="col s12">
+      <b>Vorname</b>
+      <div class="input-field inline right input_detail">
+        <input type="text" [(ngModel)]="current_student.vorname">
+      </div>
+    </div>
+    <div class="col s12">
+      <b>Martrikelnummer</b>
+      <div class="input-field inline right input_detail">
+        <input type="text" [(ngModel)]="current_student.mtknr">
+      </div>
+    </div>
+    <div class="col s12">
+      <b>Status</b>
+      <div class="input-field inline right input_detail">
+        <input type="text" [(ngModel)]="current_student.status">
+      </div>
+    </div>
+    <div class="col s12">
+      <b>Studiengang</b>
+      <div class="input-field inline right input_detail">
+        <input type="text" [(ngModel)]="current_student.studiengang">
+      </div>
+    </div>
+    <a class="waves-effect waves-light btn pink darken-2" (click)="deleteStudent()">Student Löschen</a>
+  </div>
+
+</div>
