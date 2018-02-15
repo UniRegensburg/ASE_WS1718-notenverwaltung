@@ -13,6 +13,7 @@ export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
 
   private current_project: any;
+  private schema_available: boolean = false;
 
   schemeEditMode = false;
   openCollapsible: any = {};
@@ -23,12 +24,12 @@ export class GradingComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(data =>{
-    this.current_project = data;
+      this.current_project = data;
+      console.log(this.current_project);
+      if(this.current_project.bewertungsschema != []){
+        this.schema_available = true;
+      }
    });
-  }
-
-  setEditMode(new_status): void{
-    this.schemeEditMode = new_status;
   }
 
   addNewTask(): void{
@@ -44,9 +45,11 @@ export class GradingComponent implements OnInit {
       "bewertungs_hinweis": ""
     });
   }
+
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
   }
+
   importScheme(): void{
       var app = require('electron').remote;
       var dialog = app.dialog
@@ -59,6 +62,7 @@ export class GradingComponent implements OnInit {
         this.processImport(fileNames[0])
       });
   }
+
   processImport(file): void{
       console.log("opening",file)
       this.http.get(file).subscribe(res => {
