@@ -22,10 +22,10 @@
       <div style="height: 300px;  overflow: scroll;">
         <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
           <div class="col s4">
-            <input [(ngModel)]="entry.note" class="validate" (change)="changeDetected($event)">
+            <input [(ngModel)]="entry.note" type="number" class="validate">
           </div>
           <div class="col s4">
-            <input [(ngModel)]="entry.wert_min" class="validate" (change)="changeDetected($event)">
+            <input [(ngModel)]="entry.wert_min" type="number" class="validate">
           </div>
           <div class="col s3" style="margin-top: 20px" *ngIf="schemePoints">
             Punkte

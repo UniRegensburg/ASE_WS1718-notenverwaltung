@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, group } from '@angular/core';
 import { log } from 'util';
 
 import { Http, Response } from '@angular/http';
@@ -47,7 +47,7 @@ export class GlobalDataService {
   }
 
   public getCurrentProject(): Observable<Schema>{
-    this.checkCurrentValidity();
+    //this.checkCurrentValidity();
     return of(this.current_project);
   }
 
@@ -59,6 +59,29 @@ export class GlobalDataService {
       return of(this.current_project.teilnehmer)
   }
 
+  public getGradingSteps(): any{
+    var gradingSteps = [];
+
+    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
+      gradingSteps.push(step.note);
+    });    
+    return gradingSteps;
+  }
+
+  public getGradesPerStep(nSteps): Array<any>{
+    var gradesPerStep = new Array(nSteps).fill(0);
+    var gradingSteps = this.getGradingSteps();
+
+    this.current_project.teilnehmer.forEach(student => {
+      for (var i = 0; i<nSteps; i++){
+        if (student.grade == gradingSteps[i]){
+          gradesPerStep[i] = gradesPerStep[i]+1;
+        }
+      }
+    });
+    return gradesPerStep;
+  }
+
   public getStudentGrading(): Observable<any>{
     let gradings = this.current_project.bewertung;
     let task_counter = this.current_project.bewertungsschema.aufgaben.length;    
@@ -67,15 +90,14 @@ export class GlobalDataService {
       student.grade = 0;
       student.finish = 0;
     });
-
+    
     gradings.forEach(grading => {      
       this.current_project.teilnehmer.forEach(student => {        
         if(student.id == grading.student_id){          
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = task_counter / grading.einzelwertungen.length;
+          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));      
         }
-      });
-      
+      });      
     });
 
     return of(this.current_project.teilnehmer);
@@ -94,14 +116,36 @@ export class GlobalDataService {
   private getGradeByScale(sum_grade): number{
     let grading_schema = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     let returnValue = 0;    
+    let grade_found = false;
 
-    grading_schema.forEach(element => {
+    grading_schema.some(element => {
       if(element.wert_min <= sum_grade){
-        returnValue = element.note;
+        if(!grade_found){
+          grade_found = true;
+          returnValue = element.note;
+        }
       }
     });
-
     return returnValue;
+  }
+
+  public getStudentsWithGroup(): Observable<Array<any>>{
+    let students = this.current_project.teilnehmer;
+    let groups = this.current_project.gruppen;    
+    students.forEach(student => {
+      student.group = "";
+    });
+
+    groups.forEach(group => {
+      group.studenten.forEach(student_id => {
+        students.forEach(student => {
+          if(student.id == student_id){
+            student.group = group.name;            
+          }
+        });
+      });
+    });
+    return of(students);
   }
 
    /**
@@ -112,6 +156,21 @@ export class GlobalDataService {
     if(this.current_project.bewertung.length == 0){
       this.createNewStudentGrading();
     }   
+  }
+
+  public createNewStudent(): Observable<any>{
+    let user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length-1].id +1;
+    let user = { 
+      "id": user_id,
+      "mtknr": 0,
+      "name": "",
+      "vorname": "",
+      "studiengang": "",
+      "fachsemester": 0,
+      "mail": "",
+      "status": ""
+    };
+    return of(user);
   }
 
   private createNewStudentGrading(): any {
@@ -144,7 +203,7 @@ export class GlobalDataService {
   }
 
   private saveJson(): void{
-    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+    /*writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
         if(err){
             alert("An error ocurred creating the file "+ err.message);
         }
@@ -152,7 +211,7 @@ export class GlobalDataService {
           // alert("The file has been succesfully saved");
           console.log("The file has been saved")
       }
-    });
+    });*/
 
   }
 
@@ -160,14 +219,33 @@ export class GlobalDataService {
    * Setter methods to update global project
    */
 
-  public setNewStudents(student): void{
-    this.current_project.teilnehmer.push(student);
+  public setNewStudents(students): void{
+    this.current_project.teilnehmer.push(students);
+    this.saveJson();
+  }
+
+  public setNewStudentsComplete(students): void{
+    this.current_project.teilnehmer = students;
     this.saveJson();
   }
 
   public setNewGrading(grading): void{
     this.current_project.bewertung = grading;
     this.saveJson();
+  }
+
+  public setNewGroups(grouped_students): void{
+    let groups = this.current_project.gruppen;
+    groups.forEach(group => {
+      group.studenten = [];
+      grouped_students.forEach(student => {
+        if(student.group == group.name){
+          group.studenten.push(student.id);
+        }
+      });
+    });   
+    this.current_project.gruppen = groups;
+    //this.saveJson();     
   }
 
 }

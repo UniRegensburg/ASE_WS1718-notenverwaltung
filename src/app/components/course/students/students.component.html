@@ -1,48 +1,116 @@
 <div class="container">
-    <h1>Teilnehmer</h1>
-    <hr class="hr_welcome">
-    <br>
+  <h1>Teilnehmer</h1>
+  <hr class="hr_welcome">
+  <br>
 
-    <div class="row">
-        <div class="col s5">
-            <a class='btn waves-effect waves-light pink darken-2' (click)="openDialog()"><i class="material-icons left">create</i> Teilnehmer importieren</a>
+  <div class="row">
+    <div class="col s6">
+      <div class="row">
+        <div class="col s6">
+          <a *ngIf="!group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = false">Teilnehmer</a>
+          <a *ngIf="group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = false">Teilnehmer</a>
         </div>
-        <div class="col s5">
-            <a class='btn waves-effect waves-light pink darken-2' (click)="enableGroups()"><i class="material-icons left">create</i> Gruppen aktivieren</a>
+        <div class="col s6">
+          <a *ngIf="!group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = true">Gruppen</a>
+          <a *ngIf="group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = true">Gruppen</a>
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col l12" *ngFor="let participant of this.participants  | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
-            <div class="row row_hover">
-                <div class="col s0">
-                    {{participant.id}}
-                </div>
-                <div class="col s2">
-                    {{participant.name}}, {{participant.vorname}}
-                </div>
-                <div class="col s1">
-                    {{participant.mtknr}}
-                </div>
-                <div class="col s3">
-                    {{participant.studiengang}}
-                </div>
-                <div class="col s0">
-                    {{participant.fachsemester}}
-                </div>
-                <div class="col s3">
-                    {{participant.mail}}
-                </div>
-                <div class="col s1">
-                    {{participant.status}}
-                </div>
-
+    <div class="col s6">
+      <span *ngIf="!group_mode" class="right clickHover" [routerLink]="['/course/student_detail', {student_id: 'createNewStudent'}]">
+        <i class="material-icons left">add</i> Teilnehmer hinzufügen
+      </span>
+      <span *ngIf="!group_mode" (click)="openDialog()" class="right clickHover">
+        <i class="material-icons left">import_export</i> Teilnehmer importieren
+      </span>
+      <span *ngIf="group_mode" class="right clickHover" (click)="addGroup()">
+        <i class="material-icons left">add</i> Neu Gruppe hinzufügen
+      </span>
+    </div>
+  </div>
+  <div *ngIf="!group_mode">
+    <div class="row" style="margin-top: 50px;">
+      <div class="col l12">
+        <div class="row row_hover">
+          <div class="col s2">
+            <b>Name, Vorname</b>
+          </div>
+          <div class="col s2">
+            <b>Martrikelnummer</b>
+          </div>
+          <div class="col s2">
+            <b>Studiengang</b>
+          </div>
+          <div class="col s4">
+            <b>Gruppe</b>
+          </div>
         </div>
         <hr class="hr_table">
+      </div>
+      <div class="col l12" *ngFor="let participant of participants  | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
+        <div class="row row_hover">
+          <div class="col s2">
+            {{participant.name}}, {{participant.vorname}}
+          </div>
+          <div class="col s2">
+            {{participant.mtknr}}
+          </div>
+          <div class="col s2">
+            {{participant.studiengang}}
+          </div>
+          <div class="col s4">
+            <select class="browser-default" [(ngModel)]="participant.group" (change)="changeDetected($event)">
+              <option value="" disabled selected>Choose your option</option>
+              <option *ngFor="let group of groups" [ngValue]="group.name">{{group.name}}</option>
+            </select>
+          </div>
+          <div class="col s1">
+            <i class="material-icons right edit-btn clickHover" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
+          </div>
+          <div class="col s1">
+              <i class="material-icons clickHover" (click)="deleteStudent(i)">delete</i>
+          </div>
+        </div>
+        <hr class="hr_table">
+      </div>
+      <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
-</div>
+  </div>
 
-
-
-
-</div>
+  <div *ngIf="group_mode">
+    <div class="row" style="margin-top: 50px;">
+      <div class="col l12">
+        <div class="row row_hover">
+          <div class="col s2">
+            <b>Gruppen ID</b>
+          </div>
+          <div class="col s4">
+            <b>Name der Gruppe</b>
+          </div>
+          <div class="col s3">
+            <b>Studenten Anzahl</b>
+          </div>
+          <div class="col s3">
+          </div>
+        </div>
+        <hr class="hr_table">
+      </div>
+      <div class="col l12" *ngFor="let group of groups; let i = index">
+        <div class="row row_hover">
+          <div class="col s2">
+            {{i}}
+          </div>
+          <div class="col s4">
+            <input [(ngModel)]="group.name" type="text" class="validate">
+          </div>
+          <div class="col s3">
+            {{group.studenten.length}}
+          </div>
+          <div class="col s3">
+            <i class="material-icons clickHover" (click)="delteGroup(i)">delete</i>
+          </div>
+        </div>
+        <hr class="hr_table">
+      </div>
+    </div>
+  </div>
