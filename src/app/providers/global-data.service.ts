@@ -110,6 +110,8 @@ export class GlobalDataService {
     student.einzelwertungen.forEach(grade => {
       sum_grades = sum_grades + grade.erreichte_punkte;
     });
+
+    console.log(sum_grades)
     
     return this.getGradeByScale(sum_grades);
   }
@@ -117,13 +119,16 @@ export class GlobalDataService {
   private getGradeByScale(sum_grade): number{
     let grading_schema = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     let returnValue = 0;    
+    let grade_found = false;
 
-    grading_schema.forEach(element => {
+    grading_schema.some(element => {
       if(element.wert_min <= sum_grade){
-        returnValue = element.note;
+        if(!grade_found){
+          grade_found = true;
+          returnValue = element.note;
+        }
       }
     });
-
     return returnValue;
   }
 
