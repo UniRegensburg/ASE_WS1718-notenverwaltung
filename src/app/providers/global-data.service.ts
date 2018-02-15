@@ -110,8 +110,6 @@ export class GlobalDataService {
     student.einzelwertungen.forEach(grade => {
       sum_grades = sum_grades + grade.erreichte_punkte;
     });
-
-    console.log(sum_grades)
     
     return this.getGradeByScale(sum_grades);
   }
