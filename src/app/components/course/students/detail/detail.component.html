@@ -33,7 +33,9 @@
         <input type="text" [(ngModel)]="current_student.studiengang">
       </div>
     </div>
-    <a class="waves-effect waves-light btn pink darken-2" (click)="deleteStudent()">Student Löschen</a>
+    <a *ngIf="!create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="deleteStudent()">Student Löschen</a>
+    <a *ngIf="create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="addStudent()">Student Hinzufügen</a>
+    <a class="waves-effect waves-light btn pink darken-2 right" [routerLink]="['/course/students']">Abbrechen</a>
   </div>
 
 </div>

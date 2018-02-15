@@ -19,6 +19,7 @@ export class DetailComponent implements OnInit {
   private participants: any;
   private current_student: any;
   private current_student_index: number;
+  private create_new_student_mode: boolean = false;
 
   constructor(
     public dataService: GlobalDataService, 
@@ -32,6 +33,7 @@ export class DetailComponent implements OnInit {
           if (params) {            
             if(params.student_id == "createNewStudent"){              
               this.getNewStudent();
+              this.create_new_student_mode = true;
             }
             else{
               this.setCurrentStudent(params.student_id);
@@ -51,10 +53,14 @@ export class DetailComponent implements OnInit {
   }
 
   getNewStudent(): void{
-    this.dataService.createNewStudent().subscribe(data => {
-      this.participants = data.current_project["teilnehmer"];
-      this.setCurrentStudent(data.id);
+    this.dataService.createNewStudent().subscribe(student => {
+      this.current_student = student;
     });
+  }
+
+  addStudent(): void{
+    this.dataService.setNewStudents(this.current_student);
+    this.router.navigate(['/course/students']);
   }
 
   deleteStudent(): void{

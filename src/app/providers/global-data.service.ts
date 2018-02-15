@@ -137,7 +137,7 @@ export class GlobalDataService {
 
   public createNewStudent(): Observable<any>{
     let user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length-1].id +1;
-    this.current_project.teilnehmer.push({
+    let user = { 
       "id": user_id,
       "mtknr": 0,
       "name": "",
@@ -146,8 +146,8 @@ export class GlobalDataService {
       "fachsemester": 0,
       "mail": "",
       "status": ""
-    });
-    return of({'current_project': this.current_project, 'id': user_id});
+    };
+    return of(user);
   }
 
   private createNewStudentGrading(): any {
