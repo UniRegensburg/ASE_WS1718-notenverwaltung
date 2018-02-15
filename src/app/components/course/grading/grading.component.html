@@ -27,21 +27,30 @@
           <div class="col s4">
             <input [(ngModel)]="entry.wert_min" type="number" class="validate">
           </div>
-          <div class="col s4" style="margin-top: 20px">
+          <div class="col s3" style="margin-top: 20px" *ngIf="schemePoints">
             Punkte
           </div>
+          <div class="col s4" style="margin-top: 20px" *ngIf="schemePercentage">
+            Prozent
+          </div>
+          <div class="col s1" style="margin-top: 20px" id="deleteBtn" (click)="deleteEntry">
+            <i class="material-icons right">highlight_off</i>
+          </div>
+          
         </div>
+        <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px">
+          <i class="material-icons left">add</i>Notenstufe hinzufügen</a>
       </div>
     </div>
     <div class='col l6' id='grading-unit'>Bewertungseinheit
       <form action="#" id='grading-form'>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test1" checked/>
+          <input class="with-gap" name="group1" type="radio" id="test1" (click)="pointsSelected()" value="0" (change)="changeDetected($event)" checked/>
           <label for="test1">Punkte</label>
         </p>
         <p>
-          <input class="with-gap" name="group1" type="radio" id="test2" />
-          <label for="test2">Prozent</label>
+          <input class="with-gap" name="group1" type="radio" id="test2" (click)="percentageSelected()" (change)="changeDetected($event)" value="1"/>
+          <label for="test2">Prozent</label> 
         </p>
       </form>
     </div>
@@ -58,6 +67,7 @@
         <span>{{question.name}}</span>
         <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
         <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+        <i class="material-icons right">highlight_off</i>
       </div>
       <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
         <div class="col s12">
@@ -68,7 +78,8 @@
           </div>
         </div>
         <div class="col s12">
-          Erreichbare Punkte:
+        <div *ngIf="this.schemePoints">Erreichbare Punkte:</div>
+        <div *ngIf="this.schemePercentage">Erreichbare Prozentzahl:</div>
           <div class="input-field inline">
             <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
             <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
@@ -119,3 +130,4 @@
   </div>
 
 </div>
+

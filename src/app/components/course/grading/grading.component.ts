@@ -11,7 +11,11 @@ export class GradingComponent implements OnInit {
   
   private current_project: any;
   
-  schemeEditMode = false;
+  schemePoints = true;
+  schemePercentage = false;
+
+maxPoints=0;
+
   openCollapsible: any = {};
   
   constructor(public dataService: GlobalDataService) {
@@ -22,10 +26,6 @@ export class GradingComponent implements OnInit {
     this.dataService.getCurrentProject().subscribe(data =>{
     this.current_project = data;
    });
-  }
-  
-  setEditMode(new_status): void{
-    this.schemeEditMode = new_status;
   }
   
   addNewTask(): void{
@@ -41,8 +41,34 @@ export class GradingComponent implements OnInit {
       "bewertungs_hinweis": ""
     });
   }
+
+  addNewGrade(): void{
+    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
+      "note": 6.6,
+      "wert_min": 10
+    });
+  }
   
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
   }
+
+  pointsSelected(): void{
+    this.schemePoints = true;
+    this.schemePercentage = false;
+    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit= "Punkte";
+  }
+
+  percentageSelected(): void{
+    this.schemePoints = false;
+    this.schemePercentage = true;
+    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = "Prozent";
+  }
+
+  deleteEntry(){
+    console.log("phew phew");
+  }
+
+
 }
+
