@@ -35,9 +35,7 @@ export class OverviewComponent implements OnInit {
       this.current_project_name = this.current_project.title;
 
       this.dataService.getStudentGrading().subscribe(data => {
-        this.participants = data;
-        console.log(data);
-        
+        this.participants = data;        
         this.createUserGradingList();
         this.initGraphView();
       });
@@ -106,9 +104,7 @@ export class OverviewComponent implements OnInit {
     });
   }
 
-  getCurrentStudent(id): any{
-    console.log(id);
-    
+  getCurrentStudent(id): any{    
     this.current_project.bewertung.forEach(element => {     
       if(element.student_id == id) return element;
     }); 
