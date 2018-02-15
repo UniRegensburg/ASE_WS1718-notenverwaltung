@@ -5,6 +5,8 @@
     <div *ngIf="!schema_available" class="col s8">
       <a class='btn waves-effect waves-light pink darken-2 pull-left' (click)="importScheme()">
         <i class="material-icons left">create</i> Bewertungsschema importieren</a>
+      <a class='btn waves-effect waves-light pink darken-2 pull-left' (click)="createScheme()">
+        <i class="material-icons left">create</i> Bewertungsschema erstellen</a>
     </div>
   </div>
   <div *ngIf="schema_available">

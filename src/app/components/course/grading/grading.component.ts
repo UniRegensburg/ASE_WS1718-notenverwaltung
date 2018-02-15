@@ -3,6 +3,7 @@ import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { log } from 'util';
 
 @Component({
   selector: 'app-grading',
@@ -15,8 +16,8 @@ export class GradingComponent implements OnInit {
   private current_project: any;
   private schema_available: boolean = false;
 
-  schemeEditMode = false;
-  openCollapsible: any = {};
+  private chemeEditMode: boolean = false;
+  private openCollapsible: any = {};
 
   constructor(public dataService: GlobalDataService, private http: Http,  private changeDetectorRef: ChangeDetectorRef) {
 
@@ -24,9 +25,8 @@ export class GradingComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(data =>{
-      this.current_project = data;
-      console.log(this.current_project);
-      if(this.current_project.bewertungsschema != []){
+      this.current_project = data;      
+      if(Object.keys(this.current_project.bewertungsschema).length != 0){
         this.schema_available = true;
       }
    });
@@ -48,6 +48,7 @@ export class GradingComponent implements OnInit {
 
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
+    this.changeDetectorRef.detectChanges();
   }
 
   importScheme(): void{
@@ -59,15 +60,15 @@ export class GradingComponent implements OnInit {
           console.log("No file selected")
           return;
         }
-        this.processImport(fileNames[0])
+        this.dataService.processImport(fileNames[0]).subscribe(data=>{
+          this.current_project = data;
+          this.schema_available = true;
+          this.changeDetectorRef.detectChanges();
+        });
       });
   }
+  
+  createScheme(): void{
 
-  processImport(file): void{
-      console.log("opening",file)
-      this.http.get(file).subscribe(res => {
-                            this.current_project.bewertungsschema = res.json().bewertungsschema
-                            this.changeDetectorRef.detectChanges();
-                            })
-   }
+  }
 }
