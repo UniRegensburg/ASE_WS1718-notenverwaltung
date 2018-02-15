@@ -36,8 +36,8 @@ export class ResultsComponent implements OnInit {
     this.getDiagramData();
 
     this.chartService.initBarChart(this.notenstufen, this.teilnehmernoten);
-    this.chartService.initPolarChart();
-    this.chartService.initScatterChart();
+    //this.chartService.initPolarChart();
+    //this.chartService.initScatterChart();
   }
 
   getDiagramData(): void {
