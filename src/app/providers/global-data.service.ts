@@ -70,11 +70,12 @@ export class GlobalDataService {
 
   public getGradesPerStep(nSteps): Array<any>{
     var gradesPerStep = new Array(nSteps).fill(0);
+    var gradingSteps = this.getGradingSteps();
 
     this.current_project.teilnehmer.forEach(student => {
       for (var i = 0; i<nSteps; i++){
-        if (student.grade == this.getGradingSteps[i]){
-          gradesPerStep[i] = gradesPerStep[i+1];
+        if (student.grade == gradingSteps[i]){
+          gradesPerStep[i] = gradesPerStep[i]+1;
         }
       }
     });

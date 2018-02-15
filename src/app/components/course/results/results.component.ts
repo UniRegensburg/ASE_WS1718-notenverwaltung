@@ -69,7 +69,6 @@ export class ResultsComponent implements OnInit {
         labels: this.notenstufen,
         datasets: [
           {
-            label: "Population (millions)",
             backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60",],
             data: this.teilnehmernoten
           }
