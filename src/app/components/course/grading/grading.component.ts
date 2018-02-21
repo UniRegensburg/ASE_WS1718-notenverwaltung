@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { log } from 'util';
 
 @Component({
   selector: 'app-grading',
@@ -8,26 +12,26 @@ import { GlobalDataService } from '../../../providers/index';
 })
 export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
-  
+
   private current_project: any;
-  
-  schemePoints = true;
-  schemePercentage = false;
+  private schema_available: boolean = false;
 
-maxPoints=0;
+  private chemeEditMode: boolean = false;
+  private openCollapsible: any = {};
 
-  openCollapsible: any = {};
-  
-  constructor(public dataService: GlobalDataService) {
-    
+  constructor(public dataService: GlobalDataService, private http: Http,  private changeDetectorRef: ChangeDetectorRef) {
+
   }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(data =>{
-    this.current_project = data;
+      this.current_project = data;      
+      if(Object.keys(this.current_project.bewertungsschema).length != 0){
+        this.schema_available = true;
+      }
    });
   }
-  
+
   addNewTask(): void{
     this.current_project.bewertungsschema.aufgaben.push({
       "id": this.current_project.bewertungsschema.aufgaben.length,
@@ -51,6 +55,28 @@ maxPoints=0;
   
   changeDetected(event):void{
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
+    this.changeDetectorRef.detectChanges();
+  }
+
+  importScheme(): void{
+      var app = require('electron').remote;
+      var dialog = app.dialog
+      var fs = require('fs')
+      dialog.showOpenDialog((fileNames) =>{
+        if (fileNames === undefined){
+          console.log("No file selected")
+          return;
+        }
+        this.dataService.processImport(fileNames[0]).subscribe(data=>{
+          this.current_project = data;
+          this.schema_available = true;
+          this.changeDetectorRef.detectChanges();
+        });
+      });
+  }
+  
+  createScheme(): void{
+
   }
 
   pointsSelected(): void{

@@ -1,12 +1,19 @@
 <div class="container">
   <h1>Bewertungsschema</h1>
-  <p> Auf dieser Seite sehen Sie das aktuelle Bewertungsschema. Sie können dies nach ihren Wünschen bearbeiten und anpassen.</p>
   <hr class="hr_welcome">
-
-  <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
   <div class="row">
-    <div class="col l6">
-      <div class="row row_hover">
+    <div *ngIf="!schema_available" class="col s8">
+      <a class='btn waves-effect waves-light pink darken-2 pull-left' (click)="importScheme()">
+        <i class="material-icons left">create</i> Bewertungsschema importieren</a>
+      <a class='btn waves-effect waves-light pink darken-2 pull-left' (click)="createScheme()">
+        <i class="material-icons left">create</i> Bewertungsschema erstellen</a>
+    </div>
+  </div>
+  <div *ngIf="schema_available">
+    <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
+    <div class="row">
+      <div class="col l6">
+        <div class="row row_hover">
 
         <div class="col s4 table-header">
           Notenstufe
@@ -116,17 +123,88 @@
         <form action="#">
           <div class="col s12">Erlaubte Kommentare:</div>
           <p>
-            <input [(ngModel)]="question.comment_public" type="checkbox" class="filled-in" [ngModelOptions]="{standalone: true}"/>
-            <label for="filled-in-box1">Öffentlicher Kommentar</label>
+            <input class="with-gap" name="group1" type="radio" id="test1" checked/>
+            <label for="test1">Punkte</label>
           </p>
           <p>
-            <input [(ngModel)]="question.comment_privat" type="checkbox" class="filled-in" [ngModelOptions]="{standalone: true}" />
-            <label for="filled-in-box2">Privater Kommentar</label>
+            <input class="with-gap" name="group1" type="radio" id="test2" />
+            <label for="test2">Prozent</label>
           </p>
         </form>
-
       </div>
     </div>
+
+
+    <div class='row title-block' style="padding:10px">Aufgaben / Fragen</div>
+    <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewTask()" style="margin-bottom: 15px">
+      <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
+
+    <div class="row">
+      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index" (change)="changeDetected($event)">
+        <div class="card-panel white" (click)="openCollapsible[i] = !openCollapsible[i]">
+          <span>{{question.name}}</span>
+          <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
+          <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+        </div>
+        <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
+          <div class="col s12">
+            Titel der Aufgabe:
+            <div class="input-field inline">
+              <input [(ngModel)]="question.name" id="title" type="text">
+              <label for="title" class="active">z.B. Aufgabe 1</label>
+            </div>
+          </div>
+          <div class="col s12">
+            Erreichbare Punkte:
+            <div class="input-field inline">
+              <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
+              <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="col s12">
+            Dezimale Gewichtung:
+            <div class="input-field inline">
+              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.1">
+              <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 0.5</label>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="col s12">Aufgabenbeschreibung:</div>
+          <div class="input-field col s12">
+            <!--input value="{{question.beschreibung}}" placeholder="Aufgabenbeschreibung" id="beschreibung" type="text"-->
+            <textarea [(ngModel)]="question.beschreibung" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Aufgabenbeschreibung"></textarea>
+            <label for="beschreibung" class="active">z.B. Programmieren Sie eine Software zur Notenverwaltung.</label>
+          </div>
+          <br>
+          <br>
+          <div class="col s12">Bewertungshinweis:</div>
+          <div class="input-field col s12">
+            <textarea [(ngModel)]="question.bewertungs_hinweis" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Bewertungshinweis"></textarea>
+            <label for="hinweis" class="active">z.B. 2 Punkte für tolle Demo.</label>
+          </div>
+          <br>
+          <br>
+          <form action="#">
+            <div class="col s12">Erlaubte Kommentare:</div>
+            <p>
+              <input [(ngModel)]="question.comment_public" type="checkbox" class="filled-in" [ngModelOptions]="{standalone: true}" />
+              <label for="filled-in-box1">Öffentlicher Kommentar</label>
+            </p>
+            <p>
+              <input [(ngModel)]="question.comment_privat" type="checkbox" class="filled-in" [ngModelOptions]="{standalone: true}" />
+              <label for="filled-in-box2">Privater Kommentar</label>
+            </p>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>
