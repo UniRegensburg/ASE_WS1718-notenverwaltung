@@ -44,7 +44,7 @@ export class GlobalDataService {
     private http: Http) {}
 
   /**
-   * Getter methods to load local projects 
+   * Getter methods to load local projects
    * and to dispatch data to each component
    */
 
@@ -79,7 +79,7 @@ export class GlobalDataService {
 
     this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
       gradingSteps.push(step.note);
-    });    
+    });
     return gradingSteps;
   }
 
@@ -105,15 +105,15 @@ export class GlobalDataService {
       student.grade = 0;
       student.finish = 0;
     });
-    
-    gradings.forEach(grading => {      
-      this.current_project.teilnehmer.forEach(student => {        
-        if(student.id == grading.student_id){          
+
+    gradings.forEach(grading => {
+      this.current_project.teilnehmer.forEach(student => {
+        if(student.id == grading.student_id){
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));      
+          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));
         }
       });
-      
+
     });
 
     return of(this.current_project.teilnehmer);
@@ -131,7 +131,7 @@ export class GlobalDataService {
 
   private getGradeByScale(sum_grade): number {
     let grading_schema = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
-    let returnValue = 0;    
+    let returnValue = 0;
     let grade_found = false;
 
     grading_schema.some(element => {
@@ -147,7 +147,7 @@ export class GlobalDataService {
 
   public getStudentsWithGroup(): Observable<Array<any>>{
     let students = this.current_project.teilnehmer;
-    let groups = this.current_project.gruppen;    
+    let groups = this.current_project.gruppen;
     students.forEach(student => {
       student.group = "";
     });
@@ -156,7 +156,7 @@ export class GlobalDataService {
       group.studenten.forEach(student_id => {
         students.forEach(student => {
           if(student.id == student_id){
-            student.group = group.name;            
+            student.group = group.name;
           }
         });
       });
@@ -176,7 +176,7 @@ export class GlobalDataService {
 
   public createNewStudent(): Observable<any>{
     let user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length-1].id +1;
-    let user = { 
+    let user = {
       "id": user_id,
       "mtknr": 0,
       "name": "",
@@ -259,9 +259,18 @@ export class GlobalDataService {
           group.studenten.push(student.id);
         }
       });
-    });   
+    });
     this.current_project.gruppen = groups;
-    //this.saveJson();     
+    //this.saveJson();
+  }
+
+  public processImport(file): Observable < any > {
+    this.current_project;
+    return this.http.get(file).map((res: Response) => {
+      this.current_project.bewertungsschema = res.json().bewertungsschema;
+      return this.current_project;
+    })
+
   }
 
 }

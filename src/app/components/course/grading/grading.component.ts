@@ -14,85 +14,86 @@ export class GradingComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
 
   private current_project: any;
-  private schema_available: boolean = false;
-
-  private chemeEditMode: boolean = false;
+  private schema_available = false;
+  private chemeEditMode = false;
   private openCollapsible: any = {};
+  private schemePoints;
+  private schemePercentage;
 
   constructor(public dataService: GlobalDataService, private http: Http,  private changeDetectorRef: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(data =>{
-      this.current_project = data;      
-      if(Object.keys(this.current_project.bewertungsschema).length != 0){
+    this.dataService.getCurrentProject().subscribe(data => {
+      this.current_project = data;
+      if (Object.keys(this.current_project.bewertungsschema).length !== 0) {
         this.schema_available = true;
       }
    });
   }
 
-  addNewTask(): void{
+  addNewTask(): void {
     this.current_project.bewertungsschema.aufgaben.push({
-      "id": this.current_project.bewertungsschema.aufgaben.length,
-      "position": this.current_project.bewertungsschema.aufgaben.length,
-      "name": "Aufgabe " + (this.current_project.bewertungsschema.aufgaben.length + 1),
-      "gewichtung": 1.0,
-      "max_punkt": 0,
-      "comment_public": true,
-      "comment_privat": true,
-      "beschreibung": "",
-      "bewertungs_hinweis": ""
+      'id': this.current_project.bewertungsschema.aufgaben.length,
+      'position': this.current_project.bewertungsschema.aufgaben.length,
+      'name': 'Aufgabe ' + (this.current_project.bewertungsschema.aufgaben.length + 1),
+      'gewichtung': 1.0,
+      'max_punkt': 0,
+      'comment_public': true,
+      'comment_privat': true,
+      'beschreibung': '',
+      'bewertungs_hinweis': ''
     });
   }
 
-  addNewGrade(): void{
+  addNewGrade(): void {
     this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
-      "note": 6.6,
-      "wert_min": 10
+      'note': 6.6,
+      'wert_min': 10
     });
   }
-  
-  changeDetected(event):void{
+
+  changeDetected(event): void {
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
     this.changeDetectorRef.detectChanges();
   }
 
-  importScheme(): void{
-      var app = require('electron').remote;
-      var dialog = app.dialog
-      var fs = require('fs')
+  importScheme(): void {
+      const app = require('electron').remote;
+      const dialog = app.dialog;
+      const fs = require('fs');
       dialog.showOpenDialog((fileNames) =>{
-        if (fileNames === undefined){
-          console.log("No file selected")
+        if (fileNames === undefined) {
+          console.log('No file selected')
           return;
         }
-        this.dataService.processImport(fileNames[0]).subscribe(data=>{
+        this.dataService.processImport(fileNames[0]).subscribe(data => {
           this.current_project = data;
           this.schema_available = true;
           this.changeDetectorRef.detectChanges();
         });
       });
   }
-  
-  createScheme(): void{
+
+  createScheme(): void {
 
   }
 
-  pointsSelected(): void{
+  pointsSelected(): void {
     this.schemePoints = true;
     this.schemePercentage = false;
-    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit= "Punkte";
+    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = 'Punkte';
   }
 
   percentageSelected(): void{
     this.schemePoints = false;
     this.schemePercentage = true;
-    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = "Prozent";
+    this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = 'Prozent';
   }
 
-  deleteEntry(){
-    console.log("phew phew");
+  deleteEntry() {
+    console.log('phew phew');
   }
 
 
