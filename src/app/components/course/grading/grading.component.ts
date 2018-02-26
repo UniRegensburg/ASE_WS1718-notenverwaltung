@@ -7,25 +7,27 @@ import { GlobalDataService } from '../../../providers/index';
   styleUrls: ['./grading.component.scss']
 })
 export class GradingComponent implements OnInit {
-  title = `Notenverwaltung ASE WS17/18 !`;
-  
-  private current_project: any;
-  
-  schemePoints = true;
-  schemePercentage = false;
-
-maxPoints=0;
-
-  openCollapsible: any = {};
+  private current_project: any; 
+  private schemePoints = true;
+  private schemePercentage = false;
+  private maxPoints=0;
+  private openCollapsible: any = {};
+  private no_data_available: boolean = false;
   
   constructor(public dataService: GlobalDataService) {
     
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(data =>{
-    this.current_project = data;
-   });
+    this.dataService.getCurrentProject().subscribe(current_project =>{
+      this.current_project = current_project;
+      if (this.current_project != null) {
+        this.no_data_available = false;
+      }
+      else{
+        this.no_data_available = true;
+      }
+    });
   }
   
   addNewTask(): void{

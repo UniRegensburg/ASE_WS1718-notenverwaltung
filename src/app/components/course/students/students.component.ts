@@ -8,7 +8,8 @@ import {
   GlobalDataService
 } from '../../../providers/index'
 import {
-  ActivatedRoute, Router
+  ActivatedRoute,
+  Router
 } from '@angular/router';
 
 declare var require: any;
@@ -23,30 +24,37 @@ export class StudentsComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
   private current_project: any;
   private current_project_name: String;
-  private participants: Array <any> ;
-  private groups: Array <any>;
+  private participants: Array < any > ;
+  private groups: Array < any > ;
   private group_mode: boolean = false;
+  private no_data_available: boolean = false;
 
   // const zone: NgZone=moduleRef.injector.get(NgZone);
   constructor(
-    public dataService: GlobalDataService, 
+    public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
     public router: Router) {}
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(current_project => {
+    this.dataService.getCurrentProject().subscribe(current_project => {      
       this.current_project = current_project;
-      this.participants = this.current_project.participants;
-      this.current_project_name = this.current_project.title;
+      if (this.current_project != null) {
+        this.no_data_available = false;
+        this.participants = this.current_project.participants;
+        this.current_project_name = this.current_project.title;
 
-      if(!this.current_project.groups){
-        if(!(this.current_project.groups == [])){
-          this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup =>{
-            this.participants = studentsWithGroup;
-            this.groups = this.current_project.gruppen;
-            console.log(this.groups);
-          });
+        if (!this.current_project.groups) {
+          if (!(this.current_project.groups == [])) {
+            this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
+              this.participants = studentsWithGroup;
+              this.groups = this.current_project.gruppen;
+              console.log(this.groups);
+            });
+          }
         }
+      }
+      else{
+        this.no_data_available = true;
       }
     });
     /*
@@ -56,7 +64,7 @@ export class StudentsComponent implements OnInit {
     */
   }
 
-  changeDetected(event):void{
+  changeDetected(event): void {
     this.dataService.setNewGroups(this.participants);
   }
 
@@ -73,19 +81,19 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  delteGroup(element_index): void{    
+  delteGroup(element_index): void {
     this.groups.splice(element_index, 1);
   }
 
-  addGroup(): void{       
+  addGroup(): void {
     this.groups.push({
       "name": "",
-      "studenten":[]
+      "studenten": []
     });
   }
 
-  deleteStudent(id): void{
-    this.participants.splice(id, 1);                           
+  deleteStudent(id): void {
+    this.participants.splice(id, 1);
     this.dataService.setNewStudentsComplete(this.participants);
     this.router.navigate(['/course/students']);
   }
@@ -160,13 +168,7 @@ export class StudentsComponent implements OnInit {
       this.dataService.setNewStudents(student);
     }
     this.changeDetectorRef.detectChanges();
-
-
   }
 
-  enableGroups(): void {
-  }
-
-
-
+  enableGroups(): void {}
 }
