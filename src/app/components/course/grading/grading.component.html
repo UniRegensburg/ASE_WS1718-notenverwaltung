@@ -3,20 +3,22 @@
   <hr class="hr_welcome">
   <div class="row">
     <div class="col s12">
-      <span *ngIf="!schema_available" (click)="importScheme()" class="right clickHover">
-        <i class="material-icons left">import</i> Bewertungsschema importieren
+      <span *ngIf="no_data_available" (click)="importScheme()" class="edit-btn clickHover">
+        <i class="material-icons">import_export</i> Bewertungsschema importieren
       </span>
-      <span *ngIf="!schema_available" (click)="createScheme()" class="right clickHover">
-        <i class="material-icons left">create</i> Bewertungsschema erstellen
+      <span *ngIf="no_data_available" (click)="createScheme()" class="edit-btn clickHover">
+        <i class="material-icons">create</i> Bewertungsschema erstellen
       </span>
     </div>
   </div>
-  <div *ngIf="schema_available">
+  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
+    <h5>We're sorry but no data is available!</h5>
+  </div>
+  <div *ngIf="!no_data_available">
     <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
     <div class="row">
       <div class="col l6">
         <div class="row row_hover">
-
           <div class="col s4 table-header">
             Notenstufe
           </div>
@@ -27,7 +29,6 @@
             Einheit
           </div>
         </div>
-
         <div style="height: 300px;  overflow: scroll;">
           <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
             <div class="col s4">
@@ -70,7 +71,6 @@
     <div class='row title-block' style="padding:10px">Aufgaben / Fragen</div>
     <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewTask()" style="margin-bottom: 15px">
       <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
-
     <div class="row">
       <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index" (change)="changeDetected($event)">
         <div class="card-panel white" (click)="openCollapsible[i] = !openCollapsible[i]">
@@ -136,8 +136,6 @@
           </form>
         </div>
       </div>
-
-
     </div>
 
   </div>

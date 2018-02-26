@@ -1,14 +1,20 @@
-import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { log } from 'util';
 
+declare var require: any;
+const app = require('electron').remote;
+const dialog = app.dialog;
+const fs = require('fs');
+
 @Component({
   selector: 'app-grading',
   templateUrl: './grading.component.html',
-  styleUrls: ['./grading.component.scss']
+  styleUrls: ['./grading.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GradingComponent implements OnInit {
   private current_project: any; 
@@ -16,26 +22,32 @@ export class GradingComponent implements OnInit {
   private schemePercentage = false;
   private maxPoints=0;
   private openCollapsible: any = {};
-  private no_data_available: boolean = false;
+  private no_data_available: boolean = true;
   
-  constructor(public dataService: GlobalDataService) {
-    
-  private schema_available = false;
+  constructor(
+    private dataService: GlobalDataService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private zone: NgZone) {
   }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project =>{
+      
       this.current_project = current_project;
-      if (this.current_project != null) {
-        this.no_data_available = false;
+      console.log("LENGTH", this.current_project);
+      this.changeDetectorRef.detectChanges();
+      if (Object.keys(this.current_project.bewertungsschema).length == 0 || this.current_project == undefined) {
+          this.no_data_available = true;   
+          this.changeDetectorRef.detectChanges();     
       }
       else{
-        this.no_data_available = true;
+        console.log("HERERE");
+        
+        this.no_data_available = false;
+        this.changeDetectorRef.detectChanges();
       }
     });
-      if (Object.keys(this.current_project.bewertungsschema).length !== 0) {
-        this.schema_available = true;
-      }
+     
   }
 
   addNewTask(): void {
@@ -65,18 +77,16 @@ export class GradingComponent implements OnInit {
   }
 
   importScheme(): void {
-      const app = require('electron').remote;
-      const dialog = app.dialog;
-      const fs = require('fs');
       dialog.showOpenDialog((fileNames) =>{
         if (fileNames === undefined) {
           console.log('No file selected')
           return;
         }
         this.dataService.processImport(fileNames[0]).subscribe(data => {
-          this.current_project = data;
-          this.schema_available = true;
-          this.changeDetectorRef.detectChanges();
+          this.no_data_available = false;
+          this.zone.run(()=>{
+            this.ngOnInit();
+          });
         });
       });
   }

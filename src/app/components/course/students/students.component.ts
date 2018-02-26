@@ -1,7 +1,9 @@
 import {
   Component,
   OnInit,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ApplicationRef,
+  NgZone
 } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
 import {
@@ -29,28 +31,26 @@ export class StudentsComponent implements OnInit {
   private group_mode: boolean = false;
   private no_data_available: boolean = false;
 
-  // const zone: NgZone=moduleRef.injector.get(NgZone);
   constructor(
     public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
-    public router: Router) {}
+    public router: Router,
+    public zone: NgZone) {}
 
-  ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(current_project => {      
+  ngOnInit() {    
+    this.dataService.getCurrentProject().subscribe(current_project => {    
       this.current_project = current_project;
-      if (this.current_project != null) {
+      if (this.current_project.teilnehmer.length != 0) {
         this.no_data_available = false;
-        this.participants = this.current_project.participants;
+        this.participants = this.current_project.teilnehmer;
         this.current_project_name = this.current_project.title;
+        this.changeDetectorRef.detectChanges();
 
-        if (!this.current_project.groups) {
-          if (!(this.current_project.groups == [])) {
+        if (!this.current_project.groups) {          
             this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
               this.participants = studentsWithGroup;
               this.groups = this.current_project.gruppen;
-              console.log(this.groups);
-            });
-          }
+            });          
         }
       }
       else{
@@ -167,7 +167,11 @@ export class StudentsComponent implements OnInit {
       address = String.fromCharCode(65 + row) + cell;
       this.dataService.setNewStudents(student);
     }
-    this.changeDetectorRef.detectChanges();
+    //this.changeDetectorRef.detectChanges();
+    this.zone.run(()=>{
+      this.dataService.createGroups();
+      this.ngOnInit();
+    });
   }
 
   enableGroups(): void {}

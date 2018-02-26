@@ -63,12 +63,7 @@ export class GlobalDataService {
 
   public getCurrentProject(): Observable<Schema>{
     //this.checkCurrentValidity();
-    if(this.current_project == undefined || this.current_project.teilnehmer.length == 0){
-      return of(null);
-    }
-    else{
-      return of(this.current_project);
-    }
+    return of(this.current_project);
   }
 
   public getCurrentProjectName(): Observable < String > {
@@ -179,6 +174,11 @@ export class GlobalDataService {
     }
   }
 
+  public createGroups():void{
+    this.current_project.gruppen = [];
+    
+  }
+
   public createNewStudent(): Observable<any>{
     let user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length-1].id +1;
     let user = {
@@ -272,7 +272,7 @@ export class GlobalDataService {
   public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
-      this.current_project.bewertungsschema = res.json().bewertungsschema;
+      this.current_project.bewertungsschema = res.json().bewertungsschema;      
       return this.current_project;
     })
 
