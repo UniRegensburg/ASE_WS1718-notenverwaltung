@@ -32,17 +32,13 @@ export class GradingComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project =>{
-      
       this.current_project = current_project;
-      console.log("LENGTH", this.current_project);
       this.changeDetectorRef.detectChanges();
       if (Object.keys(this.current_project.bewertungsschema).length == 0 || this.current_project == undefined) {
           this.no_data_available = true;   
           this.changeDetectorRef.detectChanges();     
       }
-      else{
-        console.log("HERERE");
-        
+      else{        
         this.no_data_available = false;
         this.changeDetectorRef.detectChanges();
       }
@@ -108,7 +104,6 @@ export class GradingComponent implements OnInit {
   }
 
   deleteEntry() {
-    console.log('phew phew');
   }
 
 

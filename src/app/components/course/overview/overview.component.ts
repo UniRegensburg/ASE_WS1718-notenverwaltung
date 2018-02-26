@@ -32,7 +32,6 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {  
-      console.log("precut", current_project);
       this.current_project = current_project;
       if(this.current_project.teilnehmer.length != 0){ //Observable catch?
         this.no_data_available = false;
