@@ -47,10 +47,7 @@ export class StudentsComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
 
         if (!this.current_project.groups) {          
-            this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
-              this.participants = studentsWithGroup;
-              this.groups = this.current_project.gruppen;
-            });          
+            this.getGroups();        
         }
       }
       else{
@@ -62,6 +59,13 @@ export class StudentsComponent implements OnInit {
       this.participants = teilnehmer;
     });
     */
+  }
+
+  getGroups(): void{
+    this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
+      this.participants = studentsWithGroup;
+      this.groups = this.current_project.gruppen;
+    });  
   }
 
   changeDetected(event): void {
