@@ -4,7 +4,7 @@
   <br>
   <h5>{{current_project_name}}</h5>
 
-  <div class="row" style="margin-top: 40px">
+  <div class="row" style="margin-top: 40px" [hidden]="no_data_available">
     <div class="col l4">
       <h5>{{participants.length}} Teilnehmer</h5>
       <h5>2,7 Durchschnittsnote</h5>
@@ -25,7 +25,10 @@
         <i class="material-icons left">create</i>Korrektur fortsetzen</a>
     </div>
   </div-->
-  <div class="row" style="margin-top: 150px">
+  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
+    <h5>We're sorry but no data is available!</h5>
+  </div>
+  <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
       <div class="col l12">
           <div class="row row_hover">
             <div class="col s1">

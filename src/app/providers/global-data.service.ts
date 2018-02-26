@@ -63,7 +63,12 @@ export class GlobalDataService {
 
   public getCurrentProject(): Observable<Schema>{
     //this.checkCurrentValidity();
-    return of(this.current_project);
+    if(this.current_project == undefined || this.current_project.teilnehmer.length == 0){
+      return of(null);
+    }
+    else{
+      return of(this.current_project);
+    }
   }
 
   public getCurrentProjectName(): Observable < String > {

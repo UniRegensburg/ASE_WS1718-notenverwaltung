@@ -11,26 +11,31 @@ import { log } from 'util';
   styleUrls: ['./grading.component.scss']
 })
 export class GradingComponent implements OnInit {
-  title = `Notenverwaltung ASE WS17/18 !`;
-
-  private current_project: any;
-  private schema_available = false;
-  private chemeEditMode = false;
+  private current_project: any; 
+  private schemePoints = true;
+  private schemePercentage = false;
+  private maxPoints=0;
   private openCollapsible: any = {};
-  private schemePoints;
-  private schemePercentage;
-
-  constructor(public dataService: GlobalDataService, private http: Http,  private changeDetectorRef: ChangeDetectorRef) {
-
+  private no_data_available: boolean = false;
+  
+  constructor(public dataService: GlobalDataService) {
+    
+  private schema_available = false;
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(data => {
-      this.current_project = data;
+    this.dataService.getCurrentProject().subscribe(current_project =>{
+      this.current_project = current_project;
+      if (this.current_project != null) {
+        this.no_data_available = false;
+      }
+      else{
+        this.no_data_available = true;
+      }
+    });
       if (Object.keys(this.current_project.bewertungsschema).length !== 0) {
         this.schema_available = true;
       }
-   });
   }
 
   addNewTask(): void {
