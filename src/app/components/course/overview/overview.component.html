@@ -36,11 +36,11 @@
             </div>
             <div class="col s3">
                 <b>Name, Vorname</b>
+            </div> 
+            <div class="col s2">
+                <b>Martrikelnr</b>
             </div>
             <div class="col s2">
-                <b>Martrikelnummer</b>
-            </div>
-            <div class="col s1">
               <b>Korrigiert</b>
             </div>
             <div class="col s1">
@@ -63,19 +63,15 @@
         <div class="col s2">
           {{participant.mtknr}}
         </div>
-        <div class="col s1">
+        <div class="col s2">
           {{participant.finish * 100}}%
         </div>
         <div class="col s1">
           {{participant.grade}}
         </div>
-        <div class="col s1">
+        <div class="col s3">
           <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
-        </div>
-        <div class="col s1">
           <i class="material-icons right edit-btn" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
-        </div>
-        <div class="col s1">
           <i class="material-icons right edit-btn" [routerLink]="['/course/results']">pie_chart</i>
         </div>
       </div>
