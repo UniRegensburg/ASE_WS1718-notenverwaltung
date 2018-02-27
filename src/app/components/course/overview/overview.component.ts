@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
+import { log } from 'util';
 
 
 declare var require: any;
@@ -21,6 +22,7 @@ export class OverviewComponent implements OnInit {
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
+  private no_data_available: boolean = false;
   
   private myChart: any;
 
@@ -29,16 +31,23 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(current_project => {      
+    this.dataService.getCurrentProject().subscribe(current_project => {  
       this.current_project = current_project;
-      this.participants = this.current_project.teilnehmer;
-      this.current_project_name = this.current_project.title;
+      if(this.current_project.teilnehmer.length != 0){ //Observable catch?
+        this.no_data_available = false;
+        
+        this.participants = this.current_project.teilnehmer;
+        this.current_project_name = this.current_project.title;
 
-      this.dataService.getStudentGrading().subscribe(data => {
-        this.participants = data;        
-        this.createUserGradingList();
-        this.initGraphView();
-      });
+        this.dataService.getStudentGrading().subscribe(data => {
+          this.participants = data;        
+          this.createUserGradingList();
+          this.initGraphView();
+        });
+      }
+      else{
+        this.no_data_available = true;
+      }
     });    
   }
 
