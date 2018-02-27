@@ -223,6 +223,24 @@ export class GlobalDataService {
     return corretions;
   }
 
+  public createSchema(): Observable<any>{
+    this.current_project.bewertungsschema = {
+      "allgemeine_infos":{
+         "notenschluessel":[
+            {
+               "note":1.0,
+               "wert_min":90
+            }
+         ],
+         "bewertungseinheit":"Punkte"
+      },
+      "aufgaben":[         
+      ]
+   };
+
+   return of(this.current_project);
+  }
+
   private saveJson(): void{
     /*writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
         if(err){
