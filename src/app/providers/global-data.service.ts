@@ -62,7 +62,7 @@ export class GlobalDataService {
   }
 
   public getCurrentProject(): Observable<Schema>{
-    //this.checkCurrentValidity();
+    this.checkCurrentValidity();
     return of(this.current_project);
   }
 
@@ -169,14 +169,60 @@ export class GlobalDataService {
    */
 
   private checkCurrentValidity(): void {
-    if (this.current_project.bewertung.length == 0) {
-      this.createNewStudentGrading();
-    }
+    this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
+    this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
+    
+  }
+
+  private checkStudentsInGrading(): void{
+    let grading = [];
+    
+    this.current_project.teilnehmer.forEach(student => {
+      let student_found = false;  
+      console.log("VALID", this.current_project);    
+      this.current_project.bewertung.forEach(student_bewertung => {
+        if(student.id == student_bewertung.student_id){
+          grading.push(student_bewertung);
+          student_found = true;
+        }
+      });
+      if(!student_found){
+        grading.push(this.createSingleStudentGrading(student.id));
+      }
+    });
+    this.current_project.bewertung = grading;
+  }
+
+  private checkTasksInGrading(): void{
+    let grading = [];
+    this.current_project.bewertung.forEach(student => {
+      let single_grading = [];
+
+      this.current_project.bewertungsschema.aufgaben.forEach(aufgabe => {
+        let task_found = false;     
+
+        student.einzelwertungen.forEach(einzelwertung => {
+          if(einzelwertung.aufgaben_id == aufgabe.id){
+            task_found = true;
+            single_grading.push(einzelwertung);
+          }
+        });
+        if(!task_found){
+          single_grading.push(this.createTaskCorrection(aufgabe.id));
+        }
+      });
+      console.log(student);
+      
+      grading.push({
+        "student_id": student.student_id,
+        "einzelwertungen": single_grading
+      });
+    });
+    this.current_project.bewertung = grading;
   }
 
   public createGroups():void{
-    this.current_project.gruppen = [];
-    
+    this.current_project.gruppen = [];    
   }
 
   public createNewStudent(): Observable<any>{
@@ -197,30 +243,36 @@ export class GlobalDataService {
   private createNewStudentGrading(): any {
     let gradings = [];
 
-    this.current_project.teilnehmer.forEach(student => {
-      let single_student_corretion = {
-        'student_id': student.id,
-        'einzelwertungen': this.createCurrentCorrection()
-      };
-      gradings.push(single_student_corretion)
+    this.current_project.teilnehmer.forEach(student => {      
+      gradings.push(this.createSingleStudentGrading(student.id))
     });
 
     this.setNewGrading(gradings);
+  }
+
+  private createSingleStudentGrading(student_id): any{
+    return {
+      'student_id': student_id,
+      'einzelwertungen': this.createCurrentCorrection()
+    };
   }
 
   private createCurrentCorrection(): any {
     let corretions = [];
 
     this.current_project.bewertungsschema.aufgaben.forEach(task => {
-      let single_corretion = {
-        'aufgaben_id': task.id,
-        'erreichte_punkte': 0,
-        'comment_privat': '',
-        'comment_public': ''
-      }
-      corretions.push(single_corretion);
+      corretions.push(this.createTaskCorrection(task.id));
     });
     return corretions;
+  }
+
+  private createTaskCorrection(task_id): any{
+    return {
+      'aufgaben_id': task_id,
+      'erreichte_punkte': 0,
+      'comment_privat': '',
+      'comment_public': ''
+    }
   }
 
   public createSchema(): Observable<any>{
@@ -268,8 +320,8 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewGrading(grading): void{
-    this.current_project.bewertung = grading;
+  public setNewGrading(schema): void{
+    this.current_project.bewertungsschema = schema;
     this.saveJson();
   }
 

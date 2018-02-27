@@ -7,12 +7,12 @@
     <div class="col s6">
       <div class="row">
         <div class="col s6" *ngIf="!no_data_available">
-          <a *ngIf="!group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = false">Teilnehmer</a>
-          <a *ngIf="group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = false">Teilnehmer</a>
+          <a *ngIf="!group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = false; getGroups()">Teilnehmer</a>
+          <a *ngIf="group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = false; getGroups()">Teilnehmer</a>
         </div>
         <div class="col s6" *ngIf="!no_data_available">
-          <a *ngIf="!group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = true">Gruppen</a>
-          <a *ngIf="group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = true">Gruppen</a>
+          <a *ngIf="!group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = true; getGroups()">Gruppen</a>
+          <a *ngIf="group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = true; getGroups()">Gruppen</a>
         </div>
       </div>
     </div>
@@ -105,7 +105,7 @@
               {{i}}
             </div>
             <div class="col s4">
-              <input [(ngModel)]="group.name" type="text" class="validate">
+              <input [(ngModel)]="group.name" type="text" class="validate" >
             </div>
             <div class="col s3">
               {{group.studenten.length}}

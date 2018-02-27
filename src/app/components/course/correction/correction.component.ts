@@ -45,9 +45,9 @@ export class CorrectionComponent implements OnInit {
   private current_task: any;
   private current_student: any;
 
-  private tasks: Array < any > ;
-  private students: Array < any > ;
-  private grading: Array < any > ;
+  private tasks: Array <any> ;
+  private students: Array <any> ;
+  private grading: Array <any> ;
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
@@ -171,13 +171,11 @@ export class CorrectionComponent implements OnInit {
   
   setCurrentCorretion() {    
     this.grading.forEach(student => {
-      if (student.student_id == this.student_counter) this.current_student = student;
+      if (student.student_id == this.student_counter){        
+        this.current_student = student;
+      }
     });
-
-    if(this.current_student == undefined){
-      this.current_student = this.grading[0];
-    }    
-
+    
     this.current_student["einzelwertungen"].forEach(correction => {
       if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;
     });
