@@ -111,12 +111,23 @@ export class GlobalDataService {
         if(student.id == grading.student_id){
           console.log("grading.einzelwertungen.length", grading.einzelwertungen.length)
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = grading.einzelwertungen.length / task_counter;
+          student.finish = this.getCorrectionProgress(grading) / task_counter;
         }
       });
     });
 
     return of(this.current_project.teilnehmer);
+  }
+
+  private getCorrectionProgress(student): number {
+    let corrected = 0;
+    student.einzelwertungen.forEach(grade => {
+      if (grade.erreichte_punkte){
+        corrected++;
+      }
+    });
+
+    return corrected;
   }
 
   private getCurrentStudentGrade(student): number {
