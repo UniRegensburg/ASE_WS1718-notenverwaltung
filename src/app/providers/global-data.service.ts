@@ -109,7 +109,6 @@ export class GlobalDataService {
     gradings.forEach(grading => {
       this.current_project.teilnehmer.forEach(student => {
         if(student.id == grading.student_id){
-          console.log("grading.einzelwertungen.length", grading.einzelwertungen.length)
           student.grade = this.getCurrentStudentGrade(grading);
           student.finish = this.getCorrectionProgress(grading) / task_counter;
         }
