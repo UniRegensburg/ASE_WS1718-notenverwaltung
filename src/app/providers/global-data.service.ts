@@ -171,13 +171,15 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
-    console.log("VALID", this.current_project);
+    
   }
 
   private checkStudentsInGrading(): void{
     let grading = [];
+    
     this.current_project.teilnehmer.forEach(student => {
-      let student_found = false;      
+      let student_found = false;  
+      console.log("VALID", this.current_project);    
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
           grading.push(student_bewertung);
@@ -318,8 +320,8 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewGrading(grading): void{
-    this.current_project.bewertung = grading;
+  public setNewGrading(schema): void{
+    this.current_project.bewertungsschema = schema;
     this.saveJson();
   }
 
