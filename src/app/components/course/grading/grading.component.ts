@@ -79,16 +79,22 @@ export class GradingComponent implements OnInit {
           return;
         }
         this.dataService.processImport(fileNames[0]).subscribe(data => {
-          this.no_data_available = false;
-          this.zone.run(()=>{
-            this.ngOnInit();
-          });
+          this.recallDataService();
         });
       });
   }
 
   createScheme(): void {
+    this.dataService.createSchema().subscribe(current_project => {
+      this.recallDataService();
+    });
+  }
 
+  recallDataService(): void{
+    this.no_data_available = false;
+    this.zone.run(()=>{
+      this.ngOnInit();
+    });
   }
 
   pointsSelected(): void {
