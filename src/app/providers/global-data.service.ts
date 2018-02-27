@@ -171,14 +171,13 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
+    console.log("VALID", this.current_project);
   }
 
   private checkStudentsInGrading(): void{
     let grading = [];
     this.current_project.teilnehmer.forEach(student => {
-      let student_found = false;
-      console.log("ERERE");
-      
+      let student_found = false;      
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
           grading.push(student_bewertung);
@@ -189,7 +188,6 @@ export class GlobalDataService {
         grading.push(this.createSingleStudentGrading(student.id));
       }
     });
-    console.log(grading);
     this.current_project.bewertung = grading;
   }
 
@@ -198,7 +196,7 @@ export class GlobalDataService {
     this.current_project.bewertung.forEach(student => {
       let single_grading = [];
 
-      this.current_project.aufgaben.forEach(aufgabe => {
+      this.current_project.bewertungsschema.aufgaben.forEach(aufgabe => {
         let task_found = false;     
 
         student.einzelwertungen.forEach(einzelwertung => {
@@ -211,13 +209,14 @@ export class GlobalDataService {
           single_grading.push(this.createTaskCorrection(aufgabe.id));
         }
       });
+      console.log(student);
+      
       grading.push({
-        "student_id": student.id,
+        "student_id": student.student_id,
         "einzelwertungen": single_grading
       });
     });
-    console.log(grading);
-    //this.current_project.bewertung = grading;
+    this.current_project.bewertung = grading;
   }
 
   public createGroups():void{
