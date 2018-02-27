@@ -99,21 +99,21 @@ export class GlobalDataService {
 
   public getStudentGrading(): Observable<any>{
     let gradings = this.current_project.bewertung;
-    let task_counter = this.current_project.bewertungsschema.aufgaben.length;
+    let task_counter = parseFloat(this.current_project.bewertungsschema.aufgaben.length);
 
     this.current_project.teilnehmer.forEach(student => {
       student.grade = 0;
-      student.finish = 0;
+      student.finish = 0.0;
     });
 
     gradings.forEach(grading => {
       this.current_project.teilnehmer.forEach(student => {
         if(student.id == grading.student_id){
+          console.log("grading.einzelwertungen.length", grading.einzelwertungen.length)
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));
+          student.finish = grading.einzelwertungen.length / task_counter;
         }
       });
-
     });
 
     return of(this.current_project.teilnehmer);
@@ -179,7 +179,7 @@ export class GlobalDataService {
     
     this.current_project.teilnehmer.forEach(student => {
       let student_found = false;  
-      console.log("VALID", this.current_project);    
+      //console.log("VALID", this.current_project);    
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
           grading.push(student_bewertung);
@@ -211,7 +211,7 @@ export class GlobalDataService {
           single_grading.push(this.createTaskCorrection(aufgabe.id));
         }
       });
-      console.log(student);
+      //console.log(student);
       
       grading.push({
         "student_id": student.student_id,
