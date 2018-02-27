@@ -54,12 +54,12 @@
       <div class='col l6' id='grading-unit'>Bewertungseinheit
         <form action="#" id='grading-form'>
           <p>
-            <input class="with-gap" name="group1" type="radio" id="test1" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
+            <input class="with-gap" type="radio" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
               checked/>
             <label for="test1">Punkte</label>
           </p>
           <p>
-            <input class="with-gap" name="group1" type="radio" id="test2" (click)="percentageSelected()" (change)="changeDetected($event)"
+            <input class="with-gap" type="radio" (click)="percentageSelected()" (change)="changeDetected($event)"
               value="1" />
             <label for="test2">Prozent</label>
           </p>
@@ -126,11 +126,11 @@
           <form action="#">
             <div class="col s12">Erlaubte Kommentare:</div>
             <p>
-              <input class="with-gap" name="group1" type="radio" id="test1" checked/>
+              <input class="with-gap" type="radio" checked/>
               <label for="test1">Punkte</label>
             </p>
             <p>
-              <input class="with-gap" name="group1" type="radio" id="test2" />
+              <input class="with-gap" type="radio" />
               <label for="test2">Prozent</label>
             </p>
           </form>
