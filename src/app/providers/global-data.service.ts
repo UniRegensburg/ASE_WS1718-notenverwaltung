@@ -110,7 +110,7 @@ export class GlobalDataService {
       this.current_project.teilnehmer.forEach(student => {
         if(student.id == grading.student_id){
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = this.getCorrectionProgress(grading) / task_counter;
+          student.finish = (this.getCorrectionProgress(grading) / task_counter).toFixed(2);
         }
       });
     });
