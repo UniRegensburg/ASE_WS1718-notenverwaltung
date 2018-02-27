@@ -40,12 +40,12 @@
               <b>Name, Vorname</b>
             </div>
             <div class="col s2">
-              <b>Martrikelnummer</b>
+              <b>Martrikelnr</b>
             </div>
-            <div class="col s2">
+            <div class="col s3">
               <b>Studiengang</b>
             </div>
-            <div class="col s4">
+            <div class="col s3">
               <b>Gruppe</b>
             </div>
           </div>
@@ -59,18 +59,18 @@
             <div class="col s2">
               {{participant.mtknr}}
             </div>
-            <div class="col s2">
+            <div class="col s3">
               {{participant.studiengang}}
             </div>
-            <div class="col s4">
+            <div class="col s3">
               <select class="browser-default" [(ngModel)]="participant.group" (change)="changeDetected($event)">
-                <option value="" disabled selected>Choose your option</option>
+                <option value="" disabled selected>keine Gruppe</option>
                 <option *ngFor="let group of groups" [ngValue]="group.name">{{group.name}}</option>
               </select>
             </div>
             <div class="col s1">
               <i class="material-icons right edit-btn clickHover" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
-            </div>
+              </div>
             <div class="col s1">
               <i class="material-icons clickHover" (click)="deleteStudent(i)">delete</i>
             </div>
@@ -92,7 +92,7 @@
               <b>Name der Gruppe</b>
             </div>
             <div class="col s3">
-              <b>Studenten Anzahl</b>
+              <b>Anzahl Studierende</b>
             </div>
             <div class="col s3">
             </div>
