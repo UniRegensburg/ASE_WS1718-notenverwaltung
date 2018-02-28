@@ -99,24 +99,34 @@ export class GlobalDataService {
 
   public getStudentGrading(): Observable<any>{
     let gradings = this.current_project.bewertung;
-    let task_counter = this.current_project.bewertungsschema.aufgaben.length;
+    let task_counter = parseFloat(this.current_project.bewertungsschema.aufgaben.length);
 
     this.current_project.teilnehmer.forEach(student => {
       student.grade = 0;
-      student.finish = 0;
+      student.finish = 0.0;
     });
 
     gradings.forEach(grading => {
       this.current_project.teilnehmer.forEach(student => {
         if(student.id == grading.student_id){
           student.grade = this.getCurrentStudentGrade(grading);
-          student.finish = parseFloat((task_counter / grading.einzelwertungen.length).toFixed(2));
+          student.finish = (this.getCorrectionProgress(grading) / task_counter).toFixed(2);
         }
       });
-
     });
 
     return of(this.current_project.teilnehmer);
+  }
+
+  private getCorrectionProgress(student): number {
+    let corrected = 0;
+    student.einzelwertungen.forEach(grade => {
+      if (grade.erreichte_punkte){
+        corrected++;
+      }
+    });
+
+    return corrected;
   }
 
   private getCurrentStudentGrade(student): number {
@@ -178,9 +188,8 @@ export class GlobalDataService {
     let grading = [];
     
     this.current_project.teilnehmer.forEach(student => {
-      let student_found = false; 
-      //for debugging: 
-      //console.log("VALID", this.current_project);    
+      let student_found = false;  
+
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
           grading.push(student_bewertung);
@@ -212,9 +221,7 @@ export class GlobalDataService {
           single_grading.push(this.createTaskCorrection(aufgabe.id));
         }
       });
-     //for debugging:
-     //console.log(student);
-      
+     
       grading.push({
         "student_id": student.student_id,
         "einzelwertungen": single_grading
