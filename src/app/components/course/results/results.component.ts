@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService, ChartService, gripsExportService, lsfExportService } from '../../../providers/index';
 
 @Component({
@@ -7,14 +7,14 @@ import { GlobalDataService, ChartService, gripsExportService, lsfExportService }
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  title = `Notenverwaltung ASE WS17/18 !`;
+  @ViewChild("barchart") graphCanvas: ElementRef;
 
   private current_project: any;
   private current_project_name: String;
   private participants: Array<any>;
 
-  private notenstufen: any;
-  private teilnehmernoten: any;
+  private grade_steps: any;
+  private grade_participants: any;
 
   private display_diagrams: boolean = true;
 
@@ -34,15 +34,15 @@ export class ResultsComponent implements OnInit {
 
   initGraphView(): void {
     this.getDiagramData();
-
-    this.chartService.initBarChart(this.notenstufen, this.teilnehmernoten);
+    let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
+    this.chartService.initBarChart(this.grade_steps, this.grade_participants, context);
     //this.chartService.initPolarChart();
     //this.chartService.initScatterChart();
   }
 
   getDiagramData(): void {
-    this.notenstufen = this.dataService.getGradingSteps();
-    this.teilnehmernoten = this.dataService.getGradesPerStep(this.notenstufen.length)
+    this.grade_steps = this.dataService.getGradingSteps();
+    this.grade_participants = this.dataService.getGradesPerStep(this.grade_steps.length);
   }
 
   export(string): void {
