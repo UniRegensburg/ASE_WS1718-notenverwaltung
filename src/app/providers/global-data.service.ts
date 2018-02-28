@@ -189,7 +189,7 @@ export class GlobalDataService {
     
     this.current_project.teilnehmer.forEach(student => {
       let student_found = false;  
-      //console.log("VALID", this.current_project);    
+
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
           grading.push(student_bewertung);
@@ -221,8 +221,7 @@ export class GlobalDataService {
           single_grading.push(this.createTaskCorrection(aufgabe.id));
         }
       });
-      //console.log(student);
-      
+     
       grading.push({
         "student_id": student.student_id,
         "einzelwertungen": single_grading
