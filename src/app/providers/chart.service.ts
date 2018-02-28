@@ -10,15 +10,15 @@ export class ChartService {
     
     constructor() {}
 
-  initBarChart(notenstufen, teilnehmernoten): void {
-    this.barChart = new chartJs(document.getElementById("bar-chart"), {
+  initBarChart(note_gradually, note_participants, context): void {
+    this.barChart = new chartJs(context, {
       type: 'bar',
       data: {
-        labels: notenstufen,
+        labels: note_gradually,
         datasets: [
           {
-            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60",],
-            data: teilnehmernoten
+            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60"],
+            data: note_participants
           }
         ]
       },
@@ -40,7 +40,7 @@ export class ChartService {
         datasets: [
           {
             // label: "Population (millions)",
-            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60",],
+            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60"],
             data: [40, 90, 85, 60, 70]
           }
         ]

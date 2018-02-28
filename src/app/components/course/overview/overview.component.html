@@ -7,11 +7,11 @@
   <div class="row" style="margin-top: 40px" [hidden]="no_data_available">
     <div class="col l4">
       <h5>{{participants.length}} Teilnehmer</h5>
-      <h5>2,7 Durchschnittsnote</h5>
+      <h5>{{sum_grade}} Durchschnittsnote</h5>
       <div class="progress white-text">
 
-        <div class="determinate" style="width: 70%"></div>
-        <div style="position: absolute; margin-left: 20px">70% bewertet</div>
+        <div class="determinate" [ngStyle]="{ 'width': completion + '%' }"></div>
+        <div style="position: absolute; margin-left: 20px">{{completion}}% bewertet</div>
       </div>
     </div>
     <div class="col l8" style="height: 200px!important;">
