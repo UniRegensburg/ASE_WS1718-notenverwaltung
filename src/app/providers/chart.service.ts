@@ -10,15 +10,15 @@ export class ChartService {
     
     constructor() {}
 
-  initBarChart(note_gradually, note_participants, context): void {
+  initBarChart(grade_steps, grade_participants, context): void {
     this.barChart = new chartJs(context, {
       type: 'bar',
       data: {
-        labels: note_gradually,
+        labels: grade_steps,
         datasets: [
           {
             backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60"],
-            data: note_participants
+            data: grade_participants
           }
         ]
       },

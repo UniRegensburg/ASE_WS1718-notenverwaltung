@@ -13,8 +13,8 @@ export class ResultsComponent implements OnInit {
   private current_project_name: String;
   private participants: Array<any>;
 
-  private note_gradually: any;
-  private note_participants: any;
+  private grade_steps: any;
+  private grade_participants: any;
 
   private display_diagrams: boolean = true;
 
@@ -35,14 +35,14 @@ export class ResultsComponent implements OnInit {
   initGraphView(): void {
     this.getDiagramData();
     let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
-    this.chartService.initBarChart(this.note_gradually, this.note_participants, context);
+    this.chartService.initBarChart(this.grade_steps, this.grade_participants, context);
     //this.chartService.initPolarChart();
     //this.chartService.initScatterChart();
   }
 
   getDiagramData(): void {
-    this.note_gradually = this.dataService.getGradingSteps();
-    this.note_participants = this.dataService.getGradesPerStep(this.note_gradually.length);
+    this.grade_steps = this.dataService.getGradingSteps();
+    this.grade_participants = this.dataService.getGradesPerStep(this.grade_steps.length);
   }
 
   export(string): void {

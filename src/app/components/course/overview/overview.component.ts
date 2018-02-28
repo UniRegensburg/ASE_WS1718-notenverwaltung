@@ -77,9 +77,9 @@ export class OverviewComponent implements OnInit {
       this.barChart.destroy();
     }
     let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
-    let note_gradually = this.dataService.getGradingSteps();
-    let note_participants = this.dataService.getGradesPerStep(note_gradually.length);
-    this.chartService.initBarChart(note_gradually, note_participants, context);
+    let grade_steps = this.dataService.getGradingSteps();
+    let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
+    this.chartService.initBarChart(grade_steps, grade_participants, context);
   }
 
   initBarChart(notenstufen, teilnehmernoten, context): void {
