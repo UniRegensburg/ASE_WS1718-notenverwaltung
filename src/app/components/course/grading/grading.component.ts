@@ -20,7 +20,8 @@ export class GradingComponent implements OnInit {
   private current_project: any; 
   private schemePoints = true;
   private schemePercentage = false;
-  private maxPoints=0;
+  private tasks: Array < any > ;
+  private grades: Array < any > ;
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
   
@@ -109,7 +110,14 @@ export class GradingComponent implements OnInit {
     this.current_project.bewertungsschema.allgemeine_infos.bewertungseinheit = 'Prozent';
   }
 
-  deleteEntry() {
+  deleteGrade(gradeID) {
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(gradeID,1);
+  }
+
+  deleteTask(taskID) {
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(taskID,1);
   }
 
 

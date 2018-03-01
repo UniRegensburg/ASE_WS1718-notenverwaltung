@@ -17,41 +17,36 @@
   <div *ngIf="!no_data_available">
     <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
     <div class="row">
-      <div class="col l6">
+      <div class="col s6">
         <div class="row row_hover">
-          <div class="col s4 table-header">
+          <div class="col s5 table-header">
             Notenstufe
           </div>
-          <div class="col s4 table-header">
+          <div class="col s5 table-header">
             Mindestwert
           </div>
-          <div class="col s4 table-header">
-            Einheit
-          </div>
         </div>
-        <div style="height: 300px;  overflow: scroll;">
+        <div class="col s12" style="height: 300px;  overflow: scroll;">
           <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
-            <div class="col s4">
+            <div class="col s5">
               <input [(ngModel)]="entry.note" type="number" class="validate">
             </div>
-            <div class="col s4">
+            <div class="col s5">
               <input [(ngModel)]="entry.wert_min" type="number" class="validate">
             </div>
-            <div class="col s3" style="margin-top: 20px" *ngIf="schemePoints">
-              Punkte
-            </div>
-            <div class="col s4" style="margin-top: 20px" *ngIf="schemePercentage">
-              Prozent
-            </div>
-            <div class="col s1" style="margin-top: 20px" id="deleteBtn" (click)="deleteEntry">
-              <i class="material-icons right">highlight_off</i>
+            <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
+              <i class="material-icons right">delete</i>
             </div>
           </div>
           <a class="waves-effect waves-light btn pink darken-2" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px">
-            <i class="material-icons left">add</i>Notenstufe hinzufügen</a>
+            <i class="material-icons right">add</i>Notenstufe hinzufügen</a>
         </div>
       </div>
-      <div class='col l6' id='grading-unit'>Bewertungseinheit
+      <div class='col s2'></div>
+      <div class='col s2' id='grading-unit'>
+        <div class="table-header">
+          Bewertungseinheit
+        </div>
         <form action="#" id='grading-form'>
           <p>
             <input class="with-gap" name="radio-group1" id="grading-unit1" type="radio" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
@@ -65,6 +60,7 @@
           </p>
         </form>
       </div>
+      <div class='col s2'></div>
     </div>
 
 
@@ -73,11 +69,18 @@
       <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
     <div class="row">
       <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index" (change)="changeDetected($event)">
-        <div class="card-panel white" (click)="openCollapsible[i] = !openCollapsible[i]">
-          <span>{{question.name}}</span>
+        <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
+          <div class="col s9">
+            <span>{{question.name}}</span>
+            <br>
+          </div>
+          <div class="col s2">
           <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
           <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
-          <i class="material-icons right">highlight_off</i>
+          </div>
+          <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
+            <i class="material-icons right">delete</i>
+          </div>
         </div>
         <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
           <div class="col s12">
