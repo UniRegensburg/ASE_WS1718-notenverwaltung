@@ -54,14 +54,14 @@
       <div class='col l6' id='grading-unit'>Bewertungseinheit
         <form action="#" id='grading-form'>
           <p>
-            <input class="with-gap" type="radio" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
+            <input class="with-gap" name="radio-group1" id="grading-unit1" type="radio" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
               checked/>
-            <label for="test1">Punkte</label>
+            <label for="grading-unit1">Punkte</label>
           </p>
           <p>
-            <input class="with-gap" type="radio" (click)="percentageSelected()" (change)="changeDetected($event)"
+            <input class="with-gap" name="radio-group1" id="grading-unit2" type="radio" (click)="percentageSelected()" (change)="changeDetected($event)"
               value="1" />
-            <label for="test2">Prozent</label>
+            <label for="grading-unit2">Prozent</label>
           </p>
         </form>
       </div>
@@ -88,8 +88,7 @@
             </div>
           </div>
           <div class="col s12">
-            <div *ngIf="this.schemePoints">Erreichbare Punkte:</div>
-            <div *ngIf="this.schemePercentage">Erreichbare Prozentzahl:</div>
+            Erreichbare Punkte:
             <div class="input-field inline">
               <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
               <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
@@ -126,12 +125,12 @@
           <form action="#">
             <div class="col s12">Erlaubte Kommentare:</div>
             <p>
-              <input class="with-gap" type="radio" checked/>
-              <label for="test1">Punkte</label>
+              <input class="with-gap" name="radio-group2" id="comment-type1" type="radio" checked/>
+              <label for="comment-type1">Öffentlich</label>
             </p>
             <p>
-              <input class="with-gap" type="radio" />
-              <label for="test2">Prozent</label>
+              <input class="with-gap" name="radio-group2" id="comment-type2" type="radio" />
+              <label for="comment-type2">Privat</label>
             </p>
           </form>
         </div>
