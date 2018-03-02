@@ -1,20 +1,11 @@
-**Was für eine Veränderung bringt diese PR?:**
+**Issue:** N/A
 **Typ:** N/A
 
-**Issue das abgeschlossen wird:**
+**Verhalten auf Development:**
 N/A
 
-**Wie ist das aktuelle Verhalten? (Sie können hier auch auf ein offenes Problem verlinken):**
+**Verhalten auf diesem Branch:**
 N/A
 
-**Was ist das neue Verhalten?:**
-N/A
-
-**Führt diese PR eine Veränderung mit sich?:**
-N/A
-
-**Bitte prüfen Sie, ob der PR diese Anforderungen erfüllt:**
-N/A
-
-**Andere Informationen:**
+**Weitere Informationen:**
 N/A
