@@ -41,3 +41,8 @@
 [type="radio"].with-gap:checked+label:after {
     border: 2px solid #C2185B;
 }
+
+.edit-btn:hover{
+    color: #C2185B;
+    cursor: pointer;
+  }

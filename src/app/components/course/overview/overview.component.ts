@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GlobalDataService } from '../../../providers/index';
+import { GlobalDataService, ChartService } from '../../../providers/index';
+import { log } from 'util';
 
 
 declare var require: any;
@@ -17,70 +18,87 @@ export class OverviewComponent implements OnInit {
 
   private current_project: any;
   private current_project_name: String;
+  private grading: any;
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
-  
-  private myChart: any;
+  private no_data_available: boolean = false;
+  private completion: number = 0; 
+  private sum_grade: number = 0; 
+  private barChart: any;
 
-  constructor(public dataService: GlobalDataService) { 
+  constructor(
+    public dataService: GlobalDataService,
+    public chartService: ChartService) { 
     
   }
 
   ngOnInit() {
-    console.log("herereee");
-    
-    this.dataService.getCurrentProject().subscribe(current_project => {      
+    this.dataService.getCurrentProject().subscribe(current_project => {  
       this.current_project = current_project;
-      this.participants = this.current_project.teilnehmer;
-      this.current_project_name = this.current_project.title;
+      if(this.current_project.teilnehmer.length != 0){ //Observable catch?
+        this.no_data_available = false;
+        
+        this.participants = this.current_project.teilnehmer;
+        this.current_project_name = this.current_project.title;
 
-      //this.getCorrectionCompletion();
-      this.createUserGradingList();
-      this.initGraphView();
+        this.dataService.getStudentGrading().subscribe(data => {
+          this.participants = data;
+          this.completion = this.calcCompletion();  
+          this.sum_grade = this.calcSumGrade();
+          this.createUserGradingList();
+          this.initGraphView();
+        });
+      }
+      else{
+        this.no_data_available = true;
+      }
     });    
   }
 
+  calcCompletion(): number{
+    let completion_val: number = 0;
+    this.participants.forEach(student =>{
+      completion_val = completion_val + parseFloat(student.finish);
+    });
+    return parseFloat(((completion_val/this.participants.length)*100).toFixed(2));
+  }
+
+  calcSumGrade(): number{
+    let sum_grade_val: number = 0;
+    this.participants.forEach(student =>{
+      sum_grade_val = sum_grade_val + parseFloat(student.grade);
+    });
+    return parseFloat((sum_grade_val/this.participants.length).toFixed(2));
+  }
+
   initGraphView(): void{
-    if (this.myChart) {
-      this.myChart.destroy();
+    if (this.barChart) {
+      this.barChart.destroy();
     }
-
     let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
+    let grade_steps = this.dataService.getGradingSteps();
+    let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
+    this.chartService.initBarChart(grade_steps, grade_participants, context);
+  }
 
-    this.myChart = new chartJs(context, {
+  initBarChart(notenstufen, teilnehmernoten, context): void {
+    this.barChart = new chartJs(context, {
       type: 'bar',
       data: {
-        labels: ["1,0", "1,3", "1,5", "1,7", "1,9", "2,0", "2,3", "2,7", "3,0", "3,5", "4,0", "5,0"],
-        datasets: [{
-          data: [2, 3, 5, 4, 7, 4, 2, 1, 0, 6, 11, 12],
-          responsive: true,
-          backgroundColor: [
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',
-            'rgba(194, 24, 91, 1)',   
-            'rgba(194, 24, 91, 1)',   
-            'rgba(194, 24, 91, 1)',               
-            'rgba(194, 24, 91, 1)',   
-          ],
-        }]
+        labels: notenstufen,
+        datasets: [
+          {
+            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60"],
+            data: teilnehmernoten
+          }
+        ]
       },
       options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        },
-        legend: {
-          display: false
+        legend: { display: false },
+        title: {
+          display: false,
+          text: 'Notenspiegel'
         }
       }
     });
@@ -103,9 +121,7 @@ export class OverviewComponent implements OnInit {
     });
   }
 
-  getCurrentStudent(id): any{
-    console.log(id);
-    
+  getCurrentStudent(id): any{    
     this.current_project.bewertung.forEach(element => {     
       if(element.student_id == id) return element;
     }); 

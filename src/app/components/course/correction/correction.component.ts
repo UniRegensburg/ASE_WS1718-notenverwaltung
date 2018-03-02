@@ -16,7 +16,9 @@ import {
   log
 } from 'util';
 
-import { ActivatedRoute } from '@angular/router';
+import {
+  ActivatedRoute
+} from '@angular/router';
 
 
 declare var require: any;
@@ -28,7 +30,7 @@ const {
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
-    LEFT_ARROW = 37
+  LEFT_ARROW = 37
 }
 
 @Component({
@@ -43,9 +45,9 @@ export class CorrectionComponent implements OnInit {
   private current_task: any;
   private current_student: any;
 
-  private tasks: Array < any > ;
-  private students: Array < any > ;
-  private grading: Array < any > ;
+  private tasks: Array <any> ;
+  private students: Array <any> ;
+  private grading: Array <any> ;
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
@@ -72,23 +74,16 @@ export class CorrectionComponent implements OnInit {
       this.current_project = current_project;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.students = this.current_project.teilnehmer;
-      this.grading = this.current_project.bewertung;
-
-      //müsste eigentlich in den global Data Service!!!
-      //---
-      if(this.grading = []){
-        this.grading = this.createNewStudentGrading();
-      }
-      //---
+      this.grading = this.current_project.bewertung;   
 
       this.sub = this.route.params.subscribe(params => {
-        if(params){         
+        if (params) {
           this.task_counter = 0;
           this.student_counter = Number(params.user_to_edit_id);
-          if(Number.isNaN(this.student_counter)) this.student_counter = 0;
+          if (Number.isNaN(this.student_counter)) this.student_counter = 0;
         }
         this.setCurrentTask('next');
-     });
+      });
     });
   }
 
@@ -109,81 +104,85 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-
   setCorretionMode(value): void {
     this.correction_mode = value;
   }
 
-  setCurrentTask(direction): void {
-    if(direction === "next"){
-      if(this.task_counter < this.tasks.length){
-        this.task_counter = this.task_counter + 1;        
+  setCurrentTask(direction): void {    
+    if (this.correction_mode == "student"){
+      if (direction === "next") {
+        this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
       }
-      if(this.task_counter >= this.tasks.length){
-        this.task_counter = 0;
-        this.student_counter = this.student_counter + 1;
-        if(this.student_counter >= this.students.length){
-          this.student_counter = this.students.length - 1;
-          this.task_counter = this.tasks.length - 1;
-        }
+      if (direction === "previous") {
+        this.setPrevious(this.task_counter, this.student_counter, this.tasks, this.students);
       }
     }
-    if(direction === "previous"){     
-      if(this.task_counter >= 0){
-        this.task_counter = this.task_counter - 1;        
+    else{
+      if (direction === "next") {
+        this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
       }
-      if(this.task_counter < 0){
-        this.task_counter = this.tasks.length - 1;
-        this.student_counter = this.student_counter - 1;
-        if(this.student_counter <= 0){
-          this.student_counter = 0;
-          this.task_counter = 0;
-        }
-      }
+      if (direction === "previous") {
+        this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
+      }      
     }
-    this.setCurrentCorretion();  
+    this.setCurrentCorretion();
   }
 
-  setCurrentCorretion(){   
-    this.grading.forEach(student => {     
-      if(student.student_id == this.student_counter) this.current_student = student;
-    });
+  setNext(prim_counter, sec_counter, prim, sec): void{
+    if(prim_counter < prim.length){
+      prim_counter = prim_counter + 1;
+    }
+    if(prim_counter >= prim.length){
+      prim_counter = 0;
+      sec_counter = sec_counter + 1;
+      if(sec_counter >= sec.length){
+        sec_counter = sec.length - 1;
+        prim_counter = prim.length - 1;
+      }
+    }    
+    this.setCounters(prim_counter, sec_counter);
+  }
 
+  setPrevious(prim_counter, sec_counter, prim, sec): void {
+    if (prim_counter >= 0) {
+      prim_counter = prim_counter - 1;
+    }
+    if (prim_counter < 0) {
+      prim_counter = prim.length - 1;
+      sec_counter = sec_counter - 1;
+      if (sec_counter <= 0) {
+        sec_counter = 0;
+        prim_counter = 0;
+      }
+    }
+    this.setCounters(prim_counter, sec_counter);
+  }
+
+  setCounters(prim_counter, sec_counter){
+    if(this.correction_mode == "student"){
+      this.task_counter = prim_counter;
+      this.student_counter = sec_counter;
+    }
+    else{
+      this.student_counter = prim_counter;
+      this.task_counter = sec_counter;
+    }
+  }
+  
+  setCurrentCorretion() {    
+    this.grading.forEach(student => {
+      if (student.student_id == this.student_counter){        
+        this.current_student = student;
+      }
+    });
+    
     this.current_student["einzelwertungen"].forEach(correction => {
-      if(correction.aufgaben_id == this.task_counter) this.current_correction = correction;
+      if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;
     });
 
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
 
-  }
-
-  createNewStudentGrading(): any {
-    let gradings = [];
-
-    this.students.forEach(student => {
-      let single_student_corretion = {
-        'student_id': student.id,
-        'einzelwertungen': this.createCurrentCorrection()
-      };
-      gradings.push(single_student_corretion)
-    });    
-    return gradings;
-  }
-
-  createCurrentCorrection(): any {
-    let corretions = [];
-
-    this.tasks.forEach(task => {
-      let single_corretion = {
-        'aufgaben_id': task.id,
-        'erreichte_punkte': 0,
-        'comment_privat': '',
-        'comment_public': ''
-      }
-      corretions.push(single_corretion);      
-    });
-    return corretions;
   }
 
   @HostListener('window:keyup', ['$event'])

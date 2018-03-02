@@ -4,14 +4,14 @@
   <br>
   <h5>{{current_project_name}}</h5>
 
-  <div class="row" style="margin-top: 40px">
+  <div class="row" style="margin-top: 40px" [hidden]="no_data_available">
     <div class="col l4">
       <h5>{{participants.length}} Teilnehmer</h5>
-      <h5>2,7 Durchschnittsnote</h5>
+      <h5>{{sum_grade}} Durchschnittsnote</h5>
       <div class="progress white-text">
 
-        <div class="determinate" style="width: 70%"></div>
-        <div style="position: absolute; margin-left: 20px">70% bewertet</div>
+        <div class="determinate" [ngStyle]="{ 'width': completion + '%' }"></div>
+        <div style="position: absolute; margin-left: 20px">{{completion}}% bewertet</div>
       </div>
     </div>
     <div class="col l8" style="height: 200px!important;">
@@ -25,7 +25,33 @@
         <i class="material-icons left">create</i>Korrektur fortsetzen</a>
     </div>
   </div-->
-  <div class="row" style="margin-top: 150px">
+  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
+    <h5>We're sorry but no data is available!</h5>
+  </div>
+  <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
+      <div class="col l12">
+          <div class="row row_hover">
+            <div class="col s1">
+                <b>ID</b>
+            </div>
+            <div class="col s3">
+                <b>Name, Vorname</b>
+            </div> 
+            <div class="col s2">
+                <b>Martrikelnr</b>
+            </div>
+            <div class="col s2">
+              <b>Korrigiert</b>
+            </div>
+            <div class="col s1">
+                <b>Note</b>
+            </div>
+            <div class="col s3">             
+            </div>
+          </div>
+          <hr class="hr_table">
+        </div>
+
     <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
       <div class="row row_hover">
         <div class="col s1">
@@ -37,19 +63,15 @@
         <div class="col s2">
           {{participant.mtknr}}
         </div>
-        <div class="col s1">
-          {{participant.completionRate}}
+        <div class="col s2">
+          {{participant.finish * 100}}%
         </div>
         <div class="col s1">
-          1,0
+          {{participant.grade}}
         </div>
-        <div class="col s1">
+        <div class="col s3">
           <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
-        </div>
-        <div class="col s1">
-          <i class="material-icons right edit-btn" [routerLink]="['/course/students']">create</i>
-        </div>
-        <div class="col s1">
+          <i class="material-icons right edit-btn" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
           <i class="material-icons right edit-btn" [routerLink]="['/course/results']">pie_chart</i>
         </div>
       </div>
