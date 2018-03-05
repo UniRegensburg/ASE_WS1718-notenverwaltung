@@ -181,14 +181,14 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
-    
+
   }
 
   private checkStudentsInGrading(): void{
     let grading = [];
-    
+
     this.current_project.teilnehmer.forEach(student => {
-      let student_found = false;  
+      let student_found = false;
 
       this.current_project.bewertung.forEach(student_bewertung => {
         if(student.id == student_bewertung.student_id){
@@ -209,7 +209,7 @@ export class GlobalDataService {
       let single_grading = [];
 
       this.current_project.bewertungsschema.aufgaben.forEach(aufgabe => {
-        let task_found = false;     
+        let task_found = false;
 
         student.einzelwertungen.forEach(einzelwertung => {
           if(einzelwertung.aufgaben_id == aufgabe.id){
@@ -221,7 +221,7 @@ export class GlobalDataService {
           single_grading.push(this.createTaskCorrection(aufgabe.id));
         }
       });
-     
+
       grading.push({
         "student_id": student.student_id,
         "einzelwertungen": single_grading
@@ -231,7 +231,7 @@ export class GlobalDataService {
   }
 
   public createGroups():void{
-    this.current_project.gruppen = [];    
+    this.current_project.gruppen = [];
   }
 
   public createNewStudent(): Observable<any>{
@@ -252,7 +252,7 @@ export class GlobalDataService {
   private createNewStudentGrading(): any {
     let gradings = [];
 
-    this.current_project.teilnehmer.forEach(student => {      
+    this.current_project.teilnehmer.forEach(student => {
       gradings.push(this.createSingleStudentGrading(student.id))
     });
 
@@ -295,7 +295,7 @@ export class GlobalDataService {
          ],
          "bewertungseinheit":"Punkte"
       },
-      "aufgaben":[         
+      "aufgaben":[
       ]
    };
 
@@ -303,7 +303,8 @@ export class GlobalDataService {
   }
 
   private saveJson(): void{
-    /*writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+      console.log("writing file")
+    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
         if(err){
             alert("An error ocurred creating the file "+ err.message);
         }
@@ -311,7 +312,7 @@ export class GlobalDataService {
           // alert("The file has been succesfully saved");
           console.log("The file has been saved")
       }
-    });*/
+    });
 
   }
 
@@ -345,13 +346,13 @@ export class GlobalDataService {
       });
     });
     this.current_project.gruppen = groups;
-    //this.saveJson();
+    this.saveJson();
   }
 
   public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
-      this.current_project.bewertungsschema = res.json().bewertungsschema;      
+      this.current_project.bewertungsschema = res.json().bewertungsschema;
       return this.current_project;
     })
 

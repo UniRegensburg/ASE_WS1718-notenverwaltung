@@ -37,8 +37,8 @@ export class StudentsComponent implements OnInit {
     public router: Router,
     public zone: NgZone) {}
 
-  ngOnInit() {    
-    this.dataService.getCurrentProject().subscribe(current_project => {    
+  ngOnInit() {
+    this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       if (this.current_project.teilnehmer.length != 0) {
         this.no_data_available = false;
@@ -46,8 +46,8 @@ export class StudentsComponent implements OnInit {
         this.current_project_name = this.current_project.title;
         this.changeDetectorRef.detectChanges();
 
-        if (!this.current_project.groups) {          
-            this.getGroups();        
+        if (!this.current_project.groups) {
+            this.getGroups();
         }
       }
       else{
@@ -65,11 +65,12 @@ export class StudentsComponent implements OnInit {
     this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
       this.participants = studentsWithGroup;
       this.groups = this.current_project.gruppen;
-    });  
+    });
   }
 
   changeDetected(event): void {
     this.dataService.setNewGroups(this.participants);
+    console.log("change detected");
   }
 
   openDialog(): void {
@@ -94,6 +95,7 @@ export class StudentsComponent implements OnInit {
       "name": "",
       "studenten": []
     });
+    // console.log("added group")
   }
 
   deleteStudent(id): void {
