@@ -29,10 +29,10 @@
         <div class="col s12" style="height: 300px;  overflow: scroll;">
           <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
             <div class="col s5">
-              <input [(ngModel)]="entry.note" type="number" class="validate">
+              <input [(ngModel)]="entry.note" type="number" class="validate" (keyup)="onKeyUp($event)">
             </div>
             <div class="col s5">
-              <input [(ngModel)]="entry.wert_min" type="number" class="validate">
+              <input [(ngModel)]="entry.wert_min" type="number" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
             </div>
             <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
               <i class="material-icons right">delete</i>
@@ -86,14 +86,14 @@
           <div class="col s12">
             Titel der Aufgabe:
             <div class="input-field inline">
-              <input [(ngModel)]="question.name" id="title" type="text">
+              <input [(ngModel)]="question.name" id="title" type="text" (keyup)="onKeyUp($event)">
               <label for="title" class="active">z.B. Aufgabe 1</label>
             </div>
           </div>
           <div class="col s12">
             Erreichbare Punkte:
             <div class="input-field inline">
-              <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5">
+              <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
               <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
             </div>
           </div>
@@ -102,7 +102,7 @@
           <div class="col s12">
             Dezimale Gewichtung:
             <div class="input-field inline">
-              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.1">
+              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.1" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
               <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 0.5</label>
             </div>
           </div>
@@ -113,14 +113,14 @@
           <div class="col s12">Aufgabenbeschreibung:</div>
           <div class="input-field col s12">
             <!--input value="{{question.beschreibung}}" placeholder="Aufgabenbeschreibung" id="beschreibung" type="text"-->
-            <textarea [(ngModel)]="question.beschreibung" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Aufgabenbeschreibung"></textarea>
+            <textarea [(ngModel)]="question.beschreibung" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Aufgabenbeschreibung" (keyup)="onKeyUp($event)"></textarea>
             <label for="beschreibung" class="active">z.B. Programmieren Sie eine Software zur Notenverwaltung.</label>
           </div>
           <br>
           <br>
           <div class="col s12">Bewertungshinweis:</div>
           <div class="input-field col s12">
-            <textarea [(ngModel)]="question.bewertungs_hinweis" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Bewertungshinweis"></textarea>
+            <textarea [(ngModel)]="question.bewertungs_hinweis" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Bewertungshinweis" (keyup)="onKeyUp($event)"></textarea>
             <label for="hinweis" class="active">z.B. 2 Punkte für tolle Demo.</label>
           </div>
           <br>
