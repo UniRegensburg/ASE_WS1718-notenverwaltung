@@ -349,6 +349,11 @@ export class GlobalDataService {
     this.saveJson();
   }
 
+  public setNewGroupsComplete(groups): void{
+      this.current_project.gruppen = groups;
+      this.saveJson();
+  }
+
   public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {

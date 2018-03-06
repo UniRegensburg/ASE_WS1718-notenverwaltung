@@ -22,7 +22,7 @@ declare var $: any;
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit{
   title = `Notenverwaltung ASE WS17/18 !`;
   private current_project: any;
   private current_project_name: String;
@@ -30,7 +30,6 @@ export class StudentsComponent implements OnInit {
   private groups: Array < any > ;
   private group_mode: boolean = false;
   private no_data_available: boolean = false;
-
   constructor(
     public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -60,7 +59,11 @@ export class StudentsComponent implements OnInit {
     });
     */
   }
-
+  onKey(event: any){
+      console.log(event.target.value)
+      console.log(this.current_project.gruppen)
+      this.dataService.setNewGroupsComplete(this.current_project.gruppen);
+  }
   getGroups(): void{
     this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
       this.participants = studentsWithGroup;
