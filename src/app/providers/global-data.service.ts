@@ -241,19 +241,19 @@ export class GlobalDataService {
     try {
       user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length - 1].id + 1;
     }
-    catch (err) { }
-
-    let user = {
-      "id": user_id,
-      "mtknr": 0,
-      "name": "",
-      "vorname": "",
-      "studiengang": "",
-      "fachsemester": 0,
-      "mail": "",
-      "status": ""
-    };
-    return of(user);
+    finally {
+      let user = {
+        "id": user_id,
+        "mtknr": 0,
+        "name": "",
+        "vorname": "",
+        "studiengang": "",
+        "fachsemester": 0,
+        "mail": "",
+        "status": ""
+      };
+      return of(user);
+    }
   }
 
   private createNewStudentGrading(): any {
