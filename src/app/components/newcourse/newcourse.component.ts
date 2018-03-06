@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
-import { File } from '../../../models/index'
-import { GlobalDataService } from '../../../providers/index';
+import { File } from '../../models/index'
+import { GlobalDataService } from '../../providers/index';
 import { Observable } from 'rxjs/Observable';
 import { readdir, stat, writeFile } from 'fs';
 import { resolve } from 'path';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-home-newCourse',
@@ -30,9 +31,13 @@ export class NewCourseComponent implements OnInit {
   //TODO: was ist das und was tut das?
   private view_mode: boolean = true;
 
-  constructor(public dataService: GlobalDataService, public router: Router) { }
+  constructor(public dataService: GlobalDataService, public router: Router, private location: Location) { }
 
   ngOnInit() { }
+
+  goBack(): void {
+    this.location.back();
+  }
 
   createCourse(): void {
     this.course_oject.file_name = this.course_oject.title + ".json";
