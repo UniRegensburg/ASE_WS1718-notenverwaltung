@@ -47,12 +47,11 @@ export class NewCourseComponent implements OnInit {
     var chooseFolder = new Promise((resolve, reject) => {
       dialog.showOpenDialog({ properties: ['openDirectory'] }, (fileNames) => {
         if (fileNames === undefined) {
-          //TODO: muss der Nutzer das auch sehen können?
-          console.log("No filename selected")
-          reject("No filename seleeeeected")
-          return;
+          //TODO: Toast
+          reject("No filename selected");
         }
         this.course_oject.path = fileNames[0];
+        //TODO: Toast
         console.log("Speicherort festgelegt.");
         resolve();
       });
@@ -64,9 +63,11 @@ export class NewCourseComponent implements OnInit {
        
         writeFile(filePath, JSON.stringify(this.basic_schema), (err) => {
           if (err) {
+            //TODO: Toast
             alert("An error ocurred creating the file " + err.message);
           }
           else {
+            //TODO: Toast
             alert("The file has been succesfully saved");
             this.dataService.getLocalFile(filePath).subscribe(
               data => {
@@ -74,10 +75,7 @@ export class NewCourseComponent implements OnInit {
               });
           }
         });
-      } else {
-        //TODO: sichtbar machen?
-        alert("Please select a directory!")
-      }
+      } 
     });
   }
 
