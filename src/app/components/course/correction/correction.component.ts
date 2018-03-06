@@ -58,8 +58,8 @@ export class CorrectionComponent implements OnInit {
   private student_counter: number;
   private current_student_grading;
 
-  private show_next: boolean = false;
-  private show_previous: boolean = false;
+  private show_next: boolean = true;
+  private show_previous: boolean = true;
 
   private sub: any;
 
@@ -109,6 +109,19 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentTask(direction): void {    
+    /*console.log("task_counter", this.task_counter);
+    console.log("student_counter", this.student_counter);
+    console.log("tasks", this.tasks);
+    console.log("students", this.students);*/
+
+    if(this.student_counter == this.students.length-2){
+      this.show_next = false;
+      console.log("ENDE0");
+    }
+    else{
+      this.show_next = true;
+    }
+
     if (this.correction_mode == "student"){
       if (direction === "next") {
         this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
@@ -139,6 +152,15 @@ export class CorrectionComponent implements OnInit {
         sec_counter = sec.length - 1;
         prim_counter = prim.length - 1;
       }
+    }
+    if(sec_counter == sec.length-1){
+      this.show_next = false;
+      console.log("ENDE0");
+      console.log(prim);
+      console.log(sec);
+    }
+    else{
+      this.show_next = true;
     }    
     this.setCounters(prim_counter, sec_counter);
   }
