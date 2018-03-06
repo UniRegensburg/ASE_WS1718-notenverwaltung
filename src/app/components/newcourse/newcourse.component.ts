@@ -6,7 +6,7 @@ import { GlobalDataService } from '../../providers/index';
 import { Observable } from 'rxjs/Observable';
 import { readdir, stat, writeFile } from 'fs';
 import { resolve } from 'path';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-home-newCourse',
