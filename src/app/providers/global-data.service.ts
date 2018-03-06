@@ -268,11 +268,15 @@ export class GlobalDataService {
 
   private createCurrentCorrection(): any {
     let corretions = [];
-
-    this.current_project.bewertungsschema.aufgaben.forEach(task => {
-      corretions.push(this.createTaskCorrection(task.id));
-    });
-    return corretions;
+    if(Object.keys(this.current_project.bewertungsschema).length == 0){
+      this.current_project.bewertungsschema.aufgaben.forEach(task => {
+        corretions.push(this.createTaskCorrection(task.id));
+      });
+      return corretions;
+    }
+    else{
+      return [];
+    }
   }
 
   private createTaskCorrection(task_id): any{
