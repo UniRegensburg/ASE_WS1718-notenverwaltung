@@ -58,8 +58,8 @@ export class CorrectionComponent implements OnInit {
   private student_counter: number;
   private current_student_grading;
 
-  private show_next: boolean = false;
-  private show_previous: boolean = false;
+  private show_next: boolean = true;
+  private show_previous: boolean = true;
 
   private sub: any;
 
@@ -106,26 +106,63 @@ export class CorrectionComponent implements OnInit {
 
   setCorretionMode(value): void {
     this.correction_mode = value;
+    this.updateShowPermissions();
   }
 
   setCurrentTask(direction): void {    
     if (this.correction_mode == "student"){
-      if (direction === "next") {
+      if ((direction === "next") && (this.show_next)) {
         this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
       }
-      if (direction === "previous") {
+      if ((direction === "previous") && (this.show_previous)) {
         this.setPrevious(this.task_counter, this.student_counter, this.tasks, this.students);
       }
     }
     else{
-      if (direction === "next") {
+      if ((direction === "next") && (this.show_next)) {
         this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
       }
-      if (direction === "previous") {
+      if ((direction === "previous") && (this.show_previous)) {
         this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
       }      
     }
+    this.updateShowPermissions();
     this.setCurrentCorretion();
+  }
+
+  updateShowPermissions(): void{
+    
+    if(this.correction_mode === "student"){
+      if(this.student_counter >= this.students.length-1){
+        this.show_next = false;
+      }
+      else{
+        this.show_next = true;
+      }
+
+      if(this.student_counter <= 0){
+        this.show_previous = false;
+      }
+      else{
+        this.show_previous = true;
+      }
+    }
+    else{    
+      if((this.student_counter >= this.students.length-1) && (this.task_counter >= this.tasks.length-1)){
+        this.show_next = false;
+      }
+      else{
+        this.show_next = true;
+      } 
+
+      if((this.student_counter <= 0) && (this.task_counter <= 0)){
+        this.show_previous = false;
+      }
+      else{
+        this.show_previous = true;
+      }
+    }
+
   }
 
   setNext(prim_counter, sec_counter, prim, sec): void{
@@ -139,7 +176,7 @@ export class CorrectionComponent implements OnInit {
         sec_counter = sec.length - 1;
         prim_counter = prim.length - 1;
       }
-    }    
+    }
     this.setCounters(prim_counter, sec_counter);
   }
 
