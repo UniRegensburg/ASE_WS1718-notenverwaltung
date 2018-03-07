@@ -74,7 +74,7 @@ export class CorrectionComponent implements OnInit {
       this.current_project = current_project;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.students = this.current_project.teilnehmer;
-      this.grading = this.current_project.bewertung;   
+      this.grading = this.current_project.bewertung;
 
       this.sub = this.route.params.subscribe(params => {
         if (params) {
@@ -108,7 +108,7 @@ export class CorrectionComponent implements OnInit {
     this.correction_mode = value;
   }
 
-  setCurrentTask(direction): void {    
+  setCurrentTask(direction): void {
     if (this.correction_mode == "student"){
       if (direction === "next") {
         this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
@@ -123,7 +123,7 @@ export class CorrectionComponent implements OnInit {
       }
       if (direction === "previous") {
         this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
-      }      
+      }
     }
     this.setCurrentCorretion();
   }
@@ -139,7 +139,7 @@ export class CorrectionComponent implements OnInit {
         sec_counter = sec.length - 1;
         prim_counter = prim.length - 1;
       }
-    }    
+    }
     this.setCounters(prim_counter, sec_counter);
   }
 
@@ -168,23 +168,25 @@ export class CorrectionComponent implements OnInit {
       this.task_counter = sec_counter;
     }
   }
-  
-  setCurrentCorretion() {    
+
+  setCurrentCorretion() {
     this.grading.forEach(student => {
-      if (student.student_id == this.student_counter){        
+      if (student.student_id == this.student_counter){
         this.current_student = student;
       }
     });
-    
+
     this.current_student["einzelwertungen"].forEach(correction => {
       if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;
     });
 
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
-
   }
 
+  saveCorrection():void{
+      this.dataService.setNewCorrection(this.grading)
+  }
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
 

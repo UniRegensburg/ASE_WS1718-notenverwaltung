@@ -354,6 +354,10 @@ export class GlobalDataService {
       this.saveJson();
   }
 
+  public setNewCorrection(correction):void{
+      this.current_project.bewertung = correction;
+      this.saveJson();
+  }
   public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
