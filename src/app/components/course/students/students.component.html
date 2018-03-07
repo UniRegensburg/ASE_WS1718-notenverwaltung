@@ -24,7 +24,7 @@
         <i class="material-icons left">import_export</i> Teilnehmer importieren
       </span>
       <span *ngIf="group_mode" class="right clickHover" (click)="addGroup()">
-        <i class="material-icons left">add</i> Neu Gruppe hinzufügen
+        <i class="material-icons left">add</i> Neue Gruppe hinzufügen
       </span>
     </div>
   </div>
@@ -105,7 +105,7 @@
               {{i}}
             </div>
             <div class="col s4">
-              <input [(ngModel)]="group.name" type="text" class="validate" >
+              <input [(ngModel)]="group.name" type="text" class="validate" (keyup)="onKey($event)">
             </div>
             <div class="col s3">
               {{group.studenten.length}}

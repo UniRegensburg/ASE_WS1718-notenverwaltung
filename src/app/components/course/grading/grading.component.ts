@@ -17,14 +17,14 @@ const fs = require('fs');
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GradingComponent implements OnInit {
-  private current_project: any; 
+  private current_project: any;
   private schemePoints = true;
   private schemePercentage = false;
   private tasks: Array < any > ;
   private grades: Array < any > ;
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
-  
+
   constructor(
     private dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -36,15 +36,15 @@ export class GradingComponent implements OnInit {
       this.current_project = current_project;
       this.changeDetectorRef.detectChanges();
       if (Object.keys(this.current_project.bewertungsschema).length == 0 || this.current_project == undefined) {
-          this.no_data_available = true;   
-          this.changeDetectorRef.detectChanges();     
+          this.no_data_available = true;
+          this.changeDetectorRef.detectChanges();
       }
-      else{        
+      else{
         this.no_data_available = false;
         this.changeDetectorRef.detectChanges();
       }
     });
-     
+
   }
 
   addNewTask(): void {
@@ -72,6 +72,7 @@ export class GradingComponent implements OnInit {
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
     this.changeDetectorRef.detectChanges();
   }
+
 
   importScheme(): void {
       dialog.showOpenDialog((fileNames) =>{
@@ -119,7 +120,9 @@ export class GradingComponent implements OnInit {
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(taskID,1);
   }
+  onKeyUp(event):void{
+      this.dataService.setNewGrading(this.current_project.bewertungsschema);
+  }
 
 
 }
-
