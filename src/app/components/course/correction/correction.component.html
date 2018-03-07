@@ -2,8 +2,8 @@
   <h1 *ngIf="screen_mode">KORREKTUR</h1>
   <hr class="hr_welcome" *ngIf="!screenMode">
   <br>
-  <i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="!screen_mode">fullscreen_exit</i>
-  <i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="screen_mode">fullscreen</i>
+  <!--i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="!screen_mode">fullscreen_exit</i-->
+  <!--i class="material-icons right" (click)="setScreenMode()" style="font-size: 30px" *ngIf="screen_mode">fullscreen</i-->
   <div class="row" style="margin-top: 40px">
     <div class="col s12 center-align">
       <h5 *ngIf="correction_mode == 'student'"><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</h5>

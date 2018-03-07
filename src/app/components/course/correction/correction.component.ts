@@ -87,6 +87,7 @@ export class CorrectionComponent implements OnInit {
     });
   }
 
+  /* Currently not used
   setScreenMode(): void {
     this.screen_mode = !this.screen_mode;
     let win = remote.getCurrentWindow();
@@ -103,11 +104,14 @@ export class CorrectionComponent implements OnInit {
       win.setBounds(this.old_window_state);
     }
   }
+  */
 
+  
   setCorretionMode(value): void {
     this.correction_mode = value;
     this.updateShowPermissions();
   }
+  
 
   setCurrentTask(direction): void {    
     if (this.correction_mode == "student"){
