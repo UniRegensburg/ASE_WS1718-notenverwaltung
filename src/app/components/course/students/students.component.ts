@@ -60,8 +60,6 @@ export class StudentsComponent implements OnInit{
     */
   }
   onKey(event: any){
-      console.log(event.target.value)
-      console.log(this.current_project.gruppen)
       this.dataService.setNewGroupsComplete(this.current_project.gruppen);
   }
   getGroups(): void{

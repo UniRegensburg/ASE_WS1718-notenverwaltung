@@ -56,9 +56,7 @@ export class DetailComponent implements OnInit {
   }
 
   saveStudent():void{
-      console.log(this.participants)
       this.dataService.setNewStudentsComplete(this.participants)
-      // this.dataService.setNewStudents(this.participants);
       this.router.navigate(['/course/students']);
   }
   getNewStudent(): void{
