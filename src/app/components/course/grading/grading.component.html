@@ -115,11 +115,12 @@
           <br>
           <br>
           <div class="col s12">
-            Dezimale Gewichtung:
+            Prozentuale Gewichtung:
             <div class="input-field inline">
-              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.1" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
-              <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 0.5</label>
+              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="1" min="0" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+              <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 50 %</label>
             </div>
+            %
           </div>
           <br>
           <br>
