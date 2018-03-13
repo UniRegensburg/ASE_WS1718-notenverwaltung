@@ -1,4 +1,4 @@
-import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +16,8 @@ const fs = require('fs');
   styleUrls: ['./grading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GradingComponent implements OnInit {
+
+export class GradingComponent implements OnInit, AfterContentChecked {
   private current_project: any;
   private schemePoints = true;
   private schemePercentage = false;
@@ -24,6 +25,8 @@ export class GradingComponent implements OnInit {
   private grades: Array < any > ;
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
+  private max_points: number = 0;
+  private new_points: number = 0;
 
   constructor(
     private dataService: GlobalDataService,
@@ -44,7 +47,12 @@ export class GradingComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
     });
+  }
 
+  ngAfterContentChecked() {
+    this.calculateMaxPoints();
+    console.log("NG AFER CONTENT CHECKED");
+    this.changeDetectorRef.detectChanges();
   }
 
   addNewTask(): void {
@@ -53,7 +61,7 @@ export class GradingComponent implements OnInit {
       'position': this.current_project.bewertungsschema.aufgaben.length,
       'name': 'Aufgabe',
       'gewichtung': 1.0,
-      'max_punkt': 0,
+      'max_punkt': 10,
       'comment_public': true,
       'comment_privat': true,
       'beschreibung': '',
@@ -72,7 +80,6 @@ export class GradingComponent implements OnInit {
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
     this.changeDetectorRef.detectChanges();
   }
-
 
   importScheme(): void {
       dialog.showOpenDialog((fileNames) =>{
@@ -119,10 +126,17 @@ export class GradingComponent implements OnInit {
   deleteTask(taskID) {
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(taskID,1);
+    this.changeDetectorRef.detectChanges();
   }
+
   onKeyUp(event):void{
       this.dataService.setNewGrading(this.current_project.bewertungsschema);
   }
 
-
+  calculateMaxPoints(): void{
+    this.max_points = 0;
+    for (let entry in this.current_project.bewertungsschema.aufgaben){
+      this.max_points += this.current_project.bewertungsschema.aufgaben[entry].max_punkt;
+    }
+  }
 }
