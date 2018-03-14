@@ -12,6 +12,8 @@ export class ResultsComponent implements OnInit {
   private current_project: any;
   private current_project_name: String;
   private participants: Array<any>;
+  private tasks: Array<any>;
+  private results: Array<any>;
 
   private grade_steps: any;
   private grade_participants: any;
@@ -24,6 +26,8 @@ export class ResultsComponent implements OnInit {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       this.participants = this.current_project.teilnehmer;
+      this.tasks = this.current_project.bewertungsschema.aufgaben;
+      this.results = this.current_project.bewertung;
       this.initGraphView();
     });
   }

@@ -8,7 +8,7 @@
         <div ng-show="condition()">{{value2}}</div>
 
         <div class="col s2">
-            <span>Available Downloads</span>
+            <span>Downloads</span>
         </div>
         <div class="col 3">
             <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')">
@@ -68,23 +68,41 @@
             <canvas id="scatter-chart" width="800" height="450"></canvas>
         </div>-->
     </div>
+
     <div class="row" class="participants">
-        <h2>Teilnehmer</h2>
+        <h2>Aufgaben vs. Teilnehmer</h2>
         <table>
             <tr>
-                <th sortable-column="name" class="participants">Nachname</th>
-                <th sortable-column="firstname" class="participants">Vorname</th>
-                <th sortable-column="matrikelnr" class="participants">Matrikelnummer</th>
-                <th sortable-column="wip" class="participants">Korrektur</th>
-                <th sortable-column="grade" class="participants">aktuelle Note</th>
+                <th>Mtrknr</th>
+                <th>Nachname</th>
+                <th>Vorname</th>
+                <th>Note</th>
+                <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
             </tr>
             <tr *ngFor="let participant of participants; let i = index ">
+                <td class="number">{{participant.mtknr}}</td>
                 <td>{{participant.name}}</td>
                 <td>{{participant.vorname}}</td>
-                <td class="number">{{participant.mtknr}}</td>
-                <td class="number">{{participant.finish * 100}}%</td>
-                <td class="number">{{participant.grade}}</td>
+                <td>{{participant.grade}}</td>
+                <td *ngFor="let task of tasks; let i = index"> Note</td>
             </tr>
         </table>
     </div>
+
+    <!--
+    <div class="row">
+        <h2>Aufgaben vs. Teilnehmer</h2>
+        <table>
+            <tr>
+                <th>x</th>
+                <th *ngFor="let task of tasks; let i = index">Tasknummer</th>
+            </tr>
+            <tr *ngFor="let participant of participants; let i = index ">
+                <td class="number">{{participant.mtknr}}</td>
+                <td class="number">{{participant.}}</td>
+            </tr>
+        </table>
+    </div>
+-->
+
 </div>
