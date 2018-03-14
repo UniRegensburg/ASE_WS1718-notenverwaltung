@@ -52,7 +52,7 @@
           <hr class="hr_table">
         </div>
 
-    <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 6, currentPage: p }; let i = index ">
+    <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index ">
       <div class="row row_hover">
         <div class="col s1">
           {{participant.id}}
