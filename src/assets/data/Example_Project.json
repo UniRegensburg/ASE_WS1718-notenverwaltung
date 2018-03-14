@@ -210,8 +210,8 @@
         "aufgaben": [{
             "id": 0,
             "position": 0,
-            "name": "Aufgabe 1",
-            "gewichtung": 1,
+            "name": "Aufgabe",
+            "gewichtung": 100,
             "max_punkt": 10,
             "comment_public": true,
             "comment_privat": true,
