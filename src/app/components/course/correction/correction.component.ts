@@ -92,12 +92,9 @@ export class CorrectionComponent implements OnInit {
   setCorrectionMode(): void {
     if(this.correctByTasks){
       this.correction_mode = "task";
-      console.log("set mode task")
     }else{
       this.correction_mode = "student";
-      console.log("set mode student")
     }
-    console.log("toggle correctionmode")
     this.correctByTasks = !this.correctByTasks;
     this.updateShowPermissions();
   }

@@ -1,36 +1,45 @@
 <div class="container">
   <h1>KORREKTUR</h1>
-  <hr class="hr_welcome">
+  
+  <div class="divider"></div>
   <br>
 
-  <div class="col s6">
-    <label>Gruppen</label>
-    <div class="switch">
-      <label>
-        Aus
-        <input type="checkbox" [checked]="groupview" (change)="groupview = !groupview">
-        <span class="lever"></span>
-        An
-      </label>
+  <div class="row">
+    <div class="col s6">
+      <label>Gruppen</label>
+      <div class="switch">
+        <label>
+          Aus
+          <input type="checkbox" [checked]="groupview" (change)="groupview = !groupview">
+          <span class="lever"></span>
+          An
+        </label>
+      </div>
     </div>
-  </div>
 
-  <div class="col s6 right-align">
-    <label>Korrekturrichtung</label>
-    <div class="switch">
-      <label>
-        Ein Student
-        <input type="checkbox" [checked]="!correctByTasks" (change)="setCorrectionMode()">
-        <span class="lever"></span>
-        Eine Aufgabe
-      </label>
+    <div class="col s6 right-align">
+      <label>Korrekturrichtung</label>
+      <div class="switch">
+        <label>
+          Ein Student
+          <input type="checkbox" [checked]="correctByTasks" (change)="setCorrectionMode()">
+          <span class="lever"></span>
+          Eine Aufgabe
+        </label>
+      </div>
     </div>
   </div>
+  <br>
+
+  <div class="divider"></div>
+  <br>
 
   <div class="row center-align" style="margin-top: 40px">
-
-      <p *ngIf="correctByTasks"><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</p>
-      <p *ngIf="!correctByTasks">{{current_student.name}}, {{current_student.vorname}} / <span style="color:#C2185B">{{current_task.name}}</span></p>
+    <p *ngIf="!correctByTasks">
+      <span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</p>
+    <p *ngIf="correctByTasks">{{current_student.name}}, {{current_student.vorname}} /
+      <span style="color:#C2185B">{{current_task.name}}</span>
+    </p>
   </div>
 
   <div class="row">
