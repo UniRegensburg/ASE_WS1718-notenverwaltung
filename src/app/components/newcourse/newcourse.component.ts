@@ -22,7 +22,7 @@ export class NewCourseComponent implements OnInit {
   };
 
   //TODO: an zentrale Stelle:
-  private basic_schema = {
+  private neuer_kurs = {
     "title": "",
     "teilnehmer": [],
     "bewertungsschema": {},
@@ -52,6 +52,7 @@ export class NewCourseComponent implements OnInit {
           reject("No filename selected");
         }
         this.course_object.path = fileNames[0];
+        this.neuer_kurs.title = this.course_object.title;
         //TODO: Toast
         console.log("Speicherort festgelegt.");
         resolve();
@@ -62,7 +63,7 @@ export class NewCourseComponent implements OnInit {
       if (this.course_object.path) {
         let filePath = this.course_object.path + "/" + this.course_object.title + ".json";
        
-        writeFile(filePath, JSON.stringify(this.basic_schema), (err) => {
+        writeFile(filePath, JSON.stringify(this.neuer_kurs), (err) => {
           if (err) {
             //TODO: Toast
             alert("An error ocurred creating the file " + err.message);
