@@ -8,7 +8,7 @@
     <div class="switch">
       <label>
         Aus
-        <input type="checkbox">
+        <input type="checkbox" [checked]="groupview" (change)="groupview = !groupview"  >
         <span class="lever"></span>
         An
       </label>
@@ -53,6 +53,10 @@
     <div class="col s4">
       <i class="material-icons right card-panel" style="font-size: 40px" (click)="setCurrentTask('next')" *ngIf="show_next">chevron_right</i>
     </div>
+  </div>
+
+  <div class="row" *ngIf="groupview">
+    <p>Gruppenmitglieder</p>
   </div>
 
   <div class="row">

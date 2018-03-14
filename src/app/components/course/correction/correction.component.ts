@@ -41,6 +41,8 @@ export enum KEY_CODE {
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
+  private groupview: boolean = true;
+  
   private current_project: any;
   private current_task: any;
   private current_student: any;
