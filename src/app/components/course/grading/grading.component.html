@@ -179,13 +179,11 @@
             <div class="col s12">Erlaubte Kommentare:</div>
             <form action="#">
               <p>
-                <input class="filled-in col s12" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" (click)="privateCommentClicked(true||false, i)"
-                  (change)="changeDetected($event)" />
+                  <input [checked]="question.comment_public" type="checkbox" class="filled-in col s12 active"  id="comment-type1"  (change)="question.comment_public = !question.comment_public" (change)="logIndex(i)"/>
                 <label for="comment-type1">Öffentlich</label>
               </p>
               <p>
-                <input class="filled-in col s12" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" (click)="publicCommentClicked(true||false, i)"
-                  (change)="changeDetected($event)" />
+                <input [checked]="question.comment_privat" type="checkbox" class="filled-in col s12 active" id="comment-type2"  (change)="question.comment_privat = !question.comment_privat" (change)="logIndex(i)"/>
                 <label for="comment-type2">Privat</label>
               </p>
             </form>

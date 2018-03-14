@@ -143,15 +143,9 @@ export class GradingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  privateCommentClicked(privateBool, taskIDprivate): void{
-    this.current_project.bewertungsschema.aufgaben[taskIDprivate].comment_privat = privateBool;
-    console.log(taskIDprivate, privateBool);
+  logIndex(ind):void{
+    //console.log("DAS IST COLLAPSIBLE:" + ind);
   }
 
-  publicCommentClicked(publicBool, taskIDpublic): void{
-    this.current_project.bewertungsschema.aufgaben[taskIDpublic].comment_public = publicBool;
-    console.log(taskIDpublic, publicBool)
-  }
-}
 
-
+ 
