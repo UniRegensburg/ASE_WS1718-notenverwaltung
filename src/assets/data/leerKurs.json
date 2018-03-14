@@ -1,0 +1,15 @@
+{
+    "title": "leerKurs",
+    "teilnehmer": [{
+        "id": 0,
+        "mtknr": 0,
+        "name": "test",
+        "vorname": "test",
+        "studiengang": "test",
+        "fachsemester": 0,
+        "mail": "",
+        "status": "test"
+    }],
+    "bewertungsschema": {},
+    "bewertung": []
+}
