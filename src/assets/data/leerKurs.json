@@ -1,1 +1,7 @@
-{"title":"leerKurs","teilnehmer":[{"id":0,"mtknr":0,"name":"tetete","vorname":"tetee","studiengang":"teeeeeeee","fachsemester":0,"mail":"","status":"teee"}],"bewertungsschema":{},"bewertung":[],"gruppen":[]}
+{
+    "title": "leerKurs",
+    "teilnehmer": [],
+    "bewertungsschema": {},
+    "bewertung": [],
+    "gruppen": []
+}
