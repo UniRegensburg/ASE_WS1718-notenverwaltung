@@ -85,6 +85,7 @@ export class CorrectionComponent implements OnInit {
           if (Number.isNaN(this.student_counter)) this.student_counter = 0;
         }
         this.setCurrentTask('next');
+        this.setCurrentTask('previous');
       });
     });
   }
