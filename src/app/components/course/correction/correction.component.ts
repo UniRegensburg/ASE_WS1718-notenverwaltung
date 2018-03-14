@@ -51,7 +51,6 @@ export class CorrectionComponent implements OnInit {
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
-  private screen_mode: boolean = true;
   private old_window_state: any;
 
   private task_counter: number;
@@ -85,23 +84,6 @@ export class CorrectionComponent implements OnInit {
         this.setCurrentTask('next');
       });
     });
-  }
-
-  setScreenMode(): void {
-    this.screen_mode = !this.screen_mode;
-    let win = remote.getCurrentWindow();
-
-    if (this.screen_mode) {
-      this.old_window_state = win.getBounds();
-      win.setBounds({
-        x: 240,
-        y: 192,
-        width: 440,
-        height: 600
-      });
-    } else {
-      win.setBounds(this.old_window_state);
-    }
   }
 
   setCorretionMode(value): void {
