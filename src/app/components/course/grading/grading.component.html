@@ -93,7 +93,7 @@
           <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
           <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
           </div>
-          <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)" (mouseup)="onKeyUp($event)">
+          <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
             <i class="material-icons right">delete</i>
           </div>
         </div>
@@ -144,11 +144,14 @@
           <div class="col s12">Erlaubte Kommentare:</div>
           <form action="#">
             <p>
-              <input class="filled-in col s12" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked"/>
+                <!--input [(ngModel)]="question.comment_public" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" class="filled-in col s12" [ngModelOptions]="{standalone: true}"/-->
+              <input class="filled-in col s12" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" (click)="privateCommentClicked(true||false, i)" (change)="changeDetected($event)"/>
               <label for="comment-type1">Öffentlich</label>
             </p>
             <p>
-              <input class="filled-in col s12" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked"/>
+              <input class="filled-in col s12" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" (click)="publicCommentClicked(true||false, i)" (change)="changeDetected($event)"/>
+
+              <!--input [(ngModel)]="question.comment_privat" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" class="filled-in col s12" [ngModelOptions]="{standalone: true}"/-->
               <label for="comment-type2">Privat</label>
             </p>
           </form>

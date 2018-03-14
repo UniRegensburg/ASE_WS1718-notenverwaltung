@@ -1,4 +1,4 @@
-import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked, AfterViewInit} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -17,7 +17,7 @@ const fs = require('fs');
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class GradingComponent implements OnInit, AfterContentChecked {
+export class GradingComponent implements OnInit, AfterViewInit {
   private current_project: any;
   private schemePoints = true;
   private schemePercentage = false;
@@ -26,7 +26,6 @@ export class GradingComponent implements OnInit, AfterContentChecked {
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
   private max_points: number = 0;
-  private new_points: number = 0;
 
   constructor(
     private dataService: GlobalDataService,
@@ -49,10 +48,10 @@ export class GradingComponent implements OnInit, AfterContentChecked {
     });
   }
 
-  ngAfterContentChecked() {
+  ngAfterViewInit() {
+    console.log("AFTER VIEW");
     this.calculateMaxPoints();
-    console.log("NG AFER CONTENT CHECKED");
-    this.changeDetectorRef.detectChanges();
+    this.changeDetected(null);
   }
 
   addNewTask(): void {
@@ -67,6 +66,7 @@ export class GradingComponent implements OnInit, AfterContentChecked {
       'beschreibung': '',
       'bewertungs_hinweis': ''
     });
+    this.onKeyUp(null);
   }
 
   addNewGrade(): void {
@@ -126,11 +126,12 @@ export class GradingComponent implements OnInit, AfterContentChecked {
   deleteTask(taskID) {
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(taskID,1);
-    this.changeDetectorRef.detectChanges();
+    this.onKeyUp(null);
   }
 
   onKeyUp(event):void{
       this.dataService.setNewGrading(this.current_project.bewertungsschema);
+      this.calculateMaxPoints();
   }
 
   calculateMaxPoints(): void{
@@ -139,4 +140,16 @@ export class GradingComponent implements OnInit, AfterContentChecked {
       this.max_points += this.current_project.bewertungsschema.aufgaben[entry].max_punkt;
     }
   }
+
+  privateCommentClicked(privateBool, taskIDprivate): void{
+    this.current_project.bewertungsschema.aufgaben[taskIDprivate].comment_privat = privateBool;
+    console.log(taskIDprivate, privateBool);
+  }
+
+  publicCommentClicked(publicBool, taskIDpublic): void{
+    this.current_project.bewertungsschema.aufgaben[taskIDpublic].comment_public = publicBool;
+    console.log(taskIDpublic, publicBool)
+  }
 }
+
+
