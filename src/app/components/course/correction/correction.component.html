@@ -42,9 +42,9 @@
       <span style="color:#C2185B">{{current_task.name}}</span>
     </p>
     <p *ngIf="!correctByTasks&&groupview">
-      <span style="color:#C2185B">Gruppenname</span> / {{current_task.name}}
+      <span style="color:#C2185B">{{current_group.name}}</span> / {{current_task.name}}
     </p>
-    <p *ngIf="correctByTasks&&groupview">Gruppenname /
+    <p *ngIf="correctByTasks&&groupview">{{current_group.name}} /
       <span style="color:#C2185B">{{current_task.name}}</span>
     </p>
   </div>

@@ -47,10 +47,12 @@ export class CorrectionComponent implements OnInit {
   private current_project: any;
   private current_task: any;
   private current_student: any;
+  private current_group: any;
 
-  private tasks: Array <any> ;
-  private students: Array <any> ;
-  private grading: Array <any> ;
+  private tasks: Array<any>;
+  private students: Array<any>;
+  private grading: Array<any>;
+  private groups: Array<any>;
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
@@ -77,6 +79,7 @@ export class CorrectionComponent implements OnInit {
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
+      this.groups = this.current_project.gruppen;
 
       this.sub = this.route.params.subscribe(params => {
         if (params) {
@@ -91,18 +94,18 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCorrectionMode(): void {
-    if(this.correctByTasks){
+    if (this.correctByTasks) {
       this.correction_mode = "task";
-    }else{
+    } else {
       this.correction_mode = "student";
     }
     this.correctByTasks = !this.correctByTasks;
     this.updateShowPermissions();
   }
-  
+
 
   setCurrentTask(direction): void {
-    if (this.correction_mode == "student"){
+    if (this.correction_mode == "student") {
       if ((direction === "next") && (this.show_next)) {
         this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
       }
@@ -110,7 +113,7 @@ export class CorrectionComponent implements OnInit {
         this.setPrevious(this.task_counter, this.student_counter, this.tasks, this.students);
       }
     }
-    else{
+    else {
       if ((direction === "next") && (this.show_next)) {
         this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
       }
@@ -122,49 +125,49 @@ export class CorrectionComponent implements OnInit {
     this.setCurrentCorretion();
   }
 
-  updateShowPermissions(): void{
-    
-    if(this.correction_mode === "student"){
-      if(this.student_counter >= this.students.length-1){
+  updateShowPermissions(): void {
+
+    if (this.correction_mode === "student") {
+      if (this.student_counter >= this.students.length - 1) {
         this.show_next = false;
       }
-      else{
+      else {
         this.show_next = true;
       }
 
-      if(this.student_counter <= 0){
+      if (this.student_counter <= 0) {
         this.show_previous = false;
       }
-      else{
+      else {
         this.show_previous = true;
       }
     }
-    else{    
-      if((this.student_counter >= this.students.length-1) && (this.task_counter >= this.tasks.length-1)){
+    else {
+      if ((this.student_counter >= this.students.length - 1) && (this.task_counter >= this.tasks.length - 1)) {
         this.show_next = false;
       }
-      else{
+      else {
         this.show_next = true;
-      } 
+      }
 
-      if((this.student_counter <= 0) && (this.task_counter <= 0)){
+      if ((this.student_counter <= 0) && (this.task_counter <= 0)) {
         this.show_previous = false;
       }
-      else{
+      else {
         this.show_previous = true;
       }
     }
 
   }
 
-  setNext(prim_counter, sec_counter, prim, sec): void{
-    if(prim_counter < prim.length){
+  setNext(prim_counter, sec_counter, prim, sec): void {
+    if (prim_counter < prim.length) {
       prim_counter = prim_counter + 1;
     }
-    if(prim_counter >= prim.length){
+    if (prim_counter >= prim.length) {
       prim_counter = 0;
       sec_counter = sec_counter + 1;
-      if(sec_counter >= sec.length){
+      if (sec_counter >= sec.length) {
         sec_counter = sec.length - 1;
         prim_counter = prim.length - 1;
       }
@@ -187,12 +190,12 @@ export class CorrectionComponent implements OnInit {
     this.setCounters(prim_counter, sec_counter);
   }
 
-  setCounters(prim_counter, sec_counter){
-    if(this.correction_mode == "student"){
+  setCounters(prim_counter, sec_counter) {
+    if (this.correction_mode == "student") {
       this.task_counter = prim_counter;
       this.student_counter = sec_counter;
     }
-    else{
+    else {
       this.student_counter = prim_counter;
       this.task_counter = sec_counter;
     }
@@ -200,7 +203,7 @@ export class CorrectionComponent implements OnInit {
 
   setCurrentCorretion() {
     this.grading.forEach(student => {
-      if (student.student_id == this.student_counter){
+      if (student.student_id == this.student_counter) {
         this.current_student = student;
       }
     });
@@ -213,8 +216,8 @@ export class CorrectionComponent implements OnInit {
     this.current_student = this.students[this.student_counter];
   }
 
-  saveCorrection():void{
-      this.dataService.setNewCorrection(this.grading)
+  saveCorrection(): void {
+    this.dataService.setNewCorrection(this.grading)
   }
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
