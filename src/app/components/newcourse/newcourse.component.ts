@@ -16,7 +16,6 @@ import { Location } from '@angular/common';
 export class NewCourseComponent implements OnInit {
   private last_files: Array<any> = [];
   private course_file = {
-    "file_name": "",
     "title": "",
     "path": ""
   };
@@ -41,7 +40,6 @@ export class NewCourseComponent implements OnInit {
   }
 
   createCourse(): void {
-    this.course_file.file_name = this.course_file.title + ".json";
     var app = require('electron').remote;
     var dialog = app.dialog
 
