@@ -78,10 +78,14 @@ export class GlobalDataService {
   public getGradingSteps(): any {
     var gradingSteps = [];
 
-    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
-      gradingSteps.push(step.note);
-    });
-    return gradingSteps;
+    try {
+      this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
+        gradingSteps.push(step.note);
+      });
+    }
+    finally {
+      return gradingSteps;
+    }
   }
 
   public getGradesPerStep(nSteps): Array<any> {
