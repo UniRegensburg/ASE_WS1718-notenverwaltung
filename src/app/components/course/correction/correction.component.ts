@@ -42,7 +42,8 @@ export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
   private groupview: boolean = true;
-  
+  private correctByTasks: boolean = true;
+
   private current_project: any;
   private current_task: any;
   private current_student: any;
@@ -88,8 +89,16 @@ export class CorrectionComponent implements OnInit {
     });
   }
 
-  setCorretionMode(value): void {
-    this.correction_mode = value;
+  setCorrectionMode(): void {
+    if(this.correctByTasks){
+      this.correction_mode = "task";
+      console.log("set mode task")
+    }else{
+      this.correction_mode = "student";
+      console.log("set mode student")
+    }
+    console.log("toggle correctionmode")
+    this.correctByTasks = !this.correctByTasks;
     this.updateShowPermissions();
   }
   
