@@ -28,9 +28,7 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
-      this.no_data_available = true;
       this.current_project = current_project;
-      console.log("hilfe")
 
       try {
         this.participants = this.current_project.teilnehmer;
@@ -39,7 +37,6 @@ export class StudentsComponent implements OnInit {
           this.getGroups();
         }
         if (this.participants.length == 0) {
-          console.log("partlength:", this.participants.length)
           this.no_data_available = true;
         }
         else {

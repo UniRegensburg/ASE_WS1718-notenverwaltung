@@ -82,9 +82,10 @@ export class GlobalDataService {
       this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.forEach(step => {
         gradingSteps.push(step.note);
       });
-    }
-    finally {
       return gradingSteps;
+    }
+    catch (err) {
+      console.log("fail in getGradingSteps")
     }
   }
 
@@ -210,29 +211,34 @@ export class GlobalDataService {
 
   private checkTasksInGrading(): void {
     let grading = [];
-    this.current_project.bewertung.forEach(student => {
-      let single_grading = [];
 
-      this.current_project.bewertungsschema.aufgaben.forEach(aufgabe => {
-        let task_found = false;
+    try {
+      this.current_project.bewertung.forEach(student => {
+        let single_grading = [];
 
-        student.einzelwertungen.forEach(einzelwertung => {
-          if (einzelwertung.aufgaben_id == aufgabe.id) {
-            task_found = true;
-            single_grading.push(einzelwertung);
+        this.current_project.bewertungsschema.aufgaben.forEach(aufgabe => {
+          let task_found = false;
+
+          student.einzelwertungen.forEach(einzelwertung => {
+            if (einzelwertung.aufgaben_id == aufgabe.id) {
+              task_found = true;
+              single_grading.push(einzelwertung);
+            }
+          });
+          if (!task_found) {
+            single_grading.push(this.createTaskCorrection(aufgabe.id));
           }
         });
-        if (!task_found) {
-          single_grading.push(this.createTaskCorrection(aufgabe.id));
-        }
-      });
 
-      grading.push({
-        "student_id": student.student_id,
-        "einzelwertungen": single_grading
+        grading.push({
+          "student_id": student.student_id,
+          "einzelwertungen": single_grading
+        });
       });
-    });
-    this.current_project.bewertung = grading;
+      this.current_project.bewertung = grading;
+    } catch (err) {
+      console.log("could not get available tasks")
+    }
   }
 
   public createGroups(): void {
@@ -290,7 +296,7 @@ export class GlobalDataService {
         return [];
       }
     }
-    finally {
+    catch (err) {
       console.log("could not create current corrections")
     }
   }
