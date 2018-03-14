@@ -1,4 +1,4 @@
-import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked, AfterViewInit} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -16,7 +16,8 @@ const fs = require('fs');
   styleUrls: ['./grading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GradingComponent implements OnInit {
+
+export class GradingComponent implements OnInit, AfterViewInit {
   private current_project: any;
   private schemePoints = true;
   private schemePercentage = false;
@@ -24,6 +25,7 @@ export class GradingComponent implements OnInit {
   private grades: Array < any > ;
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
+  private max_points: number = 0;
 
   constructor(
     private dataService: GlobalDataService,
@@ -44,35 +46,42 @@ export class GradingComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
     });
+  }
 
+  ngAfterViewInit() {
+    //console.log("AFTER VIEW");
+    this.calculateMaxPoints();
+    this.changeDetected(null);
   }
 
   addNewTask(): void {
     this.current_project.bewertungsschema.aufgaben.push({
       'id': this.current_project.bewertungsschema.aufgaben.length,
       'position': this.current_project.bewertungsschema.aufgaben.length,
-      'name': 'Aufgabe ' + (this.current_project.bewertungsschema.aufgaben.length + 1),
-      'gewichtung': 1.0,
-      'max_punkt': 0,
+      'name': 'Aufgabe',
+      'gewichtung': 100,
+      'max_punkt': 10,
       'comment_public': true,
       'comment_privat': true,
       'beschreibung': '',
       'bewertungs_hinweis': ''
     });
+    this.onKeyUp(null);
   }
 
   addNewGrade(): void {
-    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
-      'note': 6.6,
-      'wert_min': 10
-    });
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(this.grades.length-1, 0, {
+      'note': 4.9,
+      'wert_min': 1
+    } );
+    
   }
 
   changeDetected(event): void {
     this.dataService.setNewGrading(this.current_project.bewertungsschema);
     this.changeDetectorRef.detectChanges();
   }
-
 
   importScheme(): void {
       dialog.showOpenDialog((fileNames) =>{
@@ -119,10 +128,23 @@ export class GradingComponent implements OnInit {
   deleteTask(taskID) {
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(taskID,1);
+    this.onKeyUp(null);
   }
+
   onKeyUp(event):void{
       this.dataService.setNewGrading(this.current_project.bewertungsschema);
+      this.calculateMaxPoints();
   }
 
+  calculateMaxPoints(): void{
+    this.max_points = 0;
+    for (let entry in this.current_project.bewertungsschema.aufgaben){
+      this.max_points += this.current_project.bewertungsschema.aufgaben[entry].max_punkt;
+    }
+  }
 
+  logIndex(ind):void{
+    //console.log("DAS IST COLLAPSIBLE:" + ind);
+  }
 }
+ 

@@ -29,7 +29,7 @@
     </div>
   </div>
   <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <h5>We're sorry but no data is available!</h5>
+    <h5>In diesem Kurs gibt es noch keine Studierenden.</h5>
   </div>
   <div *ngIf="!no_data_available">
     <div *ngIf="!group_mode">
@@ -111,7 +111,7 @@
               {{group.studenten.length}}
             </div>
             <div class="col s3">
-              <i class="material-icons clickHover" (click)="delteGroup(i)">delete</i>
+              <i class="material-icons clickHover" (click)="deleteGroup(i)">delete</i>
             </div>
           </div>
           <hr class="hr_table">
