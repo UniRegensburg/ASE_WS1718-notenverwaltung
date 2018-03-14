@@ -24,7 +24,9 @@ export class NewCourseComponent implements OnInit {
     "title": "",
     "teilnehmer": [],
     "bewertungsschema": {},
-    "bewertung": []
+    "bewertung": [],
+    "gruppen": []
+    
   };
 
   constructor(public dataService: GlobalDataService, public router: Router, private location: Location) { }

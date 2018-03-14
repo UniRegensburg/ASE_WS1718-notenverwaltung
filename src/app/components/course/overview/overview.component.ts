@@ -22,7 +22,7 @@ export class OverviewComponent implements OnInit {
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
-  private no_data_available: boolean = false;
+  private no_data_available: boolean = true;
   private completion: number = 0;
   private sum_grade: number = 0;
   private barChart: any;
@@ -40,14 +40,19 @@ export class OverviewComponent implements OnInit {
 
       try {
         this.participants = this.current_project.teilnehmer;
+        if (this.participants.length == 0) {
+          this.no_data_available = true;
+        }
+        else {
+          this.no_data_available = false;
+        }
       }
       catch (err) {
         this.participants.length = 0;
+        this.no_data_available = true;
       }
 
-      if (this.current_project.teilnehmer.length != 0) { //Observable catch?
-        this.no_data_available = false;
-        
+      try {
         this.dataService.getStudentGrading().subscribe(data => {
           this.participants = data;
           this.completion = this.calcCompletion();
@@ -56,36 +61,54 @@ export class OverviewComponent implements OnInit {
           this.initGraphView();
         });
       }
-      else {
-        this.no_data_available = true;
+      catch (err) {
+        console.log("no grading available")
       }
+
     });
   }
 
   calcCompletion(): number {
     let completion_val: number = 0;
-    this.participants.forEach(student => {
-      completion_val = completion_val + parseFloat(student.finish);
-    });
-    return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
+    try {
+      this.participants.forEach(student => {
+        completion_val = completion_val + parseFloat(student.finish);
+      });
+      return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
+    }
+    catch (err) {
+      console.log("no completion rate available")
+      return (0.0);
+    }
   }
 
   calcSumGrade(): number {
     let sum_grade_val: number = 0;
-    this.participants.forEach(student => {
-      sum_grade_val = sum_grade_val + parseFloat(student.grade);
-    });
-    return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
+
+    try {
+      this.participants.forEach(student => {
+        sum_grade_val = sum_grade_val + parseFloat(student.grade);
+      });
+      return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
+    } catch (err) {
+      console.log("no grade available");
+      return (0.0);
+    }
   }
 
   initGraphView(): void {
     if (this.barChart) {
       this.barChart.destroy();
     }
-    let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
-    let grade_steps = this.dataService.getGradingSteps();
-    let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
-    this.chartService.initBarChart(grade_steps, grade_participants, context);
+
+    if (this.no_data_available) {
+
+    } else {
+      let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
+      let grade_steps = this.dataService.getGradingSteps();
+      let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
+      this.chartService.initBarChart(grade_steps, grade_participants, context);
+    }
   }
 
   initBarChart(notenstufen, teilnehmernoten, context): void {
@@ -111,25 +134,37 @@ export class OverviewComponent implements OnInit {
   }
 
   createUserGradingList(): void {
-    this.current_project.teilnehmer.forEach(element => {
-    });
+    try {
+      this.current_project.teilnehmer.forEach(element => {
+      });
+    } catch (err) {
+      console.log("fail in createUserGradingList")
+    }
   }
 
   getCorrectionCompletion() {
-    let all_tasks_number = this.current_project.bewertungsschema.aufgaben.length;
+    try {
+      let all_tasks_number = this.current_project.bewertungsschema.aufgaben.length;
 
-    this.participants.forEach(student => {
-      let completion_value: number = 0;
-      let graded_student = this.getCurrentStudent(student.id);
-      let completion_done = graded_student.einzelwertungen.length;
-      completion_value = (all_tasks_number / completion_done) * 100;
-      student.completionRate = completion_value + "%";
-    });
+      this.participants.forEach(student => {
+        let completion_value: number = 0;
+        let graded_student = this.getCurrentStudent(student.id);
+        let completion_done = graded_student.einzelwertungen.length;
+        completion_value = (all_tasks_number / completion_done) * 100;
+        student.completionRate = completion_value + "%";
+      });
+    } catch (err) {
+      console.log("fail in getCorrectionCompletion")
+    }
   }
 
   getCurrentStudent(id): any {
-    this.current_project.bewertung.forEach(element => {
-      if (element.student_id == id) return element;
-    });
+    try {
+      this.current_project.bewertung.forEach(element => {
+        if (element.student_id == id) return element;
+      });
+    } catch (err) {
+      console.log("fail in getCurrentStudent")
+    }
   }
 }

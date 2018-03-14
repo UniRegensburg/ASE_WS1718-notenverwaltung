@@ -1,1 +1,342 @@
-{"title":"Forschungsseminar: Neuere Entwicklungen in der Medieninformatik (WS 2017/18)","teilnehmer":[{"id":0,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":1,"mtknr":1655429,"name":"Wolff","vorname":"Gina Maria Wolf","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.33"},{"id":2,"mtknr":1655429,"name":"Felix","vorname":"Kalley","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.33"},{"id":3,"mtknr":1655429,"name":"Ewald","vorname":"Reinhardddd","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.33"},{"id":4,"mtknr":1655429,"name":"Gudasdasder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":5,"mtknr":1655429,"name":"Gude22222222r","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":6,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":7,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":8,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":9,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":10,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":11,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":12,"mtknr":1655429,"name":"Guder","vorname":"Markus","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"},{"id":13,"mtknr":1655429,"name":"Hort","vorname":"Franz","studiengang":"M.Sc. Medieninfo (1)","fachsemester":1,"mail":"markus.guder@gmail.com","status":"ZU","grade":5,"finish":"0.00"}],"bewertungsschema":{"allgemeine_infos":{"notenschluessel":[{"note":1,"wert_min":90},{"note":1.3,"wert_min":80},{"note":1.7,"wert_min":75},{"note":2,"wert_min":70},{"note":2.3,"wert_min":65},{"note":2.7,"wert_min":60},{"note":3,"wert_min":55},{"note":3.3,"wert_min":50},{"note":3.7,"wert_min":45},{"note":4,"wert_min":40},{"note":5,"wert_min":0}],"bewertungseinheit":"Punkte"},"aufgaben":[{"id":0,"position":0,"name":"Aufgabe","gewichtung":100,"max_punkt":10,"comment_public":true,"comment_privat":true,"beschreibung":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.","bewertungs_hinweis":"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."},{"id":1,"position":1,"name":"Aufgabe","gewichtung":100,"max_punkt":10,"comment_public":true,"comment_privat":true,"beschreibung":"","bewertungs_hinweis":""},{"id":2,"position":2,"name":"Aufgabe","gewichtung":100,"max_punkt":10,"comment_public":true,"comment_privat":true,"beschreibung":"","bewertungs_hinweis":""}]},"bewertung":[{"student_id":0,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":1,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":4,"comment_privat":"yo homie","comment_public":"Guten Tag"},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":2,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":10,"comment_privat":"Privat","comment_public":"Öffentlich"},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":3,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":3,"comment_privat":"TEst","comment_public":"s sa"},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":4,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"Test","comment_public":"Test"},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":5,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":6,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":7,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":8,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":9,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":10,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":11,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":12,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]},{"student_id":13,"einzelwertungen":[{"aufgaben_id":0,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":1,"erreichte_punkte":0,"comment_privat":"","comment_public":""},{"aufgaben_id":2,"erreichte_punkte":0,"comment_privat":"","comment_public":""}]}],"gruppen":[{"name":"gruppe1","studenten":[1,3,5]},{"name":"test","studenten":[2,6]}]}
+{
+    "title": "Forschungsseminar: Neuere Entwicklungen in der Medieninformatik (WS 2017/18)",
+    "teilnehmer": [{
+        "id": 0,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 1,
+        "mtknr": 1655429,
+        "name": "Wolff",
+        "vorname": "Gina Maria Wolf",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "1.00",
+        "group": "gruppe1"
+    }, {
+        "id": 2,
+        "mtknr": 1655429,
+        "name": "Felix",
+        "vorname": "Kalley",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "1.00",
+        "group": "test"
+    }, {
+        "id": 3,
+        "mtknr": 1655429,
+        "name": "Ewald",
+        "vorname": "Reinhardddd",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "1.00",
+        "group": "gruppe1"
+    }, {
+        "id": 4,
+        "mtknr": 1655429,
+        "name": "Gudasdasder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 5,
+        "mtknr": 1655429,
+        "name": "Gude22222222r",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": "gruppe1"
+    }, {
+        "id": 6,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": "test"
+    }, {
+        "id": 7,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 8,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 9,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 10,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 11,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 12,
+        "mtknr": 1655429,
+        "name": "Guder",
+        "vorname": "Markus",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }, {
+        "id": 13,
+        "mtknr": 1655429,
+        "name": "Horst",
+        "vorname": "Franz",
+        "studiengang": "M.Sc. Medieninfo (1)",
+        "fachsemester": 1,
+        "mail": "markus.guder@gmail.com",
+        "status": "ZU",
+        "grade": 5,
+        "finish": "0.00",
+        "group": ""
+    }],
+    "bewertungsschema": {
+        "allgemeine_infos": {
+            "notenschluessel": [{
+                "note": 1,
+                "wert_min": 90
+            }, {
+                "note": 1.3,
+                "wert_min": 80
+            }, {
+                "note": 1.7,
+                "wert_min": 75
+            }, {
+                "note": 2,
+                "wert_min": 70
+            }, {
+                "note": 2.3,
+                "wert_min": 65
+            }, {
+                "note": 2.7,
+                "wert_min": 60
+            }, {
+                "note": 3,
+                "wert_min": 55
+            }, {
+                "note": 3.3,
+                "wert_min": 50
+            }, {
+                "note": 3.7,
+                "wert_min": 45
+            }, {
+                "note": 4,
+                "wert_min": 40
+            }, {
+                "note": 5,
+                "wert_min": 0
+            }],
+            "bewertungseinheit": "Punkte"
+        },
+        "aufgaben": [{
+            "id": 0,
+            "position": 0,
+            "name": "Aufgabe",
+            "gewichtung": 100,
+            "max_punkt": 10,
+            "comment_public": true,
+            "comment_privat": true,
+            "beschreibung": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+            "bewertungs_hinweis": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam."
+        }]
+    },
+    "bewertung": [{
+        "student_id": 0,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 1,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 4,
+            "comment_privat": "yo homie",
+            "comment_public": "Guten Tag"
+        }]
+    }, {
+        "student_id": 2,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 10,
+            "comment_privat": "Privat",
+            "comment_public": "Öffentlich"
+        }]
+    }, {
+        "student_id": 3,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 3,
+            "comment_privat": "TEst",
+            "comment_public": "s sa"
+        }]
+    }, {
+        "student_id": 4,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "Test",
+            "comment_public": "Test"
+        }]
+    }, {
+        "student_id": 5,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 6,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 7,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 8,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 9,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 10,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 11,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 12,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }, {
+        "student_id": 13,
+        "einzelwertungen": [{
+            "aufgaben_id": 0,
+            "erreichte_punkte": 0,
+            "comment_privat": "",
+            "comment_public": ""
+        }]
+    }],
+    "gruppen": [{
+        "name": "gruppe1",
+        "studenten": [1, 3, 5]
+    }, {
+        "name": "test",
+        "studenten": [2, 6]
+    }]
+}
