@@ -41,7 +41,6 @@ export class OverviewComponent implements OnInit {
       try {
         this.participants = this.current_project.teilnehmer;
         if (this.participants.length == 0) {
-          console.log("partlength:", this.participants.length)
           this.no_data_available = true;
         }
         else {
