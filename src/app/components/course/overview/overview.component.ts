@@ -22,7 +22,7 @@ export class OverviewComponent implements OnInit {
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
-  private no_data_available: boolean = false;
+  private no_data_available: boolean = true;
   private completion: number = 0;
   private sum_grade: number = 0;
   private barChart: any;
@@ -40,7 +40,13 @@ export class OverviewComponent implements OnInit {
 
       try {
         this.participants = this.current_project.teilnehmer;
-        this.no_data_available = false;
+        if (this.participants.length == 0) {
+          console.log("partlength:", this.participants.length)
+          this.no_data_available = true;
+        }
+        else {
+          this.no_data_available = false;
+        }
       }
       catch (err) {
         this.participants.length = 0;
