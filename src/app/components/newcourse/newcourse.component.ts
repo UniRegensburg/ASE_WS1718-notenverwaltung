@@ -20,16 +20,12 @@ export class NewCourseComponent implements OnInit {
     "path": ""
   };
 
-  //TODO: an zentrale Stelle:
   private new_course = {
     "title": "",
     "teilnehmer": [],
     "bewertungsschema": {},
     "bewertung": []
   };
-
-  //TODO: was ist das und was tut das?
-  private view_mode: boolean = true;
 
   constructor(public dataService: GlobalDataService, public router: Router, private location: Location) { }
 
