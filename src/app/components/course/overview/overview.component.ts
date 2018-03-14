@@ -36,6 +36,8 @@ export class OverviewComponent implements OnInit {
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
+      this.current_project_name = this.current_project.title;
+      console.log(this.current_project_name)
 
       try {
         this.participants = this.current_project.teilnehmer;
@@ -46,7 +48,7 @@ export class OverviewComponent implements OnInit {
 
       if (this.current_project.teilnehmer.length != 0) { //Observable catch?
         this.no_data_available = false;
-        this.current_project_name = this.current_project.title;
+        
 
         this.dataService.getStudentGrading().subscribe(data => {
           this.participants = data;
