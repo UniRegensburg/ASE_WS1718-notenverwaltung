@@ -71,10 +71,11 @@ export class GradingComponent implements OnInit, AfterViewInit {
 
   addNewGrade(): void {
     this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
-    this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
-      'note': 5.0,
-      'wert_min': 0
-    });
+    this.grades.splice(this.grades.length-1, 0, {
+      'note': 4.9,
+      'wert_min': 1
+    } );
+    
   }
 
   changeDetected(event): void {
