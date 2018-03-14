@@ -15,14 +15,14 @@ import { Location } from '@angular/common';
 })
 export class NewCourseComponent implements OnInit {
   private last_files: Array<any> = [];
-  private course_object = {
+  private course_file = {
     "file_name": "",
     "title": "",
     "path": ""
   };
 
   //TODO: an zentrale Stelle:
-  private neuer_kurs = {
+  private new_course = {
     "title": "",
     "teilnehmer": [],
     "bewertungsschema": {},
@@ -41,7 +41,7 @@ export class NewCourseComponent implements OnInit {
   }
 
   createCourse(): void {
-    this.course_object.file_name = this.course_object.title + ".json";
+    this.course_file.file_name = this.course_file.title + ".json";
     var app = require('electron').remote;
     var dialog = app.dialog
 
@@ -51,8 +51,8 @@ export class NewCourseComponent implements OnInit {
           //TODO: Toast
           reject("No filename selected");
         }
-        this.course_object.path = fileNames[0];
-        this.neuer_kurs.title = this.course_object.title;
+        this.course_file.path = fileNames[0];
+        this.new_course.title = this.course_file.title;
         //TODO: Toast
         console.log("Speicherort festgelegt.");
         resolve();
@@ -60,10 +60,10 @@ export class NewCourseComponent implements OnInit {
     });
 
     chooseFolder.then(() => {
-      if (this.course_object.path) {
-        let filePath = this.course_object.path + "/" + this.course_object.title + ".json";
+      if (this.course_file.path) {
+        let filePath = this.course_file.path + "/" + this.course_file.title + ".json";
        
-        writeFile(filePath, JSON.stringify(this.neuer_kurs), (err) => {
+        writeFile(filePath, JSON.stringify(this.new_course), (err) => {
           if (err) {
             //TODO: Toast
             alert("An error ocurred creating the file " + err.message);
