@@ -23,6 +23,7 @@ export class NewCourseComponent implements OnInit {
 
   //TODO: an zentrale Stelle:
   private basic_schema = {
+    "title": "",
     "teilnehmer": [],
     "bewertungsschema": {},
     "bewertung": []
