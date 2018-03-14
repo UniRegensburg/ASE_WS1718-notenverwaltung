@@ -17,7 +17,7 @@ export class OverviewComponent implements OnInit {
   @ViewChild("graphCanvas") graphCanvas: ElementRef;
 
   private current_project: any;
-  private current_project_name: String;
+  private kurstitel: String;
   private grading: any;
   private participants: Array<any>;
   private display_user_list: boolean = false;
@@ -36,8 +36,7 @@ export class OverviewComponent implements OnInit {
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
-      this.current_project_name = this.current_project.title;
-      console.log(this.current_project_name)
+      this.kurstitel = this.current_project.title;
 
       try {
         this.participants = this.current_project.teilnehmer;
@@ -49,7 +48,6 @@ export class OverviewComponent implements OnInit {
       if (this.current_project.teilnehmer.length != 0) { //Observable catch?
         this.no_data_available = false;
         
-
         this.dataService.getStudentGrading().subscribe(data => {
           this.participants = data;
           this.completion = this.calcCompletion();
