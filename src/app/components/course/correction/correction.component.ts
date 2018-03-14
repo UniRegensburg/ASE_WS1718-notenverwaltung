@@ -90,6 +90,7 @@ export class CorrectionComponent implements OnInit {
     this.correction_mode = value;
     this.updateShowPermissions();
   }
+  
 
   setCurrentTask(direction): void {
     if (this.correction_mode == "student"){
