@@ -59,7 +59,7 @@ export class GradingComponent implements OnInit, AfterViewInit {
       'id': this.current_project.bewertungsschema.aufgaben.length,
       'position': this.current_project.bewertungsschema.aufgaben.length,
       'name': 'Aufgabe',
-      'gewichtung': 1.0,
+      'gewichtung': 100,
       'max_punkt': 10,
       'comment_public': true,
       'comment_privat': true,
@@ -70,9 +70,10 @@ export class GradingComponent implements OnInit, AfterViewInit {
   }
 
   addNewGrade(): void {
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.push({
-      'note': 6.6,
-      'wert_min': 10
+      'note': 5.0,
+      'wert_min': 0
     });
   }
 

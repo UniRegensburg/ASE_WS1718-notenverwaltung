@@ -30,15 +30,29 @@
           </div>
         </div>
         <div class="col s12" style="height: 300px;  overflow: scroll;">
-          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index">
-            <div class="col s5">
-              <input [(ngModel)]="entry.note" type="number" class="validate" (keyup)="onKeyUp($event)">
+          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index; let last=last">
+            <div *ngIf="!last">
+              <div class="col s5">
+                <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
+              </div>
+              <div class="col s5">
+                <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+              </div>
+              <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
+                <i class="material-icons right">delete</i>
+              </div>
             </div>
-            <div class="col s5">
-              <input [(ngModel)]="entry.wert_min" type="number" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
-            </div>
-            <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
-              <i class="material-icons right">delete</i>
+            <div *ngIf="last">
+              <div class="col s5">
+                <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
+              </div>
+              <div class="col s5">
+                <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)"
+                  disabled>
+              </div>
+              <div class="col s2" style="margin-top: 20px" id="deleteBtn">
+                <i class="material-icons grey-text right">delete</i>
+              </div>
             </div>
           </div>
         </div>
@@ -70,92 +84,112 @@
         </div>
       </div>
       <div class="col s6" style="padding: 15px">
-        <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px" (mouseup)="onKeyUp($event)">
+        <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px"
+          (mouseup)="onKeyUp($event)">
           <i class="material-icons left">add</i>Notenstufe hinzufügen</a>
       </div>
-    <div class="row"> </div>
-    <div class="row"> </div>
+      <div class="row"> </div>
+      <div class="row"> </div>
     </div>
-
     <div class='row title-block' style="padding: 10px">Aufgaben / Fragen</div>
     <div class="col s12">
-    <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewTask()" style="margin-bottom: 15px" (mouseup)="onKeyUp($event)">
-      <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
+      <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewTask()" style="margin-bottom: 15px">
+        <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
     </div>
     <div class="row">
-      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index" (change)="changeDetected($event)">
-        <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
-          <div class="col s9">
-            <span>{{question.name}}</span>
+      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first"
+        (change)="changeDetected($event)">
+        <div *ngIf="!first">
+          <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
+            <div class="col s9">
+              <span>{{question.name}}</span>
+              <br>
+            </div>
+            <div class="col s2">
+              <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
+              <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+            </div>
+            <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
+              <i class="material-icons right">delete</i>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="first">
+            <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
+              <div class="col s9">
+                <span>{{question.name}}</span>
+                <br>
+              </div>
+              <div class="col s2">
+                <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
+                <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+              </div>
+              <div class="col s1" id="deleteTaskBtn">
+                <i class="material-icons grey-text right">delete</i>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
+            <div class="col s12">
+              Titel der Aufgabe:
+              <div class="input-field inline">
+                <input [(ngModel)]="question.name" id="title" type="text" (keyup)="onKeyUp($event)">
+                <label for="title" class="active">z.B. Aufgabe 1</label>
+              </div>
+            </div>
+            <div class="col s12">
+              Erreichbare Punkte:
+              <div class="input-field inline">
+                <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5" (keyup)="onKeyUp($event)"
+                  (mouseup)="onKeyUp($event)">
+                <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
+              </div>
+            </div>
             <br>
-          </div>
-          <div class="col s2">
-          <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
-          <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
-          </div>
-          <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
-            <i class="material-icons right">delete</i>
-          </div>
-        </div>
-        <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
-          <div class="col s12">
-            Titel der Aufgabe:
-            <div class="input-field inline">
-              <input [(ngModel)]="question.name" id="title" type="text" (keyup)="onKeyUp($event)">
-              <label for="title" class="active">z.B. Aufgabe 1</label>
+            <br>
+            <div class="col s12">
+              Prozentuale Gewichtung:
+              <div class="input-field inline">
+                <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="1" min="0"
+                  (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+                <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 50 %</label>
+              </div>
+              %
             </div>
-          </div>
-          <div class="col s12">
-            Erreichbare Punkte:
-            <div class="input-field inline">
-              <input [(ngModel)]="question.max_punkt" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="0.5" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
-              <label for="max_punkt" data-error="wrong" data-success="right" class="active">z.B. 12</label>
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="col s12">Aufgabenbeschreibung:</div>
+            <div class="input-field col s12">
+              <textarea [(ngModel)]="question.beschreibung" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Aufgabenbeschreibung"
+                (keyup)="onKeyUp($event)"></textarea>
+              <label for="beschreibung" class="active">z.B. Programmieren Sie eine Software zur Notenverwaltung.</label>
             </div>
-          </div>
-          <br>
-          <br>
-          <div class="col s12">
-            Prozentuale Gewichtung:
-            <div class="input-field inline">
-              <input [(ngModel)]="question.gewichtung" [ngModelOptions]="{standalone: true}" type="number" class="validate" step="1" min="0" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
-              <label for="gewichtung" data-error="wrong" data-success="right" class="active">z.B. 50 %</label>
+            <br>
+            <br>
+            <div class="col s12">Bewertungshinweis:</div>
+            <div class="input-field col s12">
+              <textarea [(ngModel)]="question.bewertungs_hinweis" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Bewertungshinweis"
+                (keyup)="onKeyUp($event)"></textarea>
+              <label for="hinweis" class="active">z.B. 2 Punkte für tolle Demo.</label>
             </div>
-            %
+            <br>
+            <br>
+            <div class="col s12">Erlaubte Kommentare:</div>
+            <form action="#">
+              <p>
+                <input class="filled-in col s12" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" (click)="privateCommentClicked(true||false, i)"
+                  (change)="changeDetected($event)" />
+                <label for="comment-type1">Öffentlich</label>
+              </p>
+              <p>
+                <input class="filled-in col s12" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" (click)="publicCommentClicked(true||false, i)"
+                  (change)="changeDetected($event)" />
+                <label for="comment-type2">Privat</label>
+              </p>
+            </form>
           </div>
-          <br>
-          <br>
-          <br>
-          <br>
-          <div class="col s12">Aufgabenbeschreibung:</div>
-          <div class="input-field col s12">
-            <!--input value="{{question.beschreibung}}" placeholder="Aufgabenbeschreibung" id="beschreibung" type="text"-->
-            <textarea [(ngModel)]="question.beschreibung" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Aufgabenbeschreibung" (keyup)="onKeyUp($event)"></textarea>
-            <label for="beschreibung" class="active">z.B. Programmieren Sie eine Software zur Notenverwaltung.</label>
-          </div>
-          <br>
-          <br>
-          <div class="col s12">Bewertungshinweis:</div>
-          <div class="input-field col s12">
-            <textarea [(ngModel)]="question.bewertungs_hinweis" [ngModelOptions]="{standalone: true}" class="materialize-textarea" placeholder="Bewertungshinweis" (keyup)="onKeyUp($event)"></textarea>
-            <label for="hinweis" class="active">z.B. 2 Punkte für tolle Demo.</label>
-          </div>
-          <br>
-          <br>
-          <div class="col s12">Erlaubte Kommentare:</div>
-          <form action="#">
-            <p>
-                <!--input [(ngModel)]="question.comment_public" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" class="filled-in col s12" [ngModelOptions]="{standalone: true}"/-->
-              <input class="filled-in col s12" name="checkbox-group1" id="comment-type1" type="checkbox" checked="checked" (click)="privateCommentClicked(true||false, i)" (change)="changeDetected($event)"/>
-              <label for="comment-type1">Öffentlich</label>
-            </p>
-            <p>
-              <input class="filled-in col s12" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" (click)="publicCommentClicked(true||false, i)" (change)="changeDetected($event)"/>
-
-              <!--input [(ngModel)]="question.comment_privat" name="checkbox-group1" id="comment-type2" type="checkbox" checked="checked" class="filled-in col s12" [ngModelOptions]="{standalone: true}"/-->
-              <label for="comment-type2">Privat</label>
-            </p>
-          </form>
-        </div>
       </div>
     </div>
   </div>
