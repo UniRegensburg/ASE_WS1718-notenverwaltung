@@ -49,7 +49,7 @@ export class GradingComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("AFTER VIEW");
+    //console.log("AFTER VIEW");
     this.calculateMaxPoints();
     this.changeDetected(null);
   }
@@ -146,6 +146,5 @@ export class GradingComponent implements OnInit, AfterViewInit {
   logIndex(ind):void{
     //console.log("DAS IST COLLAPSIBLE:" + ind);
   }
-
-
+}
  
