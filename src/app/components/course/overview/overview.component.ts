@@ -47,7 +47,7 @@ export class OverviewComponent implements OnInit {
 
       if (this.current_project.teilnehmer.length != 0) { //Observable catch?
         this.no_data_available = false;
-        
+
         this.dataService.getStudentGrading().subscribe(data => {
           this.participants = data;
           this.completion = this.calcCompletion();
@@ -64,18 +64,33 @@ export class OverviewComponent implements OnInit {
 
   calcCompletion(): number {
     let completion_val: number = 0;
-    this.participants.forEach(student => {
-      completion_val = completion_val + parseFloat(student.finish);
-    });
-    return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
+    try {
+      this.participants.forEach(student => {
+        completion_val = completion_val + parseFloat(student.finish);
+      });
+    } catch{
+      console.log("no completion rate available")
+      return (0.0);
+    }
+    finally {
+      return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
+    }
   }
 
   calcSumGrade(): number {
     let sum_grade_val: number = 0;
-    this.participants.forEach(student => {
-      sum_grade_val = sum_grade_val + parseFloat(student.grade);
-    });
-    return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
+
+    try {
+      this.participants.forEach(student => {
+        sum_grade_val = sum_grade_val + parseFloat(student.grade);
+      });
+    } catch{
+      console.log("no grade available");
+      return (0.0);
+    }
+    finally {
+      return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
+    }
   }
 
   initGraphView(): void {

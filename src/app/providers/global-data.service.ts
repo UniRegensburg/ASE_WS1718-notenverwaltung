@@ -278,15 +278,20 @@ export class GlobalDataService {
   }
 
   private createCurrentCorrection(): any {
-    let corretions = [];
-    if (Object.keys(this.current_project.bewertungsschema).length == 0) {
-      this.current_project.bewertungsschema.aufgaben.forEach(task => {
-        corretions.push(this.createTaskCorrection(task.id));
-      });
-      return corretions;
+    try {
+      let corrections = [];
+      if (Object.keys(this.current_project.bewertungsschema).length == 0) {
+        this.current_project.bewertungsschema.aufgaben.forEach(task => {
+          corrections.push(this.createTaskCorrection(task.id));
+        });
+        return corrections;
+      }
+      else {
+        return [];
+      }
     }
-    else {
-      return [];
+    finally {
+      console.log("could not create current corrections")
     }
   }
 
