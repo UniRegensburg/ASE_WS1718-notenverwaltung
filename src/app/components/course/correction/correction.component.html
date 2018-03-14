@@ -1,24 +1,27 @@
 <div class="container">
-  <h1 *ngIf="screen_mode">KORREKTUR</h1>
-  <hr class="hr_welcome" *ngIf="!screenMode">
+  <h1>KORREKTUR</h1>
+  <hr class="hr_welcome">
   <br>
-  
+
   <div>
     <label>Gruppen</label>
-      <div class="switch">
-          <label>
-            Aus
-            <input type="checkbox">
-            <span class="lever"></span>
-            An
-          </label>
-        </div>
+    <div class="switch">
+      <label>
+        Aus
+        <input type="checkbox">
+        <span class="lever"></span>
+        An
+      </label>
+    </div>
   </div>
-  
+
   <div class="row" style="margin-top: 40px">
     <div class="col s12 center-align">
-      <h5 *ngIf="correction_mode == 'student'"><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</h5>
-      <h5 *ngIf="correction_mode == 'task'">{{current_student.name}}, {{current_student.vorname}} / <span style="color:#C2185B">{{current_task.name}}</span></h5>
+      <h5 *ngIf="correction_mode == 'student'">
+        <span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</h5>
+      <h5 *ngIf="correction_mode == 'task'">{{current_student.name}}, {{current_student.vorname}} /
+        <span style="color:#C2185B">{{current_task.name}}</span>
+      </h5>
     </div>
     <div *ngIf="correction_mode == 'student'" class="col s12 center-align" style="margin-top: 30px">
       <a class="waves-effect waves-light btn pink darken-2" (click)="setCorretionMode('student')">Nach Student</a>
@@ -37,18 +40,13 @@
     <div class="col s4">
       <div class="row">
         <div class="col s8">
-          <input class="right"
-          placeholder="0"
-          type="number"
-          [(ngModel)]="current_correction.erreichte_punkte"
-          [attr.max]="current_task.max_punkt"
-          min="0"
-          lass="validate"
-          (keyup)="saveCorrection()"
-          (mouseup)="saveCorrection()">
+          <input class="right" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt"
+            min="0" lass="validate" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
         </div>
         <div class="col s4" style="margin-top: 5px">
-          <span class="left"> <h5>/{{current_task.max_punkt}}</h5></span>
+          <span class="left">
+            <h5>/{{current_task.max_punkt}}</h5>
+          </span>
         </div>
       </div>
     </div>
@@ -57,57 +55,58 @@
     </div>
   </div>
 
-<div class="row">
-  <div class="col s12">
-    <div class="card-panel white" (click)="open_1 = !open_1">
-      <span>Beschreibung</span>
-      <i class="material-icons right" *ngIf="!open_1">keyboard_arrow_down</i>
-      <i class="material-icons right" *ngIf="open_1">keyboard_arrow_up</i>
-    </div>
-    <div *ngIf="open_1" class="card-panel grey lighten-2">
-      <span class="black-text">{{current_task.beschreibung}}
-      </span>
-    </div>
-  </div>
-
-  <div class="col s12">
-    <div class="card-panel white" (click)="open_2 = !open_2">
-      <span>Bewertungshinweis</span>
-      <i class="material-icons right" *ngIf="!open_2">keyboard_arrow_down</i>
-      <i class="material-icons right" *ngIf="open_2">keyboard_arrow_up</i>
-    </div>
-    <div *ngIf="open_2" class="card-panel grey lighten-2">
-      <span class="black-text">{{current_task.bewertungs_hinweis}}
-      </span>
-    </div>
-  </div>
-
-  <div class="col s12" *ngIf="current_task.comment_public">
-    <div class="card-panel white" (click)="open_3 = !open_3">
-      <span>Öffentlicher Kommentar</span>
-      <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
-      <i class="material-icons right" *ngIf="open_3">keyboard_arrow_up</i>
-    </div>
-    <div *ngIf="open_3" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
-      <div class="input-field col s12">
-        <textarea [(ngModel)]="current_correction.comment_public" class="materialize-textarea" placeholder="Öffentlicher Kommentar" (keyup)="saveCorrection()"></textarea>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel white" (click)="open_1 = !open_1">
+        <span>Beschreibung</span>
+        <i class="material-icons right" *ngIf="!open_1">keyboard_arrow_down</i>
+        <i class="material-icons right" *ngIf="open_1">keyboard_arrow_up</i>
+      </div>
+      <div *ngIf="open_1" class="card-panel grey lighten-2">
+        <span class="black-text">{{current_task.beschreibung}}
+        </span>
       </div>
     </div>
-  </div>
 
-  <div class="col s12" *ngIf="current_task.comment_privat">
-    <div class="card-panel white" (click)="open_4 = !open_4">
-      <span>Privater Kommentar</span>
-      <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
-      <i class="material-icons right" *ngIf="open_4">keyboard_arrow_up</i>
-    </div>
-    <div *ngIf="open_4" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
-      <div class="input-field col s12">
-        <textarea [(ngModel)]="current_correction.comment_privat" class="materialize-textarea" placeholder="Privater Kommentar" (keyup)="saveCorrection()"></textarea>
+    <div class="col s12">
+      <div class="card-panel white" (click)="open_2 = !open_2">
+        <span>Bewertungshinweis</span>
+        <i class="material-icons right" *ngIf="!open_2">keyboard_arrow_down</i>
+        <i class="material-icons right" *ngIf="open_2">keyboard_arrow_up</i>
+      </div>
+      <div *ngIf="open_2" class="card-panel grey lighten-2">
+        <span class="black-text">{{current_task.bewertungs_hinweis}}
+        </span>
       </div>
     </div>
-  </div>
 
-</div>
+    <div class="col s12" *ngIf="current_task.comment_public">
+      <div class="card-panel white" (click)="open_3 = !open_3">
+        <span>Öffentlicher Kommentar</span>
+        <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
+        <i class="material-icons right" *ngIf="open_3">keyboard_arrow_up</i>
+      </div>
+      <div *ngIf="open_3" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
+        <div class="input-field col s12">
+          <textarea [(ngModel)]="current_correction.comment_public" class="materialize-textarea" placeholder="Öffentlicher Kommentar"
+            (keyup)="saveCorrection()"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12" *ngIf="current_task.comment_privat">
+      <div class="card-panel white" (click)="open_4 = !open_4">
+        <span>Privater Kommentar</span>
+        <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
+        <i class="material-icons right" *ngIf="open_4">keyboard_arrow_up</i>
+      </div>
+      <div *ngIf="open_4" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
+        <div class="input-field col s12">
+          <textarea [(ngModel)]="current_correction.comment_privat" class="materialize-textarea" placeholder="Privater Kommentar" (keyup)="saveCorrection()"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
 </div>
