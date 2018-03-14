@@ -17,62 +17,68 @@ export class OverviewComponent implements OnInit {
   @ViewChild("graphCanvas") graphCanvas: ElementRef;
 
   private current_project: any;
-  private current_project_name: String;
+  private kurstitel: String;
   private grading: any;
   private participants: Array<any>;
   private display_user_list: boolean = false;
   private user_grading_list: any;
   private no_data_available: boolean = false;
-  private completion: number = 0; 
-  private sum_grade: number = 0; 
+  private completion: number = 0;
+  private sum_grade: number = 0;
   private barChart: any;
 
   constructor(
     public dataService: GlobalDataService,
-    public chartService: ChartService) { 
-    
+    public chartService: ChartService) {
+
   }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(current_project => {  
+    this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
-      if(this.current_project.teilnehmer.length != 0){ //Observable catch?
+      this.kurstitel = this.current_project.title;
+
+      try {
+        this.participants = this.current_project.teilnehmer;
+      }
+      catch (err) {
+        this.participants.length = 0;
+      }
+
+      if (this.current_project.teilnehmer.length != 0) { //Observable catch?
         this.no_data_available = false;
         
-        this.participants = this.current_project.teilnehmer;
-        this.current_project_name = this.current_project.title;
-
         this.dataService.getStudentGrading().subscribe(data => {
           this.participants = data;
-          this.completion = this.calcCompletion();  
+          this.completion = this.calcCompletion();
           this.sum_grade = this.calcSumGrade();
           this.createUserGradingList();
           this.initGraphView();
         });
       }
-      else{
+      else {
         this.no_data_available = true;
       }
-    });    
+    });
   }
 
-  calcCompletion(): number{
+  calcCompletion(): number {
     let completion_val: number = 0;
-    this.participants.forEach(student =>{
+    this.participants.forEach(student => {
       completion_val = completion_val + parseFloat(student.finish);
     });
-    return parseFloat(((completion_val/this.participants.length)*100).toFixed(2));
+    return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
   }
 
-  calcSumGrade(): number{
+  calcSumGrade(): number {
     let sum_grade_val: number = 0;
-    this.participants.forEach(student =>{
+    this.participants.forEach(student => {
       sum_grade_val = sum_grade_val + parseFloat(student.grade);
     });
-    return parseFloat((sum_grade_val/this.participants.length).toFixed(2));
+    return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
   }
 
-  initGraphView(): void{
+  initGraphView(): void {
     if (this.barChart) {
       this.barChart.destroy();
     }
@@ -104,26 +110,26 @@ export class OverviewComponent implements OnInit {
     });
   }
 
-  createUserGradingList(): void{    
+  createUserGradingList(): void {
     this.current_project.teilnehmer.forEach(element => {
     });
   }
 
-  getCorrectionCompletion(){
+  getCorrectionCompletion() {
     let all_tasks_number = this.current_project.bewertungsschema.aufgaben.length;
 
     this.participants.forEach(student => {
       let completion_value: number = 0;
       let graded_student = this.getCurrentStudent(student.id);
       let completion_done = graded_student.einzelwertungen.length;
-      completion_value = (all_tasks_number / completion_done) *100;
-      student.completionRate = completion_value + "%";      
+      completion_value = (all_tasks_number / completion_done) * 100;
+      student.completionRate = completion_value + "%";
     });
   }
 
-  getCurrentStudent(id): any{    
-    this.current_project.bewertung.forEach(element => {     
-      if(element.student_id == id) return element;
-    }); 
+  getCurrentStudent(id): any {
+    this.current_project.bewertung.forEach(element => {
+      if (element.student_id == id) return element;
+    });
   }
 }
