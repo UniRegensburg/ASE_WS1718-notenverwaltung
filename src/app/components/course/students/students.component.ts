@@ -22,7 +22,7 @@ declare var $: any;
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent implements OnInit{
   title = `Notenverwaltung ASE WS17/18 !`;
   private current_project: any;
   private current_project_name: String;
@@ -30,15 +30,14 @@ export class StudentsComponent implements OnInit {
   private groups: Array < any > ;
   private group_mode: boolean = false;
   private no_data_available: boolean = false;
-
   constructor(
     public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
     public zone: NgZone) {}
 
-  ngOnInit() {    
-    this.dataService.getCurrentProject().subscribe(current_project => {    
+  ngOnInit() {
+    this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       if (this.current_project.teilnehmer.length != 0) {
         this.no_data_available = false;
@@ -46,8 +45,8 @@ export class StudentsComponent implements OnInit {
         this.current_project_name = this.current_project.title;
         this.changeDetectorRef.detectChanges();
 
-        if (!this.current_project.groups) {          
-            this.getGroups();        
+        if (!this.current_project.groups) {
+            this.getGroups();
         }
       }
       else{
@@ -60,16 +59,19 @@ export class StudentsComponent implements OnInit {
     });
     */
   }
-
+  onKey(event: any){
+      this.dataService.setNewGroupsComplete(this.current_project.gruppen);
+  }
   getGroups(): void{
     this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
       this.participants = studentsWithGroup;
       this.groups = this.current_project.gruppen;
-    });  
+    });
   }
 
   changeDetected(event): void {
     this.dataService.setNewGroups(this.participants);
+    console.log("change detected");
   }
 
   openDialog(): void {
@@ -94,6 +96,7 @@ export class StudentsComponent implements OnInit {
       "name": "",
       "studenten": []
     });
+    // console.log("added group")
   }
 
   deleteStudent(id): void {

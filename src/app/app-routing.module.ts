@@ -1,4 +1,5 @@
-import { HomeComponent, NewCourseComponent } from './components/home/index';
+import { HomeComponent } from './components/home/index';
+import { NewCourseComponent } from './components/newcourse/newcourse.component';
 import { CourseComponent } from './components/course/course.component';
 
 import {APP_BASE_HREF} from '@angular/common';

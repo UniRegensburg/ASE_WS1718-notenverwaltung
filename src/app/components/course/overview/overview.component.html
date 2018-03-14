@@ -2,7 +2,7 @@
   <h1>ÜBERSICHT</h1>
   <hr class="hr_welcome">
   <br>
-  <h5>{{current_project_name}}</h5>
+  <h5>{{kurstitel}}</h5>
 
   <div class="row" style="margin-top: 40px" [hidden]="no_data_available">
     <div class="col l4">
@@ -26,7 +26,7 @@
     </div>
   </div-->
   <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <h5>We're sorry but no data is available!</h5>
+    <h5>In diesem Kurs gibt es noch keine Teilnehmer.</h5>
   </div>
   <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
       <div class="col l12">

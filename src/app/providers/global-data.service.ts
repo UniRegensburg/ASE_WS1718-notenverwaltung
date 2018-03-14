@@ -231,7 +231,7 @@ export class GlobalDataService {
     this.current_project.bewertung = grading;
   }
 
-  public createGroups(): void {
+  public createGroups():void{
     this.current_project.gruppen = [];
   }
 
@@ -313,8 +313,9 @@ export class GlobalDataService {
     return of(this.current_project);
   }
 
-  private saveJson(): void {
-    /*writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+  private saveJson(): void{
+      console.log("writing file")
+    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
         if(err){
             alert("An error ocurred creating the file "+ err.message);
         }
@@ -322,7 +323,7 @@ export class GlobalDataService {
           // alert("The file has been succesfully saved");
           console.log("The file has been saved")
       }
-    });*/
+    });
 
   }
 
@@ -356,10 +357,19 @@ export class GlobalDataService {
       });
     });
     this.current_project.gruppen = groups;
-    //this.saveJson();
+    this.saveJson();
   }
 
-  public processImport(file): Observable<any> {
+  public setNewGroupsComplete(groups): void{
+      this.current_project.gruppen = groups;
+      this.saveJson();
+  }
+
+  public setNewCorrection(correction):void{
+      this.current_project.bewertung = correction;
+      this.saveJson();
+  }
+  public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
