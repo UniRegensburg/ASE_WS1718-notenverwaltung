@@ -22,48 +22,44 @@ declare var $: any;
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent implements OnInit{
+export class StudentsComponent implements OnInit {
   title = `Notenverwaltung ASE WS17/18 !`;
   private current_project: any;
   private current_project_name: String;
-  private participants: Array < any > ;
-  private groups: Array < any > ;
+  private participants: Array<any>;
+  private groups: Array<any>;
   private group_mode: boolean = false;
   private no_data_available: boolean = false;
   constructor(
     public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
-    public zone: NgZone) {}
+    public zone: NgZone) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       console.log("hilfe")
-      if (this.current_project.teilnehmer.length != 0) {
+
+      try {
         this.no_data_available = false;
         this.participants = this.current_project.teilnehmer;
         this.current_project_name = this.current_project.title;
         this.changeDetectorRef.detectChanges();
-
         if (!this.current_project.groups) {
-            this.getGroups();
+          this.getGroups();
         }
       }
-      else{
+      catch (err){
         this.no_data_available = true;
       }
     });
-    /*
-    this.dataService.getParticipants().subscribe(teilnehmer => {
-      this.participants = teilnehmer;
-    });
-    */
+
   }
-  onKey(event: any){
-      this.dataService.setNewGroupsComplete(this.current_project.gruppen);
+  onKey(event: any) {
+    this.dataService.setNewGroupsComplete(this.current_project.gruppen);
   }
-  getGroups(): void{
+  getGroups(): void {
     this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
       this.participants = studentsWithGroup;
       this.groups = this.current_project.gruppen;
@@ -176,11 +172,11 @@ export class StudentsComponent implements OnInit{
       this.dataService.setNewStudents(student);
     }
     //this.changeDetectorRef.detectChanges();
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
     });
   }
 
-  enableGroups(): void {}
+  enableGroups(): void { }
 }

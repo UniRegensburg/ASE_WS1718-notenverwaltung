@@ -69,13 +69,11 @@ export class OverviewComponent implements OnInit {
       this.participants.forEach(student => {
         completion_val = completion_val + parseFloat(student.finish);
       });
+      return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
     }
     catch (err) {
       console.log("no completion rate available")
       return (0.0);
-    }
-    finally {
-      return parseFloat(((completion_val / this.participants.length) * 100).toFixed(2));
     }
   }
 
@@ -86,12 +84,10 @@ export class OverviewComponent implements OnInit {
       this.participants.forEach(student => {
         sum_grade_val = sum_grade_val + parseFloat(student.grade);
       });
+      return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
     } catch (err) {
       console.log("no grade available");
       return (0.0);
-    }
-    finally {
-      return parseFloat((sum_grade_val / this.participants.length).toFixed(2));
     }
   }
 
