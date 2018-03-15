@@ -4,11 +4,6 @@
       <i class="material-icons">chevron_left</i>
     </a>
     <ul *ngIf="collpase" class="side-nav fixed" style="background-color:#C2185B; color:white !important; -webkit-transform: translateX(0%) !important">
-      <li style="margin-top: 20px">
-        <a class="white-text" [routerLink]="['']">
-          <i class="material-icons home-icon white-text">close</i> Kurs schließen
-        </a>
-      </li>
       <li style="margin-top: 30px" [routerLinkActive]="['active']">
         <a class="white-text" [routerLink]="['overview']">
           <i class="material-icons home-icon white-text" [routerLinkActive]="['active-font']">insert_drive_file</i>
@@ -39,12 +34,19 @@
           Bewertungsschema
         </a>
       </li>
-      <li [routerLinkActive]="['active']">
-        <a class="white-text" [routerLink]="['../newcourse']">
-          <i class="material-icons home-icon white-text">note_add</i>
-          Neuer Kurs
-        </a>
-      </li>
+      <div style="position: absolute; height: 175px; bottom: 0; right: 0;  left: 0; ">
+        <li>
+          <a class="white-text" [routerLink]="['']">
+            <i class="material-icons home-icon white-text">close</i> Kurs schließen
+          </a>
+        </li>
+        <li [routerLinkActive]="['active']">
+          <a class="white-text" [routerLink]="['../newcourse']">
+            <i class="material-icons home-icon white-text">note_add</i>
+            Neuer Kurs
+          </a>
+        </li>
+      </div>
     </ul>
   </div>
 
@@ -62,9 +64,9 @@
       </li>
       <li class="li-collapse" style="margin-top: 30px" [routerLinkActive]="['active']">
         <a class="white-text" [routerLink]="['overview']">
-            <i class="material-icons home-icon white-text">insert_drive_file</i>
+          <i class="material-icons home-icon white-text">insert_drive_file</i>
         </a>
-    </li>
+      </li>
       <li class="li-collapse" [routerLinkActive]="['active']">
         <a class="white-text" [routerLink]="['correction']">
           <i class="material-icons home-icon white-text">playlist_add_check</i>

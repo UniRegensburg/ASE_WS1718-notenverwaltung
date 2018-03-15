@@ -22,36 +22,43 @@ export class DetailComponent implements OnInit {
   private create_new_student_mode: boolean = false;
 
   constructor(
-    public dataService: GlobalDataService, 
+    public dataService: GlobalDataService,
     private route: ActivatedRoute,
-    public router: Router) { }
+    public router: Router,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
-  ngOnInit() {   
+  ngOnInit() {
       this.sub = this.route.params.subscribe(params => {
         this.dataService.getCurrentProject().subscribe(current_project => {
-          this.participants = current_project["teilnehmer"];          
-          if (params) {            
-            if(params.student_id == "createNewStudent"){              
+          this.participants = current_project["teilnehmer"];
+          if (params) {
+            if(params.student_id == "createNewStudent"){
               this.getNewStudent();
               this.create_new_student_mode = true;
             }
             else{
               this.setCurrentStudent(params.student_id);
             }
-          } 
-        });       
+          }
+        });
       });
   }
 
   setCurrentStudent(id): void{
     this.participants.forEach(student => {
       if(student.id == id){
-        this.current_student = student;  
-        this.current_student_index = id;                              
+        this.current_student = student;
+        this.current_student_index = id;
       }
-    }); 
+    });
+        // this.router.navigate(['/course/students']);
+
   }
 
+  saveStudent():void{
+      this.dataService.setNewStudentsComplete(this.participants)
+      this.router.navigate(['/course/students']);
+  }
   getNewStudent(): void{
     this.dataService.createNewStudent().subscribe(student => {
       this.current_student = student;
@@ -64,7 +71,7 @@ export class DetailComponent implements OnInit {
   }
 
   deleteStudent(): void{
-    this.participants.splice(this.current_student_index, 1);    
+    this.participants.splice(this.current_student_index, 1);
     this.dataService.setNewStudents(this.participants);
     this.router.navigate(['/course/students']);
   }

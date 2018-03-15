@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent, NewCourseComponent } from './components/home/index';
+import { HomeComponent } from './components/home/index';
+import { NewCourseComponent } from './components/newcourse/newcourse.component';
 import { CourseComponent } from './components/course/course.component';
 
 import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent,DetailComponent } from './components/course/index'

@@ -24,12 +24,12 @@
         <i class="material-icons left">import_export</i> Teilnehmer importieren
       </span>
       <span *ngIf="group_mode" class="right clickHover" (click)="addGroup()">
-        <i class="material-icons left">add</i> Neu Gruppe hinzufügen
+        <i class="material-icons left">add</i> Neue Gruppe hinzufügen
       </span>
     </div>
   </div>
   <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <h5>We're sorry but no data is available!</h5>
+    <h5>In diesem Kurs gibt es noch keine Studierenden.</h5>
   </div>
   <div *ngIf="!no_data_available">
     <div *ngIf="!group_mode">
@@ -105,13 +105,13 @@
               {{i}}
             </div>
             <div class="col s4">
-              <input [(ngModel)]="group.name" type="text" class="validate" >
+              <input [(ngModel)]="group.name" type="text" class="validate" (keyup)="onKey($event)">
             </div>
             <div class="col s3">
               {{group.studenten.length}}
             </div>
             <div class="col s3">
-              <i class="material-icons clickHover" (click)="delteGroup(i)">delete</i>
+              <i class="material-icons clickHover" (click)="deleteGroup(i)">delete</i>
             </div>
           </div>
           <hr class="hr_table">

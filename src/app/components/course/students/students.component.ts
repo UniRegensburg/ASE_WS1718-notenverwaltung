@@ -1,18 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  ApplicationRef,
-  NgZone
-} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
-import {
-  GlobalDataService
-} from '../../../providers/index'
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import { GlobalDataService } from '../../../providers/index'
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var require: any;
 declare var $: any;
@@ -22,54 +11,51 @@ declare var $: any;
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
+
 export class StudentsComponent implements OnInit {
-  title = `Notenverwaltung ASE WS17/18 !`;
+
   private current_project: any;
-  private current_project_name: String;
-  private participants: Array < any > ;
-  private groups: Array < any > ;
+  private participants: Array<any>;
+  private groups: Array<any>;
   private group_mode: boolean = false;
-  private no_data_available: boolean = false;
+  private no_data_available: boolean = true;
 
   constructor(
     public dataService: GlobalDataService,
     private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
-    public zone: NgZone) {}
+    public zone: NgZone) { }
 
-  ngOnInit() {    
-    this.dataService.getCurrentProject().subscribe(current_project => {    
+  ngOnInit() {
+    this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
-      if (this.current_project.teilnehmer.length != 0) {
-        this.no_data_available = false;
-        this.participants = this.current_project.teilnehmer;
-        this.current_project_name = this.current_project.title;
-        this.changeDetectorRef.detectChanges();
 
-        if (!this.current_project.groups) {          
-            this.getGroups();        
+      try {
+        this.participants = this.current_project.teilnehmer;
+        this.changeDetectorRef.detectChanges();
+        if (!this.current_project.groups) {
+          this.getGroups();
+        }
+        if (this.participants.length == 0) {
+          this.no_data_available = true;
+        }
+        else {
+          this.no_data_available = false;
         }
       }
-      else{
+      catch (err) {
         this.no_data_available = true;
       }
+
     });
-    /*
-    this.dataService.getParticipants().subscribe(teilnehmer => {
-      this.participants = teilnehmer;
-    });
-    */
+
   }
 
-  getGroups(): void{
-    this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
-      this.participants = studentsWithGroup;
-      this.groups = this.current_project.gruppen;
-    });  
-  }
-
-  changeDetected(event): void {
-    this.dataService.setNewGroups(this.participants);
+  //*********************************  FUNCTIONS ********************************************** */
+  deleteStudent(id): void {
+    this.participants.splice(id, 1);
+    this.dataService.setNewStudentsComplete(this.participants);
+    this.router.navigate(['/course/students']);
   }
 
   openDialog(): void {
@@ -83,23 +69,6 @@ export class StudentsComponent implements OnInit {
       }
       this.processData(fileNames[0])
     });
-  }
-
-  delteGroup(element_index): void {
-    this.groups.splice(element_index, 1);
-  }
-
-  addGroup(): void {
-    this.groups.push({
-      "name": "",
-      "studenten": []
-    });
-  }
-
-  deleteStudent(id): void {
-    this.participants.splice(id, 1);
-    this.dataService.setNewStudentsComplete(this.participants);
-    this.router.navigate(['/course/students']);
   }
 
   processData(filepath): void {
@@ -171,12 +140,40 @@ export class StudentsComponent implements OnInit {
       address = String.fromCharCode(65 + row) + cell;
       this.dataService.setNewStudents(student);
     }
-    //this.changeDetectorRef.detectChanges();
-    this.zone.run(()=>{
+    this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
     });
   }
 
-  enableGroups(): void {}
+  //***************************   Group Functionality   ******************************//
+  onKey(event: any) {
+    this.dataService.setNewGroupsComplete(this.current_project.gruppen);
+  }
+
+  getGroups(): void {
+    this.dataService.getStudentsWithGroup().subscribe(studentsWithGroup => {
+      this.participants = studentsWithGroup;
+      this.groups = this.current_project.gruppen;
+    });
+  }
+
+  changeDetected(event): void {
+    this.dataService.setNewGroups(this.participants);
+    console.log("change detected");
+  }
+
+  deleteGroup(element_index): void {
+    this.groups.splice(element_index, 1);
+  }
+
+  addGroup(): void {
+    this.groups.push({
+      "name": "",
+      "studenten": []
+    });
+    // console.log("added group")
+  }
+
+  enableGroups(): void { }
 }
