@@ -79,7 +79,8 @@
                 <th>Note</th>
                 <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
             </tr>
-            <tr *ngFor="let participant of participants; let i = index ">
+            <tr *ngFor="let participant of participants; let i = index" [attr.id]="'element_' + i"  
+            [attr.style]="checkColorGrading('element_' + i, participant.grade)">
                 <td class="number">{{participant.mtknr}}</td>
                 <td>{{participant.name}}</td>
                 <td>{{participant.vorname}}</td>

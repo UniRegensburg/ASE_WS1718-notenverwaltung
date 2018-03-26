@@ -63,4 +63,22 @@ export class ResultsComponent implements OnInit {
     }
   }
 
+  checkColorGrading(div, grade) {   
+    var element = document.getElementById(div);
+    
+    if(element != null){
+      let grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+      if(grading_list.length > 2){        
+        if(grade == grading_list[grading_list.length-2].note){
+          element.style.backgroundColor = "#ff9800"; 
+          element.style.color = "white";   
+        }
+        if(grade == grading_list[grading_list.length-1].note){
+          element.style.backgroundColor = "#f44336";   
+          element.style.color = "white"; 
+        }
+      }    
+   }
+  }
+
 }
