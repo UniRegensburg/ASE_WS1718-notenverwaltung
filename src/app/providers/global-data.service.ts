@@ -19,6 +19,7 @@ import {
 } from '../models/index'
 
 import "rxjs/add/observable/of";
+import 'rxjs/add/observable/throw';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -40,6 +41,8 @@ export class GlobalDataService {
   public teilnehmer: Array<any>;
   private temp: Array<any>;
   private filePath: any;
+  private requiredProperties: Array<any>;
+  private _error: any;
 
   constructor(
     private http: Http) { }
@@ -53,15 +56,34 @@ export class GlobalDataService {
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
+        this.requiredProperties = ['title','teilnehmer','bewertungsschema','bewertung','gruppen']
         this.current_project = res.json();
+        this._error = 0
+        for (let property in this.requiredProperties){
+            if(this.current_project.hasOwnProperty(this.requiredProperties[property])){
+                continue;
+            }
+            else {
+                this._error = 1
+            }
+        }
+
         this.current_project_name = file_path;
         this.filePath = file_path;
-        // console.log(file_path.split('\\').pop().split('/').pop());
+
       })
       //...errors if any
-      .catch((error: any) => Observable.throw(error.json().error || 'Reading error'));
+      .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
+  public checkJsonValidity(): any{
+      if (this._error==1){
+          this.current_project = null;
+          this.current_project_name = null;
+          this.filePath = null;
+      }
+      return this._error;
+  }
   public getCurrentProject(): Observable<Schema> {
     this.checkCurrentValidity();
     return of(this.current_project);
