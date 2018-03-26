@@ -33,10 +33,15 @@ export class HomeComponent implements OnInit {
   onChange(file) {
     this.dataService.getLocalFile(file['0'].path).subscribe(
       data => {
-        this.router.navigate(['course/overview']);
+        if(this.dataService.checkJsonValidity() == 1){
+            alert("file not recognized. please select a valid file.")
+        }
+        else{
+            this.router.navigate(['course/overview']);
+        }
       },
       err => {
-        alert("file not recognized. please select a valid file.")
+        alert("File not recognized. Please select a valid file.")
       }
     );
   }
