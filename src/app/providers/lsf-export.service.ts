@@ -17,13 +17,14 @@ export class lsfExportService{
     constructor(private dataService: GlobalDataService) {}
 
     public export(): void{
+
         this.dataService.getCurrentProject().subscribe(current_project =>{
             this.current_project = current_project;
             this.current_project_name = this.current_project.title;
             this.current_project_students = this.current_project.teilnehmer
             this.current_project_results = this.current_project.bewertung
-            this.filePath = this.current_project_name.substring(0,this.current_project_name.lastIndexOf("\\")+1)+ "lsf_export.csv";
-
+            this.filePath = this.dataService.getFilePath().substring(0,this.dataService.getFilePath().lastIndexOf("\\")+1)+ "lsf_export.csv";
+            console.log(this.filePath)
             //  https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
             var self = this;
             var stream = fs.createWriteStream(this.filePath);
@@ -34,7 +35,7 @@ export class lsfExportService{
                 for (let result of self.current_project_results){
                     for (let student of self.current_project_students){
                         if (result.student_id === student.id){
-                            console.log(result.einzelwertungen[0]);
+                            // console.log(result.einzelwertungen[0]);
                             var line = student.name+","+student.vorname+","+student.mtknr+","+result.einzelwertungen[0].erreichte_punkte+","+result.einzelwertungen[1].erreichte_punkte+","+result.einzelwertungen[2].erreichte_punkte+"\n";
                             stream.write(line);
 

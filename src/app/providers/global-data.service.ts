@@ -55,6 +55,7 @@ export class GlobalDataService {
       .map((res: Response) => {
         this.current_project = res.json();
         this.current_project_name = file_path;
+        this.current_project_name = this.current_project.title;
         this.filePath = file_path;
         // console.log(file_path.split('\\').pop().split('/').pop());
       })
@@ -75,6 +76,9 @@ export class GlobalDataService {
     return of(this.current_project.teilnehmer)
   }
 
+  public getFilePath(){
+      return this.filePath
+  }
   public getGradingSteps(): any {
     var gradingSteps = [];
 
