@@ -30,7 +30,7 @@
       </div>
       <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
       <!--h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6-->
-      <input type="file" #file (change)="onChange(file.files)"/>
+      <input type="file" accept=".json" #file (change)="onChange(file.files)"/>
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  private title:string = `Notenverwaltung ASE WS17/18 !`;
+  private title: string = `Notenverwaltung ASE WS17/18 !`;
   private last_files: Array<any> = [
   ];
   private view_mode: boolean = true;
@@ -31,27 +31,30 @@ export class HomeComponent implements OnInit {
   }
 
   onChange(file) {
-
     this.dataService.getLocalFile(file['0'].path).subscribe(
       data => {
-          this.router.navigate(['course/overview']);
-    });
-  }
-  openDialog(){
-      var app = require('electron').remote;
-      var dialog = app.dialog;      
-
-      dialog.showOpenDialog((fileNames) =>{
-        if (fileNames === undefined){
-          console.log("No file selected")
-          return;
-        }
         this.router.navigate(['course/overview']);
-        
-        this.dataService.getLocalFile(fileNames[0]).subscribe(data =>{
-           ///this.changeDetectorRef.detectChanges();
-           this.router.navigate(['course/overview']);
-         });
+      },
+      err => {
+        alert("file not recognized. please select a valid file.")
+      }
+    );
+  }
+  openDialog() {
+    var app = require('electron').remote;
+    var dialog = app.dialog;
+
+    dialog.showOpenDialog((fileNames) => {
+      if (fileNames === undefined) {
+        console.log("No file selected")
+        return;
+      }
+      this.router.navigate(['course/overview']);
+
+      this.dataService.getLocalFile(fileNames[0]).subscribe(data => {
+        ///this.changeDetectorRef.detectChanges();
+        this.router.navigate(['course/overview']);
       });
+    });
   }
 }

@@ -19,6 +19,7 @@ import {
 } from '../models/index'
 
 import "rxjs/add/observable/of";
+import 'rxjs/add/observable/throw';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -59,7 +60,7 @@ export class GlobalDataService {
         // console.log(file_path.split('\\').pop().split('/').pop());
       })
       //...errors if any
-      .catch((error: any) => Observable.throw(error.json().error || 'Reading error'));
+      .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
   public getCurrentProject(): Observable<Schema> {
