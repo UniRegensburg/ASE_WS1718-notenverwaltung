@@ -31,22 +31,17 @@ export class lsfExportService{
             var stream = fs.createWriteStream(this.filePath);
             stream.once('open', function(fd){
                 // TODO: aufgabennummer variabel machen
-                stream.write("StudentName,StudentVorname,Matrikelnummer");
-                for (let aufgabe of self.current_project_grading.aufgaben){
-                    stream.write(",Aufgabe"+aufgabe.id)
-                }
-                stream.write("\n")
-                for (let result of self.current_project_results){
+                stream.write("StudentName,StudentVorname,Matrikelnummer,Note");
+
                     for (let student of self.current_project_students){
-                        if (result.student_id === student.id){
-                            // console.log(result.einzelwertungen[0]);
-                            var line = student.name+","+student.vorname+","+student.mtknr+","+result.einzelwertungen[0].erreichte_punkte+","+result.einzelwertungen[1].erreichte_punkte+","+result.einzelwertungen[2].erreichte_punkte+"\n";
+                            console.log(student);
+                            var line = "\n"+student.name+","+student.vorname+","+student.mtknr+","+student.grade;
                             stream.write(line);
 
 
-                        }
+
                     }
-                }
+
                 stream.end();
             });
             // TODO: schöner machen
