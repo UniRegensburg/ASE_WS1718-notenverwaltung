@@ -18,4 +18,14 @@ export class CourseComponent implements OnInit {
     this.collpase = new_status;
   }
 
+  mouseEnter(div : any){
+    div.srcElement.style.width = "250px";
+    div.srcElement.style.backgroundColor = "#C2185B";
+  }
+
+  mouseLeave(div : any){
+    div.srcElement.style.width = "68px";
+    div.srcElement.style.backgroundColor = null;
+  }
+
 }
