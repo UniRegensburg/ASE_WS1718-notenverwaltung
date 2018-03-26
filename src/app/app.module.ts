@@ -16,7 +16,7 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, lsfExportService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -42,7 +42,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxPaginationModule
   ],
-  providers: [ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, lsfExportService],
+  providers: [ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
