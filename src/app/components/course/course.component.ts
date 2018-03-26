@@ -19,13 +19,11 @@ export class CourseComponent implements OnInit {
   }
 
   mouseEnter(div : any){
-    console.log("hier", div.srcElement);
     div.srcElement.style.width = "250px";
     div.srcElement.style.backgroundColor = "#C2185B";
   }
 
   mouseLeave(div : any){
-    console.log("hier", div.srcElement);
     div.srcElement.style.width = "68px";
     div.srcElement.style.backgroundColor = null;
   }
