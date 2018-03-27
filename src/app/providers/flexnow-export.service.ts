@@ -31,7 +31,7 @@ export class flexNowExportService {
           if (fileNames === undefined) {
             reject("No filename selected");
           }
-          this.filePath = fileNames[0]+ "\\FlexNow_export.csv";
+          this.filePath = fileNames[0]+ "\\FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
           // this.new_course.title = this.course_file.title;
           resolve();
         });
