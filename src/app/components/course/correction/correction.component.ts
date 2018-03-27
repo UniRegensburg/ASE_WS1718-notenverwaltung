@@ -81,13 +81,14 @@ export class CorrectionComponent implements OnInit {
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
       this.groups = this.current_project.gruppen;
+      this.group_counter = 0;
 
       try {
         if (this.tasks.length != 0) {
           this.no_tasks = false;
         }
       } catch (err) {
-        console.log("no tasks today");
+        console.log("there are no tasks.");
       }
 
       try {
@@ -101,13 +102,13 @@ export class CorrectionComponent implements OnInit {
         this.setCurrentTask('first');
         this.no_students = false;
       } catch (err) {
-        console.log("no students today");
+        console.log("there are no students.");
       }
 
       try {
-        this.current_group = this.groups[0];
+        this.current_group = this.groups[this.group_counter];
       } catch (err) {
-        console.log("I think there may be no groups.")
+        console.log("there are no groups.")
       }
     });
   }
@@ -123,24 +124,29 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentGroup(direction): void {
-    if(direction === "previous"){
+    if (direction === "previous") {
       console.log("previous group pls")
     }
-    if(direction === "next"){
-      console.log("next group pls")
+    if (direction === "next") {
+      if (this.group_counter + 1 < this.groups.length) {
+        this.group_counter = this.group_counter + 1;
+        this.current_group = this.groups[this.group_counter];
+      }else{
+        this.show_next = false;
+      }
     }
   }
 
   setPreviousTaskBy(entity): void {
     console.log("setPreviousTaskByStudentOrGroup");
-    if(entity === "group"){
+    if (entity === "group") {
       console.log("previous Task same group")
     }
   }
 
   setNextTaskBy(entity): void {
     console.log("setNextTaskByStudentOrGroup");
-    if(entity === "group"){
+    if (entity === "group") {
       console.log("next Task same group")
     }
   }
