@@ -69,6 +69,7 @@ export class GlobalDataService {
         }
 
         this.current_project_name = file_path;
+        this.current_project_name = this.current_project.title;
         this.filePath = file_path;
 
       })
@@ -94,9 +95,12 @@ export class GlobalDataService {
   }
 
   public getParticipants(): Observable<Array<any>> {
-    return of(this.current_project.teilnehmer)
+    return of(this.current_project.teilnehmer);
   }
 
+  public getFilePath(){
+      return this.filePath;
+  }
   public getGradingSteps(): any {
     var gradingSteps = [];
 
