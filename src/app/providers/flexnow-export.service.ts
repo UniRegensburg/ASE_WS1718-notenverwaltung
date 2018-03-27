@@ -18,14 +18,25 @@ export class flexNowExportService {
   constructor(private dataService: GlobalDataService) { }
 
   public export(): void {
-
+      var app = require('electron').remote;
+      var dialog = app.dialog
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       this.current_project_name = this.current_project.title;
       this.current_project_students = this.current_project.teilnehmer;
       this.current_project_results = this.current_project.bewertung;
       this.current_project_grading = this.current_project.bewertungsschema;
-      this.filePath = this.dataService.getFilePath().substring(0, this.dataService.getFilePath().lastIndexOf("\\") + 1) + "FlexNow_export.csv";
+      var chooseFolder = new Promise((resolve, reject) => {
+        dialog.showOpenDialog({ properties: ['openDirectory'] }, (fileNames) => {
+          if (fileNames === undefined) {
+            reject("No filename selected");
+          }
+          this.filePath = fileNames[0]+ "\\FlexNow_export.csv";
+          // this.new_course.title = this.course_file.title;
+          resolve();
+        });
+      });
+      chooseFolder.then(() => {
       //  https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
       var self = this;
       var stream = fs.createWriteStream(this.filePath);
@@ -38,6 +49,11 @@ export class flexNowExportService {
         stream.end();
       });
       alert("File written to:" + this.filePath);
+      });
     });
+  }
+
+  private openDialog(): void{
+
   }
 }
