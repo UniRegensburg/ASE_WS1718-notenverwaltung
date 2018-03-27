@@ -100,7 +100,7 @@
       <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first"
         (change)="changeDetected($event)">
         <div *ngIf="!first">
-          <div class="card-panel white row" (click)="(openCollapsible[i] = !openCollapsible[i]); openCloseCollapsibles(i)">
+          <div class="card-panel white row" (click)="openCloseCollapsibles(i)">
             <div class="col s9">
               <span>{{question.name}}</span>
               <br>
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div *ngIf="first">
-            <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]; openCloseCollapsibles(i)">
+            <div class="card-panel white row" (click)="openCloseCollapsibles(i)">
               <div class="col s9">
                 <span>{{question.name}}</span>
                 <br>
