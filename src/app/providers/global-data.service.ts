@@ -64,7 +64,6 @@ export class GlobalDataService {
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
         this.requiredProperties = ['title','teilnehmer','bewertungsschema','bewertung','gruppen']
-        console.log(res)
         var encryptedJSON = res.json();
         this.current_project = this.cryptoJSON.decrypt(encryptedJSON,this.passKey,this.cryptoConfig);
         this._error = 0;
