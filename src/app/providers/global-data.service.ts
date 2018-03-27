@@ -286,7 +286,7 @@ export class GlobalDataService {
     finally {
       let user = {
         "id": user_id,
-        "mtknr": 0,
+        "mtknr": 1234,
         "name": "",
         "vorname": "",
         "studiengang": "",
@@ -336,7 +336,7 @@ export class GlobalDataService {
   private createTaskCorrection(task_id): any {
     return {
       'aufgaben_id': task_id,
-      'erreichte_punkte': 0,
+      'erreichte_punkte': '',
       'comment_privat': '',
       'comment_public': ''
     }
