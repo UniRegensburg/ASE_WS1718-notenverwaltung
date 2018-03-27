@@ -36,16 +36,16 @@
 
   <div class="row center-align" style="margin-top: 40px">
     <p *ngIf="!correctByTasks&&!groupview">
-      <span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}
+      <span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
     </p>
     <p *ngIf="correctByTasks&&!groupview">{{current_student.name}}, {{current_student.vorname}} /
-      <span style="color:#C2185B">{{current_task.name}}</span>
+      <span style="color:#C2185B">Aufgabe: {{current_task.name}}</span>
     </p>
     <p *ngIf="!correctByTasks&&groupview">
-      <span style="color:#C2185B">{{current_group.name}}</span> / {{current_task.name}}
+      <span style="color:#C2185B">Gruppenname: {{current_group.name}}</span> / Aufgabe: {{current_task.name}}
     </p>
-    <p *ngIf="correctByTasks&&groupview">{{current_group.name}} /
-      <span style="color:#C2185B">{{current_task.name}}</span>
+    <p *ngIf="correctByTasks&&groupview">Gruppenname: {{current_group.name}} /
+      <span style="color:#C2185B">Aufgabe: {{current_task.name}}</span>
     </p>
   </div>
 
