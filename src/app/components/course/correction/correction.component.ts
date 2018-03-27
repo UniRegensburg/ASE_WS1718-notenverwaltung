@@ -41,7 +41,7 @@ export enum KEY_CODE {
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
-  private groupview: boolean = false;
+  private groupview: boolean = true;
   private correctByTasks: boolean = true;
 
   private current_project: any;
@@ -60,6 +60,7 @@ export class CorrectionComponent implements OnInit {
 
   private task_counter: number;
   private student_counter: number;
+  private group_counter: number;
   private current_student_grading;
 
   private no_tasks: boolean = true;
@@ -92,9 +93,17 @@ export class CorrectionComponent implements OnInit {
           });
           this.no_tasks = false;
         }
-      }
-      catch (err) {
+      } catch (err) {
         console.log("no tasks today");
+      }
+
+      try {
+        if (this.groupview) {
+          console.log("Get current group")
+          this.group_counter=0;
+        }
+      } catch (err) {
+        console.log("Something went terribly wrong while checking for existent groups.")
       }
     });
   }
@@ -108,7 +117,6 @@ export class CorrectionComponent implements OnInit {
     this.correctByTasks = !this.correctByTasks;
     this.updateShowPermissions();
   }
-
 
   setCurrentTask(direction): void {
     if (this.correction_mode == "student") {
@@ -225,11 +233,13 @@ export class CorrectionComponent implements OnInit {
 
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
+    this.current_group = this.groups[0];
   }
 
   saveCorrection(): void {
     this.dataService.setNewCorrection(this.grading)
   }
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
 

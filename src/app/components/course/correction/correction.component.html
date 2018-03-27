@@ -51,9 +51,10 @@
       <span class="hnrot">Aufgabe: {{current_task.name}}</span>
     </p>
     <p *ngIf="!correctByTasks&&groupview">
-      <span class="hnrot">Gruppenname: {{current_group.name}}</span> / Aufgabe: {{current_task.name}}
+      <span class="hnrot">Gruppenname: {{current_group.name}} Gruppennamendummy</span> / Aufgabe: {{current_task.name}}
     </p>
-    <p *ngIf="correctByTasks&&groupview">Gruppenname: {{current_group.name}} /
+    <!-- <p *ngIf="correctByTasks&&groupview">Gruppenname: {{current_group.name}} / -->
+              <p *ngIf="correctByTasks&&groupview">Gruppenname: {{current_group.name}} Gruppennamendummy /
       <span class="hnrot">Aufgabe: {{current_task.name}}</span>
     </p>
   </div>
