@@ -64,6 +64,7 @@ export class CorrectionComponent implements OnInit {
   private current_student_grading;
 
   private no_tasks: boolean = true;
+  private no_students: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
@@ -83,18 +84,24 @@ export class CorrectionComponent implements OnInit {
 
       try {
         if (this.tasks.length != 0) {
-          this.sub = this.route.params.subscribe(params => {
-            if (params) {
-              this.task_counter = 0;
-              this.student_counter = Number(params.user_to_edit_id);
-              if (Number.isNaN(this.student_counter)) this.student_counter = 0;
-            }
-            this.setCurrentTask('first');
-          });
           this.no_tasks = false;
         }
       } catch (err) {
         console.log("no tasks today");
+      }
+
+      try {
+        this.sub = this.route.params.subscribe(params => {
+          this.task_counter = 0;
+          this.student_counter = Number(params.user_to_edit_id);
+          if (Number.isNaN(this.student_counter)) {
+            this.student_counter = 0;
+          }
+        });
+        this.setCurrentTask('first');
+        this.no_students = false;
+      } catch (err) {
+        console.log("no students today");
       }
 
       try {
