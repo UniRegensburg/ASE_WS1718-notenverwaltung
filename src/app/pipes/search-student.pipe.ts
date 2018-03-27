@@ -5,7 +5,6 @@ export class SearchStudentPipe implements PipeTransform {
 
   private fitSearch(item: string, field:string): boolean{
     let returnVal = false;
-    console.log(item);
     if(item.includes(field)){
       returnVal = true;
     }
