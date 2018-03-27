@@ -64,9 +64,10 @@ export class GlobalDataService {
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
         this.requiredProperties = ['title','teilnehmer','bewertungsschema','bewertung','gruppen']
+        console.log(res)
         var encryptedJSON = res.json();
-        this.current_project = this.cryptoJSON.decrypt(encryptedJSON,this.passKey,this.cryptoConfig)
-        this._error = 0
+        this.current_project = this.cryptoJSON.decrypt(encryptedJSON,this.passKey,this.cryptoConfig);
+        this._error = 0;
         for (let property in this.requiredProperties){
             if(this.current_project.hasOwnProperty(this.requiredProperties[property])){
                 continue;
@@ -367,6 +368,21 @@ export class GlobalDataService {
         // console.log("The file has been saved")
       }
     });
+  }
+
+  public saveNewFile(path, json): any{
+      var encryptedJSON = this.cryptoJSON.encrypt(json,this.passKey,this.cryptoConfig);
+      writeFile(path, JSON.stringify(encryptedJSON), (err) => {
+        if (err) {
+          alert("An error ocurred creating the file " + err.message);
+          return -1
+        }
+        else {
+          // alert("The file has been succesfully saved");
+          return 1;
+          // console.log("The file has been saved")
+        }
+      });
 
   }
 

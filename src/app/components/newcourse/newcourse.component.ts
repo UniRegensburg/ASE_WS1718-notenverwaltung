@@ -26,7 +26,7 @@ export class NewCourseComponent implements OnInit {
     "bewertungsschema": {},
     "bewertung": [],
     "gruppen": []
-    
+
   };
 
   constructor(public dataService: GlobalDataService, public router: Router, private location: Location) { }
@@ -56,24 +56,22 @@ export class NewCourseComponent implements OnInit {
     });
 
     chooseFolder.then(() => {
-      if (this.course_file.path) {
-        let filePath = this.course_file.path + "/" + this.course_file.title + ".json";
-       
-        writeFile(filePath, JSON.stringify(this.new_course), (err) => {
-          if (err) {
-            //TODO: Toast
-            alert("An error ocurred creating the file " + err.message);
-          }
-          else {
-            //TODO: Toast
-            alert("The file has been succesfully saved");
-            this.dataService.getLocalFile(filePath).subscribe(
-              data => {
-                this.router.navigate(['course/overview']);
-              });
-          }
-        });
-      } 
+        if (this.course_file.path) {
+        let filePath = this.course_file.path + "\\" + this.course_file.title + ".json";
+       var saveFile = new Promise((resolve, reject)=> {
+           var temp = this.dataService.saveNewFile(filePath,this.new_course)
+           setTimeout(()=>{resolve(true);},50);
+
+       });
+       saveFile.then(() =>{
+           this.dataService.getLocalFile(filePath).subscribe(
+           data => {
+               this.router.navigate(['course/overview']);
+           }
+       );
+   });
+
+      }
     });
   }
 
