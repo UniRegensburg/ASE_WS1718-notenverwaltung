@@ -122,6 +122,29 @@ export class CorrectionComponent implements OnInit {
     this.updateShowPermissions();
   }
 
+  setCurrentGroup(direction): void {
+    if(direction === "previous"){
+      console.log("previous group pls")
+    }
+    if(direction === "next"){
+      console.log("next group pls")
+    }
+  }
+
+  setPreviousTaskBy(entity): void {
+    console.log("setPreviousTaskByStudentOrGroup");
+    if(entity === "group"){
+      console.log("previous Task same group")
+    }
+  }
+
+  setNextTaskBy(entity): void {
+    console.log("setNextTaskByStudentOrGroup");
+    if(entity === "group"){
+      console.log("next Task same group")
+    }
+  }
+
   setCurrentTask(direction): void {
     if (this.correction_mode == "student") {
       if ((direction === "next") && (this.show_next)) {
