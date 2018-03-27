@@ -80,4 +80,12 @@
             </div>
         </div>
     </div>
+
+<!-- DEMO TOAST - Relevante Optionen unter: http://archives.materializecss.com/0.100.2/dialogs.html -->
+    <a onclick="Materialize.toast('I am a toast', 4000)" class="btn pink">Toast!</a>
+
+    <a class="btn blue" onclick="Materialize.toast('I am a toast', 4000,'',function(){console.log('DIESER LOG ENTSTEHT NACH DEM VERSCHWINDEN DES TOASTS!')})">Toast!</a>
+
+    <a class="waves-effect waves-light light-blue btn" onclick="Materialize.toast('<span>Item Deleted</span><a class=&quot;btn light-blue &quot; href=&quot;&quot;>Undo<a>', 5000)">Toast Again!</a>
+
 </div>
