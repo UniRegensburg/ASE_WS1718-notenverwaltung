@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GlobalDataService, ChartService, gripsExportService, lsfExportService } from '../../../providers/index';
+import { GlobalDataService, ChartService, gripsExportService, flexNowExportService } from '../../../providers/index';
 
 @Component({
   selector: 'app-results',
@@ -20,7 +20,7 @@ export class ResultsComponent implements OnInit {
 
   private display_diagrams: boolean = true;
 
-  constructor(public dataService: GlobalDataService, public chartService: ChartService, public grips: gripsExportService, public lsf: lsfExportService) { }
+  constructor(public dataService: GlobalDataService, public chartService: ChartService, public grips: gripsExportService, public flexnow: flexNowExportService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -51,8 +51,8 @@ export class ResultsComponent implements OnInit {
 
   export(string): void {
     switch (string) {
-      case "lsf":
-        this.lsf.export()
+      case "flexnow":
+        this.flexnow.export()
         break;
       case "grips":
         this.grips.export()
