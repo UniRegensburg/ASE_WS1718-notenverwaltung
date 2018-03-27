@@ -104,8 +104,8 @@ export class GlobalDataService {
     return of(this.current_project.teilnehmer);
   }
 
-  public getFilePath(){
-      return this.filePath;
+  public getFilePath() {
+    return this.filePath;
   }
   public getGradingSteps(): any {
     var gradingSteps = [];
