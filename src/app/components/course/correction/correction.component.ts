@@ -125,13 +125,22 @@ export class CorrectionComponent implements OnInit {
 
   setCurrentGroup(direction): void {
     if (direction === "previous") {
-      console.log("previous group pls")
+      this.show_next = true;
+      if (this.group_counter - 1 > 0) {
+        this.group_counter = this.group_counter - 1;
+        this.current_group = this.groups[this.group_counter];
+      } 
+      if (this.group_counter == 0 ) {
+        this.show_previous = false;
+      }
     }
     if (direction === "next") {
+      this.show_previous = true;
       if (this.group_counter + 1 < this.groups.length) {
         this.group_counter = this.group_counter + 1;
         this.current_group = this.groups[this.group_counter];
-      }else{
+      } 
+      if (this.group_counter + 1 == this.groups.length ) {
         this.show_next = false;
       }
     }
