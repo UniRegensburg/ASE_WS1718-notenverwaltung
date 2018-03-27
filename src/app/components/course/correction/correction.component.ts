@@ -98,12 +98,9 @@ export class CorrectionComponent implements OnInit {
       }
 
       try {
-        if (this.groupview) {
-          console.log("Get current group")
-          this.group_counter=0;
-        }
+        this.current_group = this.groups[0];
       } catch (err) {
-        console.log("Something went terribly wrong while checking for existent groups.")
+        console.log("I think there may be no groups.")
       }
     });
   }
@@ -233,7 +230,7 @@ export class CorrectionComponent implements OnInit {
 
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
-    this.current_group = this.groups[0];
+
   }
 
   saveCorrection(): void {
@@ -242,7 +239,6 @@ export class CorrectionComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
       this.setCurrentTask('next');
     }
