@@ -1,11 +1,11 @@
 <div class="container">
-    <h1>Ergebnisse</h1>
-    <hr class="hr_welcome">
-    <br>
+  <h1>Ergebnisse</h1>
+  <hr class="hr_welcome">
+  <br>
 
 
-    <div class="row exports">
-        <div ng-show="condition()">{{value2}}</div>
+  <div class="row exports">
+    <div ng-show="condition()">{{value2}}</div>
 
         <div class="col s2">
             <span>Available Downloads</span>
@@ -23,11 +23,24 @@
                 <i class="material-icons left">print</i> PRINT </a>
         </div>
     </div>
+    <div class="col 3">
+      <a class="btn waves-effect waves-light pink darken-2" (click)="export('lsf')">
+        <i class="material-icons left">file_download</i> LSF </a>
+    </div>
+    <div class="col 3">
+      <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+        <i class="material-icons left">file_download</i> GRIPS </a>
+    </div>
+    <div class="col 3">
+      <a class="btn waves-effect waves-light pink darken-2" (click)="export('print')">
+        <i class="material-icons left">print</i> PRINT </a>
+    </div>
+  </div>
 
-    <!--http://materializecss.com/forms.html Autocomplete-->
-    <div class="row">
+  <!--http://materializecss.com/forms.html Autocomplete-->
+  <div class="row">
 
-        <!-- TODO: Make this work
+    <!-- TODO: Make this work 
         <div class="col s6">
             <div class="row">
                 <div class="input-field col s12">
@@ -38,26 +51,27 @@
             </div>
         </div>
         -->
-        <div class="col switch">
-            <!--TODO: Diagramme sobald mehrere verfügbar sind-->
-            <span>Diagramm</span>
-            <div class="switch">
-                <label>
-                    Aus
-                    <input type="checkbox" (click)="switch_diagrams()">
-                    <span class="lever"></span>
-                    An
-                </label>
-            </div>
-        </div>
+
+    <div class="col switch">
+      <!--TODO: Diagramme sobald mehrere verfügbar sind-->
+      <span>Diagramm</span>
+      <div class="switch">
+        <label>
+          Aus
+          <input type="checkbox" (click)="switch_diagrams()">
+          <span class="lever"></span>
+          An
+        </label>
+      </div>
     </div>
-    <div class="diagrams" [hidden]="display_diagrams">
-        <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
-        <div class="row" style="margin-top: 40px">
-            <h2 class="diagramm">Notenspiegel</h2>
-            <canvas #barchart width="800" height="450"></canvas>
-        </div>
-        <!--
+  </div>
+  <div class="diagrams" [hidden]="display_diagrams">
+    <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
+    <div class="row" style="margin-top: 40px">
+      <h2 class="diagramm">Notenspiegel</h2>
+      <canvas #barchart width="800" height="450"></canvas>
+    </div>
+    <!--
         <div class="row" style="margin-top: 40px">
             <h2 class="diagramm">Durchschnittlich erreichte Prozent pro Aufgabe</h2>
             <canvas id="polar-chart" width="800" height="450"></canvas>
@@ -67,24 +81,30 @@
             <h2 class="diagramm">Erreichte Prozent pro Aufgabe</h2>
             <canvas id="scatter-chart" width="800" height="450"></canvas>
         </div>-->
+  </div>
+  <div class="row" class="participants">
+    <h2>Teilnehmer</h2>
+    <div class="input-field col s6">
+      <i class="material-icons prefix">search</i>
+      <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue">
+      <label for="icon_prefix">Suche Studierende</label>
     </div>
-    <div class="row" class="participants">
-        <h2>Teilnehmer</h2>
-        <table>
-            <tr>
-                <th sortable-column="name" class="participants">Nachname</th>
-                <th sortable-column="firstname" class="participants">Vorname</th>
-                <th sortable-column="matrikelnr" class="participants">Matrikelnummer</th>
-                <th sortable-column="wip" class="participants">Korrektur</th>
-                <th sortable-column="grade" class="participants">aktuelle Note</th>
-            </tr>
-            <tr *ngFor="let participant of participants; let i = index ">
-                <td>{{participant.name}}</td>
-                <td>{{participant.vorname}}</td>
-                <td class="number">{{participant.mtknr}}</td>
-                <td class="number">{{participant.finish * 100}}%</td>
-                <td class="number">{{participant.grade}}</td>
-            </tr>
-        </table>
-    </div>
+    <table>
+      <tr>
+        <th sortable-column="name" class="participants">Nachname</th>
+        <th sortable-column="firstname" class="participants">Vorname</th>
+        <th sortable-column="matrikelnr" class="participants">Matrikelnummer</th>
+        <th sortable-column="wip" class="participants">Korrektur</th>
+        <th sortable-column="grade" class="participants">aktuelle Note</th>
+      </tr>
+      <tr *ngFor="let participant of (participants | searchStudent: searchValue); let i = index">
+        <td>{{participant.name}}</td>
+        <td>{{participant.vorname}}</td>
+        <td class="number">{{participant.mtknr}}</td>
+        <td class="number">{{participant.finish * 100}}%</td>
+        <td class="number">{{participant.grade}}</td>
+        <td><i class="material-icons view-btn">remove_red_eye</i></td>
+      </tr>
+    </table>
+  </div>
 </div>
