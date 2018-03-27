@@ -128,8 +128,8 @@ export class CorrectionComponent implements OnInit {
       this.show_next = true;
       if (this.group_counter - 1 >= 0) {
         this.group_counter = this.group_counter - 1;
-      } 
-      if (this.group_counter == 0 ) {
+      }
+      if (this.group_counter == 0) {
         this.show_previous = false;
       }
     }
@@ -137,8 +137,8 @@ export class CorrectionComponent implements OnInit {
       this.show_previous = true;
       if (this.group_counter + 1 < this.groups.length) {
         this.group_counter = this.group_counter + 1;
-      } 
-      if (this.group_counter + 1 == this.groups.length ) {
+      }
+      if (this.group_counter + 1 == this.groups.length) {
         this.show_next = false;
       }
     }
@@ -148,15 +148,23 @@ export class CorrectionComponent implements OnInit {
   setPreviousTaskBy(entity): void {
     console.log("setPreviousTaskByStudentOrGroup");
     if (entity === "group") {
-      console.log("previous Task same group")
+      this.show_next = true;
+      if (this.task_counter - 1 >= 0) {
+        this.task_counter = this.task_counter - 1;
+      }
     }
+    this.current_task=this.tasks[this.task_counter];
   }
 
   setNextTaskBy(entity): void {
     console.log("setNextTaskByStudentOrGroup");
     if (entity === "group") {
-      console.log("next Task same group")
+      this.show_previous = true;
+      if (this.task_counter + 1 <this.tasks.length) {
+        this.task_counter = this.task_counter + 1;
+      }
     }
+    this.current_task=this.tasks[this.task_counter];
   }
 
   setCurrentTask(direction): void {
