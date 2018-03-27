@@ -123,26 +123,28 @@ export class CorrectionComponent implements OnInit {
     this.updateShowPermissions();
   }
 
-  changeGroup(direction): void {
-    if (direction === "previous" && this.group_counter - 1 >= 0) {
-      this.group_counter = this.group_counter - 1;
+  changeThing(entity, direction): void {
+    if (entity === "group") {
+      if (direction === "previous" && this.group_counter - 1 >= 0) {
+        this.group_counter = this.group_counter - 1;
+      }
+      if (direction === "next" && this.group_counter + 1 < this.groups.length) {
+        this.group_counter = this.group_counter + 1;
+      }
+      this.checkShowings("group");
+      this.current_group = this.groups[this.group_counter];
     }
-    if (direction === "next" && this.group_counter + 1 < this.groups.length) {
-      this.group_counter = this.group_counter + 1;
-    }
-    this.checkShowings("group");
-    this.current_group = this.groups[this.group_counter];
-  }
 
-  changeTask(direction): void {
-    if (direction === "previous" && this.task_counter - 1 >= 0) {
-      this.task_counter = this.task_counter - 1;
+    if (entity === "task") {
+      if (direction === "previous" && this.task_counter - 1 >= 0) {
+        this.task_counter = this.task_counter - 1;
+      }
+      if (direction === "next" && this.task_counter + 1 < this.tasks.length) {
+        this.task_counter = this.task_counter + 1;
+      }
+      this.checkShowings("task");
+      this.current_task = this.tasks[this.task_counter];
     }
-    if (direction === "next" && this.task_counter + 1 < this.tasks.length) {
-      this.task_counter = this.task_counter + 1;
-    }
-    this.checkShowings("task");
-    this.current_task = this.tasks[this.task_counter];
   }
 
   checkShowings(mode): void {
@@ -158,7 +160,7 @@ export class CorrectionComponent implements OnInit {
         this.show_next = true;
       }
     }
-    
+
     if (mode === "group") {
       if (this.group_counter == 0) {
         this.show_previous = false;
