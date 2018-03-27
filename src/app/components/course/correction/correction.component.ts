@@ -123,48 +123,54 @@ export class CorrectionComponent implements OnInit {
     this.updateShowPermissions();
   }
 
-  setCurrentGroup(direction): void {
-    if (direction === "previous") {
-      this.show_next = true;
-      if (this.group_counter - 1 >= 0) {
-        this.group_counter = this.group_counter - 1;
-      }
-      if (this.group_counter == 0) {
-        this.show_previous = false;
-      }
+  changeGroup(direction): void {
+    if (direction === "previous" && this.group_counter - 1 >= 0) {
+      this.group_counter = this.group_counter - 1;
     }
-    if (direction === "next") {
-      this.show_previous = true;
-      if (this.group_counter + 1 < this.groups.length) {
-        this.group_counter = this.group_counter + 1;
-      }
-      if (this.group_counter + 1 == this.groups.length) {
-        this.show_next = false;
-      }
+    if (direction === "next" && this.group_counter + 1 < this.groups.length) {
+      this.group_counter = this.group_counter + 1;
     }
+    this.checkShowings("group");
     this.current_group = this.groups[this.group_counter];
   }
 
-  setPreviousTaskBy(entity): void {
-    console.log("setPreviousTaskByStudentOrGroup");
-    if (entity === "group") {
-      this.show_next = true;
-      if (this.task_counter - 1 >= 0) {
-        this.task_counter = this.task_counter - 1;
-      }
+  changeTask(direction): void {
+    if (direction === "previous" && this.task_counter - 1 >= 0) {
+      this.task_counter = this.task_counter - 1;
     }
-    this.current_task=this.tasks[this.task_counter];
+    if (direction === "next" && this.task_counter + 1 < this.tasks.length) {
+      this.task_counter = this.task_counter + 1;
+    }
+    this.checkShowings("task");
+    this.current_task = this.tasks[this.task_counter];
   }
 
-  setNextTaskBy(entity): void {
-    console.log("setNextTaskByStudentOrGroup");
-    if (entity === "group") {
-      this.show_previous = true;
-      if (this.task_counter + 1 <this.tasks.length) {
-        this.task_counter = this.task_counter + 1;
+  checkShowings(mode): void {
+    if (mode === "task") {
+      if (this.task_counter == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.task_counter + 1 == this.tasks.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
       }
     }
-    this.current_task=this.tasks[this.task_counter];
+    
+    if (mode === "group") {
+      if (this.group_counter == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.group_counter + 1 == this.groups.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
+      }
+    }
   }
 
   setCurrentTask(direction): void {

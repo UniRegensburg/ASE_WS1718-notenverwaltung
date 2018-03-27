@@ -68,8 +68,8 @@
   <div class="row">
     <div class="col s4">
       <i class="material-icons left card-panel chevron" (click)="setCurrentTask('previous')" *ngIf="show_previous&&!groupview">chevron_left</i>
-      <i class="material-icons left card-panel chevron" (click)="setPreviousTaskBy('group')" *ngIf="!correctByTasks&&show_previous&&groupview">chevron_left</i>
-      <i class="material-icons left card-panel chevron" (click)="setCurrentGroup('previous')" *ngIf="correctByTasks&&show_previous&&groupview">chevron_left</i>
+      <i class="material-icons left card-panel chevron" (click)="changeTask('previous')" *ngIf="!correctByTasks&&show_previous&&groupview">chevron_left</i>
+      <i class="material-icons left card-panel chevron" (click)="changeGroup('previous')" *ngIf="correctByTasks&&show_previous&&groupview">chevron_left</i>
       <i class="material-icons left card-panel chevron inactive" *ngIf="!show_previous">chevron_left</i>
     </div>
     <div class="col s4">
@@ -87,8 +87,8 @@
     </div>
     <div class="col s4">
       <i class="material-icons right card-panel chevron" (click)="setCurrentTask('next')" *ngIf="show_next&&!groupview">chevron_right</i>
-      <i class="material-icons right card-panel chevron" (click)="setNextTaskBy('group')" *ngIf="!correctByTasks&&show_next&&groupview">chevron_right</i>
-      <i class="material-icons right card-panel chevron" (click)="setCurrentGroup('next')" *ngIf="correctByTasks&&show_next&&groupview">chevron_right</i>
+      <i class="material-icons right card-panel chevron" (click)="changeTask('next')" *ngIf="!correctByTasks&&show_next&&groupview">chevron_right</i>
+      <i class="material-icons right card-panel chevron" (click)="changeGroup('next')" *ngIf="correctByTasks&&show_next&&groupview">chevron_right</i>
       <i class="material-icons right card-panel chevron inactive" *ngIf="!show_next">chevron_right</i>
     </div>
   </div>
