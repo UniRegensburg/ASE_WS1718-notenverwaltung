@@ -146,5 +146,13 @@ export class GradingComponent implements OnInit, AfterViewInit {
   logIndex(ind):void{
     //console.log("DAS IST COLLAPSIBLE:" + ind);
   }
+
+  openCloseCollapsibles(indexColl):void{
+   this.openCollapsible={};
+    this.openCollapsible[indexColl] = true;
+
+  }
+
+
 }
  
