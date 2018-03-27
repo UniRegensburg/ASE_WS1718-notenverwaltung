@@ -187,7 +187,6 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
-
   }
 
   private checkStudentsInGrading(): void {
@@ -254,7 +253,7 @@ export class GlobalDataService {
     finally {
       let user = {
         "id": user_id,
-        "mtknr": 0,
+        "mtknr": 1234,
         "name": "",
         "vorname": "",
         "studiengang": "",
