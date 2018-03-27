@@ -62,6 +62,7 @@ export class CorrectionComponent implements OnInit {
   private student_counter: number;
   private current_student_grading;
 
+  private no_tasks: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
@@ -69,9 +70,7 @@ export class CorrectionComponent implements OnInit {
 
   constructor(
     public dataService: GlobalDataService,
-    private route: ActivatedRoute) {
-
-  }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -81,15 +80,22 @@ export class CorrectionComponent implements OnInit {
       this.grading = this.current_project.bewertung;
       this.groups = this.current_project.gruppen;
 
-      this.sub = this.route.params.subscribe(params => {
-        if (params) {
-          this.task_counter = 0;
-          this.student_counter = Number(params.user_to_edit_id);
-          if (Number.isNaN(this.student_counter)) this.student_counter = 0;
+      try {
+        if (this.tasks.length != 0) {
+          this.sub = this.route.params.subscribe(params => {
+            if (params) {
+              this.task_counter = 0;
+              this.student_counter = Number(params.user_to_edit_id);
+              if (Number.isNaN(this.student_counter)) this.student_counter = 0;
+            }
+            this.setCurrentTask('first');
+          });
+          this.no_tasks = false;
         }
-        this.setCurrentTask('next');
-        this.setCurrentTask('previous');
-      });
+      }
+      catch (err) {
+        console.log("no tasks today");
+      }
     });
   }
 
@@ -117,8 +123,13 @@ export class CorrectionComponent implements OnInit {
       if ((direction === "next") && (this.show_next)) {
         this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
       }
-      if ((direction === "previous") && (this.show_previous)) {
-        this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
+      else {
+        if ((direction === "next") && (this.show_next)) {
+          this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
+        }
+        if ((direction === "previous") && (this.show_previous)) {
+          this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
+        }
       }
     }
     this.updateShowPermissions();
