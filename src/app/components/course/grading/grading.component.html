@@ -17,48 +17,71 @@
   <div *ngIf="!no_data_available">
     <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
     <div class="row">
-      <div class="col s6">
+      <div class="col s7">
         <div class="row row_hover">
-          <div class="col s5 table-header">
+          <div class="col s4 table-header">
             Notenstufe
           </div>
-          <div class="col s5 table-header">
+          <div class="col s4 table-header">
             Mindestwert
           </div>
-          <div class="col s2 table-header">
-            Löschen
+          <div class="col s2 center">
+            <div class="table-header">Löschen</div>
           </div>
+          <div class="col s1 left">
+              <div class="table-header">Auf</div>
+            </div>
+            <div class="col s1 left">
+                <div class="table-header">Ab</div>
+              </div>
         </div>
         <div class="col s12" style="height: 300px;  overflow: scroll;">
-          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index; let last=last">
+          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index; let last=last; let first=first;">
             <div *ngIf="!last">
-              <div class="col s5">
+              <div class="col s4">
                 <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
               </div>
-              <div class="col s5">
+              <div class="col s4">
                 <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
               </div>
-              <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
-                <i class="material-icons right">delete</i>
+              <div class="col s2 center" style="margin-top: 20px" id="deleteBtn">
+                <i class="material-icons clickHover" (click)="deleteGrade(i)">delete</i>
               </div>
+              <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="!first">
+                  <i class="material-icons right clickHover" (click)="upGrade(i)">arrow_upward</i>
+                </div>
+                <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="first">
+                    <i class="material-icons right grey-text">arrow_upward</i>
+                  </div>
+                <div class="col s1 center" style="margin-top: 20px" id="downBtn"  *ngIf="i!=this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
+                    <i class="material-icons right clickHover" (click)="downGrade(i)">arrow_downward</i>
+                  </div>
+                  <div class="col s1 center" style="margin-top: 20px" id="downBtn" *ngIf="i==this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
+                      <i class="material-icons right grey-text">arrow_downward</i>
+                    </div>
             </div>
             <div *ngIf="last">
-              <div class="col s5">
-                <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
-              </div>
-              <div class="col s5">
-                <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)"
-                  disabled>
-              </div>
-              <div class="col s2" style="margin-top: 20px" id="deleteBtn">
-                <i class="material-icons grey-text right">delete</i>
-              </div>
+                <div class="col s4">
+                    <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
+                  </div>
+                  <div class="col s4">
+                    <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+                  </div>
+                  <div class="col s2 center grey-text" style="margin-top: 20px" id="deleteBtn">
+                    <i class="material-icons">delete</i>
+                  </div>
+                  <div class="col s1 center grey-text" style="margin-top: 20px" id="upBtn">
+                      <i class="material-icons right">arrow_upward</i>
+                    </div>
+                    <div class="col s1 center grey-text" style="margin-top: 20px" id="downBtn">
+                        <i class="material-icons right">arrow_downward</i>
+                      </div>
             </div>
           </div>
         </div>
       </div>
       <div class='col s2'></div>
-      <div class='col s6 center' id='grading-unit'>
+      <div class='col s5 center' id='grading-unit'>
         <div class="table-header">
           Bewertungseinheit
         </div>
@@ -75,7 +98,7 @@
           </p>
         </form>
       </div>
-      <div class='col s6 center' id='grading-maxpoints' style="padding-top: 30px">
+      <div class='col s5 center' id='grading-maxpoints' style="padding-top: 30px">
         <div class="table-header">
           Maximale Punktzahl
         </div>
@@ -83,7 +106,7 @@
           {{max_points}}
         </div>
       </div>
-      <div class="col s6" style="padding: 15px">
+      <div class="col s5" style="padding: 15px">
         <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px"
           (mouseup)="onKeyUp($event)">
           <i class="material-icons left">add</i>Notenstufe hinzufügen</a>

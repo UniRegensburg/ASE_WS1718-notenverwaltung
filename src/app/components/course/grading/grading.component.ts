@@ -74,8 +74,7 @@ export class GradingComponent implements OnInit, AfterViewInit {
     this.grades.splice(this.grades.length-1, 0, {
       'note': 4.9,
       'wert_min': 1
-    } );
-    
+    } ); 
   }
 
   changeDetected(event): void {
@@ -155,6 +154,17 @@ export class GradingComponent implements OnInit, AfterViewInit {
     this.openCollapsible={};
    }
   }
+
+  upGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade-1, 0, this.grades.splice(indexGrade, 1)[0]);
+  }
+
+  downGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade+1, 0, this.grades.splice(indexGrade, 1)[0]);
+  }
+
 
 
 }
