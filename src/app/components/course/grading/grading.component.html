@@ -48,13 +48,13 @@
                 <i class="material-icons clickHover" (click)="deleteGrade(i)">delete</i>
               </div>
               <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="!first">
-                  <i class="material-icons right clickHover" (click)="upGrade(i)">arrow_upward</i>
+                  <i class="material-icons right clickHover" (click)="moveUpGrade(i)">arrow_upward</i>
                 </div>
                 <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="first">
                     <i class="material-icons right grey-text">arrow_upward</i>
                   </div>
                 <div class="col s1 center" style="margin-top: 20px" id="downBtn"  *ngIf="i!=this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
-                    <i class="material-icons right clickHover" (click)="downGrade(i)">arrow_downward</i>
+                    <i class="material-icons right clickHover" (click)="moveDownGrade(i)">arrow_downward</i>
                   </div>
                   <div class="col s1 center" style="margin-top: 20px" id="downBtn" *ngIf="i==this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
                       <i class="material-icons right grey-text">arrow_downward</i>
@@ -120,36 +120,48 @@
         <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
     </div>
     <div class="row">
-      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first"
+      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first; let last=last;"
         (change)="changeDetected($event)">
         <div *ngIf="!first">
-          <div class="card-panel white row" (click)="openCloseCollapsibles(i)">
-            <div class="col s9">
+          <div class="card-panel white row">
+            <div class="col s7">
               <span>{{question.name}}</span>
               <br>
             </div>
             <div class="col s2">
-              <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
-              <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+              <i class="material-icons right" *ngIf="!openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_down</i>
+              <i class="material-icons right" *ngIf="openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_up</i>
             </div>
-            <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
-              <i class="material-icons right">delete</i>
+            <div class="col s1" id="deleteTaskBtn">
+              <i class="material-icons right clickHover" (click)="deleteTask(i)">delete</i>
             </div>
+            <div class="col s2" id="upDownTaskBtn" *ngIf="last">
+                <i class="material-icons center clickHover" (click)="moveUpTask(i)">arrow_upward</i>
+                <i class="material-icons center grey-text" >arrow_downward</i>
+              </div>
+              <div class="col s2" id="upDownTaskBtn" *ngIf="!last">
+                  <i class="material-icons center clickHover" (click)="moveUpTask(i)">arrow_upward</i>
+                  <i class="material-icons center clickHover" (click)="moveDownTask(i)" >arrow_downward</i>
+                </div>
           </div>
         </div>
         <div *ngIf="first">
-            <div class="card-panel white row" (click)="openCloseCollapsibles(i)">
-              <div class="col s9">
+            <div class="card-panel white row">
+              <div class="col s7">
                 <span>{{question.name}}</span>
                 <br>
               </div>
               <div class="col s2">
-                <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
-                <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+                <i class="material-icons right" *ngIf="!openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_down</i>
+                <i class="material-icons right" *ngIf="openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_up</i>
               </div>
               <div class="col s1" id="deleteTaskBtn">
                 <i class="material-icons grey-text right">delete</i>
               </div>
+              <div class="col s2" id="upDownTaskBtns">
+                  <i class="material-icons grey-text center">arrow_upward</i>
+                  <i class="material-icons clickHover center" (click)="moveDownTask(i)">arrow_downward</i>
+                  </div>
             </div>
           </div>
           <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">

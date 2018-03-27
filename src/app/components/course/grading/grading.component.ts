@@ -155,15 +155,27 @@ export class GradingComponent implements OnInit, AfterViewInit {
    }
   }
 
-  upGrade(indexGrade){
+  moveUpGrade(indexGrade){
     this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     this.grades.splice(indexGrade-1, 0, this.grades.splice(indexGrade, 1)[0]);
   }
 
-  downGrade(indexGrade){
+  moveDownGrade(indexGrade){
     this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     this.grades.splice(indexGrade+1, 0, this.grades.splice(indexGrade, 1)[0]);
   }
+
+  moveUpTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask-1, 0, this.tasks.splice(indexTask, 1)[0]);
+  }
+
+  moveDownTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask+1, 0, this.tasks.splice(indexTask, 1)[0]);
+  }
+
+
 
 
 
