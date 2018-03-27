@@ -43,16 +43,14 @@ export class GlobalDataService {
   private filePath: any;
   private requiredProperties: Array<any>;
   private _error: any;
-  private cryptoJSON = require('crypto-json');
   private passKey: any;
   private cryptoConfig: any;
+  private CryptoJS = require("crypto-js");
+
   constructor(
     private http: Http) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
-    this.cryptoConfig = {algorithm:'aes256',
-    encoding:'hex',
-    keys:[]}
-}
+  }
 
   /**
    * Getter methods to load local projects
@@ -63,17 +61,19 @@ export class GlobalDataService {
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
-        this.requiredProperties = ['title','teilnehmer','bewertungsschema','bewertung','gruppen']
-        var encryptedJSON = res.json();
-        this.current_project = this.cryptoJSON.decrypt(encryptedJSON,this.passKey,this.cryptoConfig);
+        this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
+        var encryptedJSON = res.text();
+        var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);
+        this.current_project = JSON.parse(string);
         this._error = 0;
-        for (let property in this.requiredProperties){
-            if(this.current_project.hasOwnProperty(this.requiredProperties[property])){
-                continue;
-            }
-            else {
-                this._error = 1
-            }
+        for (let property in this.requiredProperties) {
+          if (this.current_project.hasOwnProperty(this.requiredProperties[property])) {
+            continue;
+          }
+          else {
+            this._error = 1
+          }
         }
         this.current_project_name = file_path;
         this.filePath = file_path;
@@ -82,13 +82,13 @@ export class GlobalDataService {
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
-  public checkJsonValidity(): any{
-      if (this._error==1){
-          this.current_project = null;
-          this.current_project_name = null;
-          this.filePath = null;
-      }
-      return this._error;
+  public checkJsonValidity(): any {
+    if (this._error == 1) {
+      this.current_project = null;
+      this.current_project_name = null;
+      this.filePath = null;
+    }
+    return this._error;
   }
   public getCurrentProject(): Observable<Schema> {
     this.checkCurrentValidity();
@@ -357,8 +357,8 @@ export class GlobalDataService {
   }
 
   private saveJson(): void {
-    var encryptedJSON = this.cryptoJSON.encrypt(this.current_project,this.passKey,this.cryptoConfig);
-    writeFile(this.filePath, JSON.stringify(encryptedJSON), (err) => {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
+    writeFile(this.filePath, encryptedJSON, (err) => {
       if (err) {
         alert("An error ocurred creating the file " + err.message);
       }
@@ -369,19 +369,19 @@ export class GlobalDataService {
     });
   }
 
-  public saveNewFile(path, json): any{
-      var encryptedJSON = this.cryptoJSON.encrypt(json,this.passKey,this.cryptoConfig);
-      writeFile(path, JSON.stringify(encryptedJSON), (err) => {
-        if (err) {
-          alert("An error ocurred creating the file " + err.message);
-          return -1
-        }
-        else {
-          // alert("The file has been succesfully saved");
-          return 1;
-          // console.log("The file has been saved")
-        }
-      });
+  public saveNewFile(path, json): any {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
+    writeFile(path, encryptedJSON, (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+        return -1
+      }
+      else {
+        // alert("The file has been succesfully saved");
+        return 1;
+        // console.log("The file has been saved")
+      }
+    });
 
   }
 

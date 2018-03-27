@@ -48,7 +48,7 @@
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.1",
     "core-js": "2.4.1",
-    "crypto-json": "^2.0.0",
+    "crypto-js": "^3.1.9-1",
     "enhanced-resolve": "3.3.0",
     "fs": "0.0.1-security",
     "materialize-css": "^0.100.2",
