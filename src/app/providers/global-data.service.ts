@@ -73,11 +73,11 @@ export class GlobalDataService {
   }
 
   public getParticipants(): Observable<Array<any>> {
-    return of(this.current_project.teilnehmer)
+    return of(this.current_project.teilnehmer);
   }
 
   public getFilePath(){
-      return this.filePath
+      return this.filePath;
   }
   public getGradingSteps(): any {
     var gradingSteps = [];
