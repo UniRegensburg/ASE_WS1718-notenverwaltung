@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService, ChartService, gripsExportService, flexNowExportService } from '../../../providers/index';
+import { log } from 'util';
 
 @Component({
   selector: 'app-results',
@@ -17,6 +18,7 @@ export class ResultsComponent implements OnInit {
 
   private grade_steps: any;
   private grade_participants: any;
+  public grading_list: any;
 
   private display_diagrams: boolean = true;
 
@@ -28,6 +30,9 @@ export class ResultsComponent implements OnInit {
       this.participants = this.current_project.teilnehmer;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.results = this.current_project.bewertung;
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+      console.log(this.grading_list);
+      
       this.initGraphView();
     });
   }
@@ -67,13 +72,12 @@ export class ResultsComponent implements OnInit {
     var element = document.getElementById(div);
     
     if(element != null){
-      let grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
-      if(grading_list.length > 2){        
-        if(grade == grading_list[grading_list.length-2].note){
+      if(this.grading_list.length > 2){        
+        if(grade == this.grading_list[this.grading_list.length-2].note){
           element.style.backgroundColor = "#ff9800"; 
           element.style.color = "white";   
         }
-        if(grade == grading_list[grading_list.length-1].note){
+        if(grade == this.grading_list[this.grading_list.length-1].note){
           element.style.backgroundColor = "#f44336";   
           element.style.color = "white"; 
         }
