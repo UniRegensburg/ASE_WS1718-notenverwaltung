@@ -304,7 +304,7 @@ export class GlobalDataService {
   private createTaskCorrection(task_id): any {
     return {
       'aufgaben_id': task_id,
-      'erreichte_punkte': 0,
+      'erreichte_punkte': '',
       'comment_privat': '',
       'comment_public': ''
     }
