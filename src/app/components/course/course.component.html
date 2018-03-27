@@ -56,51 +56,59 @@
       <i class="material-icons">chevron_right</i>
     </a>
 
-    <ul class="side-nav fixed menu-collapse" style="background-color:#C2185B; color:white !important; -webkit-transform: translateX(0%) !important">
-      <li class="li-collapse" style="margin-top: 20px">
-        <a class="white-text" [routerLink]="['']">
-          <i class="material-icons home-icon white-text">close</i>
-        </a>
-      </li>
-      <li class="li-collapse" style="margin-top: 30px" [routerLinkActive]="['active']">
+    <ul class="side-nav fixed menu-collapse" style="background-color:#C2185B; color:white !important; -webkit-transform: translateX(0%) !important; overflow: initial;">
+      <li class="li-collapse" style="margin-top: 30px" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_0=true" (mouseleave) ="mouseLeave($event); found_0=false">
         <a class="white-text" [routerLink]="['overview']">
           <i class="material-icons home-icon white-text">insert_drive_file</i>
+          <span *ngIf="found_0">Übersicht</span>
         </a>
       </li>
-      <li class="li-collapse" [routerLinkActive]="['active']">
+      <li class="li-collapse" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_1=true" (mouseleave) ="mouseLeave($event); found_1=false">
         <a class="white-text" [routerLink]="['correction']">
           <i class="material-icons home-icon white-text">playlist_add_check</i>
+          <span *ngIf="found_1">Korrektur</span>
         </a>
       </li>
-      <li class="li-collapse" [routerLinkActive]="['active']">
-        <a class="white-text" href="#!" [routerLink]="['results']">
+      <li class="li-collapse" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_2=true" (mouseleave) ="mouseLeave($event); found_2=false">
+        <a class="white-text" [routerLink]="['results']">
           <i class="material-icons home-icon white-text">pie_chart</i>
+          <span *ngIf="found_2">Ergebnisse</span>
         </a>
       </li>
-      <li class="li-collapse" [routerLinkActive]="['active']">
-        <a class="white-text" href="#!" [routerLink]="['students']">
+      <li class="li-collapse" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_3=true" (mouseleave) ="mouseLeave($event); found_3=false">
+        <a class="white-text" [routerLink]="['students']">
           <i class="material-icons home-icon white-text">supervisor_account</i>
+          <span *ngIf="found_3">Teilnehmer</span>
         </a>
       </li>
-      <li class="li-collapse" [routerLinkActive]="['active']">
+      <li class="li-collapse" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_4=true" (mouseleave) ="mouseLeave($event); found_4=false">
         <a class="white-text" [routerLink]="['grading']">
           <i class="material-icons home-icon white-text">list</i>
+          <span *ngIf="found_4">Bewertungsschema</span>
         </a>
       </li>
-      <li class="li-collapse" [routerLinkActive]="['active']">
-        <a class="white-text" [routerLink]="['../newcourse']">
-          <i class="material-icons home-icon white-text">note_add</i>
-        </a>
-      </li>
+
+      <div style="position: absolute; height: 175px; bottom: 70px; right: 0;  left: 0; ">
+        <li class="li-collapse" (mouseenter) ="mouseEnter($event); found_5=true" (mouseleave) ="mouseLeave($event); found_5=false">
+          <a class="white-text" [routerLink]="['']">
+            <i class="material-icons home-icon white-text">close</i>
+            <span *ngIf="found_5">Kurs schließen</span>
+          </a>
+        </li>
+        <li class="li-collapse" [routerLinkActive]="['active']" (mouseenter) ="mouseEnter($event); found_6=true" (mouseleave) ="mouseLeave($event); found_6=false">
+          <a class="white-text" [routerLink]="['../newcourse']">
+            <i class="material-icons home-icon white-text">note_add</i>
+            <span *ngIf="found_6">Neuer Kurs</span>
+          </a>
+        </li>
+      </div>
     </ul>
   </div>
 
 
-  <div *ngIf="collpase" class="col s10">
+  <div  class="col s10">
     <router-outlet></router-outlet>
   </div>
 
-  <div *ngIf="!collpase" class="col s11">
-    <router-outlet></router-outlet>
-  </div>
+  
 </div>

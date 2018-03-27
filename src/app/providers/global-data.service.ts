@@ -19,6 +19,7 @@ import {
 } from '../models/index'
 
 import "rxjs/add/observable/of";
+import 'rxjs/add/observable/throw';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -40,9 +41,16 @@ export class GlobalDataService {
   public teilnehmer: Array<any>;
   private temp: Array<any>;
   private filePath: any;
+  private requiredProperties: Array<any>;
+  private _error: any;
+  private passKey: any;
+  private cryptoConfig: any;
+  private CryptoJS = require("crypto-js");
 
   constructor(
-    private http: Http) { }
+    private http: Http) {
+    this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
+  }
 
   /**
    * Getter methods to load local projects
@@ -53,15 +61,36 @@ export class GlobalDataService {
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
-        this.current_project = res.json();
+        this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
+        var encryptedJSON = res.text();
+        var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);
+        this.current_project = JSON.parse(string);
+        this._error = 0;
+        for (let property in this.requiredProperties) {
+          if (this.current_project.hasOwnProperty(this.requiredProperties[property])) {
+            continue;
+          }
+          else {
+            this._error = 1
+          }
+        }
         this.current_project_name = file_path;
+        this.current_project_name = this.current_project.title;
         this.filePath = file_path;
-        // console.log(file_path.split('\\').pop().split('/').pop());
       })
       //...errors if any
-      .catch((error: any) => Observable.throw(error.json().error || 'Reading error'));
+      .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
+  public checkJsonValidity(): any {
+    if (this._error == 1) {
+      this.current_project = null;
+      this.current_project_name = null;
+      this.filePath = null;
+    }
+    return this._error;
+  }
   public getCurrentProject(): Observable<Schema> {
     this.checkCurrentValidity();
     return of(this.current_project);
@@ -72,9 +101,12 @@ export class GlobalDataService {
   }
 
   public getParticipants(): Observable<Array<any>> {
-    return of(this.current_project.teilnehmer)
+    return of(this.current_project.teilnehmer);
   }
 
+  public getFilePath(){
+      return this.filePath;
+  }
   public getGradingSteps(): any {
     var gradingSteps = [];
 
@@ -329,14 +361,29 @@ export class GlobalDataService {
   }
 
   private saveJson(): void {
-    console.log("writing file")
-    writeFile(this.filePath, JSON.stringify(this.current_project), (err) => {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
+    writeFile(this.filePath, encryptedJSON, (err) => {
       if (err) {
         alert("An error ocurred creating the file " + err.message);
       }
       else {
         // alert("The file has been succesfully saved");
-        console.log("The file has been saved")
+        // console.log("The file has been saved")
+      }
+    });
+  }
+
+  public saveNewFile(path, json): any {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
+    writeFile(path, encryptedJSON, (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+        return -1
+      }
+      else {
+        // alert("The file has been succesfully saved");
+        return 1;
+        // console.log("The file has been saved")
       }
     });
 
