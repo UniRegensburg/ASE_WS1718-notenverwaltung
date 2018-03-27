@@ -1,11 +1,19 @@
 <div class="container">
+  <p class="empty">
+    Da es noch keine Aufgaben gibt, ist keine Korrektur möglich.<br />
+    Erstellen Sie bitte Aufgaben unter dem Menüpunkt <span class="hnrot">Bewertungsschema</span>.
+  </p>
+</div>
+
+
+<div class="container">
   <h1 *ngIf="screen_mode">KORREKTUR</h1>
   <hr class="hr_welcome" *ngIf="!screenMode">
   <br>
  <div class="row" style="margin-top: 40px">
     <div class="col s12 center-align">
-      <h5 *ngIf="correction_mode == 'student'"><span style="color:#C2185B">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</h5>
-      <h5 *ngIf="correction_mode == 'task'">{{current_student.name}}, {{current_student.vorname}} / <span style="color:#C2185B">{{current_task.name}}</span></h5>
+      <h5 *ngIf="correction_mode == 'student'"><span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / {{current_task.name}}</h5>
+      <h5 *ngIf="correction_mode == 'task'">{{current_student.name}}, {{current_student.vorname}} / <span class="hnrot">{{current_task.name}}</span></h5>
     </div>
     <div *ngIf="correction_mode == 'student'" class="col s12 center-align" style="margin-top: 30px">
       <a class="waves-effect waves-light btn pink darken-2" (click)="setCorretionMode('student')">Nach Student</a>
