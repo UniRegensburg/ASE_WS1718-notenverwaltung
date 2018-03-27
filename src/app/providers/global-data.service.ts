@@ -159,7 +159,7 @@ export class GlobalDataService {
   private getCorrectionProgress(student): number {
     let corrected = 0;
     student.einzelwertungen.forEach(grade => {
-      if (grade.erreichte_punkte) {
+      if (grade.erreichte_punkte !== null) {
         corrected++;
       }
     });
@@ -336,7 +336,7 @@ export class GlobalDataService {
   private createTaskCorrection(task_id): any {
     return {
       'aufgaben_id': task_id,
-      'erreichte_punkte': '',
+      'erreichte_punkte': null,
       'comment_privat': '',
       'comment_public': ''
     }
