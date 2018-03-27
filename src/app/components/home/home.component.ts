@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
         }
       },
       err => {
+         console.log(err)
         alert("File not recognized. Please select a valid file.")
       }
     );
