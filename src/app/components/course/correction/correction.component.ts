@@ -41,7 +41,7 @@ export enum KEY_CODE {
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
-  private groupview: boolean = true;
+  private groupview: boolean = false;
   private correctByTasks: boolean = true;
 
   private current_project: any;
@@ -133,7 +133,7 @@ export class CorrectionComponent implements OnInit {
       }
     }
     this.updateShowPermissions();
-    this.setCurrentCorretion();
+    this.setCurrentCorrection();
   }
 
   updateShowPermissions(): void {
@@ -212,7 +212,7 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  setCurrentCorretion() {
+  setCurrentCorrection() {
     this.grading.forEach(student => {
       if (student.student_id == this.student_counter) {
         this.current_student = student;
