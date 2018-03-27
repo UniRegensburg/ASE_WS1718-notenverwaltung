@@ -126,9 +126,8 @@ export class CorrectionComponent implements OnInit {
   setCurrentGroup(direction): void {
     if (direction === "previous") {
       this.show_next = true;
-      if (this.group_counter - 1 > 0) {
+      if (this.group_counter - 1 >= 0) {
         this.group_counter = this.group_counter - 1;
-        this.current_group = this.groups[this.group_counter];
       } 
       if (this.group_counter == 0 ) {
         this.show_previous = false;
@@ -138,12 +137,12 @@ export class CorrectionComponent implements OnInit {
       this.show_previous = true;
       if (this.group_counter + 1 < this.groups.length) {
         this.group_counter = this.group_counter + 1;
-        this.current_group = this.groups[this.group_counter];
       } 
       if (this.group_counter + 1 == this.groups.length ) {
         this.show_next = false;
       }
     }
+    this.current_group = this.groups[this.group_counter];
   }
 
   setPreviousTaskBy(entity): void {
