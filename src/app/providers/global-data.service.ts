@@ -212,6 +212,19 @@ export class GlobalDataService {
     return of(students);
   }
 
+  public getStudentsByGroup(groupname): any {
+    let groupmembers = [];
+    let students = this.current_project.teilnehmer;
+   
+    students.forEach(student => {
+      if (student.group == groupname) {
+        groupmembers.push(student);
+      }
+    });
+
+    return (groupmembers);
+  }
+
   /**
   * Validations methods
   */

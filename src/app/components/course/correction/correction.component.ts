@@ -53,6 +53,7 @@ export class CorrectionComponent implements OnInit {
   private students: Array<any>;
   private grading: Array<any>;
   private groups: Array<any>;
+  private groupmembers: Array<any>;
 
   private correction_mode: string = 'student'; //task
   private current_correction: any;
@@ -105,8 +106,11 @@ export class CorrectionComponent implements OnInit {
         console.log("there are no students.");
       }
 
+      this.setCurrentGroupMembers();
+
       try {
         this.current_group = this.groups[this.group_counter];
+        
       } catch (err) {
         console.log("there are no groups.")
       }
@@ -122,6 +126,12 @@ export class CorrectionComponent implements OnInit {
     this.correctByTasks = !this.correctByTasks;
     this.updateShowPermissions();
   }
+
+  setCurrentGroupMembers(): void {
+    console.log(this.dataService.getStudentsByGroup("gruppe1"));
+    this.groupmembers = this.dataService.getStudentsByGroup(this.groups[this.group_counter].name);
+  }
+
 
   changeThing(entity, direction): void {
     if (entity === "group") {
@@ -296,6 +306,8 @@ export class CorrectionComponent implements OnInit {
   saveCorrection(): void {
     this.dataService.setNewCorrection(this.grading)
   }
+
+
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {

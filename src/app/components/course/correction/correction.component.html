@@ -7,12 +7,12 @@
 </div>
 
 <div class="container" *ngIf="no_students">
-    <p class="empty">
-      Da es noch keine Teilnehmer gibt, ist keine Korrektur möglich.
-      <br /> Erstellen Sie bitte Teilnehmer unter dem Menüpunkt
-      <span class="hnrot">Teilnehmer</span>.
-    </p>
-  </div>
+  <p class="empty">
+    Da es noch keine Teilnehmer gibt, ist keine Korrektur möglich.
+    <br /> Erstellen Sie bitte Teilnehmer unter dem Menüpunkt
+    <span class="hnrot">Teilnehmer</span>.
+  </p>
+</div>
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
   <h1>KORREKTUR</h1>
@@ -95,6 +95,11 @@
 
   <div class="row" *ngIf="groupview">
     <p>Gruppenmitglieder</p>
+    <div *ngFor="let groupmember of groupmembers">
+      {{groupmember.name}}, {{groupmember.vorname}}
+    </div>
+
+
   </div>
 
   <div class="row">
