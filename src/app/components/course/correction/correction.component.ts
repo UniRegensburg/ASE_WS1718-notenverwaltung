@@ -106,10 +106,9 @@ export class CorrectionComponent implements OnInit {
         console.log("there are no students.");
       }
 
-      this.setCurrentGroupMembers();
-
       try {
         this.current_group = this.groups[this.group_counter];
+        this.setCurrentGroupMembers();
         
       } catch (err) {
         console.log("there are no groups.")
@@ -128,10 +127,9 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentGroupMembers(): void {
-    console.log(this.dataService.getStudentsByGroup("gruppe1"));
-    this.groupmembers = this.dataService.getStudentsByGroup(this.groups[this.group_counter].name);
+    let curr_group_name = this.groups[this.group_counter].name;
+    this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
   }
-
 
   changeThing(entity, direction): void {
     if (entity === "group") {
