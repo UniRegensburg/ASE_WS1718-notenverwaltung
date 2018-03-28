@@ -104,8 +104,8 @@ export class GlobalDataService {
     return of(this.current_project.teilnehmer);
   }
 
-  public getFilePath(){
-      return this.filePath;
+  public getFilePath() {
+    return this.filePath;
   }
   public getGradingSteps(): any {
     var gradingSteps = [];
@@ -159,7 +159,7 @@ export class GlobalDataService {
   private getCorrectionProgress(student): number {
     let corrected = 0;
     student.einzelwertungen.forEach(grade => {
-      if (grade.erreichte_punkte) {
+      if (grade.erreichte_punkte !== null) {
         corrected++;
       }
     });
@@ -286,7 +286,7 @@ export class GlobalDataService {
     finally {
       let user = {
         "id": user_id,
-        "mtknr": 0,
+        "mtknr": 1234,
         "name": "",
         "vorname": "",
         "studiengang": "",
@@ -336,7 +336,7 @@ export class GlobalDataService {
   private createTaskCorrection(task_id): any {
     return {
       'aufgaben_id': task_id,
-      'erreichte_punkte': 0,
+      'erreichte_punkte': null,
       'comment_privat': '',
       'comment_public': ''
     }

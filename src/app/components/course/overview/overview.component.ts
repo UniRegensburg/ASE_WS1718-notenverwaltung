@@ -158,6 +158,7 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+
   getCurrentStudent(id): any {
     try {
       this.current_project.bewertung.forEach(element => {
