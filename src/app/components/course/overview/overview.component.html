@@ -52,9 +52,9 @@
           <hr class="hr_table">
         </div>
 
-    <div class="col l12" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index ">
-      <div class="row row_hover">
-        <div class="col s1">
+    <div class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
+      <div class="row row_hover">    
+        <div class="col s1">      
           {{participant.id}}
         </div>
         <div class="col s3">
@@ -77,7 +77,7 @@
       </div>
       <hr class="hr_table">
     </div>
-    <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls class="center-align my-pagination" style="margin-top: 50px" (pageChange)="p = $event"></pagination-controls>
   </div>
 
 </div>
