@@ -24,20 +24,10 @@
     </div>
   </div>
 
-  <!--http://materializecss.com/forms.html Autocomplete-->
-  <div class="row">
 
-    <!-- TODO: Make this work
-        <div class="col s6">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" class="autocomplete">
-                    <label for="autocomplete-input">Suche Studierende</label>
-                </div>
-            </div>
-        </div>
-        -->
+  <!--http://materializecss.com/forms.html Autocomplete-->
+  <div class="row">       
+        
     <div class="col switch">
       <!--TODO: Diagramme sobald mehrere verfügbar sind-->
       <span>Diagramm</span>
@@ -68,9 +58,13 @@
             <canvas id="scatter-chart" width="800" height="450"></canvas>
         </div>-->
   </div>
-
   <div class="row" class="participants">
     <h2>Aufgaben vs. Teilnehmer</h2>
+    <div class="input-field col s6">
+      <i class="material-icons prefix">search</i>
+      <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue">
+      <label for="icon_prefix">Suche Studierende</label>
+    </div>
     <table>
       <tr>
         <th>Mtrknr</th>
@@ -79,30 +73,16 @@
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
-      <tr *ngFor="let participant of participants; let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
-        <td class="number">{{participant.mtknr}}</td>
+      <tr *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
         <td>{{participant.name}}</td>
         <td>{{participant.vorname}}</td>
-        <td>{{participant.grade}}</td>
+        <td class="number">{{participant.mtknr}}</td>
+        <td class="number">{{participant.finish * 100}}%</td>
+        <td class="number">{{participant.grade}}</td>
         <td *ngFor="let task of tasks; let i = index"> Note</td>
       </tr>
     </table>
   </div>
-
-  <!--
-    <div class="row">
-        <h2>Aufgaben vs. Teilnehmer</h2>
-        <table>
-            <tr>
-                <th>x</th>
-                <th *ngFor="let task of tasks; let i = index">Tasknummer</th>
-            </tr>
-            <tr *ngFor="let participant of participants; let i = index ">
-                <td class="number">{{participant.mtknr}}</td>
-                <td class="number">{{participant.}}</td>
-            </tr>
-        </table>
-    </div-->
 </div>
 
 <div class="container">

@@ -20,6 +20,7 @@ import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExpo
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import {SearchStudentPipe} from './pipes/index';
 
 @NgModule({
   declarations: [
@@ -28,12 +29,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CourseComponent,
     OverviewComponent,
     StudentsComponent,
-
     GradingComponent,
     NewCourseComponent,
     ResultsComponent,
     CorrectionComponent,
-    DetailComponent
+    DetailComponent,
+    SearchStudentPipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxPaginationModule
   ],
-  providers: [ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService],
+  providers: [
+    ElectronService, 
+    GlobalDataService, 
+    ChartService, 
+    LastOpened, 
+    gripsExportService, 
+    SearchStudentPipe,
+    flexNowExportService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

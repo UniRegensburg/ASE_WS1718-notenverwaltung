@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@a
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
+import {SearchStudentPipe} from '../../../pipes/index';
+import { log } from 'util';
+
 
 declare var require: any;
 declare var $: any;
@@ -19,9 +22,11 @@ export class StudentsComponent implements OnInit {
   private groups: Array<any>;
   private group_mode: boolean = false;
   private no_data_available: boolean = true;
+  public searchValue: string;
 
   constructor(
     public dataService: GlobalDataService,
+    private searchStudentPipe: SearchStudentPipe,
     private changeDetectorRef: ChangeDetectorRef,
     public router: Router,
     public zone: NgZone) { }
@@ -52,10 +57,14 @@ export class StudentsComponent implements OnInit {
   }
 
   //*********************************  FUNCTIONS ********************************************** */
-  deleteStudent(id): void {
-    this.participants.splice(id, 1);
+  deleteStudent(participant): void {
+    this.participants.forEach((student, i) =>{     
+      if(student.id == participant.id){
+        this.participants.splice(i, 1);
+      }
+    });
     this.dataService.setNewStudentsComplete(this.participants);
-    this.router.navigate(['/course/students']);
+    this.searchValue = "";
   }
 
   openDialog(): void {

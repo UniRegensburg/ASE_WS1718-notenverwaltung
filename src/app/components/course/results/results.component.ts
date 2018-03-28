@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService, ChartService, gripsExportService, flexNowExportService } from '../../../providers/index';
+import {SearchStudentPipe} from '../../../pipes/index';
 import { log } from 'util';
 
 @Component({
@@ -22,7 +23,14 @@ export class ResultsComponent implements OnInit {
 
   private display_diagrams: boolean = true;
 
-  constructor(public dataService: GlobalDataService, public chartService: ChartService, public grips: gripsExportService, public flexnow: flexNowExportService) { }
+  public searchValue: string;
+
+  constructor(
+    public dataService: GlobalDataService, 
+    public chartService: ChartService, 
+    public grips: gripsExportService, 
+    private searchStudentPipe: SearchStudentPipe,
+    public flexnow: flexNowExportService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
