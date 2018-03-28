@@ -57,10 +57,12 @@ export class StudentsComponent implements OnInit {
   }
 
   //*********************************  FUNCTIONS ********************************************** */
-  deleteStudent(id): void {
-    this.participants.splice(id, 1);
-    console.log(this.participants);
-    
+  deleteStudent(participant): void {
+    this.participants.forEach((student, i) =>{     
+      if(student.id == participant.id){
+        this.participants.splice(i, 1);
+      }
+    });
     this.dataService.setNewStudentsComplete(this.participants);
     this.searchValue = "";
   }
