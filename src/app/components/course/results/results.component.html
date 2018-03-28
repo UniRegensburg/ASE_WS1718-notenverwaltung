@@ -26,16 +26,7 @@
 
 
   <!--http://materializecss.com/forms.html Autocomplete-->
-  <div class="row">
-        <div class="col s6">
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">search</i>
-                    <input type="text" id="autocomplete-input" class="autocomplete">
-                    <label for="autocomplete-input">Suche Studierende</label>
-                </div>
-            </div>
-        </div>
+  <div class="row">       
         
     <div class="col switch">
       <!--TODO: Diagramme sobald mehrere verfügbar sind-->
@@ -82,7 +73,7 @@
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
-      <tr *ngFor="let participant of participants; let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
+      <tr *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
         <td>{{participant.name}}</td>
         <td>{{participant.vorname}}</td>
         <td class="number">{{participant.mtknr}}</td>
