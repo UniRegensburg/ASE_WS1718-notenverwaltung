@@ -16,10 +16,11 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, lsfExportService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import {SearchStudentPipe} from './pipes/index';
 
 @NgModule({
   declarations: [
@@ -28,12 +29,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CourseComponent,
     OverviewComponent,
     StudentsComponent,
-
     GradingComponent,
     NewCourseComponent,
     ResultsComponent,
     CorrectionComponent,
-    DetailComponent
+    DetailComponent,
+    SearchStudentPipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +43,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppRoutingModule,
     NgxPaginationModule
   ],
-  providers: [ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, lsfExportService],
+  providers: [
+    ElectronService, 
+    GlobalDataService, 
+    ChartService, 
+    LastOpened, 
+    gripsExportService, 
+    SearchStudentPipe,
+    flexNowExportService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
