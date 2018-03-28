@@ -63,6 +63,7 @@ export class CorrectionComponent implements OnInit {
   private student_counter: number;
   private group_counter: number;
   private current_student_grading;
+  private gruppenpunkte: number = 10;
 
   private no_tasks: boolean = true;
   private no_students: boolean = true;
@@ -76,44 +77,49 @@ export class CorrectionComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.dataService.getCurrentProject().subscribe(current_project => {
-      this.current_project = current_project;
-      this.tasks = this.current_project.bewertungsschema.aufgaben;
-      this.students = this.current_project.teilnehmer;
-      this.grading = this.current_project.bewertung;
-      this.groups = this.current_project.gruppen;
-      this.group_counter = 0;
 
-      try {
-        if (this.tasks.length != 0) {
-          this.no_tasks = false;
-        }
-      } catch (err) {
-        console.log("there are no tasks.");
-      }
+    try {
+      this.dataService.getCurrentProject().subscribe(current_project => {
+        this.current_project = current_project;
+        this.tasks = this.current_project.bewertungsschema.aufgaben;
+        this.students = this.current_project.teilnehmer;
+        this.grading = this.current_project.bewertung;
+        this.groups = this.current_project.gruppen;
+        this.group_counter = 0;
 
-      try {
-        this.sub = this.route.params.subscribe(params => {
-          this.task_counter = 0;
-          this.student_counter = Number(params.user_to_edit_id);
-          if (Number.isNaN(this.student_counter)) {
-            this.student_counter = 0;
+        try {
+          if (this.tasks.length != 0) {
+            this.no_tasks = false;
           }
-        });
-        this.setCurrentTask('first');
-        this.no_students = false;
-      } catch (err) {
-        console.log("there are no students.");
-      }
+        } catch (err) {
+          console.log("there are no tasks.");
+        }
 
-      try {
-        this.current_group = this.groups[this.group_counter];
-        this.setCurrentGroupMembers();
-        
-      } catch (err) {
-        console.log("there are no groups.")
-      }
-    });
+        try {
+          this.sub = this.route.params.subscribe(params => {
+            this.task_counter = 0;
+            this.student_counter = Number(params.user_to_edit_id);
+            if (Number.isNaN(this.student_counter)) {
+              this.student_counter = 0;
+            }
+          });
+          this.setCurrentTask('first');
+          this.no_students = false;
+        } catch (err) {
+          console.log("there are no students.");
+        }
+
+        try {
+          this.current_group = this.groups[this.group_counter];
+          this.setCurrentGroupMembers();
+
+        } catch (err) {
+          console.log("there are no groups.")
+        }
+      });
+    } catch (err) {
+      console.log("correction compoment could not be loaded.")
+    }
   }
 
   setCorrectionMode(): void {

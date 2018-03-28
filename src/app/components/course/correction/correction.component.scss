@@ -45,3 +45,29 @@ h5{
 .hnrot {
     color: #C2185B;
 }
+
+.groupmember {
+    padding: 10px 20px;
+    display: block;
+    min-height: 60px;
+    align-content: center;
+}
+
+.membername {
+    float: left;
+    width: 50%;
+}
+
+.memberpoints {
+    float: right;
+    width: 50%;
+
+    input{
+        width: 15%;
+        float: left;
+    }
+}
+
+.maxpoints {
+ padding: 10px;
+}
