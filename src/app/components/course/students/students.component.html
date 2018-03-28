@@ -32,7 +32,13 @@
     <h5>In diesem Kurs gibt es noch keine Studierenden.</h5>
   </div>
   <div *ngIf="!no_data_available">
+
     <div *ngIf="!group_mode">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">search</i>
+        <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue">
+        <label for="icon_prefix">Suche Studierende</label>
+      </div>
       <div class="row" style="margin-top: 50px;">
         <div class="col l12">
           <div class="row row_hover">
@@ -51,7 +57,7 @@
           </div>
           <hr class="hr_table">
         </div>
-        <div class="col l12" *ngFor="let participant of participants  | paginate: {itemsPerPage: 6, currentPage: p}; let i = index">
+        <div class="col l12" *ngFor="let participant of (participants | searchStudent: searchValue); let i = index">
           <div class="row row_hover">
             <div class="col s2">
               {{participant.name}}, {{participant.vorname}}
@@ -70,14 +76,13 @@
             </div>
             <div class="col s1">
               <i class="material-icons right edit-btn clickHover" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
-              </div>
+            </div>
             <div class="col s1">
               <i class="material-icons clickHover" (click)="deleteStudent(i)">delete</i>
             </div>
           </div>
           <hr class="hr_table">
         </div>
-        <pagination-controls class="center-align my-pagination" style="margin-top: 40px" (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
 

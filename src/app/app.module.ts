@@ -49,8 +49,8 @@ import {SearchStudentPipe} from './pipes/index';
     ChartService, 
     LastOpened, 
     gripsExportService, 
-    lsfExportService,
-    SearchStudentPipe
+    SearchStudentPipe,
+    flexNowExportService
   ],
   bootstrap: [AppComponent]
 })

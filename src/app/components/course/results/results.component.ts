@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { GlobalDataService, ChartService, gripsExportService, lsfExportService } from '../../../providers/index';
+import { GlobalDataService, ChartService, gripsExportService, flexNowExportService } from '../../../providers/index';
 import {SearchStudentPipe} from '../../../pipes/index';
 
 @Component({
@@ -25,8 +25,8 @@ export class ResultsComponent implements OnInit {
     public dataService: GlobalDataService, 
     public chartService: ChartService, 
     public grips: gripsExportService, 
-    public lsf: lsfExportService,
-    private searchStudentPipe: SearchStudentPipe) { }
+    private searchStudentPipe: SearchStudentPipe,
+    public flexnow: flexNowExportService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
