@@ -170,11 +170,13 @@ export class GradingComponent implements OnInit, AfterViewInit {
   moveUpTask(indexTask){
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(indexTask-1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
   }
 
   moveDownTask(indexTask){
     this.tasks = this.current_project.bewertungsschema.aufgaben;
     this.tasks.splice(indexTask+1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
   }
 
 
