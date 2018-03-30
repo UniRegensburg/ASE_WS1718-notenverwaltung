@@ -32,7 +32,7 @@ Unser Versionstagging hat folgendes Schema, wobei die Buchstaben für ganze Zahl
 
 |a.| b. | c. | d
 |--|--|--|--|
-| Relase |  Milestone| Development Stage | Merge in Master 
+| Release |  Milestone| Development Stage | Merge in Master 
 
 ### Development Stage
 

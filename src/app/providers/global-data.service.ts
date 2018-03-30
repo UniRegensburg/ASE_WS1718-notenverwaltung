@@ -232,7 +232,6 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
-
   }
 
   private checkStudentsInGrading(): void {
@@ -360,8 +359,8 @@ export class GlobalDataService {
       "allgemeine_infos": {
         "notenschluessel": [
           {
-            "note": 1.0,
-            "wert_min": 90
+            "note": 5.0,
+            "wert_min": 0
           }
         ],
         "bewertungseinheit": "Punkte"
