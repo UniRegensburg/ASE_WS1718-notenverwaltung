@@ -179,6 +179,7 @@ export class StudentsComponent implements OnInit {
   addGroup(): void {
     this.groups.push({
       "name": "",
+      "punkte": "",
       "studenten": []
     });
     // console.log("added group")
