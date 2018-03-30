@@ -16,10 +16,9 @@
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
   <h1>KORREKTUR</h1>
-
   <div class="divider"></div>
   <br />
-
+  <!-- Gruppentoggle -->
   <div class="row">
     <div class="col s6">
       <label>Gruppen</label>
@@ -32,7 +31,7 @@
         </label>
       </div>
     </div>
-
+    <!-- Richtungstoggle -->
     <div class="col s6 right-align">
       <label>Korrekturrichtung</label>
       <div class="switch">
@@ -66,12 +65,14 @@
   </div>
 
   <div class="row">
+    <!-- Pfeil nach links -->
     <div class="col s4">
       <i class="material-icons left card-panel chevron" (click)="setCurrentTask('previous')" *ngIf="show_previous&&!groupview">chevron_left</i>
       <i class="material-icons left card-panel chevron" (click)="changeThing('task','previous')" *ngIf="!correctByTasks&&show_previous&&groupview">chevron_left</i>
       <i class="material-icons left card-panel chevron" (click)="changeThing('group','previous')" *ngIf="correctByTasks&&show_previous&&groupview">chevron_left</i>
       <i class="material-icons left card-panel chevron inactive" *ngIf="!show_previous">chevron_left</i>
     </div>
+    <!-- Punkte oben Mitte -->
     <div class="col s4">
       <div class="row">
         <div class="col s8" *ngIf="!groupview">
@@ -89,7 +90,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Pfeil nach rechts -->
     <div class="col s4">
       <i class="material-icons right card-panel chevron" (click)="setCurrentTask('next')" *ngIf="show_next&&!groupview">chevron_right</i>
       <i class="material-icons right card-panel chevron" (click)="changeThing('task','next')" *ngIf="!correctByTasks&&show_next&&groupview">chevron_right</i>
@@ -98,12 +99,12 @@
     </div>
   </div>
 
-
-  <div class="row" *ngIf="groupview">
+  <!-- Aufzählung Gruppenmitglieder mit Punkten -->
+  <div class="row center-align" *ngIf="groupview">
     <p>Gruppenmitglieder</p>
     <div class="groupmember" *ngFor="let groupmember of groupmembers">
       <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
-      <div class="memberpoints">
+      <div class="memberpoints col s2">
         <input placeholder="gruppenpunkte" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt"
           min="0" lass="validate" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
         <span class="maxpoints"> /{{current_task.max_punkt}} </span>
@@ -111,6 +112,7 @@
     </div>
   </div>
 
+  <!-- Akkordeons -->
   <div class="row">
     <div class="col s12">
       <div class="card-panel white" (click)="open_1 = !open_1">
@@ -166,3 +168,4 @@
   </div>
 
 </div>
+
