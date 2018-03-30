@@ -121,20 +121,6 @@ export class CorrectionComponent implements OnInit {
   }
 
   setGruppenpunkte(): void {
-    this.groupmembers.forEach(groupmember => {
-      console.log("hallo")
-      console.log(groupmember)
-      /* groupmember["einzelwertungen"].forEach(einzelwertung => {
-       */
-        //todo: task_counter = current_task_id?
-       /*  if (einzelwertung.aufgaben_id == this.current_task.id) {
-          console.log(einzelwertung.erreichte_punkte)
-          console.log(this.gruppenpunkte)
-          einzelwertung.erreichte_punkte = this.gruppenpunkte;
-        } */
-      //});
-    });
-
     this.grading.forEach(bewertung => {
       this.groupmembers.forEach(groupmember => {
         if(bewertung.student_id == groupmember.id){
@@ -162,6 +148,7 @@ export class CorrectionComponent implements OnInit {
       }
       this.checkShowings("group");
       this.current_group = this.groups[this.group_counter];
+      this.setCurrentGroupMembers();
     }
 
     if (entity === "task") {
