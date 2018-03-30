@@ -58,7 +58,7 @@
         </p>
   </div>
    <!-- Gruppenansicht, wenn Gruppen existieren -->
-  <div *ngIf="groupsExist">
+  <div *ngIf="groupsExist || !groupsExist && !groupview">
   <div class="row center-align" style="margin-top: 40px">
     <p *ngIf="!correctByTasks&&!groupview">
       <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}

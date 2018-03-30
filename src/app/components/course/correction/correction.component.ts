@@ -94,9 +94,11 @@ export class CorrectionComponent implements OnInit {
       try {
         this.current_group = this.groups[this.group_counter];
         this.setCurrentGroupMembers();
+        this.groupsExist = true;
 
       } catch (err) {
         console.log("there are no groups.")
+        this.groupsExist = false;
       }
     });
 
@@ -117,10 +119,8 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-
     this.updateShowPermissions();
   }
-
 
   checkGroupExistence(): void {
     if (this.groups[0]) {
