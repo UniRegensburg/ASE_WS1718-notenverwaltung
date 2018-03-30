@@ -61,48 +61,63 @@ export class CorrectionComponent implements OnInit {
 
   ngOnInit() {
 
-    try {
-      this.dataService.getCurrentProject().subscribe(current_project => {
-        this.current_project = current_project;
-        this.tasks = this.current_project.bewertungsschema.aufgaben;
-        this.students = this.current_project.teilnehmer;
-        this.grading = this.current_project.bewertung;
-        this.groups = this.current_project.gruppen;
-        this.group_counter = 0;
 
-        try {
-          if (this.tasks.length != 0) {
-            this.no_tasks = false;
+    this.dataService.getCurrentProject().subscribe(current_project => {
+      this.current_project = current_project;
+      this.tasks = this.current_project.bewertungsschema.aufgaben;
+      this.students = this.current_project.teilnehmer;
+      this.grading = this.current_project.bewertung;
+      this.groups = this.current_project.gruppen;
+      this.group_counter = 0;
+      this.student_counter = 0;
+
+      try {
+        if (this.tasks.length != 0) {
+          this.no_tasks = false;
+        }
+      } catch (err) {
+        console.log("there are no tasks.");
+      }
+
+        this.sub = this.route.params.subscribe(params => {
+          this.task_counter = 0;
+          this.student_counter = Number(params.user_to_edit_id);
+          if (Number.isNaN(this.student_counter)) {
+            this.student_counter = 0;
           }
-        } catch (err) {
-          console.log("there are no tasks.");
-        }
+        });
+        this.setInitValues();
+        this.no_students = false;
+     
 
-        try {
-          this.sub = this.route.params.subscribe(params => {
-            this.task_counter = 0;
-            this.student_counter = Number(params.user_to_edit_id);
-            if (Number.isNaN(this.student_counter)) {
-              this.student_counter = 0;
-            }
-          });
-          this.setCurrentTask('first');
-          this.no_students = false;
-        } catch (err) {
-          console.log("there are no students.");
-        }
+      try {
+        this.current_group = this.groups[this.group_counter];
+        this.setCurrentGroupMembers();
 
-        try {
-          this.current_group = this.groups[this.group_counter];
-          this.setCurrentGroupMembers();
+      } catch (err) {
+        console.log("there are no groups.")
+      }
+    });
 
-        } catch (err) {
-          console.log("there are no groups.")
+  }
+
+  setInitValues(): void {
+
+    this.current_task = this.tasks[this.task_counter];
+    this.current_student = this.students[this.student_counter];
+
+    if (!this.groupview) {
+      this.current_student["einzelwertungen"].forEach(correction => {
+        if (correction.aufgaben_id == this.task_counter) {
+          this.current_correction = correction;
         }
       });
-    } catch (err) {
-      console.log("correction compoment could not be loaded.")
+      this.updateShowPermissions();
+    } else {
+      this.checkShowings("group");
     }
+
+
   }
 
   setCorrectionMode(): void {
@@ -123,9 +138,9 @@ export class CorrectionComponent implements OnInit {
   setGruppenpunkte(): void {
     this.grading.forEach(bewertung => {
       this.groupmembers.forEach(groupmember => {
-        if(bewertung.student_id == groupmember.id){
+        if (bewertung.student_id == groupmember.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
-            if(einzelwertung.aufgaben_id == this.current_task.id){
+            if (einzelwertung.aufgaben_id == this.current_task.id) {
               einzelwertung.erreichte_punkte = this.gruppenpunkte;
             }
           });
@@ -301,7 +316,9 @@ export class CorrectionComponent implements OnInit {
     });
 
     this.current_student["einzelwertungen"].forEach(correction => {
-      if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;
+      if (correction.aufgaben_id == this.task_counter) {
+        this.current_correction = correction;
+      }
     });
 
     this.current_task = this.tasks[this.task_counter];
