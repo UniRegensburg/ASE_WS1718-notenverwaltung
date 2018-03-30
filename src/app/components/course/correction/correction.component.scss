@@ -46,15 +46,18 @@ h5{
     color: #C2185B;
 }
 
+.chevron{
+    font-size: 40px;
+}
+
+.inactive{
+    color: #bdbdbd;
+}
+
+
 .maxpoints {
     padding: 10px;
-   .chevron{
-       font-size: 40px;
-   }
-   
-   .inactive{
-       color: #bdbdbd;
-   }
+}
 
 .groupmember {
     padding: 10px 20px;
@@ -76,5 +79,4 @@ h5{
         width: 15%;
         float: left;
     }
-}
 }
