@@ -25,7 +25,7 @@
       <div class="switch">
         <label>
           Aus
-          <input type="checkbox" [checked]="groupview" (change)="groupview = !groupview">
+          <input type="checkbox" [checked]="groupview" (change)="toggleGroupView()">
           <span class="lever"></span>
           An
         </label>
@@ -49,6 +49,16 @@
   <div class="divider"></div>
   <br />
 
+  <!-- Gruppenansicht, wenn keine Gruppen existieren -->
+  <div *ngIf="groupview && !groupsExist">
+      <p class="empty">
+          Es wurden noch keine Gruppen erstellt und Teilnehmern zugewiesen.
+          <br /> Sie können Gruppen erstellen und zuweisen unter
+          <span class="hnrot">Teilnehmer</span>.
+        </p>
+  </div>
+   <!-- Gruppenansicht, wenn Gruppen existieren -->
+  <div *ngIf="groupsExist">
   <div class="row center-align" style="margin-top: 40px">
     <p *ngIf="!correctByTasks&&!groupview">
       <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
@@ -163,7 +173,7 @@
         </div>
       </div>
     </div>
-
+  </div>
   </div>
 
 </div>

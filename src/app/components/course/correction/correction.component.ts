@@ -25,6 +25,7 @@ export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
   private groupview: boolean = true;
+  private groupsExist: boolean = false;
   private correctByTasks: boolean = true;
 
   private current_project: any;
@@ -60,8 +61,6 @@ export class CorrectionComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
@@ -70,6 +69,7 @@ export class CorrectionComponent implements OnInit {
       this.groups = this.current_project.gruppen;
       this.group_counter = 0;
       this.student_counter = 0;
+      this.task_counter = 0;
 
       try {
         if (this.tasks.length != 0) {
@@ -79,16 +79,17 @@ export class CorrectionComponent implements OnInit {
         console.log("there are no tasks.");
       }
 
+      try {
         this.sub = this.route.params.subscribe(params => {
-          this.task_counter = 0;
           this.student_counter = Number(params.user_to_edit_id);
-          if (Number.isNaN(this.student_counter)) {
-            this.student_counter = 0;
-          }
         });
-        this.setInitValues();
-        this.no_students = false;
-     
+      } catch (err) {
+        console.log("there are no students");
+        console.log(err.message);
+      }
+      this.no_students = false;
+
+      this.setInitView();
 
       try {
         this.current_group = this.groups[this.group_counter];
@@ -101,23 +102,55 @@ export class CorrectionComponent implements OnInit {
 
   }
 
-  setInitValues(): void {
-
+  setInitView(): void {
+    this.checkGroupExistence();
+    this.groupview = this.groupsExist;
     this.current_task = this.tasks[this.task_counter];
-    this.current_student = this.students[this.student_counter];
+    this.current_student = this.students[0];
 
-    if (!this.groupview) {
-      this.current_student["einzelwertungen"].forEach(correction => {
-        if (correction.aufgaben_id == this.task_counter) {
-          this.current_correction = correction;
+    this.grading.forEach(bewertung => {
+      if (bewertung.student_id == this.current_student.id) {
+        bewertung.einzelwertungen.forEach(einzelwertung => {
+          if(einzelwertung.aufgaben_id == this.task_counter){
+            this.current_correction = einzelwertung;
+          }
+        });
+      }
+    });
+
+    this.updateShowPermissions();
+  }
+
+
+  checkGroupExistence(): void {
+    if (this.groups[0]) {
+      this.groupsExist = true;
+      console.log("groups exist")
+    } else {
+      this.groupsExist = false;
+      console.log("no groups exist")
+    }
+  }
+
+  toggleGroupView(): void {
+    //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
+    if (this.groupsExist && !this.groupview) {
+      console.log("gruppen existieren und keine gruppenansicht durch toggle")
+      //setze aktuellen studenten auf den ersten der aktuellen gruppe
+      this.students.forEach(student => {
+        if (student.id == this.groupmembers[0]) {
+          console.log("This Groupmembers", this.groupmembers)
+          console.log("This Groupmembers[0]", this.groupmembers[0])
+          this.current_student = student;
+          console.log("this curr stu", this.current_student)
         }
       });
-      this.updateShowPermissions();
-    } else {
-      this.checkShowings("group");
     }
-
-
+    //Gruppen existieren und von Gruppenansicht zu Studentenasicht
+    else if (this.groupsExist && this.groupview) {
+      //setze aktuellen studenten auf den ersten der aktuellen gruppe
+    }
+    this.groupview = !this.groupview;
   }
 
   setCorrectionMode(): void {
