@@ -79,9 +79,9 @@
             min="0" lass="validate" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
         </div>
         <div class="col s8" *ngIf="groupview">
-            <input class="right" type="number" [(ngModel)]="gruppenpunkte" [attr.max]="current_task.max_punkt"
-              min="0" lass="validate" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
-          </div>
+          <input class="right" type="number" [(ngModel)]="gruppenpunkte" [attr.max]="current_task.max_punkt" min="0" lass="validate"
+            (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+        </div>
         <div class="col s4" style="margin-top: 5px">
           <span class="left">
             <p>/{{current_task.max_punkt}}</p>
@@ -89,7 +89,7 @@
         </div>
       </div>
     </div>
-      
+
     <div class="col s4">
       <i class="material-icons right card-panel chevron" (click)="setCurrentTask('next')" *ngIf="show_next&&!groupview">chevron_right</i>
       <i class="material-icons right card-panel chevron" (click)="changeThing('task','next')" *ngIf="!correctByTasks&&show_next&&groupview">chevron_right</i>

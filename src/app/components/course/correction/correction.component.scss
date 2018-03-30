@@ -1,82 +1,82 @@
-@media only screen and (max-width: 992px){
-.side-nav.fixed {
+@media only screen and (max-width: 992px) {
+  .side-nav.fixed {
     transform: translateX(0%) !important;
-}
+  }
 }
 
-.side-nav.fixed{
-    transform: translateX(0%) !important;
+.side-nav.fixed {
+  transform: translateX(0%) !important;
 }
 
 .progress {
-    margin-top: 15px;
-    background-color: lightgray;
-    height: 20px;
+  margin-top: 15px;
+  background-color: lightgray;
+  height: 20px;
 }
 
 .progress .determinate {
-    background-color: #C2185B;
+  background-color: #C2185B;
 }
 
-h5{
-    font-size: 1.34rem;
+h5 {
+  font-size: 1.34rem;
 }
 
 .my-pagination /deep/ .ngx-pagination .current {
-    background: #C2185B !important;
+  background: #C2185B !important;
 }
 
-.card-panel:hover{
-    cursor: pointer;
+.card-panel:hover {
+  cursor: pointer;
 }
 
-.chevron{
-    font-size: 40px;
+.chevron {
+  font-size: 40px;
 }
 
-.inactive{
-    color: #bdbdbd;
+.inactive {
+  color: #bdbdbd;
 }
+
 .empty {
-    margin-top: 100px;
-    font-size: 24px;
+  margin-top: 100px;
+  font-size: 24px;
 }
 
 .hnrot {
-    color: #C2185B;
+  color: #C2185B;
 }
 
-.chevron{
-    font-size: 40px;
+.chevron {
+  font-size: 40px;
 }
 
-.inactive{
-    color: #bdbdbd;
+.inactive {
+  color: #bdbdbd;
 }
-
 
 .maxpoints {
-    padding: 10px;
+  padding: 10px;
 }
 
 .groupmember {
-    padding: 10px 20px;
-    display: block;
-    min-height: 60px;
-    align-content: center;
+  padding: 10px 20px;
+  display: block;
+  min-height: 60px;
+  align-content: center;
 }
 
 .membername {
-    float: left;
-    width: 50%;
+  float: left;
+  width: 50%;
 }
 
 .memberpoints {
-    float: right;
-    width: 50%;
-
-    input{
-        width: 15%;
-        float: left;
-    }
+  float: right;
+  width: 50%;
+  input {
+    width: 15%;
+    float: left;
+  }
 }
+

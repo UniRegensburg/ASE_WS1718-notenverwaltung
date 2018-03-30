@@ -1,24 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  HostListener
-} from '@angular/core';
-import {
-  GlobalDataService
-} from '../../../providers/index';
-import {
-  AfterViewInit
-} from '@angular/core/src/metadata/lifecycle_hooks';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { GlobalDataService } from '../../../providers/index';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import electron from 'electron';
-import {
-  log
-} from 'util';
+import { log } from 'util';
 
-import {
-  ActivatedRoute
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 declare var require: any;
@@ -38,6 +24,7 @@ export enum KEY_CODE {
   templateUrl: './correction.component.html',
   styleUrls: ['./correction.component.scss']
 })
+
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
@@ -310,8 +297,6 @@ export class CorrectionComponent implements OnInit {
   saveCorrection(): void {
     this.dataService.setNewCorrection(this.grading)
   }
-
-
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
