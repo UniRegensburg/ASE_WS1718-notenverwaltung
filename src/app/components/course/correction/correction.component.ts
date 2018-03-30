@@ -3,16 +3,12 @@ import { GlobalDataService } from '../../../providers/index';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import electron from 'electron';
 import { log } from 'util';
-
 import { ActivatedRoute } from '@angular/router';
 
-
 declare var require: any;
-declare var $: any
+declare var $: any;
 
-const {
-  remote
-} = electron;
+const { remote } = electron;
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
