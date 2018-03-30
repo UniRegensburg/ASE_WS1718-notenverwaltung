@@ -107,6 +107,7 @@ export class CorrectionComponent implements OnInit {
   setInitView(): void {
     this.groupview = this.groupsExist;
     this.current_task = this.tasks[this.task_counter];
+    this.student_counter = 0;
     this.current_student = this.students[0];
 
     this.grading.forEach(bewertung => {
@@ -197,6 +198,9 @@ export class CorrectionComponent implements OnInit {
   updateView(): void {
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
+    console.log(this.students)
+    console.log(this.student_counter)
+    console.log(this.students[this.student_counter])
     console.log(this.current_student)
     this.current_group = this.groups[this.group_counter];
   }
