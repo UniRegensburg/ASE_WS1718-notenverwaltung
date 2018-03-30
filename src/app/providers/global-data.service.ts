@@ -346,8 +346,8 @@ export class GlobalDataService {
       "allgemeine_infos": {
         "notenschluessel": [
           {
-            "note": 1.0,
-            "wert_min": 90
+            "note": 5.0,
+            "wert_min": 0
           }
         ],
         "bewertungseinheit": "Punkte"
