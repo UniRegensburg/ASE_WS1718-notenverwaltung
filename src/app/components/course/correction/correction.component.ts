@@ -105,7 +105,6 @@ export class CorrectionComponent implements OnInit {
   }
 
   setInitView(): void {
-    this.checkGroupExistence();
     this.groupview = this.groupsExist;
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[0];
@@ -113,23 +112,13 @@ export class CorrectionComponent implements OnInit {
     this.grading.forEach(bewertung => {
       if (bewertung.student_id == this.current_student.id) {
         bewertung.einzelwertungen.forEach(einzelwertung => {
-          if(einzelwertung.aufgaben_id == this.task_counter){
+          if (einzelwertung.aufgaben_id == this.task_counter) {
             this.current_correction = einzelwertung;
           }
         });
       }
     });
     this.updateShowPermissions();
-  }
-
-  checkGroupExistence(): void {
-    if (this.groups[0]) {
-      this.groupsExist = true;
-      console.log("groups exist")
-    } else {
-      this.groupsExist = false;
-      console.log("no groups exist")
-    }
   }
 
   toggleGroupView(): void {
