@@ -74,8 +74,7 @@ export class GradingComponent implements OnInit, AfterViewInit {
     this.grades.splice(this.grades.length-1, 0, {
       'note': 4.9,
       'wert_min': 1
-    } );
-    
+    } ); 
   }
 
   changeDetected(event): void {
@@ -146,5 +145,43 @@ export class GradingComponent implements OnInit, AfterViewInit {
   logIndex(ind):void{
     //console.log("DAS IST COLLAPSIBLE:" + ind);
   }
+
+  openCloseCollapsibles(indexColl):void{
+   if (this.openCollapsible[indexColl] != "true"){
+      this.openCollapsible={};
+      this.openCollapsible[indexColl] = "true";
+   } else{
+    this.openCollapsible={};
+   }
+  }
+
+  moveUpGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade-1, 0, this.grades.splice(indexGrade, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveDownGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade+1, 0, this.grades.splice(indexGrade, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveUpTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask-1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveDownTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask+1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+
+
+
+
 }
  
