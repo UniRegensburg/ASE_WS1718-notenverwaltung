@@ -119,7 +119,8 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-    // this.updateShowPermissions();
+
+    this.checkLimits();
   }
 
   setCurrentGroupMembers(): void {
@@ -159,7 +160,7 @@ export class CorrectionComponent implements OnInit {
     if (direction == "forwards") param = 1;
     this.goSomewhere(param);
     this.gradeEverything();
-    this.checkShowings();
+    this.checkLimits();
     this.updateView();
   }
 
@@ -175,6 +176,7 @@ export class CorrectionComponent implements OnInit {
     else {
       console.log("Aufgabe wechseln")
       this.task_counter = this.task_counter + param;
+      console.log("tac++")
     }
   }
 
@@ -198,10 +200,6 @@ export class CorrectionComponent implements OnInit {
   updateView(): void {
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
-    console.log(this.students)
-    console.log(this.student_counter)
-    console.log(this.students[this.student_counter])
-    console.log(this.current_student)
     this.current_group = this.groups[this.group_counter];
   }
 
@@ -219,7 +217,7 @@ export class CorrectionComponent implements OnInit {
     });
   }
 
-  checkShowings(): void {
+  checkLimits(): void {
     if (this.correctByTasks) {
       if (this.task_counter == 0) {
         this.show_previous = false;
