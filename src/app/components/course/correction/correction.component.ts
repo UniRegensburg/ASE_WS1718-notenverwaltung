@@ -118,43 +118,87 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-    this.updateShowPermissions();
-  }
-
-  toggleGroupView(): void {
-    //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
-    if (this.groupsExist && !this.groupview) {
-      console.log("gruppen existieren und keine gruppenansicht durch toggle")
-      //setze aktuellen studenten auf den ersten der aktuellen gruppe
-      this.students.forEach(student => {
-        if (student.id == this.groupmembers[0]) {
-          console.log("This Groupmembers", this.groupmembers)
-          console.log("This Groupmembers[0]", this.groupmembers[0])
-          this.current_student = student;
-          console.log("this curr stu", this.current_student)
-        }
-      });
-    }
-    //Gruppen existieren und von Gruppenansicht zu Studentenasicht
-    else if (this.groupsExist && this.groupview) {
-      //setze aktuellen studenten auf den ersten der aktuellen gruppe
-    }
-    this.groupview = !this.groupview;
-  }
-
-  setCorrectionMode(): void {
-    if (this.correctByTasks) {
-      this.correction_mode = "task";
-    } else {
-      this.correction_mode = "student";
-    }
-    this.correctByTasks = !this.correctByTasks;
-    this.updateShowPermissions();
+    // this.updateShowPermissions();
   }
 
   setCurrentGroupMembers(): void {
     let curr_group_name = this.groups[this.group_counter].name;
     this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
+  }
+
+  toggleGroupView(): void {
+    //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
+    if (this.groupsExist && !this.groupview) {
+      this.groups.forEach(group => {
+        group.studenten.forEach(gruppenstudent_id => {
+          if (this.current_student.id == gruppenstudent_id) {
+            this.current_group = group;
+          }
+        });
+      });
+    }
+    //Gruppen existieren und von Gruppenansicht zu Studentenasicht
+    else if (this.groupsExist && this.groupview) {
+      this.students.forEach(student => {
+        if (student.id == this.groupmembers[0]) {
+          this.current_student = student;
+        }
+      });
+    }
+    this.groupview = !this.groupview;
+  }
+
+  toggleDirection(): void {
+    this.correctByTasks = !this.correctByTasks;
+  }
+
+  chevronClick(direction): void {
+    let param = 0;
+    if (direction == "backwards")  param = -1;
+    if (direction == "forwards") param = 1;
+    this.goSomewhere(param);
+    this.gradeEverything();
+    this.checkShowings();
+    this.updateView();
+  }
+
+  goSomewhere(param): void {
+    if (this.groupview && this.correctByTasks) {
+      console.log("Gruppe wechseln")
+      this.group_counter = this.group_counter + param;
+    }
+    else if (!this.groupview && this.correctByTasks) {
+      console.log("Student wechseln")
+      this.student_counter = this.student_counter + param;
+    }
+    else {
+      console.log("Aufgabe wechseln")
+      this.task_counter = this.task_counter + param;
+    }
+  }
+
+  gradeEverything(): void {
+    if(this.groupview){
+      //this.gradeGroupStudents();
+    } else{
+      this.grading.forEach(bewertung => {
+        if (bewertung.student_id == this.current_student.id) {
+          bewertung.einzelwertungen.forEach(einzelwertung => {
+            if (einzelwertung.aufgaben_id == this.task_counter) {
+              this.current_correction = einzelwertung;
+            }
+          });
+        }
+      });
+      this.dataService.setNewCorrection(this.grading)
+    }
+  }
+
+  updateView(): void {
+    this.current_task = this.tasks[this.task_counter];
+    this.current_student = this.students[this.student_counter];
+    console.log(this.current_student)
+    this.current_group = this.groups[this.group_counter];
   }
 
   setGruppenpunkte(): void {
@@ -171,37 +215,8 @@ export class CorrectionComponent implements OnInit {
     });
   }
 
-  setGruppenmitgliedspunkte(rating, id): void {
-    //gib dem Mitglied mit der gegebenen ID die Punktzahl
-  }
-
-  changeThing(entity, direction): void {
-    if (entity === "group") {
-      if (direction === "previous" && this.group_counter - 1 >= 0) {
-        this.group_counter = this.group_counter - 1;
-      }
-      if (direction === "next" && this.group_counter + 1 < this.groups.length) {
-        this.group_counter = this.group_counter + 1;
-      }
-      this.checkShowings("group");
-      this.current_group = this.groups[this.group_counter];
-      this.setCurrentGroupMembers();
-    }
-
-    if (entity === "task") {
-      if (direction === "previous" && this.task_counter - 1 >= 0) {
-        this.task_counter = this.task_counter - 1;
-      }
-      if (direction === "next" && this.task_counter + 1 < this.tasks.length) {
-        this.task_counter = this.task_counter + 1;
-      }
-      this.checkShowings("task");
-      this.current_task = this.tasks[this.task_counter];
-    }
-  }
-
-  checkShowings(mode): void {
-    if (mode === "task") {
+  checkShowings(): void {
+    if (this.correctByTasks) {
       if (this.task_counter == 0) {
         this.show_previous = false;
       } else {
@@ -214,7 +229,7 @@ export class CorrectionComponent implements OnInit {
       }
     }
 
-    if (mode === "group") {
+    else if (!this.correctByTasks && this.groupview) {
       if (this.group_counter == 0) {
         this.show_previous = false;
       } else {
@@ -226,140 +241,28 @@ export class CorrectionComponent implements OnInit {
         this.show_next = true;
       }
     }
-  }
 
-  setCurrentTask(direction): void {
-    if (this.correction_mode == "student") {
-      if ((direction === "next") && (this.show_next)) {
-        this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
-      }
-      if ((direction === "previous") && (this.show_previous)) {
-        this.setPrevious(this.task_counter, this.student_counter, this.tasks, this.students);
-      }
-    }
-    else {
-      if ((direction === "next") && (this.show_next)) {
-        this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
-      }
-      else {
-        if ((direction === "next") && (this.show_next)) {
-          this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
-        }
-        if ((direction === "previous") && (this.show_previous)) {
-          this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
-        }
-      }
-    }
-    this.updateShowPermissions();
-    this.setCurrentCorrection();
-  }
-
-  updateShowPermissions(): void {
-
-    if (this.correction_mode === "student") {
-      if (this.student_counter >= this.students.length - 1) {
-        this.show_next = false;
-      }
-      else {
-        this.show_next = true;
-      }
-
-      if (this.student_counter <= 0) {
+    else if (!this.correctByTasks && !this.groupview) {
+      if (this.student_counter == 0) {
         this.show_previous = false;
-      }
-      else {
+      } else {
         this.show_previous = true;
       }
-    }
-    else {
-      if ((this.student_counter >= this.students.length - 1) && (this.task_counter >= this.tasks.length - 1)) {
+      if (this.student_counter + 1 == this.groups.length) {
         this.show_next = false;
-      }
-      else {
+      } else {
         this.show_next = true;
       }
-
-      if ((this.student_counter <= 0) && (this.task_counter <= 0)) {
-        this.show_previous = false;
-      }
-      else {
-        this.show_previous = true;
-      }
     }
-
-  }
-
-  setNext(prim_counter, sec_counter, prim, sec): void {
-    if (prim_counter < prim.length) {
-      prim_counter = prim_counter + 1;
-    }
-    if (prim_counter >= prim.length) {
-      prim_counter = 0;
-      sec_counter = sec_counter + 1;
-      if (sec_counter >= sec.length) {
-        sec_counter = sec.length - 1;
-        prim_counter = prim.length - 1;
-      }
-    }
-    this.setCounters(prim_counter, sec_counter);
-  }
-
-  setPrevious(prim_counter, sec_counter, prim, sec): void {
-    if (prim_counter >= 0) {
-      prim_counter = prim_counter - 1;
-    }
-    if (prim_counter < 0) {
-      prim_counter = prim.length - 1;
-      sec_counter = sec_counter - 1;
-      if (sec_counter <= 0) {
-        sec_counter = 0;
-        prim_counter = 0;
-      }
-    }
-    this.setCounters(prim_counter, sec_counter);
-  }
-
-  setCounters(prim_counter, sec_counter) {
-    if (this.correction_mode == "student") {
-      this.task_counter = prim_counter;
-      this.student_counter = sec_counter;
-    }
-    else {
-      this.student_counter = prim_counter;
-      this.task_counter = sec_counter;
-    }
-  }
-
-  setCurrentCorrection() {
-    this.grading.forEach(student => {
-      if (student.student_id == this.student_counter) {
-        this.current_student = student;
-      }
-    });
-
-    this.current_student["einzelwertungen"].forEach(correction => {
-      if (correction.aufgaben_id == this.task_counter) {
-        this.current_correction = correction;
-      }
-    });
-
-    this.current_task = this.tasks[this.task_counter];
-    this.current_student = this.students[this.student_counter];
-
-  }
-
-  saveCorrection(): void {
-    this.dataService.setNewCorrection(this.grading)
   }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.setCurrentTask('next');
+      this.chevronClick("forwards");
     }
-
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.setCurrentTask('previous');
+      this.chevronClick("backwards");
     }
   }
 }

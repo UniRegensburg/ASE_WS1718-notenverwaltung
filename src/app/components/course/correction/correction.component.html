@@ -18,16 +18,16 @@
   <h1>KORREKTUR</h1>
   <div class="divider"></div>
   <br />
-  <!-- Gruppentoggle -->
+   <!-- Gruppentoggle -->
   <div class="row">
     <div class="col s6">
-      <label>Gruppen</label>
+      <label>Ansicht</label>
       <div class="switch">
         <label>
-          Aus
+          StudentIn
           <input type="checkbox" [checked]="groupview" (change)="toggleGroupView()">
           <span class="lever"></span>
-          An
+          Gruppe
         </label>
       </div>
     </div>
@@ -36,10 +36,10 @@
       <label>Korrekturrichtung</label>
       <div class="switch">
         <label>
-          Ein Student
-          <input type="checkbox" [checked]="correctByTasks" (change)="setCorrectionMode()">
+          weiter mit diesen TeilnehmerInnen
+          <input type="checkbox" [checked]="correctByTasks" (change)="toggleDirection()">
           <span class="lever"></span>
-          Eine Aufgabe
+          weiter in dieser Aufgabe
         </label>
       </div>
     </div>
@@ -77,9 +77,7 @@
   <div class="row">
     <!-- Pfeil nach links -->
     <div class="col s4">
-      <i class="material-icons left card-panel chevron" (click)="setCurrentTask('previous')" *ngIf="show_previous&&!groupview">chevron_left</i>
-      <i class="material-icons left card-panel chevron" (click)="changeThing('task','previous')" *ngIf="!correctByTasks&&show_previous&&groupview">chevron_left</i>
-      <i class="material-icons left card-panel chevron" (click)="changeThing('group','previous')" *ngIf="correctByTasks&&show_previous&&groupview">chevron_left</i>
+      <i class="material-icons left card-panel chevron" (click)="chevronClick('backwards')" *ngIf="show_previous">chevron_left</i>
       <i class="material-icons left card-panel chevron inactive" *ngIf="!show_previous">chevron_left</i>
     </div>
     <!-- Punkte oben Mitte -->
@@ -102,10 +100,8 @@
     </div>
     <!-- Pfeil nach rechts -->
     <div class="col s4">
-      <i class="material-icons right card-panel chevron" (click)="setCurrentTask('next')" *ngIf="show_next&&!groupview">chevron_right</i>
-      <i class="material-icons right card-panel chevron" (click)="changeThing('task','next')" *ngIf="!correctByTasks&&show_next&&groupview">chevron_right</i>
-      <i class="material-icons right card-panel chevron" (click)="changeThing('group','next')" *ngIf="correctByTasks&&show_next&&groupview">chevron_right</i>
-      <i class="material-icons right card-panel chevron inactive" *ngIf="!show_next">chevron_right</i>
+      <i class="material-icons right card-panel chevron" (click)="chevronClick('forwards')" *ngIf="show_next">chevron_right</i>
+     <i class="material-icons right card-panel chevron inactive" *ngIf="!show_next">chevron_right</i>
     </div>
   </div>
 
