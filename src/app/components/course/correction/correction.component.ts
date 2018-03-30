@@ -120,6 +120,38 @@ export class CorrectionComponent implements OnInit {
     this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
   }
 
+  setGruppenpunkte(): void {
+    this.groupmembers.forEach(groupmember => {
+      console.log("hallo")
+      console.log(groupmember)
+      /* groupmember["einzelwertungen"].forEach(einzelwertung => {
+       */
+        //todo: task_counter = current_task_id?
+       /*  if (einzelwertung.aufgaben_id == this.current_task.id) {
+          console.log(einzelwertung.erreichte_punkte)
+          console.log(this.gruppenpunkte)
+          einzelwertung.erreichte_punkte = this.gruppenpunkte;
+        } */
+      //});
+    });
+
+    this.grading.forEach(bewertung => {
+      this.groupmembers.forEach(groupmember => {
+        if(bewertung.student_id == groupmember.id){
+          bewertung.einzelwertungen.forEach(einzelwertung => {
+            if(einzelwertung.aufgaben_id == this.current_task.id){
+              einzelwertung.erreichte_punkte = this.gruppenpunkte;
+            }
+          });
+        }
+      });
+    });
+  }
+
+  setGruppenmitgliedspunkte(rating, id): void {
+    //gib dem Mitglied mit der gegebenen ID die Punktzahl
+  }
+
   changeThing(entity, direction): void {
     if (entity === "group") {
       if (direction === "previous" && this.group_counter - 1 >= 0) {
