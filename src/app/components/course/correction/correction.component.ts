@@ -176,7 +176,6 @@ export class CorrectionComponent implements OnInit {
     else {
       console.log("Aufgabe wechseln")
       this.task_counter = this.task_counter + param;
-      console.log("tac++")
     }
   }
 
@@ -219,7 +218,6 @@ export class CorrectionComponent implements OnInit {
 
   checkLimits(): void {
     if (!this.correctByTasks) {
-      console.log("corr by task")
       if (this.task_counter == 0) {
         this.show_previous = false;
       } else {
@@ -246,13 +244,12 @@ export class CorrectionComponent implements OnInit {
     }
 
     else if (this.correctByTasks && !this.groupview) {
-      console.log("hoepfuly her")
       if (this.student_counter == 0) {
         this.show_previous = false;
       } else {
         this.show_previous = true;
       }
-      if (this.student_counter + 1 == this.groups.length) {
+      if (this.student_counter + 1 == this.students.length) {
         this.show_next = false;
       } else {
         this.show_next = true;
