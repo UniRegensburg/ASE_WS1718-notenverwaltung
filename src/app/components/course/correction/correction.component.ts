@@ -110,6 +110,11 @@ export class CorrectionComponent implements OnInit {
     this.student_counter = 0;
     this.current_student = this.students[0];
 
+    this.setCurrentCorrection();
+    this.checkLimits();
+  }
+
+  setCurrentCorrection(): void {
     this.grading.forEach(bewertung => {
       if (bewertung.student_id == this.current_student.id) {
         bewertung.einzelwertungen.forEach(einzelwertung => {
@@ -119,8 +124,6 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-
-    this.checkLimits();
   }
 
   toggleGroupView(): void {
@@ -151,10 +154,10 @@ export class CorrectionComponent implements OnInit {
 
   chevronClick(direction): void {
     let param = 0;
-    if (direction == "backwards")  param = -1;
+    if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
     this.goSomewhere(param);
-    this.gradeEverything();
+    this.setCurrentCorrection();
     this.checkLimits();
     this.updateView();
   }
@@ -172,15 +175,15 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  gradeEverything(): void {
-    if(this.groupview){
+  saveCorrection(): void {
+    if (this.groupview) {
       //this.gradeGroupStudents();
-    } else{
+    } else {
       this.grading.forEach(bewertung => {
         if (bewertung.student_id == this.current_student.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
-            if (einzelwertung.aufgaben_id == this.task_counter) {
-              this.current_correction = einzelwertung;
+            if (einzelwertung.aufgaben_id == this.current_task.id) {
+              einzelwertung = this.current_correction;
             }
           });
         }
