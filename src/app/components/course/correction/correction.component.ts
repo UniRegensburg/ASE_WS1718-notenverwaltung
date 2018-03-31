@@ -192,7 +192,7 @@ export class CorrectionComponent implements OnInit {
         if (bewertung.student_id == groupmember.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
             if (einzelwertung.aufgaben_id == this.current_task.id) {
-              einzelwertung.erreichte_punkte = this.gruppenpunkte;
+              einzelwertung.erreichte_punkte = this.current_group.punkte;
             }
           });
         }

@@ -88,7 +88,7 @@
             min="0" lass="validate" (change)="saveCorrection()">
         </div>
         <div class="col s8" *ngIf="groupview">
-          <input class="right" placeholder="0" type="number" [(ngModel)]="gruppenpunkte" [attr.max]="current_task.max_punkt" min="0" lass="validate"
+          <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt" min="0" lass="validate"
             (change)="setGruppenpunkte()">
         </div>
         <div class="col s4" style="margin-top: 5px">
@@ -117,7 +117,8 @@
     <div class="groupmember" *ngFor="let groupmember of groupmembers">
       <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
       <div class="memberpoints col s2">
-        <input type="number" [(ngModel)]="grading[groupmember.id].einzelwertungen[current_task.id].erreichte_punkte" [attr.max]="current_task.max_punkt" min="0" lass="validate" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+        <input type="number" placeholder="0" [(ngModel)]="grading[groupmember.id].einzelwertungen[current_task.id].erreichte_punkte" 
+        [attr.max]="current_task.max_punkt" min="0" lass="validate">
         <span class="maxpoints"> /{{current_task.max_punkt}} </span>
       </div>
     </div>
