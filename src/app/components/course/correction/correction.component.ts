@@ -118,7 +118,7 @@ export class CorrectionComponent implements OnInit {
     this.grading.forEach(bewertung => {
       if (bewertung.student_id == this.current_student.id) {
         bewertung.einzelwertungen.forEach(einzelwertung => {
-          if (einzelwertung.aufgaben_id == this.task_counter) {
+          if (einzelwertung.aufgaben_id == this.current_task.id) {
             this.current_correction = einzelwertung;
           }
         });
@@ -157,7 +157,6 @@ export class CorrectionComponent implements OnInit {
     if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
     this.goSomewhere(param);
-    this.setCurrentCorrection();
     this.checkLimits();
     this.updateView();
   }
@@ -175,27 +174,11 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  saveCorrection(): void {
-    if (this.groupview) {
-      //this.gradeGroupStudents();
-    } else {
-      this.grading.forEach(bewertung => {
-        if (bewertung.student_id == this.current_student.id) {
-          bewertung.einzelwertungen.forEach(einzelwertung => {
-            if (einzelwertung.aufgaben_id == this.current_task.id) {
-              einzelwertung = this.current_correction;
-            }
-          });
-        }
-      });
-      this.dataService.setNewCorrection(this.grading)
-    }
-  }
-
   updateView(): void {
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
     this.current_group = this.groups[this.group_counter];
+    this.setCurrentCorrection();
   }
 
   setCurrentGroupMembers(): void {
@@ -255,6 +238,23 @@ export class CorrectionComponent implements OnInit {
       } else {
         this.show_next = true;
       }
+    }
+  }
+
+  saveCorrection(): void {
+    if (this.groupview) {
+      //this.gradeGroupStudents();
+    } else {
+      this.grading.forEach(bewertung => {
+        if (bewertung.student_id == this.current_student.id) {
+          bewertung.einzelwertungen.forEach(einzelwertung => {
+            if (einzelwertung.aufgaben_id == this.current_task.id) {
+              einzelwertung = this.current_correction;
+            }
+          });
+        }
+      });
+      this.dataService.setNewCorrection(this.grading)
     }
   }
 
