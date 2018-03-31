@@ -24,14 +24,11 @@ export enum KEY_CODE {
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
-  private groupview: boolean = true;
-  private groupsExist: boolean = false;
-  private correctByTasks: boolean = true;
-
   private current_project: any;
   private current_task: any;
   private current_student: any;
   private current_group: any;
+  private current_correction: any;
 
   private tasks: Array<any>;
   private students: Array<any>;
@@ -39,18 +36,16 @@ export class CorrectionComponent implements OnInit {
   private groups: Array<any>;
   private groupmembers: Array<any>;
 
-  private correction_mode: string = 'student'; //task
-  private current_correction: any;
-  private old_window_state: any;
+  private task_counter: number = 0;
+  private student_counter: number = 0;
+  private group_counter: number = 0;
 
-  private task_counter: number;
-  private student_counter: number;
-  private group_counter: number;
-  private current_student_grading;
-  private gruppenpunkte: number = 10;
-
+  private groupsExist: boolean = false;
   private no_tasks: boolean = true;
   private no_students: boolean = true;
+
+  private correctByTasks: boolean = true;
+  private groupview: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
@@ -67,9 +62,6 @@ export class CorrectionComponent implements OnInit {
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
       this.groups = this.current_project.gruppen;
-      this.group_counter = 0;
-      this.student_counter = 0;
-      this.task_counter = 0;
 
       try {
         if (this.tasks.length != 0) {
@@ -101,7 +93,6 @@ export class CorrectionComponent implements OnInit {
         this.groupsExist = false;
       }
     });
-
   }
 
   setInitView(): void {
@@ -115,15 +106,17 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentCorrection(): void {
-    this.grading.forEach(bewertung => {
-      if (bewertung.student_id == this.current_student.id) {
-        bewertung.einzelwertungen.forEach(einzelwertung => {
-          if (einzelwertung.aufgaben_id == this.current_task.id) {
-            this.current_correction = einzelwertung;
-          }
-        });
-      }
-    });
+    if (!this.groupview) {
+      this.grading.forEach(bewertung => {
+        if (bewertung.student_id == this.current_student.id) {
+          bewertung.einzelwertungen.forEach(einzelwertung => {
+            if (einzelwertung.aufgaben_id == this.current_task.id) {
+              this.current_correction = einzelwertung;
+            }
+          });
+        }
+      });
+    }
   }
 
   toggleGroupView(): void {
@@ -186,21 +179,6 @@ export class CorrectionComponent implements OnInit {
     this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
   }
 
-  setGruppenpunkte(): void {
-    this.grading.forEach(bewertung => {
-      this.groupmembers.forEach(groupmember => {
-        if (bewertung.student_id == groupmember.id) {
-          bewertung.einzelwertungen.forEach(einzelwertung => {
-            if (einzelwertung.aufgaben_id == this.current_task.id) {
-              einzelwertung.erreichte_punkte = this.current_group.punkte;
-            }
-          });
-        }
-      });
-    });
-    this.saveCorrection();
-  }
-
   checkLimits(): void {
     if (!this.correctByTasks) {
       if (this.task_counter == 0) {
@@ -244,8 +222,19 @@ export class CorrectionComponent implements OnInit {
 
   saveCorrection(): void {
     if (this.groupview) {
-      //this.gradeGroupStudents();
-    } else {
+      this.grading.forEach(bewertung => {
+        this.groupmembers.forEach(groupmember => {
+          if (bewertung.student_id == groupmember.id) {
+            bewertung.einzelwertungen.forEach(einzelwertung => {
+              if (einzelwertung.aufgaben_id == this.current_task.id) {
+                einzelwertung.erreichte_punkte = this.current_group.punkte;
+                console.log("ein treffer")
+              }
+            });
+          }
+        });
+      });
+    } else if (!this.groupview) {
       this.grading.forEach(bewertung => {
         if (bewertung.student_id == this.current_student.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
@@ -255,8 +244,8 @@ export class CorrectionComponent implements OnInit {
           });
         }
       });
-      this.dataService.setNewCorrection(this.grading)
     }
+    this.dataService.setNewCorrection(this.grading)
   }
 
   @HostListener('window:keyup', ['$event'])
