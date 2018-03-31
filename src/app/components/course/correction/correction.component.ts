@@ -198,6 +198,7 @@ export class CorrectionComponent implements OnInit {
         }
       });
     });
+    this.saveCorrection();
   }
 
   checkLimits(): void {

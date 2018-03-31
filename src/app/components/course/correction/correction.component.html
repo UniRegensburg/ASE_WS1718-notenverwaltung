@@ -57,7 +57,7 @@
           <span class="hnrot">Teilnehmer</span>.
         </p>
   </div>
-   <!-- Gruppenansicht, wenn Gruppen existieren -->
+
   <div *ngIf="groupsExist || !groupsExist && !groupview">
   <div class="row center-align" style="margin-top: 40px">
     <p *ngIf="!correctByTasks&&!groupview">
@@ -88,8 +88,8 @@
             min="0" lass="validate" (change)="saveCorrection()">
         </div>
         <div class="col s8" *ngIf="groupview">
-          <input class="right" type="number" [(ngModel)]="gruppenpunkte" [attr.max]="current_task.max_punkt" min="0" lass="validate"
-            (keyup)="saveCorrection()" (mouseup)="saveCorrection()" (change)="setGruppenpunkte()">
+          <input class="right" placeholder="0" type="number" [(ngModel)]="gruppenpunkte" [attr.max]="current_task.max_punkt" min="0" lass="validate"
+            (change)="setGruppenpunkte()">
         </div>
         <div class="col s4" style="margin-top: 5px">
           <span class="left">
