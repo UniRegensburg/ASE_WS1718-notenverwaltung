@@ -218,7 +218,8 @@ export class CorrectionComponent implements OnInit {
   }
 
   checkLimits(): void {
-    if (this.correctByTasks) {
+    if (!this.correctByTasks) {
+      console.log("corr by task")
       if (this.task_counter == 0) {
         this.show_previous = false;
       } else {
@@ -231,7 +232,7 @@ export class CorrectionComponent implements OnInit {
       }
     }
 
-    else if (!this.correctByTasks && this.groupview) {
+    else if (this.correctByTasks && this.groupview) {
       if (this.group_counter == 0) {
         this.show_previous = false;
       } else {
@@ -244,7 +245,8 @@ export class CorrectionComponent implements OnInit {
       }
     }
 
-    else if (!this.correctByTasks && !this.groupview) {
+    else if (this.correctByTasks && !this.groupview) {
+      console.log("hoepfuly her")
       if (this.student_counter == 0) {
         this.show_previous = false;
       } else {
