@@ -123,11 +123,6 @@ export class CorrectionComponent implements OnInit {
     this.checkLimits();
   }
 
-  setCurrentGroupMembers(): void {
-    let curr_group_name = this.groups[this.group_counter].name;
-    this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
-  }
-
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
     if (this.groupsExist && !this.groupview) {
@@ -166,15 +161,13 @@ export class CorrectionComponent implements OnInit {
 
   goSomewhere(param): void {
     if (this.groupview && this.correctByTasks) {
-      console.log("Gruppe wechseln")
       this.group_counter = this.group_counter + param;
+      this.setCurrentGroupMembers();
     }
     else if (!this.groupview && this.correctByTasks) {
-      console.log("Student wechseln")
       this.student_counter = this.student_counter + param;
     }
     else {
-      console.log("Aufgabe wechseln")
       this.task_counter = this.task_counter + param;
     }
   }
@@ -200,6 +193,11 @@ export class CorrectionComponent implements OnInit {
     this.current_task = this.tasks[this.task_counter];
     this.current_student = this.students[this.student_counter];
     this.current_group = this.groups[this.group_counter];
+  }
+
+  setCurrentGroupMembers(): void {
+    let curr_group_name = this.groups[this.group_counter].name;
+    this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
   }
 
   setGruppenpunkte(): void {
