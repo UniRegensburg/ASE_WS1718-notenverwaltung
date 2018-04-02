@@ -8,6 +8,9 @@ import { GlobalDataService, LastOpened } from '../../providers/index';
 declare var require: any;
 declare var $: any;
 
+var shepherd = require('shepherd.js');
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,6 +21,7 @@ export class HomeComponent implements OnInit {
   private last_files: Array<any> = [
   ];
   private view_mode: boolean = true;
+  private tour;
 
   constructor(
     public dataService: GlobalDataService,
@@ -28,6 +32,25 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.last_files = this.lastOpened.getLastOpendFiles();
+    
+    this.tour = new shepherd.Tour({
+      defaults: {
+        classes: 'shepherd-theme-arrows',
+        scrollTo: true
+      }
+    });
+
+    this.tour.addStep('example-step', {
+      text: 'This step is attached to the bottom of the <code>.example-css-selector</code> element.',
+      attachTo: '.example-css-selector bottom',
+      classes: 'example-step-extra-class',
+      buttons: [
+        {
+          text: 'Next',
+          action: this.tour.next
+        }
+      ]
+    });
   }
 
   onChange(file) {
@@ -61,5 +84,9 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['course/overview']);
       });
     });
+  }
+
+  startTutorial(){
+    this.tour.start();
   }
 }
