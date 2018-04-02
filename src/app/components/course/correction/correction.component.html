@@ -89,7 +89,7 @@
           </div>
           <div class="col s8" *ngIf="groupmode">
             <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt"
-              min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()" >
+              min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
           </div>
           <div class="col s4" style="margin-top: 5px">
             <span class="left">
@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <div>
+    <!--   <div>
       Debug-Hilfe:
         <p>
           Taskindex:{{task_index}}
@@ -115,7 +115,7 @@
           Gruppe an Stelle 1: {{groups[1].name}}
           Gruppe an Stelle 2: {{groups[2].name}}
       </p> 
-    </div>
+    </div> -->
 
     <!-- Aufzählung Gruppenmitglieder mit Punkten -->
     <div class="row center-align" *ngIf="groupmode">

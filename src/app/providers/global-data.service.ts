@@ -441,10 +441,10 @@ export class GlobalDataService {
 
   public getGroupIdByName(name): number {
     let groups = this.current_project.gruppen;
-    let id = 0;
+    let id = -1;
     let position = -1;
     groups.forEach(group => {
-      position ++;
+      position++;
       if (group.name == name) {
         id = position;
       }

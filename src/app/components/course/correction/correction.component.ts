@@ -123,7 +123,11 @@ export class CorrectionComponent implements OnInit {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
     if (this.groupsExist && !this.groupmode) {
       this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
-      this.setCurrentGroupMembers();
+      try{
+      this.setCurrentGroupMembers();}
+      catch (err){
+        //Toast: dieser Studierende ist keiner Gruppe zugeteilt
+      }
     }
     //Gruppen existieren und von Gruppenansicht zu Studentenasicht
     else if (this.groupsExist && this.groupmode) {
