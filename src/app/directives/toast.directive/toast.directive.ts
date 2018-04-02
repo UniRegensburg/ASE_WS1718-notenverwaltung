@@ -48,7 +48,7 @@ export class ToastComponent implements OnInit, OnDestroy {
           if(this.message != null){
             this.message = null;     
           }    
-        }, 6000);
+        }, 10000);
       });
   }
 
