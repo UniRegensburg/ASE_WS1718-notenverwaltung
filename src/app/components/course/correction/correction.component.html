@@ -89,7 +89,7 @@
           </div>
           <div class="col s8" *ngIf="groupview">
             <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt"
-              min="0" lass="validate" (change)="saveCorrection()">
+              min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()" >
           </div>
           <div class="col s4" style="margin-top: 5px">
             <span class="left">
