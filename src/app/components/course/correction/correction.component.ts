@@ -69,14 +69,9 @@ export class CorrectionComponent implements OnInit {
       }
 
       try {
-        console.log("Hallo");
-        console.log(this.no_students)
         this.student_index = 0;
         this.current_student = this.students[this.student_index];
-        
-        console.log(this.no_students)
-
-        if(this.current_student != null ){
+        if (this.current_student != null) {
           this.no_students = false;
         }
       } catch (err) {
@@ -89,8 +84,9 @@ export class CorrectionComponent implements OnInit {
         this.group_index = 0;
         this.current_group = this.groups[this.group_index];
         this.setCurrentGroupMembers();
-        this.no_groups = false;
-
+        if (this.current_group != null) {
+          this.no_groups = false;
+        }
       } catch (err) {
         this.no_groups = true;
         console.log("there are no groups.")
