@@ -16,11 +16,16 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import {SearchStudentPipe} from './pipes/index';
+import { SearchStudentPipe } from './pipes/index';
+
+import { ToastComponent } from './directives/toast.directive/toast.directive';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -34,14 +39,16 @@ import {SearchStudentPipe} from './pipes/index';
     ResultsComponent,
     CorrectionComponent,
     DetailComponent,
-    SearchStudentPipe
+    SearchStudentPipe,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ElectronService, 
@@ -50,7 +57,8 @@ import {SearchStudentPipe} from './pipes/index';
     LastOpened, 
     gripsExportService, 
     SearchStudentPipe,
-    flexNowExportService
+    flexNowExportService,
+    ToastService
   ],
   bootstrap: [AppComponent]
 })
