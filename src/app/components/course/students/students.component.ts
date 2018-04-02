@@ -156,7 +156,7 @@ export class StudentsComponent implements OnInit {
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
-      this.toastService.success("Successfully importet " + this.studentNumber + " new students.");
+      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studenten.");
     });
   }
 
