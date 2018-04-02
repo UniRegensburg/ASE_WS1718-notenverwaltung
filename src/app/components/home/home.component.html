@@ -37,9 +37,10 @@
         <div class="col s12 m6" *ngFor="let file of last_files">
           <div class="card home-card z-depth-1" [routerLink]="'course/' + file.id + '/overview'">
             <div class="card-content black-text ">
-              <span class="card-title">{{file.file_name}}</span>
-              <p>Zuletzt geöffnet: {{file.last_opened}}</p>
+              <span class="card-title">{{file.file_name}}</span>              
               <p>Titel: {{file.title}}</p>
+              <br>
+              <p style="color:gray; font-size: 12px;">Zuletzt geöffnet: {{file.last_opened}}</p>
             </div>
         </div>
     </div>
@@ -62,10 +63,7 @@
                     <div *ngFor="let file of last_files">
                         <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
                             <div class="col s4">
-                                {{file.file_name}}
-                            </div>
-                            <div class="col s4">
-                                {{file.title}}
+                                <h5>{{file.title}}</h5>
                             </div>
                             <div class="col s4">
                                 {{file.last_opened}}
@@ -74,10 +72,11 @@
                         <hr class="hr_table">
                     </div>
                 </div>
-                <div class="col s12 m6" *ngIf="last_files.length == 0">
-                    No recent opened files available.
-                </div>
+                
             </div>
         </div>
+    </div>
+    <div class="col s12 m6" *ngIf="last_files.length == 0">
+            No recent opened files available.
     </div>
 </div>

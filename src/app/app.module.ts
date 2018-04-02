@@ -45,9 +45,9 @@ import {SearchStudentPipe} from './pipes/index';
   ],
   providers: [
     ElectronService, 
-    GlobalDataService, 
     ChartService, 
     LastOpened, 
+    GlobalDataService, 
     gripsExportService, 
     SearchStudentPipe,
     flexNowExportService

@@ -33,6 +33,9 @@ import {
   resolve
 } from 'path';
 
+import { LastOpened } from './lastOpened.service';
+
+
 @Injectable()
 export class GlobalDataService {
   public current_project: any; //this is the project data object
@@ -46,9 +49,12 @@ export class GlobalDataService {
   private passKey: any;
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
+  private lastOpendFilePath: string = "assets/data/lastOpend.json";
+  private loadedFiles = [];
 
   constructor(
-    private http: Http) {
+    private http: Http,
+    public lastOpened: LastOpened) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
@@ -78,6 +84,7 @@ export class GlobalDataService {
         this.current_project_name = file_path;
         this.current_project_name = this.current_project.title;
         this.filePath = file_path;
+        //this.checkLastOpendFiles();
       })
       //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
@@ -385,7 +392,20 @@ export class GlobalDataService {
         // console.log("The file has been saved")
       }
     });
+  }
 
+  public checkLastOpendFiles(): void{
+    this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
+      lastOpenedFiles => {   
+        console.log(lastOpenedFiles);
+              
+        this.loadedFiles = lastOpenedFiles[0];
+        if(!lastOpenedFiles[1]){
+          this.createNewLastOpenedFile(this.filePath);
+        }
+        this.saveLoadedFile();       
+      }
+    );
   }
 
   /**
@@ -437,6 +457,27 @@ export class GlobalDataService {
       return this.current_project;
     })
 
+  }
+
+  private createNewLastOpenedFile(file_path: String){
+    let newFile = {
+              "last_opened": new Date(),
+              "title": this.current_project_name,
+              "path": file_path
+    }
+    this.loadedFiles.push(newFile);
+}
+
+  public saveLoadedFile(): void{
+    writeFile(this.filePath, JSON.stringify(this.loadedFiles), (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+      }
+      else {
+        // alert("The file has been succesfully saved");
+        // console.log("The file has been saved")
+      }
+    });
   }
 
 }

@@ -27,7 +27,16 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.last_files = this.lastOpened.getLastOpendFiles();
+    this.lastOpened.getLastOpendFiles().subscribe(
+      data => {
+        this.last_files = data;  
+        this.last_files.forEach(file => {
+          file.file_name = file.path.replace(/^.*[\\\/]/, '');
+          let dateObj = new Date(file.last_opened);
+          file.last_opened = String(dateObj.getDate()) + "." + String(dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + " um " + dateObj.getHours() + ":" + dateObj.getMinutes();
+        });      
+      }
+    );
   }
 
   onChange(file) {
@@ -45,6 +54,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  
   openDialog() {
     var app = require('electron').remote;
     var dialog = app.dialog;
@@ -56,8 +66,7 @@ export class HomeComponent implements OnInit {
       }
       this.router.navigate(['course/overview']);
 
-      this.dataService.getLocalFile(fileNames[0]).subscribe(data => {
-        ///this.changeDetectorRef.detectChanges();
+      this.dataService.getLocalFile(fileNames[0]).subscribe(data => {        
         this.router.navigate(['course/overview']);
       });
     });
