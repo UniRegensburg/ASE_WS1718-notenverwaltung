@@ -456,13 +456,13 @@ export class GlobalDataService {
     this.current_project.bewertung = correction;
     this.saveJson();
   }
+
   public processImport(file): Observable<any> {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
       return this.current_project;
     })
-
   }
 
 }

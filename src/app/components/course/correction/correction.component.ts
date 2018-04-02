@@ -122,10 +122,11 @@ export class CorrectionComponent implements OnInit {
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
     if (this.groupsExist && !this.groupmode) {
-      this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
-      try{
-      this.setCurrentGroupMembers();}
-      catch (err){
+      try {
+        this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
+        this.setCurrentGroupMembers();
+      }
+      catch (err) {
         //Toast: dieser Studierende ist keiner Gruppe zugeteilt
       }
     }
@@ -140,6 +141,7 @@ export class CorrectionComponent implements OnInit {
 
   toggleDirection(): void {
     this.correctByTask = !this.correctByTask;
+    this.checkLimits();
   }
 
   chevronClick(direction): void {
@@ -237,12 +239,6 @@ export class CorrectionComponent implements OnInit {
       });
     }
     this.dataService.setNewCorrection(this.grading)
-  }
-
-  setEverythingCurrent(): void {
-    this.current_task = this.tasks[this.task_index];
-    this.current_student = this.students[this.student_index];
-    this.current_group = this.groups[this.group_index];
   }
 
   @HostListener('window:keyup', ['$event'])
