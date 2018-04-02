@@ -40,7 +40,7 @@ export class CorrectionComponent implements OnInit {
   private student_index: number = 0;
   private group_index: number = 0;
 
-  private groupsExist: boolean = false;
+  private no_groups: boolean = true;
   private no_tasks: boolean = true;
   private no_students: boolean = true;
 
@@ -49,11 +49,7 @@ export class CorrectionComponent implements OnInit {
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
-  private sub: any;
-
-  constructor(
-    public dataService: GlobalDataService,
-    private route: ActivatedRoute) { }
+  constructor(public dataService: GlobalDataService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -64,43 +60,48 @@ export class CorrectionComponent implements OnInit {
       this.groups = this.current_project.gruppen;
 
       try {
-        if (this.tasks.length != 0) {
-          this.no_tasks = false;
-        }
+        this.task_index = 0;
+        this.current_task = this.tasks[this.task_index];
+        this.no_tasks = false;
       } catch (err) {
+        this.no_tasks = true;
         console.log("there are no tasks.");
       }
 
       try {
-        this.sub = this.route.params.subscribe(params => {
-          this.student_index = Number(params.user_to_edit_id);
-        });
+        console.log("Hallo");
+        console.log(this.no_students)
+        this.student_index = 0;
+        this.current_student = this.students[this.student_index];
+        
+        console.log(this.no_students)
+
+        if(this.current_student != null ){
+          this.no_students = false;
+        }
       } catch (err) {
+        this.no_students = true;
         console.log("there are no students");
         console.log(err.message);
       }
-      this.no_students = false;
-
-      this.setInitView();
 
       try {
+        this.group_index = 0;
         this.current_group = this.groups[this.group_index];
         this.setCurrentGroupMembers();
-        this.groupsExist = true;
+        this.no_groups = false;
 
       } catch (err) {
+        this.no_groups = true;
         console.log("there are no groups.")
-        this.groupsExist = false;
       }
     });
+
+    this.setInitView();
   }
 
   setInitView(): void {
-    this.groupmode = this.groupsExist;
-    this.current_task = this.tasks[this.task_index];
-    this.student_index = 0;
-    this.current_student = this.students[0];
-
+    this.groupmode = !this.no_groups;
     this.setCurrentCorrection();
     this.checkLimits();
   }
@@ -121,7 +122,7 @@ export class CorrectionComponent implements OnInit {
 
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
-    if (this.groupsExist && !this.groupmode) {
+    if (!this.no_groups && !this.groupmode) {
       try {
         this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
         this.setCurrentGroupMembers();
@@ -131,7 +132,7 @@ export class CorrectionComponent implements OnInit {
       }
     }
     //Gruppen existieren und von Gruppenansicht zu Studentenasicht
-    else if (this.groupsExist && this.groupmode) {
+    else if (!this.no_groups && this.groupmode) {
       this.current_student = this.students[this.current_group.studenten[0]]
     }
     this.checkLimits();

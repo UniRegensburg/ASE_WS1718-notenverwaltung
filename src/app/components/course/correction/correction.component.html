@@ -50,7 +50,7 @@
   <br />
 
   <!-- Gruppenansicht, wenn keine Gruppen existieren -->
-  <div *ngIf="groupmode && !groupsExist">
+  <div *ngIf="groupmode && no_groups">
     <p class="empty">
       Es wurden noch keine Gruppen erstellt und Teilnehmern zugewiesen.
       <br /> Sie können Gruppen erstellen und zuweisen unter
@@ -58,7 +58,7 @@
     </p>
   </div>
 
-  <div *ngIf="groupsExist || !groupsExist && !groupmode">
+  <div *ngIf="!no_groups || no_groups && !groupmode">
     <div class="row center-align" style="margin-top: 40px">
       <p *ngIf="!correctByTasks&&!groupmode">
         <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
