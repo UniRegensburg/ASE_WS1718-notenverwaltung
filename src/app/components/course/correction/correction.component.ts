@@ -122,16 +122,15 @@ export class CorrectionComponent implements OnInit {
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
     if (this.groupsExist && !this.groupmode) {
-      this.current_group = this.groups[this.current_student.id]
+      this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
+      this.setCurrentGroupMembers;
     }
     //Gruppen existieren und von Gruppenansicht zu Studentenasicht
     else if (this.groupsExist && this.groupmode) {
-      this.students.forEach(student => {
-        if (student.id == this.groupmembers[0]) {
-          this.current_student = student;
-        }
-      });
+      this.current_student = this.students[this.current_group.studenten[0]]
     }
+    this.checkLimits();
+    this.setCurrentCorrection();
     this.groupmode = !this.groupmode;
   }
 
@@ -140,37 +139,33 @@ export class CorrectionComponent implements OnInit {
   }
 
   chevronClick(direction): void {
+    this.setNextView(direction);
+    this.checkLimits();
+    this.setCurrentCorrection();
+  }
+
+  setNextView(direction): void {
     let param = 0;
     if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
-    this.setNextView(param);
-    this.checkLimits();
-    this.updateView();
-  }
-
-  setNextView(param): void {
     if (this.groupmode && this.correctByTask) {
       this.group_index = this.group_index + param;
       this.setCurrentGroupMembers();
     }
     else if (!this.groupmode && this.correctByTask) {
       this.student_index = this.student_index + param;
+      this.current_student = this.students[this.student_index];
     }
     else {
       this.task_index = this.task_index + param;
+      this.current_task = this.tasks[this.task_index];
     }
   }
 
-  updateView(): void {
-    this.current_task = this.tasks[this.task_index];
-    this.current_student = this.students[this.student_index];
-    this.current_group = this.groups[this.group_index];
-    this.setCurrentCorrection();
-  }
 
   setCurrentGroupMembers(): void {
-    let curr_group_name = this.groups[this.group_index].name;
-    this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
+    this.current_group = this.groups[this.group_index];
+    this.groupmembers = this.dataService.getStudentsByGroup(this.current_group.name);
   }
 
   checkLimits(): void {
@@ -239,6 +234,12 @@ export class CorrectionComponent implements OnInit {
       });
     }
     this.dataService.setNewCorrection(this.grading)
+  }
+
+  setEverythingCurrent(): void {
+    this.current_task = this.tasks[this.task_index];
+    this.current_student = this.students[this.student_index];
+    this.current_group = this.groups[this.group_index];
   }
 
   @HostListener('window:keyup', ['$event'])

@@ -215,7 +215,7 @@ export class GlobalDataService {
   public getStudentsByGroup(groupname): any {
     let groupmembers = [];
     let students = this.current_project.teilnehmer;
-   
+
     students.forEach(student => {
       if (student.group == groupname) {
         groupmembers.push(student);
@@ -437,6 +437,20 @@ export class GlobalDataService {
   public setNewGroupsComplete(groups): void {
     this.current_project.gruppen = groups;
     this.saveJson();
+  }
+
+  public getGroupIdByName(name): number {
+    let groups = this.current_project.gruppen;
+    let id = 0;
+    let position = -1;
+    groups.forEach(group => {
+      position ++;
+      if (group.name == name) {
+        id = position;
+        console.log("Set element id:", position)
+      }
+    });
+    return id;
   }
 
   public setNewCorrection(correction): void {
