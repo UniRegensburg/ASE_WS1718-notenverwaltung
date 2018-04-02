@@ -1,0 +1,7 @@
+<div class="card z-depth-0 red lighten-1 white-text" style="margin-top: 50px;" *ngIf="message" 
+[ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+  <div class="card-content" >
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    <a style="margin-left: 15px; color:white">{{message.text}}</a>
+  </div>
+</div>

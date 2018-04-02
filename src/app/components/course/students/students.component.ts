@@ -4,6 +4,7 @@ import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
 import {SearchStudentPipe} from '../../../pipes/index';
 import { log } from 'util';
+import { ToastService } from '../../../providers/toast.service';
 
 
 declare var require: any;
@@ -23,11 +24,13 @@ export class StudentsComponent implements OnInit {
   private group_mode: boolean = false;
   private no_data_available: boolean = true;
   public searchValue: string;
+  private studentNumber: number;
 
   constructor(
     public dataService: GlobalDataService,
     private searchStudentPipe: SearchStudentPipe,
     private changeDetectorRef: ChangeDetectorRef,
+    public toastService: ToastService,
     public router: Router,
     public zone: NgZone) { }
 
@@ -76,7 +79,13 @@ export class StudentsComponent implements OnInit {
         console.log("No file selected")
         return;
       }
-      this.processData(fileNames[0])
+      try {
+        this.processData(fileNames[0]);        
+        this.toastService.success("Successfully importet " + this.studentNumber + "new students.")
+      } catch (error) {
+        this.toastService.setError("Could not import students from: " + fileNames[0])
+      }
+      
     });
   }
 
@@ -149,6 +158,7 @@ export class StudentsComponent implements OnInit {
       address = String.fromCharCode(65 + row) + cell;
       this.dataService.setNewStudents(student);
     }
+    this.studentNumber = students.length;
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
