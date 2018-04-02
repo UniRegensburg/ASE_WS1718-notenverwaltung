@@ -228,7 +228,6 @@ export class CorrectionComponent implements OnInit {
             bewertung.einzelwertungen.forEach(einzelwertung => {
               if (einzelwertung.aufgaben_id == this.current_task.id) {
                 einzelwertung.erreichte_punkte = this.current_group.punkte;
-                console.log("ein treffer")
               }
             });
           }
