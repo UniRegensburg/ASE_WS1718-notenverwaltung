@@ -93,13 +93,11 @@ export class CorrectionComponent implements OnInit {
       }
     });
 
-    this.setInitView();
-  }
-
-  setInitView(): void {
-    this.groupmode = !this.no_groups;
-    this.setCurrentCorrection();
-    this.checkLimits();
+    if(!this.no_tasks&&!this.no_students){
+      this.groupmode = !this.no_groups;
+      this.setCurrentCorrection();
+      this.checkLimits();
+    }
   }
 
   setCurrentCorrection(): void {
