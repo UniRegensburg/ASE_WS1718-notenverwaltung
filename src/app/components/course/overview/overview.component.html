@@ -19,42 +19,36 @@
     </div>
   </div>
 
-  <!--div class="row">
-    <div class="col s12">
-      <a class="waves-effect waves-light btn pink darken-2" [routerLink]="correction" type="submit">
-        <i class="material-icons left">create</i>Korrektur fortsetzen</a>
-    </div>
-  </div-->
   <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
     <p>In diesem Kurs gibt es noch keine Studierenden.</p>
   </div>
   <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
-      <div class="col l12">
-          <div class="row row_hover">
-            <div class="col s1">
-                <b>ID</b>
-            </div>
-            <div class="col s3">
-                <b>Name, Vorname</b>
-            </div> 
-            <div class="col s2">
-                <b>Martrikelnr</b>
-            </div>
-            <div class="col s2">
-              <b>Korrigiert</b>
-            </div>
-            <div class="col s1">
-                <b>Note</b>
-            </div>
-            <div class="col s3">             
-            </div>
-          </div>
-          <hr class="hr_table">
+    <div class="col l12">
+      <div class="row row_hover">
+        <div class="col s1">
+          <b>ID</b>
         </div>
+        <div class="col s3">
+          <b>Name, Vorname</b>
+        </div>
+        <div class="col s2">
+          <b>Martrikelnr</b>
+        </div>
+        <div class="col s2">
+          <b>Korrigiert</b>
+        </div>
+        <div class="col s1">
+          <b>Note</b>
+        </div>
+        <div class="col s3">
+        </div>
+      </div>
+      <hr class="hr_table">
+    </div>
 
     <div class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
-      <div class="row row_hover">    
-        <div class="col s1">      
+      <div class="row row_hover">
+        <div class="col s1">
           {{participant.id}}
         </div>
         <div class="col s3">
