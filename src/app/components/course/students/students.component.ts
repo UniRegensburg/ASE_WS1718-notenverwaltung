@@ -79,13 +79,7 @@ export class StudentsComponent implements OnInit {
         console.log("No file selected")
         return;
       }
-      try {
         this.processData(fileNames[0]);        
-        this.toastService.success("Successfully importet " + this.studentNumber + "new students.")
-      } catch (error) {
-        this.toastService.setError("Could not import students from: " + fileNames[0])
-      }
-      
     });
   }
 
@@ -162,6 +156,7 @@ export class StudentsComponent implements OnInit {
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
+      this.toastService.success("Successfully importet " + this.studentNumber + " new students.");
     });
   }
 
