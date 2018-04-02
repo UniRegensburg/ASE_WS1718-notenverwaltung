@@ -447,7 +447,6 @@ export class GlobalDataService {
       position ++;
       if (group.name == name) {
         id = position;
-        console.log("Set element id:", position)
       }
     });
     return id;
