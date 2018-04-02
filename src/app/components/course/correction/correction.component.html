@@ -25,7 +25,7 @@
       <div class="switch">
         <label>
           StudentIn
-          <input type="checkbox" [checked]="groupview" (change)="toggleGroupView()">
+          <input type="checkbox" [checked]="groupmode" (change)="toggleGroupView()">
           <span class="lever"></span>
           Gruppe
         </label>
@@ -37,7 +37,7 @@
       <div class="switch">
         <label>
           weiter mit diesen TeilnehmerInnen
-          <input type="checkbox" [checked]="correctByTasks" (change)="toggleDirection()">
+          <input type="checkbox" [checked]="correctByTask" (change)="toggleDirection()">
           <span class="lever"></span>
           weiter in dieser Aufgabe
         </label>
@@ -50,7 +50,7 @@
   <br />
 
   <!-- Gruppenansicht, wenn keine Gruppen existieren -->
-  <div *ngIf="groupview && !groupsExist">
+  <div *ngIf="groupmode && !groupsExist">
     <p class="empty">
       Es wurden noch keine Gruppen erstellt und Teilnehmern zugewiesen.
       <br /> Sie können Gruppen erstellen und zuweisen unter
@@ -58,18 +58,18 @@
     </p>
   </div>
 
-  <div *ngIf="groupsExist || !groupsExist && !groupview">
+  <div *ngIf="groupsExist || !groupsExist && !groupmode">
     <div class="row center-align" style="margin-top: 40px">
-      <p *ngIf="!correctByTasks&&!groupview">
+      <p *ngIf="!correctByTasks&&!groupmode">
         <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
       </p>
-      <p *ngIf="correctByTasks&&!groupview">{{current_student.name}}, {{current_student.vorname}} /
+      <p *ngIf="correctByTasks&&!groupmode">{{current_student.name}}, {{current_student.vorname}} /
         <span class="hnrot">Aufgabe: {{current_task.name}}</span>
       </p>
-      <p *ngIf="!correctByTasks&&groupview">
+      <p *ngIf="!correctByTasks&&groupmode">
         <span class="hnrot">Gruppenname: {{current_group.name}} </span> / Aufgabe: {{current_task.name}}
       </p>
-      <p *ngIf="correctByTasks&&groupview">Gruppenname: {{current_group.name}} /
+      <p *ngIf="correctByTasks&&groupmode">Gruppenname: {{current_group.name}} /
         <span class="hnrot">Aufgabe: {{current_task.name}}</span>
       </p>
     </div>
@@ -83,11 +83,11 @@
       <!-- Punkte oben Mitte -->
       <div class="col s4">
         <div class="row">
-          <div class="col s8" *ngIf="!groupview">
+          <div class="col s8" *ngIf="!groupmode">
             <input class="right" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt"
               min="0" lass="validate" (change)="saveCorrection()">
           </div>
-          <div class="col s8" *ngIf="groupview">
+          <div class="col s8" *ngIf="groupmode">
             <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt"
               min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()" >
           </div>
@@ -106,14 +106,19 @@
     </div>
 
     <div>
-      <!-- Debug-Hilfe:
+      Debug-Hilfe:
         <p>
-        {{current_correction.erreichte_punkte}} {{current_group.punkte}}
-      </p> -->
+          Taskindex:{{task_index}}
+          Studentindex: {{student_index}}
+          Groupindex {{group_index}}
+          Gruppe an Stelle 0: {{groups[0].name}}
+          Gruppe an Stelle 1: {{groups[1].name}}
+          Gruppe an Stelle 2: {{groups[2].name}}
+      </p> 
     </div>
 
     <!-- Aufzählung Gruppenmitglieder mit Punkten -->
-    <div class="row center-align" *ngIf="groupview">
+    <div class="row center-align" *ngIf="groupmode">
       <p>Gruppenmitglieder</p>
       <div class="groupmember" *ngFor="let groupmember of groupmembers">
         <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>

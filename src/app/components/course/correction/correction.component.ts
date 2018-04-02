@@ -36,16 +36,16 @@ export class CorrectionComponent implements OnInit {
   private groups: Array<any>;
   private groupmembers: Array<any>;
 
-  private task_counter: number = 0;
-  private student_counter: number = 0;
-  private group_counter: number = 0;
+  private task_index: number = 0;
+  private student_index: number = 0;
+  private group_index: number = 0;
 
   private groupsExist: boolean = false;
   private no_tasks: boolean = true;
   private no_students: boolean = true;
 
-  private correctByTasks: boolean = true;
-  private groupview: boolean = true;
+  private correctByTask: boolean = true;
+  private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
@@ -73,7 +73,7 @@ export class CorrectionComponent implements OnInit {
 
       try {
         this.sub = this.route.params.subscribe(params => {
-          this.student_counter = Number(params.user_to_edit_id);
+          this.student_index = Number(params.user_to_edit_id);
         });
       } catch (err) {
         console.log("there are no students");
@@ -84,7 +84,7 @@ export class CorrectionComponent implements OnInit {
       this.setInitView();
 
       try {
-        this.current_group = this.groups[this.group_counter];
+        this.current_group = this.groups[this.group_index];
         this.setCurrentGroupMembers();
         this.groupsExist = true;
 
@@ -96,9 +96,9 @@ export class CorrectionComponent implements OnInit {
   }
 
   setInitView(): void {
-    this.groupview = this.groupsExist;
-    this.current_task = this.tasks[this.task_counter];
-    this.student_counter = 0;
+    this.groupmode = this.groupsExist;
+    this.current_task = this.tasks[this.task_index];
+    this.student_index = 0;
     this.current_student = this.students[0];
 
     this.setCurrentCorrection();
@@ -106,7 +106,7 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentCorrection(): void {
-    if (!this.groupview) {
+    if (!this.groupmode) {
       this.grading.forEach(bewertung => {
         if (bewertung.student_id == this.current_student.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
@@ -121,98 +121,92 @@ export class CorrectionComponent implements OnInit {
 
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
-    if (this.groupsExist && !this.groupview) {
-      this.groups.forEach(group => {
-        group.studenten.forEach(gruppenstudent_id => {
-          if (this.current_student.id == gruppenstudent_id) {
-            this.current_group = group;
-          }
-        });
-      });
+    if (this.groupsExist && !this.groupmode) {
+      this.current_group = this.groups[this.current_student.id]
     }
     //Gruppen existieren und von Gruppenansicht zu Studentenasicht
-    else if (this.groupsExist && this.groupview) {
+    else if (this.groupsExist && this.groupmode) {
       this.students.forEach(student => {
         if (student.id == this.groupmembers[0]) {
           this.current_student = student;
         }
       });
     }
-    this.groupview = !this.groupview;
+    this.groupmode = !this.groupmode;
   }
 
   toggleDirection(): void {
-    this.correctByTasks = !this.correctByTasks;
+    this.correctByTask = !this.correctByTask;
   }
 
   chevronClick(direction): void {
     let param = 0;
     if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
-    this.goSomewhere(param);
+    this.setNextView(param);
     this.checkLimits();
     this.updateView();
   }
 
-  goSomewhere(param): void {
-    if (this.groupview && this.correctByTasks) {
-      this.group_counter = this.group_counter + param;
+  setNextView(param): void {
+    if (this.groupmode && this.correctByTask) {
+      this.group_index = this.group_index + param;
       this.setCurrentGroupMembers();
     }
-    else if (!this.groupview && this.correctByTasks) {
-      this.student_counter = this.student_counter + param;
+    else if (!this.groupmode && this.correctByTask) {
+      this.student_index = this.student_index + param;
     }
     else {
-      this.task_counter = this.task_counter + param;
+      this.task_index = this.task_index + param;
     }
   }
 
   updateView(): void {
-    this.current_task = this.tasks[this.task_counter];
-    this.current_student = this.students[this.student_counter];
-    this.current_group = this.groups[this.group_counter];
+    this.current_task = this.tasks[this.task_index];
+    this.current_student = this.students[this.student_index];
+    this.current_group = this.groups[this.group_index];
     this.setCurrentCorrection();
   }
 
   setCurrentGroupMembers(): void {
-    let curr_group_name = this.groups[this.group_counter].name;
+    let curr_group_name = this.groups[this.group_index].name;
     this.groupmembers = this.dataService.getStudentsByGroup(curr_group_name);
   }
 
   checkLimits(): void {
-    if (!this.correctByTasks) {
-      if (this.task_counter == 0) {
+    if (!this.correctByTask) {
+      if (this.task_index == 0) {
         this.show_previous = false;
       } else {
         this.show_previous = true;
       }
-      if (this.task_counter + 1 == this.tasks.length) {
+      if (this.task_index + 1 == this.tasks.length) {
         this.show_next = false;
       } else {
         this.show_next = true;
       }
     }
 
-    else if (this.correctByTasks && this.groupview) {
-      if (this.group_counter == 0) {
+    else if (this.correctByTask && this.groupmode) {
+      if (this.group_index == 0) {
         this.show_previous = false;
       } else {
         this.show_previous = true;
       }
-      if (this.group_counter + 1 == this.groups.length) {
+      if (this.group_index + 1 == this.groups.length) {
         this.show_next = false;
       } else {
         this.show_next = true;
       }
     }
 
-    else if (this.correctByTasks && !this.groupview) {
-      if (this.student_counter == 0) {
+    else if (this.correctByTask && !this.groupmode) {
+      if (this.student_index == 0) {
         this.show_previous = false;
       } else {
         this.show_previous = true;
       }
-      if (this.student_counter + 1 == this.students.length) {
+      if (this.student_index + 1 == this.students.length) {
         this.show_next = false;
       } else {
         this.show_next = true;
@@ -221,7 +215,7 @@ export class CorrectionComponent implements OnInit {
   }
 
   saveCorrection(): void {
-    if (this.groupview) {
+    if (this.groupmode) {
       this.grading.forEach(bewertung => {
         this.groupmembers.forEach(groupmember => {
           if (bewertung.student_id == groupmember.id) {
@@ -233,7 +227,7 @@ export class CorrectionComponent implements OnInit {
           }
         });
       });
-    } else if (!this.groupview) {
+    } else if (!this.groupmode) {
       this.grading.forEach(bewertung => {
         if (bewertung.student_id == this.current_student.id) {
           bewertung.einzelwertungen.forEach(einzelwertung => {
