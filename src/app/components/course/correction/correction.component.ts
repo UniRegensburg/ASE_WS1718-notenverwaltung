@@ -132,7 +132,7 @@ export class CorrectionComponent implements OnInit {
       }
       catch (err) {
         console.log("lok3")
-        //Toast: dieser Studierende ist keiner Gruppe zugeteilt
+        this.toastService.setError("Dieser Student ist noch keiner Gruppe zugeteilt.");
         this.groupmode = !this.groupmode;
       }
     }
