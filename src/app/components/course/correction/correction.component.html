@@ -146,7 +146,7 @@
         </div>
       </div>
 
-      <div class="col s12" *ngIf="current_task.comment_public">
+      <div class="col s12" *ngIf="current_task.comment_public&&!groupmode">
         <div class="card-panel white" (click)="open_3 = !open_3">
           <span>Öffentlicher Kommentar</span>
           <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
@@ -160,7 +160,7 @@
         </div>
       </div>
 
-      <div class="col s12" *ngIf="current_task.comment_privat">
+      <div class="col s12" *ngIf="current_task.comment_privat&&!groupmode">
         <div class="card-panel white" (click)="open_4 = !open_4">
           <span>Privater Kommentar</span>
           <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
