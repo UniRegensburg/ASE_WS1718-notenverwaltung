@@ -78,7 +78,6 @@ export class CorrectionComponent implements OnInit {
       } catch (err) {
         this.no_students = true;
         console.log("there are no students");
-        console.log(err.message);
       }
 
       try {
@@ -115,11 +114,7 @@ export class CorrectionComponent implements OnInit {
 
   }
 
-
   toggleGroupView(): void {
-    console.log("lok1")
-    console.log("no groups", this.no_groups)
-    console.log("gm:", this.groupmode)
     if (!this.no_groups && this.groupmode) {
       this.current_student = this.students[this.current_group.studenten[0]];
     }
@@ -139,9 +134,6 @@ export class CorrectionComponent implements OnInit {
     this.setCurrentCorrection();
     this.groupmode = !this.groupmode;
     this.checkLimits();
-    console.log("lok4")
-    console.log("no groups", this.no_groups)
-    console.log("gm:", this.groupmode)
   }
 
   toggleDirection(): void {
