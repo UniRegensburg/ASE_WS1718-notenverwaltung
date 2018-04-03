@@ -117,6 +117,9 @@ export class CorrectionComponent implements OnInit {
 
 
   toggleGroupView(): void {
+    console.log("lok1")
+    console.log("no groups", this.no_groups)
+    console.log("gm:", this.groupmode)
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
     if (!this.no_groups && !this.groupmode) {
       try {
@@ -171,9 +174,6 @@ export class CorrectionComponent implements OnInit {
   }
 
   checkLimits(): void {
-    console.log("lok1")
-    console.log("cbt", this.correctByTask)
-    console.log("gm:", this.groupmode)
     if (!this.correctByTask) {
       if (this.task_index == 0) {
         this.show_previous = false;
@@ -201,7 +201,6 @@ export class CorrectionComponent implements OnInit {
     }
 
     else if (this.correctByTask && !this.groupmode) {
-      console.log("lok2")
       if (this.student_index == 0) {
         this.show_previous = false;
       } else {
