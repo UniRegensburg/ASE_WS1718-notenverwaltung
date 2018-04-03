@@ -97,6 +97,8 @@ export class CorrectionComponent implements OnInit {
       this.groupmode = !this.no_groups;
       this.setCurrentCorrection();
       this.checkLimits();
+      console.log(this.grading)
+      console.log(this.groupmembers)
     }
   }
 
