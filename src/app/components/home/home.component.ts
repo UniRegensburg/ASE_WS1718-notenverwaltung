@@ -38,19 +38,19 @@ export class HomeComponent implements OnInit {
           placement: "bottom"
         },
         {
-          title: "Auswählen und Erstellen von Dateien",
+          title: "Auswählen und Erstellen von Dateien...",
           content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
           target: this.elementTwo.nativeElement,
           placement: "right"
         },
         {
-          title: "Zuletzt verwendete Dateien",
+          title: "Zuletzt verwendete Dateien...",
           content: "Die Ansicht der zuletzt geöffneten Dateien ermöglicht Ihnen Listen- oder Symboldarstellung.",
           target: this.elementThree.nativeElement,
           placement: "bottom"
         },
         {
-          title: "Step 3",
+          title: "Eine Datei auswählen...",
           content: "Klicken Sie nun auf Datei auswählen und öffnen Sie die Datei Example-Project.json.",
           target: this.elementFour.nativeElement,
           placement: "bottom",
@@ -63,10 +63,10 @@ export class HomeComponent implements OnInit {
           //}
         },
         {
-          title: "NUMMER 4",
-          content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
+          title: "Glückwunsch!",
+          content: "Sie haben den ersten Teil des Tutorials abgeschlossen. Abhängig davon welchen Bereich der Software Sie gerade betrachten, können Sie sich bei Bedarf die zugehörigen Funktionen per Klick auf den Tutorial-Button erläutern lassen.",
           target: this.elementFive.nativeElement,
-          placement: "right"
+          placement: "bottom"
         },
         
       ]
