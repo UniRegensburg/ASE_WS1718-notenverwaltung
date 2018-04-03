@@ -36,7 +36,7 @@
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
         <div class="col s12 m6" *ngFor="let file of last_files">
-          <div class="card home-card z-depth-1" [routerLink]="['course/overview']" (click)="onChange([{path:file.path}])" style="height: 200px;">
+          <div class="card home-card z-depth-1" (click)="onChange([{path:file.path}])" style="height: 200px;">
             <div class="card-content black-text ">
               <span class="card-title">{{file.file_name}}</span>
               <p>Titel: {{file.title}}</p>
@@ -63,7 +63,7 @@
           </div>
           <hr class="hr_table">
           <div *ngFor="let file of last_files">
-            <div class="row row_hover" [routerLink]="['course/overview']" (click)="onChange([{path:file.path}])">
+            <div class="row row_hover" (click)="onChange([{path:file.path}])">
               <div class="col s4">
                 {{file.title}}
               </div>

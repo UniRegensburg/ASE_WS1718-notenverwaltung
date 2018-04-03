@@ -34,6 +34,7 @@ import {
 } from 'path';
 
 import { LastOpened } from './lastOpened.service';
+import { ToastService } from '../providers/toast.service';
 
 
 @Injectable()
@@ -55,6 +56,7 @@ export class GlobalDataService {
   constructor(
     private http: Http,
     public lastOpened: LastOpened,
+    public toastService: ToastService,
     public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
@@ -65,13 +67,14 @@ export class GlobalDataService {
    */
 
   public getLocalFile(file_path): Observable<Schema> {
+    this.current_project = null;
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
         this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
-        var string = bytes.toString(this.CryptoJS.enc.Utf8);
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);        
         this.current_project = JSON.parse(string);
         this._error = 0;
         for (let property in this.requiredProperties) {
@@ -87,7 +90,6 @@ export class GlobalDataService {
         this.filePath = file_path;
         this.checkLastOpendFiles();
       })
-      //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
@@ -380,7 +382,7 @@ export class GlobalDataService {
     });
   }
 
-  public saveNewFile(path, json): any {
+  public saveNewFile(path, json): any {    
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
     writeFile(path, encryptedJSON, (err) => {
       if (err) {
@@ -396,16 +398,15 @@ export class GlobalDataService {
   }
 
   public checkLastOpendFiles(): void{
+    console.log(JSON.stringify(this.lastOpened));
+    
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
-      lastOpenedFiles => {   
-        console.log(lastOpenedFiles);
-              
+      lastOpenedFiles => { 
         this.loadedFiles = lastOpenedFiles[0];
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
         }
         else{
-
         }
         this.saveLoadedFile();       
       }

@@ -50,9 +50,7 @@ export class LastOpened {
     
     return this.http.get(path + this.lastOpendFilePath)
       // ...and calling .json() on the response to return data
-      .map((res: Response) => {
-        console.log(res);
-        
+      .map((res: Response) => {        
         this.loadedFiles = JSON.parse(res.text());               
         return JSON.parse(res.text());
       })
@@ -62,40 +60,28 @@ export class LastOpened {
 
   public updateLastOpendFiles(file_path: String): Observable<any>{
       let found = false;
-      this.loadedFiles.forEach(file => {
-        if(file.path == file_path){
-            found = true;
-            file.last_opened = new Date();
-        }                  
-      });
+      let test = new Observable();
+
+
+        this.getLastOpendFiles().subscribe(data=>{
+          this.loadedFiles.forEach(file => {
+            if(file.path == file_path){
+                found = true;
+                file.last_opened = new Date();
+            }        
+             
+          });
+        });
 
       return of([this.loadedFiles, found]);
   }
 
-  /*
-  private createNewLastOpenedFile(file_path: String){
-      this.dataService.getCurrentProjectName().subscribe(
-          title => {
-            let newFile = {
-                "last_opened": new Date(),
-                "title": title,
-                "path": file_path
-            }
-            this.loadedFiles.push(newFile);
-            this.saveLoadedFile();
-          }
-    );
-  }
-
-  private saveLoadedFile(): void{
-    writeFile(this.lastOpendFilePath, this.loadedFiles, (err) => {
-      if (err) {
-        alert("An error ocurred creating the file " + err.message);
-      }
-      else {
-        // alert("The file has been succesfully saved");
-        // console.log("The file has been saved")
+  public deleteFileFromList(file_path: String): Observable<any>{
+    this.loadedFiles.forEach((file,i) => {
+      if(file.path == file_path){
+        this.loadedFiles.splice(i, 1);
       }
     });
-  }*/
+    return of(this.loadedFiles);
+  }
 }

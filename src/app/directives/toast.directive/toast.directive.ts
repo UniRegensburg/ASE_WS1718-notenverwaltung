@@ -20,8 +20,9 @@ export class ToastComponent implements OnInit, OnDestroy {
     if (this.toastService.getStatusText()) {
       this.message = {text: this.toastService.getStatusText()};
     }
-    this.subscription = this.toastService.getMessage().subscribe(
+    this.subscription = this.toastService.getMessage().subscribe(    
       message => { 
+        console.log(message);
         this.message = message; 
         setTimeout(()=>{  
           if(this.message != null){

@@ -47,7 +47,9 @@ export class HomeComponent implements OnInit {
 
   onChange(file) {   
     this.dataService.getLocalFile(file['0'].path).subscribe(
-      data => {
+      data => {   
+        console.log("SUCCESS", data);
+             
         if(this.dataService.checkJsonValidity() == 1){
           this.toastService.setError(this.error_code);
         }
@@ -55,8 +57,13 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['course/overview']);
         }
       },
-      err => {
+      err => {     
+        console.log("HEEEEERE", err);
+           
         this.toastService.setError(this.error_code);
+        this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
+          this.last_files = files;
+        });  
       }
     );
   }
@@ -72,9 +79,13 @@ export class HomeComponent implements OnInit {
       }
       this.router.navigate(['course/overview']);
 
-      this.dataService.getLocalFile(fileNames[0]).subscribe(data => {        
-        this.router.navigate(['course/overview']);
-      });
+      this.dataService.getLocalFile(fileNames[0]).subscribe(
+        data => {        
+          this.router.navigate(['course/overview']);
+        },
+        eror => {
+          console.log("File not recognized. Please select a valid file.");
+        });
     });
   }
 }
