@@ -131,9 +131,9 @@ export class CorrectionComponent implements OnInit {
     else if (!this.no_groups && this.groupmode) {
       this.current_student = this.students[this.current_group.studenten[0]];
     }
-    this.checkLimits();
     this.setCurrentCorrection();
     this.groupmode = !this.groupmode;
+    this.checkLimits();
   }
 
   toggleDirection(): void {
@@ -171,6 +171,9 @@ export class CorrectionComponent implements OnInit {
   }
 
   checkLimits(): void {
+    console.log("lok1")
+    console.log("cbt", this.correctByTask)
+    console.log("gm:", this.groupmode)
     if (!this.correctByTask) {
       if (this.task_index == 0) {
         this.show_previous = false;
@@ -198,6 +201,7 @@ export class CorrectionComponent implements OnInit {
     }
 
     else if (this.correctByTask && !this.groupmode) {
+      console.log("lok2")
       if (this.student_index == 0) {
         this.show_previous = false;
       } else {
