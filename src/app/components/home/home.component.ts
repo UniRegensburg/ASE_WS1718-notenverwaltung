@@ -1,14 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 
 import { GlobalDataService, LastOpened } from '../../providers/index';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any;
 
-var shepherd = require('shepherd.js');
+
+
 
 
 @Component({
@@ -23,6 +25,32 @@ export class HomeComponent implements OnInit {
   private view_mode: boolean = true;
   private tour;
 
+  @ViewChild('elementOneId') elementOne: ElementRef;
+  @ViewChild('elementTwoId') elementTwo: ElementRef;
+
+  doTour() {      
+    var tour = {
+      id: "hello-hopscotch",
+      steps: [
+        {
+          title: "Step 1",
+          content: "blah blah blah",
+          target: this.elementOne.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Step 2",
+          content: "I am the step for element 2...",
+          target: this.elementTwo.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
+
   constructor(
     public dataService: GlobalDataService,
     public router: Router,
@@ -32,25 +60,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.last_files = this.lastOpened.getLastOpendFiles();
-    
-    this.tour = new shepherd.Tour({
-      defaults: {
-        classes: 'shepherd-theme-arrows',
-        scrollTo: true
-      }
-    });
-
-    this.tour.addStep('example-step', {
-      text: 'This step is attached to the bottom of the <code>.example-css-selector</code> element.',
-      attachTo: '.example-css-selector bottom',
-      classes: 'example-step-extra-class',
-      buttons: [
-        {
-          text: 'Next',
-          action: this.tour.next
-        }
-      ]
-    });
   }
 
   onChange(file) {
@@ -87,6 +96,7 @@ export class HomeComponent implements OnInit {
   }
 
   startTutorial(){
-    this.tour.start();
+    
+
   }
 }

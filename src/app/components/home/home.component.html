@@ -1,8 +1,8 @@
 <div class="container">
-  <h1>WILLKOMMEN!</h1>
+  <h1 #elementOneId>WILLKOMMEN!</h1>
   <hr class="hr_welcome">
   <br>
-  <h5>NOTENVERWALTUNG</h5>
+  <h5 #elementTwoId>NOTENVERWALTUNG</h5>
   <div class="row">
     <div class="col l8 offset-l4 ">
       <div *ngIf="view_mode">
@@ -31,6 +31,7 @@
       <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
       <!--h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6-->
       <input type="file" accept=".json" #file (change)="onChange(file.files)"/>
+      
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
@@ -42,10 +43,6 @@
               <p>Titel: {{file.title}}</p>
             </div>
         </div>
-    </div>
-    <div id="tutorial_button">
-            <a class="btn z-depth-1" (click)="startTutorial">
-
     </div>
     <div class="row">
         <div class="col l8" *ngIf="!view_mode">
@@ -83,5 +80,14 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col l12" style="margin-top:50px; ">
+            <p>Wenn Sie Erklärungen zur Benutzung der Notenverwaltung wünschen, können Sie hier anhand eines interaktiven Tutorials einen Einblick indie Funktionen der Software erhalten.</p>
+    <div id="tutorial_button" style="padding:15px">
+            <a class="waves-effect waves-light btn pink darken-2 left" type='submit' style="margin-bottom: 15px; color:white; width:200px" (click)="doTour()">
+            <i class="material-icons home-icon left" style="margin-left:10px">help</i>Tutorial</a>
+    </div>
+</div>
     </div>
 </div>
