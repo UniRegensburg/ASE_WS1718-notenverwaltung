@@ -4,6 +4,7 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import electron from 'electron';
 import { log } from 'util';
 import { ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../providers/toast.service';
 
 declare var require: any;
 declare var $: any;
@@ -49,7 +50,7 @@ export class CorrectionComponent implements OnInit {
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
-  constructor(public dataService: GlobalDataService, private route: ActivatedRoute) { }
+  constructor(public dataService: GlobalDataService, private route: ActivatedRoute, public toastService: ToastService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
