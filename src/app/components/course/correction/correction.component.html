@@ -110,8 +110,8 @@
       <p>Gruppenmitglieder</p>
       <div class="groupmember" *ngFor="let groupmember of groupmembers">
         <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
-        <div class="memberpoints col s2"  *ngFor="let grade of grading" >
-          <div *ngIf="grade.student_id == groupmember.id">
+        <div *ngFor="let grade of grading" >
+          <div  class="memberpoints col s2" *ngIf="grade.student_id == groupmember.id">
           <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte"
             [attr.max]="current_task.max_punkt" min="0" lass="validate">
           <span class="maxpoints"> /{{current_task.max_punkt}} </span>
