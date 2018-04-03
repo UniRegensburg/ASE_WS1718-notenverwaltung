@@ -9,10 +9,6 @@ import * as hopscotch from 'hopscotch';
 declare var require: any;
 declare var $: any;
 
-
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,23 +23,52 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('elementOneId') elementOne: ElementRef;
   @ViewChild('elementTwoId') elementTwo: ElementRef;
+  @ViewChild('elementThreeId') elementThree: ElementRef;
+  @ViewChild('elementFourId') elementFour: ElementRef;
+  @ViewChild('elementFiveId') elementFive: ElementRef;
 
   doTour() {      
     var tour = {
       id: "hello-hopscotch",
       steps: [
         {
-          title: "Step 1",
-          content: "blah blah blah",
+          title: "Willkommen!",
+          content: "In diesem Tutorial werden Ihnen die einzelnen Funktionen dieser Notenverwaltungs-Software präsentiert.",
           target: this.elementOne.nativeElement,
-          placement: "left"
-        },
-        {
-          title: "Step 2",
-          content: "I am the step for element 2...",
-          target: this.elementTwo.nativeElement,
           placement: "bottom"
         },
+        {
+          title: "Auswählen und Erstellen von Dateien",
+          content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
+          target: this.elementTwo.nativeElement,
+          placement: "right"
+        },
+        {
+          title: "Zuletzt verwendete Dateien",
+          content: "Die Ansicht der zuletzt geöffneten Dateien ermöglicht Ihnen Listen- oder Symboldarstellung.",
+          target: this.elementThree.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Step 3",
+          content: "Klicken Sie nun auf Datei auswählen und öffnen Sie die Datei Example-Project.json.",
+          target: this.elementFour.nativeElement,
+          placement: "bottom",
+          showNextButton:false,
+          nextOnTargetClick:true,
+          //showCTAButton: true,
+          //ctaLabel: "Example öffnen",
+          //onCTA: function() {
+            //document.getElementById('file_selector').click();
+          //}
+        },
+        {
+          title: "NUMMER 4",
+          content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
+          target: this.elementFive.nativeElement,
+          placement: "right"
+        },
+        
       ]
     };
 
@@ -93,10 +118,5 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['course/overview']);
       });
     });
-  }
-
-  startTutorial(){
-    
-
   }
 }
