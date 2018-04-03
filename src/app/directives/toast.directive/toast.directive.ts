@@ -2,7 +2,6 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ToastService} from '../../providers/toast.service';
 import {Subscription} from 'rxjs/Subscription';
 import { log } from 'util';
-import {trigger, transition, style, animate, state} from '@angular/animations'
 
 @Component({
   moduleId: module.id,
