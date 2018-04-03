@@ -43,8 +43,12 @@ export class LastOpened {
       public http: Http) {
   }
 
-  public getLastOpendFiles(): Observable < any > {
-    return this.http.get(this.lastOpendFilePath)
+  public getLastOpendFiles(): Observable <any> {
+    let the_arr = __dirname.split("/");
+    the_arr.pop();
+    let path = the_arr.join('/') + "/src/";
+    
+    return this.http.get(path + this.lastOpendFilePath)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
         console.log(res);

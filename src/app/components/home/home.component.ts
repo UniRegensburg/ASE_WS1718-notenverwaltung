@@ -33,13 +33,19 @@ export class HomeComponent implements OnInit {
         this.last_files.forEach(file => {
           file.file_name = file.path.replace(/^.*[\\\/]/, '');
           let dateObj = new Date(file.last_opened);
-          file.last_opened = String(dateObj.getDate()) + "." + String(dateObj.getMonth() + 1) + "." + dateObj.getFullYear() + " um " + dateObj.getHours() + ":" + dateObj.getMinutes();
+          file.last_opened = String(dateObj.getDate()) + "." 
+          + String(dateObj.getMonth() + 1) + "." 
+          + dateObj.getFullYear() + " um " 
+          + dateObj.getHours() + ":" 
+          + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
         });      
       }
     );
   }
 
   onChange(file) {
+    console.log(file);
+    
     this.dataService.getLocalFile(file['0'].path).subscribe(
       data => {
         if(this.dataService.checkJsonValidity() == 1){
@@ -67,7 +73,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['course/overview']);
 
       this.dataService.getLocalFile(fileNames[0]).subscribe(data => {        
-        //this.router.navigate(['course/overview']);
+        this.router.navigate(['course/overview']);
       });
     });
   }

@@ -404,6 +404,9 @@ export class GlobalDataService {
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
         }
+        else{
+
+        }
         this.saveLoadedFile();       
       }
     );
@@ -470,9 +473,11 @@ export class GlobalDataService {
 }
 
   public saveLoadedFile(): void{
-    let the_arr = __dirname.split("\\");
+    let the_arr = __dirname.split("/");
     the_arr.pop();
-    let path = the_arr.join('\\') + "\\src\\";
+    let path = the_arr.join('/') + "/src/";
+    console.log(this.loadedFiles);
+    
 
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
         if (err) {
