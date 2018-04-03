@@ -20,18 +20,12 @@ export class OverviewComponent implements OnInit {
   private kurstitel: String;
   private grading: any;
   private participants: Array<any>;
-  private display_user_list: boolean = false;
-  private user_grading_list: any;
   private no_data_available: boolean = true;
   private completion: number = 0;
   private sum_grade: number = 0;
   private barChart: any;
 
-  constructor(
-    public dataService: GlobalDataService,
-    public chartService: ChartService) {
-
-  }
+  constructor(public dataService: GlobalDataService, public chartService: ChartService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -84,7 +78,6 @@ export class OverviewComponent implements OnInit {
 
   calcSumGrade(): number {
     let sum_grade_val: number = 0;
-
     try {
       this.participants.forEach(student => {
         sum_grade_val = sum_grade_val + parseFloat(student.grade);
@@ -100,37 +93,12 @@ export class OverviewComponent implements OnInit {
     if (this.barChart) {
       this.barChart.destroy();
     }
-
-    if (this.no_data_available) {
-
-    } else {
+    if (!this.no_data_available) {
       let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
       let grade_steps = this.dataService.getGradingSteps();
       let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
       this.chartService.initBarChart(grade_steps, grade_participants, context);
     }
-  }
-
-  initBarChart(notenstufen, teilnehmernoten, context): void {
-    this.barChart = new chartJs(context, {
-      type: 'bar',
-      data: {
-        labels: notenstufen,
-        datasets: [
-          {
-            backgroundColor: ["#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60", "#c2185b", "#ad1457", "#880e4f", "#d81b60"],
-            data: teilnehmernoten
-          }
-        ]
-      },
-      options: {
-        legend: { display: false },
-        title: {
-          display: false,
-          text: 'Notenspiegel'
-        }
-      }
-    });
   }
 
   createUserGradingList(): void {
@@ -157,7 +125,6 @@ export class OverviewComponent implements OnInit {
       console.log("fail in getCorrectionCompletion")
     }
   }
-
 
   getCurrentStudent(id): any {
     try {

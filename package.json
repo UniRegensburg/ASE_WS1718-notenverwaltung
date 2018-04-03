@@ -33,6 +33,7 @@
     "e2e": "protractor ./protractor.conf.js"
   },
   "dependencies": {
+    "@angular/animations": "^5.2.9",
     "@angular/common": "5.0.1",
     "@angular/compiler": "5.0.1",
     "@angular/core": "5.0.1",
