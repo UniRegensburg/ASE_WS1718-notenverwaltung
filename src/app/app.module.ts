@@ -24,9 +24,6 @@ import { SearchStudentPipe } from './pipes/index';
 
 import { ToastComponent } from './directives/toast.directive/toast.directive';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule,
-    BrowserAnimationsModule
+    NgxPaginationModule   
   ],
   providers: [
     ElectronService, 
