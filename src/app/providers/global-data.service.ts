@@ -1,4 +1,4 @@
-import { Injectable, group } from '@angular/core';
+import { Injectable, group, NgZone } from '@angular/core';
 import { log } from 'util';
 
 import {
@@ -54,7 +54,8 @@ export class GlobalDataService {
 
   constructor(
     private http: Http,
-    public lastOpened: LastOpened) {
+    public lastOpened: LastOpened,
+    public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
@@ -84,7 +85,7 @@ export class GlobalDataService {
         this.current_project_name = file_path;
         this.current_project_name = this.current_project.title;
         this.filePath = file_path;
-        //this.checkLastOpendFiles();
+        this.checkLastOpendFiles();
       })
       //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
@@ -469,7 +470,23 @@ export class GlobalDataService {
 }
 
   public saveLoadedFile(): void{
-    writeFile(this.filePath, JSON.stringify(this.loadedFiles), (err) => {
+    let the_arr = __dirname.split("\\");
+    the_arr.pop();
+    let path = the_arr.join('\\') + "\\src\\";
+
+    writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
+        if (err) {
+          alert("An error ocurred creating the file " + err.message);
+        }
+        else {
+          // alert("The file has been succesfully saved");
+          // console.log("The file has been saved")
+        }
+      });
+
+
+
+    /*writeFile(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
       if (err) {
         alert("An error ocurred creating the file " + err.message);
       }
@@ -478,6 +495,15 @@ export class GlobalDataService {
         // console.log("The file has been saved")
       }
     });
+    /*
+   fs.outputJson(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles))
+    .then(() => fs.readJson(__dirname + "/" + this.lastOpendFilePath))
+    .then(data => {
+      console.log(data.name) // => JP
+    })
+    .catch(err => {
+      console.error(err)
+    })*/
   }
 
 }

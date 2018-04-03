@@ -47,6 +47,8 @@ export class LastOpened {
     return this.http.get(this.lastOpendFilePath)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
+        console.log(res);
+        
         this.loadedFiles = JSON.parse(res.text());               
         return JSON.parse(res.text());
       })
