@@ -93,28 +93,27 @@ export class CorrectionComponent implements OnInit {
       }
     });
 
-    if(!this.no_tasks&&!this.no_students){
+    if (!this.no_tasks && !this.no_students) {
       this.groupmode = !this.no_groups;
       this.setCurrentCorrection();
       this.checkLimits();
-      console.log(this.grading)
-      console.log(this.groupmembers)
     }
   }
 
-  setCurrentCorrection(): void {
-    if (!this.groupmode) {
-      this.grading.forEach(bewertung => {
-        if (bewertung.student_id == this.current_student.id) {
-          bewertung.einzelwertungen.forEach(einzelwertung => {
-            if (einzelwertung.aufgaben_id == this.current_task.id) {
-              this.current_correction = einzelwertung;
-            }
-          });
-        }
-      });
-    }
+  setCurrentCorrection(): any {
+    this.grading.forEach(bewertung => {
+      if (bewertung.student_id == this.current_student.id) {
+        bewertung.einzelwertungen.forEach(einzelwertung => {
+          if (einzelwertung.aufgaben_id == this.current_task.id) {
+            this.current_correction = einzelwertung;
+            return true;
+          }
+        });
+      }
+    });
+
   }
+
 
   toggleGroupView(): void {
     //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
@@ -129,7 +128,7 @@ export class CorrectionComponent implements OnInit {
     }
     //Gruppen existieren und von Gruppenansicht zu Studentenasicht
     else if (!this.no_groups && this.groupmode) {
-      this.current_student = this.students[this.current_group.studenten[0]]
+      this.current_student = this.students[this.current_group.studenten[0]];
     }
     this.checkLimits();
     this.setCurrentCorrection();
