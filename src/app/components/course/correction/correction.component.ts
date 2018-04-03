@@ -120,23 +120,28 @@ export class CorrectionComponent implements OnInit {
     console.log("lok1")
     console.log("no groups", this.no_groups)
     console.log("gm:", this.groupmode)
-    //wenn Gruppen existieren und von der Studenten zur Gruppenansicht gewechselt wird
+    if (!this.no_groups && this.groupmode) {
+      this.current_student = this.students[this.current_group.studenten[0]];
+    }
+
     if (!this.no_groups && !this.groupmode) {
       try {
+        console.log("lok2")
         this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
         this.setCurrentGroupMembers();
       }
       catch (err) {
+        console.log("lok3")
         //Toast: dieser Studierende ist keiner Gruppe zugeteilt
+        this.groupmode = !this.groupmode;
       }
-    }
-    //Gruppen existieren und von Gruppenansicht zu Studentenasicht
-    else if (!this.no_groups && this.groupmode) {
-      this.current_student = this.students[this.current_group.studenten[0]];
     }
     this.setCurrentCorrection();
     this.groupmode = !this.groupmode;
     this.checkLimits();
+    console.log("lok4")
+    console.log("no groups", this.no_groups)
+    console.log("gm:", this.groupmode)
   }
 
   toggleDirection(): void {
