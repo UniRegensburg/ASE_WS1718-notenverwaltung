@@ -101,6 +101,10 @@ export class CorrectionComponent implements OnInit {
   }
 
   setCurrentCorrection(): any {
+    //TODO: das hier ist nicht schön. der Switch für den Gruppenmodus müsste disabled werden, wenn einer der beiden Fehler von toggleGroupView auftritt
+    if(this.current_student == null){
+      this.current_student = this.students[0];
+    }
     this.grading.forEach(bewertung => {
       if (bewertung.student_id == this.current_student.id) {
         bewertung.einzelwertungen.forEach(einzelwertung => {
@@ -116,24 +120,30 @@ export class CorrectionComponent implements OnInit {
 
   toggleGroupView(): void {
     if (!this.no_groups && this.groupmode) {
+      try{
       this.current_student = this.students[this.current_group.studenten[0]];
+    }catch(err){
+      this.toastService.setError("Dieser Gruppe sind noch keine Studierenden zugeteilt.");
+      this.groupmode = !this.groupmode;
     }
-
+  }
     if (!this.no_groups && !this.groupmode) {
       try {
-        console.log("lok2")
         this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
         this.setCurrentGroupMembers();
       }
       catch (err) {
-        console.log("lok3")
         this.toastService.setError("Dieser Student ist noch keiner Gruppe zugeteilt.");
         this.groupmode = !this.groupmode;
       }
     }
+    try{
     this.setCurrentCorrection();
     this.groupmode = !this.groupmode;
-    this.checkLimits();
+    this.checkLimits();}
+    catch (err){
+      this.toastService.setError("Gruppenmodus konnte nicht geändert werden.");
+    }
   }
 
   toggleDirection(): void {
