@@ -27,7 +27,17 @@ export class ChartService {
         title: {
           display: false,
           text: 'Notenspiegel'
-        }
+        },
+        scales: {
+          yAxes: [{
+              display: true,
+              labelString: 'Month',
+              ticks: {
+                  beginAtZero: true,   // minimum value will be 0.
+                  stepSize: 5,
+              }
+          }]
+      }
       }
     });
   }
