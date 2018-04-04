@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@a
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
-import {SearchStudentPipe} from '../../../pipes/index';
+import { SearchStudentPipe } from '../../../pipes/index';
 import { log } from 'util';
 import { ToastService } from '../../../providers/toast.service';
 
@@ -61,8 +61,8 @@ export class StudentsComponent implements OnInit {
 
   //*********************************  FUNCTIONS ********************************************** */
   deleteStudent(participant): void {
-    this.participants.forEach((student, i) =>{     
-      if(student.id == participant.id){
+    this.participants.forEach((student, i) => {
+      if (student.id == participant.id) {
         this.participants.splice(i, 1);
       }
     });
@@ -79,7 +79,7 @@ export class StudentsComponent implements OnInit {
         console.log("No file selected")
         return;
       }
-        this.processData(fileNames[0]);        
+      this.processData(fileNames[0]);
     });
   }
 
@@ -107,22 +107,31 @@ export class StudentsComponent implements OnInit {
     // as long as there are numbers (= students)
     var students = []
     while (worksheet[address].v !== "") {
+        let user_id = 0;
+        try{
+          if(this.current_project.teilnehmer.length!=0){
+            user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length -1].id + 1;
+          }
+          else{
+            user_id = students.length
+          }
+        }
+        finally{
       var student = {
-        "id": 0,
+        "id": user_id,
         "mtknr": 0,
-        "name": 0,
-        "vorname": 0,
-        "studiengang": 0,
+        "name": "",
+        "vorname": "",
+        "studiengang": "",
         "fachsemester": 0,
-        "mail": 0,
-        "status": 0
-      }
+        "mail": "",
+        "status": ""
+      }}
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
         address = String.fromCharCode(65 + row + i) + cell;
         switch (i) {
           case 0:
-            student.id = worksheet[address].v
             break;
           case 1:
             student.mtknr = worksheet[address].v
@@ -184,9 +193,11 @@ export class StudentsComponent implements OnInit {
   addGroup(): void {
     this.groups.push({
       "name": "",
-      "studenten": []
+      "punkte": "",
+      "studenten": [],
+      "comment_privat": "",
+      "comment_public": ""
     });
-    // console.log("added group")
   }
 
   enableGroups(): void { }

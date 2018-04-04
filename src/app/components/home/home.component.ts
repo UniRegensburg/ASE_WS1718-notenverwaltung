@@ -2,8 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 
-import { GlobalDataService, LastOpened } from '../../providers/index';
-import { ToastService } from '../../providers/toast.service';
+import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
 
 declare var require: any;
@@ -58,7 +57,6 @@ export class HomeComponent implements OnInit {
       err => {                
         this.toastService.setError(this.error_code);
         this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
-          console.log("AUCH WICHTIG", files);
           this.dataService.checkLastOpendFiles();
           this.last_files = files;
         });  
@@ -72,7 +70,8 @@ export class HomeComponent implements OnInit {
 
     dialog.showOpenDialog((fileNames) => {
       if (fileNames === undefined) {
-        console.log("No file selected")
+          this.toastService.setError("Keine Datei ausgewählt. Bitte wählen Sie eine Datei aus.")
+
         return;
       }
       this.router.navigate(['course/overview']);

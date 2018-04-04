@@ -52,6 +52,7 @@ export class NewCourseComponent implements OnInit {
   };
 
   constructor(public dataService: GlobalDataService, public router: Router, private location: Location) {}
+  constructor(public dataService: GlobalDataService, public router: Router, private location: Location, private toastService: ToastService) { }
 
   ngOnInit() {}
 
@@ -69,12 +70,11 @@ export class NewCourseComponent implements OnInit {
       }, (fileNames) => {
         if (fileNames === undefined) {
           //TODO: Toast
+          this.toastService.setError("Kein Ordner ausgewählt.")
           reject("No filename selected");
         }
         this.course_file.path = fileNames[0];
         this.new_course.title = this.course_file.title;
-        //TODO: Toast
-        console.log("Speicherort festgelegt.");
         resolve();
       });
     });

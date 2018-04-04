@@ -16,7 +16,7 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, CheckOsService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService, CheckOsService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -51,15 +51,16 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     DeviceDetectorModule.forRoot() 
   ],
   providers: [
-    ElectronService, 
-    ChartService, 
-    LastOpened, 
-    GlobalDataService, 
-    gripsExportService, 
+    ElectronService,
+    GlobalDataService,
+    ChartService,
+    LastOpened,
+    gripsExportService,
     SearchStudentPipe,
     flexNowExportService,
-    ToastService,
     CheckOsService
+    ToastService,
+    lastSavedService
   ],
   bootstrap: [AppComponent]
 })
