@@ -207,29 +207,49 @@ export class CorrectionComponent implements OnInit {
 
   setNextJump(param): void {
     if (this.groupmode && this.correctByTask) {
-      this.task_index = this.task_index + param;
-      this.current_task = this.tasks[this.task_index];
-      if(this.group_index == 0 && param == -1){
-        this.group_index = this.groups.length-1;
-      } else if (this.group_index == this.groups.length-1 && param == 1){
-        this.group_index = 0;
-      } else {
-        this.group_index = this.group_index+param;
-      }
-      this.setCurrentGroupMembers();
+      if (this.group_index == 0) {
+        this.group_index = this.groups.length - 1;
+      } else
+        if (this.group_index == this.groups.length - 1) {
+          this.group_index = 0;
+        }
+        this.task_index = this.task_index + param;
     }
-    else if (!this.groupmode && this.correctByTask) {
-      this.student_index = 0;
-      this.task_index = this.task_index + param;
-      this.current_task = this.tasks[this.task_index];
-      this.current_student = this.students[this.student_index];
-    }
+
     else if (this.groupmode && !this.correctByTask) {
-      this.group_index = this.group_index + param;
+      if(this.task_index == this.tasks.length-1){
+        this.task_index = 0;
+      } else if (this.task_index == 0){
+        this.task_index = this.tasks.length-1;
+      }
+     this.group_index = this.group_index + param;
     }
+
+    else if (!this.groupmode && this.correctByTask) {
+      if (this.student_index == 0) {
+        this.student_index = this.students.length - 1;
+      } else
+        if (this.student_index == this.students.length - 1) {
+          this.student_index = 0;
+        } 
+        this.task_index = this.task_index + param;
+    }
+
     else if (!this.groupmode && !this.correctByTask) {
+      if(this.task_index == this.tasks.length-1){
+        this.task_index = 0;
+      } else if (this.task_index == 0){
+        this.task_index = this.tasks.length-1;
+      }
       this.student_index = this.student_index + param;
     }
+
+    if (this.groupmode) {
+      this.setCurrentGroupMembers();
+    } else {
+      this.current_student = this.students[this.student_index];
+    }
+    this.current_task = this.tasks[this.task_index];
   }
 
   setNextContinue(param): void {
@@ -253,24 +273,34 @@ export class CorrectionComponent implements OnInit {
   }
 
   checkPink(): void {
-    if (this.show_previous) {
-      this.last_thing = false;
-    }
-    if (this.show_next) {
-      this.next_thing = false;
-    }
-    if (!this.show_previous) {
-      if (this.groupmode && this.correctByTask && this.task_index != 0) {
-        this.last_thing = true;
-      }
-      if(!this.groupmode && this.correctByTask && this.task_index != 0) {
-        this.last_thing = true;
-      }
+    if (this.show_previous) this.last_thing = false;
+    if (this.show_next) this.next_thing = false;
 
+    if (!this.show_previous) {
+      if (this.correctByTask && this.task_index != 0) {
+        this.last_thing = true;
+      }
+      if (this.groupmode && !this.correctByTask && this.group_index != 0) {
+        this.last_thing = true;
+      }
+      if (!this.groupmode && !this.correctByTask && this.student_index != 0) {
+        this.last_thing = true;
+      }
     }
+
     if (!this.show_next) {
-      if(this.groupmode && this.correctByTask && this.task_index != (this.tasks.length-1)){
+      if (this.correctByTask && this.task_index != (this.tasks.length - 1)) {
         this.next_thing = true;
+      }
+      if (this.groupmode) {
+        if (!this.correctByTask && this.group_index != (this.groups.length - 1)) {
+          this.next_thing = true;
+        }
+      }
+      else if (!this.groupmode) {
+        if (!this.correctByTask && this.student_index != (this.students.length - 1)) {
+          this.next_thing = true;
+        }
       }
     }
   }
