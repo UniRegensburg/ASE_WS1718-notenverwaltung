@@ -1,6 +1,6 @@
 import { Injectable, group } from '@angular/core';
 import { log } from 'util';
-
+import { lastSavedService } from './index'
 import {
   Http,
   Response
@@ -48,7 +48,8 @@ export class GlobalDataService {
   private CryptoJS = require("crypto-js");
 
   constructor(
-    private http: Http) {
+    private http: Http,
+    private saveService: lastSavedService) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
@@ -78,6 +79,7 @@ export class GlobalDataService {
         this.current_project_name = file_path;
         this.current_project_name = this.current_project.title;
         this.filePath = file_path;
+        this.saveJson();
       })
       //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
@@ -379,6 +381,7 @@ export class GlobalDataService {
         alert("An error ocurred creating the file " + err.message);
       }
       else {
+          this.saveService.save()
         // alert("The file has been succesfully saved");
         // console.log("The file has been saved")
       }
@@ -393,6 +396,7 @@ export class GlobalDataService {
         return -1
       }
       else {
+         this.saveService.save()
         // alert("The file has been succesfully saved");
         return 1;
         // console.log("The file has been saved")
