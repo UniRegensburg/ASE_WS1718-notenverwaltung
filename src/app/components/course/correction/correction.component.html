@@ -79,6 +79,7 @@
       <div class="col s4">
         <i class="material-icons left card-panel chevron" (click)="chevronClick('backwards')" *ngIf="show_previous">chevron_left</i>
         <i class="material-icons left card-panel chevron inactive" *ngIf="!show_previous">chevron_left</i>
+        <i class="material-icons left card-panel chevron hnrot" *ngIf="last_thing">chevron_left</i>
       </div>
       <!-- Punkte oben Mitte -->
       <div class="col s4">
@@ -102,6 +103,7 @@
       <div class="col s4">
         <i class="material-icons right card-panel chevron" (click)="chevronClick('forwards')" *ngIf="show_next">chevron_right</i>
         <i class="material-icons right card-panel chevron inactive" *ngIf="!show_next">chevron_right</i>
+        <i class="material-icons right card-panel chevron hnrot" *ngIf="next_thing">chevron_right</i>
       </div>
     </div>
 

@@ -49,6 +49,8 @@ export class CorrectionComponent implements OnInit {
   private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
+  private next_thing: boolean = true;
+  private last_thing: boolean = true;
 
   constructor(public dataService: GlobalDataService, private route: ActivatedRoute, public toastService: ToastService) { }
 
