@@ -143,22 +143,31 @@ export class StudentsComponent implements OnInit {
     // as long as there are numbers (= students)
     var students = []
     while (worksheet[address].v !== "") {
+        let user_id = 0;
+        try{
+          if(this.current_project.teilnehmer.length!=0){
+            user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length -1].id + 1;
+          }
+          else{
+            user_id = students.length
+          }
+        }
+        finally{
       var student = {
-        "id": 0,
+        "id": user_id,
         "mtknr": 0,
-        "name": 0,
-        "vorname": 0,
-        "studiengang": 0,
+        "name": "",
+        "vorname": "",
+        "studiengang": "",
         "fachsemester": 0,
-        "mail": 0,
-        "status": 0
-      }
+        "mail": "",
+        "status": ""
+      }}
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
         address = String.fromCharCode(65 + row + i) + cell;
         switch (i) {
           case 0:
-            student.id = worksheet[address].v
             break;
           case 1:
             student.mtknr = worksheet[address].v
@@ -183,16 +192,36 @@ export class StudentsComponent implements OnInit {
             break;
         }
       }
-      students.push(student)
+      let check = true
+      this.current_project.teilnehmer.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
+      students.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
       cell += 1
       address = String.fromCharCode(65 + row) + cell;
-      this.dataService.setNewStudents(student);
+      if(check == true){
+          students.push(student)
+          this.dataService.setNewStudents(student);
+      }
     }
     this.studentNumber = students.length;
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
-      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studenten.");
+      if(this.studentNumber!=0){
+      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studierenden.");
+      }
+      else{
+        this.toastService.setError("Konnte keine Studierenden importieren.")
+      }
     });
   }
 

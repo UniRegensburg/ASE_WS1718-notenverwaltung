@@ -81,9 +81,7 @@ export class ResultsComponent implements OnInit {
       this.participants = this.current_project.teilnehmer;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.results = this.current_project.bewertung;
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
-      console.log(this.grading_list);
-      
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;      
       this.initGraphView();
     });
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { GlobalDataService } from './index';
+import { GlobalDataService, ToastService} from './index';
 
 declare var require: any;
 
@@ -15,7 +15,7 @@ export class flexNowExportService {
   private current_project_students: any;
   private current_project_grading: any;
 
-  constructor(private dataService: GlobalDataService) { }
+  constructor(private dataService: GlobalDataService, private toastService: ToastService) { }
 
   public export(): void {
       var app = require('electron').remote;
@@ -29,10 +29,10 @@ export class flexNowExportService {
       var chooseFolder = new Promise((resolve, reject) => {
         dialog.showOpenDialog({ properties: ['openDirectory'] }, (fileNames) => {
           if (fileNames === undefined) {
+             this.toastService.setError("Keinen Ordner ausgewählt.")
             reject("No filename selected");
           }
           this.filePath = fileNames[0]+ "\\FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
-          // this.new_course.title = this.course_file.title;
           resolve();
         });
       });
@@ -48,7 +48,7 @@ export class flexNowExportService {
         }
         stream.end();
       });
-      alert("File written to:" + this.filePath);
+      this.toastService.success("Datei erfolgreich gespeichert.")
       });
     });
   }
