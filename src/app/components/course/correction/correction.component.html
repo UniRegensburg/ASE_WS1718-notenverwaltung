@@ -22,7 +22,7 @@
       </div>
       <div *ngIf="correction_mode == 'student'" class="col s12 center-align" style="margin-top: 30px">
         <a class="waves-effect waves-light btn pink darken-2" (click)="setCorretionMode('student')">Nach Student</a>
-        <a class="waves-effect waves-light btn grey" (click)="setCorretionMode('task')">Nach Aufgaben</a>
+        <a #studentTask class="waves-effect waves-light btn grey" (click)="setCorretionMode('task')">Nach Aufgaben</a>
       </div>
       <div *ngIf="correction_mode == 'task'" class="col s12 center-align" style="margin-top: 30px">
         <a class="waves-effect waves-light btn grey" (click)="setCorretionMode('student')">Nach Student</a>
@@ -55,7 +55,7 @@
   </div>
 
 
-    <div class="row">
+    <div #taskDetails class="row">
       <div class="col s12">
         <div class="card-panel white" (click)="open_1 = !open_1">
           <span>Beschreibung</span>

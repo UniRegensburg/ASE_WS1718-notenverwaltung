@@ -20,6 +20,7 @@ import {
   ActivatedRoute
 } from '@angular/router';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any
@@ -62,6 +63,34 @@ export class CorrectionComponent implements OnInit {
   private show_previous: boolean = true;
 
   private sub: any;
+
+
+  @ViewChild('studentTask') studentTask: ElementRef;
+  @ViewChild('taskDetails') taskDetails: ElementRef;
+
+
+  doTour() {      
+    var tour = {
+      id: "correction-tutorial",
+      steps: [
+        {
+          title: "Korrektur",
+          content: "Beim Korrigieren können sie von Aufgabe zu Aufgabe oder von Student zu Student fortschreiten.",
+          target: this.studentTask.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Aufgaben-Details",
+          content: "Aufklappbare Anzeigen ermöglichen Ihnen die für Sie wichtigsten Aufgaben-Details im Blick zu behalten.",
+          target: this.taskDetails.nativeElement,
+          placement: "left"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     public dataService: GlobalDataService,
