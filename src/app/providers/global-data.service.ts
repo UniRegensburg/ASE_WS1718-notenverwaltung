@@ -58,6 +58,7 @@ export class GlobalDataService {
     public lastOpened: LastOpened,
     public toastService: ToastService,
     public osService: CheckOsService,
+    public saveService: lastSavedService,
     public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }

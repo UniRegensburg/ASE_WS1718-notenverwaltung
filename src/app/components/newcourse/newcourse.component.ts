@@ -13,7 +13,7 @@ import {
   File
 } from '../../models/index'
 import {
-  GlobalDataService
+  GlobalDataService, ToastService
 } from '../../providers/index';
 import {
   Observable
@@ -51,8 +51,7 @@ export class NewCourseComponent implements OnInit {
 
   };
 
-  constructor(public dataService: GlobalDataService, public router: Router, private location: Location) {}
-  constructor(public dataService: GlobalDataService, public router: Router, private location: Location, private toastService: ToastService) { }
+  constructor(public dataService: GlobalDataService, public router: Router, private location: Location, private toastService: ToastService) {}
 
   ngOnInit() {}
 

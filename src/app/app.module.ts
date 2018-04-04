@@ -58,7 +58,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     gripsExportService,
     SearchStudentPipe,
     flexNowExportService,
-    CheckOsService
+    CheckOsService,
     ToastService,
     lastSavedService
   ],
