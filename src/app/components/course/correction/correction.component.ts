@@ -207,9 +207,15 @@ export class CorrectionComponent implements OnInit {
 
   setNextJump(param): void {
     if (this.groupmode && this.correctByTask) {
-      this.group_index = 0;
       this.task_index = this.task_index + param;
       this.current_task = this.tasks[this.task_index];
+      if(this.group_index == 0 && param == -1){
+        this.group_index = this.groups.length-1;
+      } else if (this.group_index == this.groups.length-1 && param == 1){
+        this.group_index = 0;
+      } else {
+        this.group_index = this.group_index+param;
+      }
       this.setCurrentGroupMembers();
     }
     else if (!this.groupmode && this.correctByTask) {
