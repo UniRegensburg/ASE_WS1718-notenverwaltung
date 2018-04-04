@@ -9,14 +9,14 @@
     <form class="col s12">
       <div class="col s12 row">
         <div class="input-field col s12">
-          <input id="coursename" placeholder="z.B. WS17 Advanced Software Engineering" [(ngModel)]="course_file.title" required [ngModelOptions]="{standalone: true}" class="validate" autofocus>
+          <input #nameInput id="coursename" placeholder="z.B. WS17 Advanced Software Engineering" [(ngModel)]="course_file.title" required [ngModelOptions]="{standalone: true}" class="validate" autofocus>
           <label for="coursename" class="active">Kursbezeichnung</label>
         </div>
       </div>
       <div class="col s12 row" style="margin-left: -15px">
         <br>
         <div class="input-field col s4">
-          <a class="waves-effect waves-light btn" (click)="createCourse()" type="submit">
+          <a #createButton class="waves-effect waves-light btn" (click)="createCourse()" type="submit">
             <i class="material-icons left">create_new_folder</i>Kurs erstellen</a>
         </div>
         <div class="input-field col s4">
