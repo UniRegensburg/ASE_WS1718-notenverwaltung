@@ -21,6 +21,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { log } from 'util';
 
+import { CheckOsService } from './checkOS.service';
+
 import {
     readdir,
     stat,
@@ -38,16 +40,19 @@ export class LastOpened {
   private loadedFiles;
   private demoData = [];
 
-
   public constructor(
-      public http: Http) {
+      public http: Http,
+      public osService: CheckOsService) {
   }
 
   public getLastOpendFiles(): Observable <any> {
-    let the_arr = __dirname.split("/");
-    the_arr.pop();
-    let path = the_arr.join('/') + "/src/";
+    let slash = this.slashFormat();
+    console.log(slash);
     
+    let the_arr = __dirname.split(slash);
+    the_arr.pop();
+    let path = the_arr.join(slash) + slash + "src" + slash;
+    console.log("PATH", slash);    
     return this.http.get(path + this.lastOpendFilePath)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {        
@@ -58,11 +63,21 @@ export class LastOpened {
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
+  slashFormat(): string {
+    let returnValue;
+    console.log(process.platform);
+    if(process.platform == 'win32'){
+        returnValue = '\\';
+    }
+    else{
+        returnValue = '/';
+    }
+    return returnValue;
+}
+
   public updateLastOpendFiles(file_path: String): Observable<any>{
       let found = false;
       let test = new Observable();
-
-
         this.getLastOpendFiles().subscribe(data=>{
           this.loadedFiles.forEach(file => {
             if(file.path == file_path){

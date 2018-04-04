@@ -5,3 +5,4 @@ export * from './lastOpened.service';
 export * from './grips-export.service';
 export * from './flexnow-export.service';
 export * from './toast.service';
+export * from './checkOS.service';

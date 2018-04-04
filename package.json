@@ -56,6 +56,7 @@
     "fs-extra": "^5.0.0",
     "materialize-css": "^0.100.2",
     "ng2-pagination": "^2.0.2",
+    "ngx-device-detector": "^1.2.2",
     "ngx-pagination": "^3.0.3",
     "pouchdb": "^6.4.1",
     "rxdb": "^7.3.1",

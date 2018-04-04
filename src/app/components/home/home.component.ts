@@ -47,9 +47,7 @@ export class HomeComponent implements OnInit {
 
   onChange(file) {   
     this.dataService.getLocalFile(file['0'].path).subscribe(
-      data => {   
-        console.log("SUCCESS", data);
-             
+      data => {                
         if(this.dataService.checkJsonValidity() == 1){
           this.toastService.setError(this.error_code);
         }
@@ -57,9 +55,7 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['course/overview']);
         }
       },
-      err => {     
-        console.log("HEEEEERE", err);
-           
+      err => {                
         this.toastService.setError(this.error_code);
         this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
           this.last_files = files;

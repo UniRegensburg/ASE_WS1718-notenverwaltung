@@ -26,6 +26,12 @@
     minimist "^1.2.0"
     rxjs "^5.5.2"
 
+"@angular/animations@^5.2.9":
+  version "5.2.9"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-5.2.9.tgz#220db9fb5a52a193db0023d721b23ddd25a75770"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.5.0.tgz#2abc3ff1648d54ad4a14f82f9d517f371370406c"
@@ -4484,6 +4490,10 @@ negotiator@0.6.1:
 ng2-pagination@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/ng2-pagination/-/ng2-pagination-2.0.2.tgz#532dc9154de1f15e19e94edf554b96884b5f83d6"
+
+ngx-device-detector@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-1.2.2.tgz#0aa3a21280d42bd296c7d4a73ce43e9e3eaf2cb9"
 
 ngx-pagination@^3.0.3:
   version "3.0.3"
