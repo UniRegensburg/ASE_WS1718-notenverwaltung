@@ -3,6 +3,7 @@ import { log, error } from 'util';
 import { Router } from '@angular/router';
 
 import { GlobalDataService, LastOpened } from '../../providers/index';
+import { ToastService } from '../../providers/toast.service';
 
 
 declare var require: any;
@@ -15,36 +16,56 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
   private title: string = `Notenverwaltung ASE WS17/18 !`;
-  private last_files: Array<any> = [
-  ];
+  private last_files: Array<any> = [];
+  private error_code: string = "File not recognized. Please select a valid file.";
   private view_mode: boolean = true;
 
   constructor(
     public dataService: GlobalDataService,
     public router: Router,
     public lastOpened: LastOpened,
+    public toastService: ToastService,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.last_files = this.lastOpened.getLastOpendFiles();
-  }
-
-  onChange(file) {
-    this.dataService.getLocalFile(file['0'].path).subscribe(
+    this.lastOpened.getLastOpendFiles().subscribe(
       data => {
-        if(this.dataService.checkJsonValidity() == 1){
-            alert("file not recognized. please select a valid file.")
-        }
-        else{
-            this.router.navigate(['course/overview']);
-        }
-      },
-      err => {
-        alert("File not recognized. Please select a valid file.")
+        this.last_files = data;  
+        this.last_files.forEach(file => {
+          file.file_name = file.path.replace(/^.*[\\\/]/, '');
+          let dateObj = new Date(file.last_opened);
+          file.last_opened = String(dateObj.getDate()) + "." 
+          + String(dateObj.getMonth() + 1) + "." 
+          + dateObj.getFullYear() + " um " 
+          + dateObj.getHours() + ":" 
+          + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
+        });      
       }
     );
   }
+
+  onChange(file) {   
+    this.dataService.getLocalFile(file['0'].path).subscribe(
+      data => {                
+        if(this.dataService.checkJsonValidity() == 1){
+          this.toastService.setError(this.error_code);
+        }
+        else{
+          this.router.navigate(['course/overview']);
+        }
+      },
+      err => {                
+        this.toastService.setError(this.error_code);
+        this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
+          console.log("AUCH WICHTIG", files);
+          this.dataService.checkLastOpendFiles();
+          this.last_files = files;
+        });  
+      }
+    );
+  }
+  
   openDialog() {
     var app = require('electron').remote;
     var dialog = app.dialog;
@@ -56,10 +77,13 @@ export class HomeComponent implements OnInit {
       }
       this.router.navigate(['course/overview']);
 
-      this.dataService.getLocalFile(fileNames[0]).subscribe(data => {
-        ///this.changeDetectorRef.detectChanges();
-        this.router.navigate(['course/overview']);
-      });
+      this.dataService.getLocalFile(fileNames[0]).subscribe(
+        data => {        
+          this.router.navigate(['course/overview']);
+        },
+        eror => {
+          console.log("File not recognized. Please select a valid file.");
+        });
     });
   }
 }

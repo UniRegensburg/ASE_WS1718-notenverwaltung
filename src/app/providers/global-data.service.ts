@@ -1,4 +1,4 @@
-import { Injectable, group } from '@angular/core';
+import { Injectable, group, NgZone } from '@angular/core';
 import { log } from 'util';
 
 import {
@@ -33,6 +33,10 @@ import {
   resolve
 } from 'path';
 
+import { LastOpened } from './lastOpened.service';
+import { ToastService } from '../providers/toast.service';
+import { CheckOsService } from './checkOS.service';
+
 @Injectable()
 export class GlobalDataService {
   public current_project: any; //this is the project data object
@@ -46,9 +50,15 @@ export class GlobalDataService {
   private passKey: any;
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
+  private lastOpendFilePath: string = "assets/data/lastOpend.json";
+  private loadedFiles = [];
 
   constructor(
-    private http: Http) {
+    private http: Http,
+    public lastOpened: LastOpened,
+    public toastService: ToastService,
+    public osService: CheckOsService,
+    public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
@@ -58,13 +68,14 @@ export class GlobalDataService {
    */
 
   public getLocalFile(file_path): Observable<Schema> {
+    this.current_project = null;
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
         this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
-        var string = bytes.toString(this.CryptoJS.enc.Utf8);
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);        
         this.current_project = JSON.parse(string);
         this._error = 0;
         for (let property in this.requiredProperties) {
@@ -78,8 +89,8 @@ export class GlobalDataService {
         this.current_project_name = file_path;
         this.current_project_name = this.current_project.title;
         this.filePath = file_path;
+        this.checkLastOpendFiles();
       })
-      //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
@@ -385,7 +396,7 @@ export class GlobalDataService {
     });
   }
 
-  public saveNewFile(path, json): any {
+  public saveNewFile(path, json): any {    
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
     writeFile(path, encryptedJSON, (err) => {
       if (err) {
@@ -398,7 +409,21 @@ export class GlobalDataService {
         // console.log("The file has been saved")
       }
     });
+  }
 
+  public checkLastOpendFiles(): void{    
+    this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
+      lastOpenedFiles => { 
+        console.log("LAST", lastOpenedFiles);
+        this.loadedFiles = lastOpenedFiles[0];
+        if(!lastOpenedFiles[1]){
+          this.createNewLastOpenedFile(this.filePath);
+        }
+        else{
+        }
+        this.saveLoadedFile();       
+      }
+    );
   }
 
   /**
@@ -463,6 +488,54 @@ export class GlobalDataService {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
       return this.current_project;
     })
+  }
+
+  private createNewLastOpenedFile(file_path: String){
+    let newFile = {
+              "last_opened": new Date(),
+              "title": this.current_project_name,
+              "path": file_path
+    }
+    this.loadedFiles.push(newFile);
+}
+
+  public saveLoadedFile(): void{
+    let slash = this.osService.getSlashFormat();    
+    let the_arr = __dirname.split(slash);
+    the_arr.pop();
+    let path = the_arr.join(slash) + slash + "src" + slash;
+    
+
+    writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
+        if (err) {
+          alert("An error ocurred creating the file " + err.message);
+        }
+        else {
+          // alert("The file has been succesfully saved");
+          // console.log("The file has been saved")
+        }
+      });
+
+
+
+    /*writeFile(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+      }
+      else {
+        // alert("The file has been succesfully saved");
+        // console.log("The file has been saved")
+      }
+    });
+    /*
+   fs.outputJson(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles))
+    .then(() => fs.readJson(__dirname + "/" + this.lastOpendFilePath))
+    .then(data => {
+      console.log(data.name) // => JP
+    })
+    .catch(err => {
+      console.error(err)
+    })*/
   }
 
 }
