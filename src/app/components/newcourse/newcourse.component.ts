@@ -50,9 +50,6 @@ export class NewCourseComponent implements OnInit {
         }
         this.course_file.path = fileNames[0];
         this.new_course.title = this.course_file.title;
-        //TODO: Toast
-        this.toastService.success("Neuer Kurs erstellt.")
-        console.log("Speicherort festgelegt.");
         resolve();
       });
     });
