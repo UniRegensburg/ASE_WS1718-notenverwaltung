@@ -3092,6 +3092,10 @@ homedir-polyfill@^1.0.1:
   dependencies:
     parse-passwd "^1.0.0"
 
+hopscotch@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/hopscotch/-/hopscotch-0.3.1.tgz#0663a5a9b42d4307666a9404c02c6f1eac0a6584"
+
 hosted-git-info@^2.1.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
@@ -6853,6 +6857,16 @@ tar@^2.0.0, tar@^2.2.1:
     block-stream "*"
     fstream "^1.0.2"
     inherits "2"
+
+tether-shepherd@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/tether-shepherd/-/tether-shepherd-1.8.1.tgz#4fd9b2fdd9059f04b6c4249456d5ae145a3e9223"
+  dependencies:
+    tether "^1.0.1"
+
+tether@^1.0.1:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.3.tgz#fd547024c47b6e5c9b87e1880f997991a9a6ad54"
 
 throttleit@0.0.2:
   version "0.0.2"

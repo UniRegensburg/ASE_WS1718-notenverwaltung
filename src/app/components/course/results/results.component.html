@@ -15,7 +15,7 @@
         <i class="material-icons left">file_download</i> FLEXNOW </a>
     </div>
     <div class="col 3">
-      <a class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+      <a #exportButton class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
         <i class="material-icons left">file_download</i> GRIPS </a>
     </div>
     <div class="col 3">
@@ -31,7 +31,7 @@
     <div class="col switch">
       <!--TODO: Diagramme sobald mehrere verfügbar sind-->
       <span>Diagramm</span>
-      <div class="switch">
+      <div #graphButton class="switch">
         <label>
           Aus
           <input type="checkbox" (click)="switch_diagrams()">
@@ -62,7 +62,7 @@
     <h2>Aufgaben vs. Teilnehmer</h2>
     <div class="input-field col s6">
       <i class="material-icons prefix">search</i>
-      <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue">
+      <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue" #searchBar>
       <label for="icon_prefix">Suche Studierende</label>
     </div>
     <table>
@@ -73,7 +73,7 @@
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
-      <tr *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
+      <tr #resultsTable *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i" [attr.style]="checkColorGrading('element_' + i, participant.grade)">
         <td>{{participant.name}}</td>
         <td>{{participant.vorname}}</td>
         <td class="number">{{participant.mtknr}}</td>
@@ -96,4 +96,10 @@
             <i class="material-icons orange-text">view_agenda</i>Student an Grenze zum Durchfallen (Note: {{grading_list[grading_list.length-2].note}})
           </div>
         </div>
+      </div>
+
+      <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+          <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+              ?
+          </a>
       </div>

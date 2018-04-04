@@ -6,6 +6,9 @@ import { log } from 'util';
 import { ActivatedRoute } from '@angular/router';
 import { ToastService } from '../../../providers/toast.service';
 
+import * as hopscotch from 'hopscotch';
+
+
 declare var require: any;
 declare var $: any;
 
@@ -49,6 +52,41 @@ export class CorrectionComponent implements OnInit {
   private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
+
+  @ViewChild('taskStudent') taskStudent: ElementRef;
+  @ViewChild('taskDetails') taskDetails: ElementRef;
+  @ViewChild('correctionView') correctionView: ElementRef; 
+
+  doTour() {      
+    var tour = {
+      id: "correction-tutorial",
+      steps: [
+        {
+          title: "Korrektur",
+          content: "Beim Korrigieren können sie von Aufgabe zu Aufgabe oder von Student zu Student fortschreiten.",
+          target: this.taskStudent.nativeElement,
+          placement: "bottom",
+          arrowOffset: 250
+        },
+        {
+          title: "Ansicht",
+          content: "Die Ansicht ist anpassbar je nachdem, ob Sie gesamte Gruppen oder einzelne Studenten korrigieren möchten.",
+          target: this.correctionView
+          .nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Aufgaben-Details",
+          content: "Aufklappbare Anzeigen ermöglichen Ihnen die für Sie wichtigsten Aufgaben-Details im Blick zu behalten.",
+          target: this.taskDetails.nativeElement,
+          placement: "left"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(public dataService: GlobalDataService, private route: ActivatedRoute, public toastService: ToastService) { }
 

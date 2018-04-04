@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 
 import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any;
@@ -18,6 +19,59 @@ export class HomeComponent implements OnInit {
   private last_files: Array<any> = [];
   private error_code: string = "File not recognized. Please select a valid file.";
   private view_mode: boolean = true;
+  private tour;
+
+  @ViewChild('siteHeader') siteHeader: ElementRef;
+  @ViewChild('lastUsed') lastUsed: ElementRef;
+  @ViewChild('viewIcons') viewIcons: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
+  @ViewChild('tutButton') tutButton: ElementRef;
+
+  doTour() {      
+    var tour = {
+      id: "home-tutorial",
+      steps: [
+        {
+          title: "Willkommen!",
+          content: "In diesem Tutorial werden Ihnen die einzelnen Funktionen dieser Notenverwaltungs-Software präsentiert.",
+          target: this.siteHeader.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Auswählen und Erstellen von Dateien...",
+          content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
+          target: this.lastUsed.nativeElement,
+          placement: "right"
+        },
+        {
+          title: "Zuletzt verwendete Dateien...",
+          content: "Die Ansicht der zuletzt geöffneten Dateien ermöglicht Ihnen Listen- oder Symboldarstellung.",
+          target: this.viewIcons.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Eine Datei auswählen...",
+          content: "Klicken Sie nun auf Datei auswählen und öffnen Sie die Datei Example-Project.json.",
+          target: this.fileInput.nativeElement,
+          placement: "bottom",
+          showNextButton:false,
+          nextOnTargetClick:true,
+        },
+        {
+          title: "Glückwunsch!",
+          content: "Sie haben den ersten Teil des Tutorials abgeschlossen. Abhängig davon welchen Bereich der Software Sie gerade betrachten, können Sie sich bei Bedarf die zugehörigen Funktionen per Klick auf den Tutorial-Button erläutern lassen.",
+          target: this.tutButton.nativeElement,
+          placement: "left",
+          yOffset: -130, 
+          arrowOffset: 150,
+        },
+        
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     public dataService: GlobalDataService,

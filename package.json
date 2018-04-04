@@ -53,7 +53,7 @@
     "enhanced-resolve": "3.3.0",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
-    "fs-extra": "^5.0.0",
+    "hopscotch": "^0.3.1",
     "materialize-css": "^0.100.2",
     "ng2-pagination": "^2.0.2",
     "ngx-device-detector": "^1.2.2",

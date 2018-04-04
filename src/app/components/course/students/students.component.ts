@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone, ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { SearchStudentPipe } from '../../../pipes/index';
 import { log } from 'util';
 import { ToastService } from '../../../providers/toast.service';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any;
@@ -25,6 +26,41 @@ export class StudentsComponent implements OnInit {
   private no_data_available: boolean = true;
   public searchValue: string;
   private studentNumber: number;
+
+  @ViewChild('studentsTable') studentsTable: ElementRef;
+  @ViewChild('groupsButton') groupsButton: ElementRef;
+  @ViewChild('importAdd') importAdd: ElementRef;
+
+
+
+  doTour() {      
+    var tour = {
+      id: "students-tutorial",
+      steps: [
+        {
+          title: "Teilnehmer",
+          content: "In dieser Tabelle können Sie die Teilnehmer ihres Kurses verwalten.",
+          target: this.studentsTable.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Gruppen",
+          content: "Sollten Sie Gruppen bewerten, können Sie diese hier optional erstellen und in der unten aufgeführten Tabelle den Studenten zuweisen.",
+          target: this.groupsButton.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Hinzufügen und Importieren",
+          content: "Es steht ihnen frei, Teilnehmer einzeln hinzuzufügen oder aus einer Teilnehmerliste zu importieren. Beachten Sie hierzu die auch die Example_Teilnehmerliste - Datei.",
+          target: this.importAdd.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     public dataService: GlobalDataService,

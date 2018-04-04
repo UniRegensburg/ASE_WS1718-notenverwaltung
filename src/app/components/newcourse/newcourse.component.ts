@@ -1,34 +1,14 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
-import {
-  log,
-  error
-} from 'util';
-import {
-  Router
-} from '@angular/router';
-import {
-  File
-} from '../../models/index'
-import {
-  GlobalDataService, ToastService
-} from '../../providers/index';
-import {
-  Observable
-} from 'rxjs/Observable';
-import {
-  readdir,
-  stat,
-  writeFile
-} from 'fs';
-import {
-  resolve
-} from 'path';
-import {
-  Location
-} from '@angular/common';
+
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { log, error } from 'util';
+import { Router } from '@angular/router';
+import { File } from '../../models/index'
+import { GlobalDataService, ToastService } from '../../providers/index';
+import { Observable } from 'rxjs/Observable';
+import { readdir, stat, writeFile } from 'fs';
+import { resolve } from 'path';
+import { Location } from '@angular/common';
+import * as hopscotch from 'hopscotch';
 
 @Component({
   selector: 'app-home-newCourse',
@@ -36,7 +16,7 @@ import {
   styleUrls: ['./newcourse.component.scss']
 })
 export class NewCourseComponent implements OnInit {
-  private last_files: Array < any > = [];
+  private last_files: Array<any> = [];
   private course_file = {
     "title": "",
     "path": ""
@@ -51,9 +31,36 @@ export class NewCourseComponent implements OnInit {
 
   };
 
-  constructor(public dataService: GlobalDataService, public router: Router, private location: Location, private toastService: ToastService) {}
+  @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild('createButton') createButton: ElementRef;
 
-  ngOnInit() {}
+  doTour() {
+    var tour = {
+      id: "new-course-tutorial",
+      steps: [
+        {
+          title: "Kursname",
+          content: "Möchten Sie einen neuen Kurs erstellen, so können Sie hier den Namen festlegen.",
+          target: this.nameInput.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Kurs erstellen",
+          content: "Beim Erstellen des Kurses werden Sie gebeten einen Speicherort für die verschlüsselte Kursdatei anzugeben.",
+          target: this.createButton.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+    hopscotch.startTour(tour);
+  }
+
+  constructor(public dataService: GlobalDataService,
+    public router: Router,
+    private location: Location,
+    private toastService: ToastService) { }
+
+  ngOnInit() { }
 
   goBack(): void {
     this.location.back();
