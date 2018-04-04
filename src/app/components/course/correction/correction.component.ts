@@ -49,8 +49,8 @@ export class CorrectionComponent implements OnInit {
   private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
-  private next_thing: boolean = true;
-  private last_thing: boolean = true;
+  private next_thing: boolean = false;
+  private last_thing: boolean = false;
 
   constructor(public dataService: GlobalDataService, private route: ActivatedRoute, public toastService: ToastService) { }
 
@@ -121,7 +121,7 @@ export class CorrectionComponent implements OnInit {
   }
 
   toggleGroupView(): void {
-    let errormsg ="";
+    let errormsg = "";
 
     if (!this.no_groups && this.groupmode) {
       try {
@@ -137,7 +137,7 @@ export class CorrectionComponent implements OnInit {
         this.setCurrentGroupMembers();
       }
       catch (err) {
-        errormsg ="Dieser Student ist noch keiner Gruppe zugeteilt.";
+        errormsg = "Dieser Student ist noch keiner Gruppe zugeteilt.";
         this.groupmode = !this.groupmode;
       }
     }
@@ -147,7 +147,7 @@ export class CorrectionComponent implements OnInit {
       this.checkLimits();
     }
     catch (err) {
-      this.toastService.setError("Gruppenmodus konnte nicht geändert werden: "+ errormsg);
+      this.toastService.setError("Gruppenmodus konnte nicht geändert werden: " + errormsg);
     }
   }
 
@@ -158,12 +158,37 @@ export class CorrectionComponent implements OnInit {
 
   chevronClick(direction): void {
     this.setNextView(direction);
-    this.checkLimits();
+    this.checkLimits(); 
     this.setCurrentCorrection();
   }
 
   pinkChevronClick(direction): void {
-    
+    this.setNextThing(direction);
+    this.checkLimits();
+    this.setCurrentCorrection();
+  }
+
+  setNextThing(direction): void {
+    let param = 0;
+    if (direction == "backwards") param = -1;
+    if (direction == "forwards") param = 1;
+
+    if (this.groupmode && this.correctByTask) {
+      this.group_index = 0;
+      this.task_index = this.task_index + param;
+      this.setCurrentGroupMembers();
+    }
+    else if (!this.groupmode && this.correctByTask) {
+      this.student_index = 0;
+      this.task_index = this.task_index + param;
+      this.current_student = this.students[this.student_index];
+    }
+    else if (this.groupmode && !this.correctByTask) {
+      this.group_index = this.group_index + param;
+    }
+    else if (!this.groupmode && !this.correctByTask) {
+      this.student_index = this.student_index + param;
+    }
   }
 
   setNextView(direction): void {
@@ -189,6 +214,21 @@ export class CorrectionComponent implements OnInit {
     this.groupmembers = this.dataService.getStudentsByGroup(this.current_group.name);
   }
 
+  checkPink(): void {
+      if(this.show_previous){
+        this.last_thing = false;
+      }
+      else if (this.show_next){
+        this.next_thing = false;
+      }
+      else if (!this.show_previous){
+        this.last_thing = true;
+      }
+      else if (!this.show_next){
+        this.next_thing = true
+      }
+  }
+
   checkLimits(): void {
     if (!this.correctByTask) {
       if (this.task_index == 0) {
@@ -201,6 +241,7 @@ export class CorrectionComponent implements OnInit {
       } else {
         this.show_next = true;
       }
+      this.checkPink();
     }
 
     else if (this.correctByTask && this.groupmode) {
@@ -228,6 +269,8 @@ export class CorrectionComponent implements OnInit {
         this.show_next = true;
       }
     }
+
+    this.checkPink();
   }
 
   saveCorrection(): void {
