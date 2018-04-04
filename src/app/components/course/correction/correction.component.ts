@@ -57,9 +57,9 @@ export class CorrectionComponent implements OnInit {
 
   @ViewChild('taskStudent') taskStudent: ElementRef;
   @ViewChild('taskDetails') taskDetails: ElementRef;
-  @ViewChild('correctionView') correctionView: ElementRef; 
+  @ViewChild('correctionView') correctionView: ElementRef;
 
-  doTour() {      
+  doTour() {
     var tour = {
       id: "correction-tutorial",
       steps: [
@@ -74,7 +74,7 @@ export class CorrectionComponent implements OnInit {
           title: "Ansicht",
           content: "Die Ansicht ist anpassbar je nachdem, ob Sie gesamte Gruppen oder einzelne Studenten korrigieren möchten.",
           target: this.correctionView
-          .nativeElement,
+            .nativeElement,
           placement: "bottom"
         },
         {
@@ -194,7 +194,7 @@ export class CorrectionComponent implements OnInit {
     this.checkLimits();
   }
 
-  chevronClick(direction, color): void {
+  chevronClick(color, direction): void {
     let param = 0;
     if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
@@ -209,11 +209,13 @@ export class CorrectionComponent implements OnInit {
     if (this.groupmode && this.correctByTask) {
       this.group_index = 0;
       this.task_index = this.task_index + param;
+      this.current_task = this.tasks[this.task_index];
       this.setCurrentGroupMembers();
     }
     else if (!this.groupmode && this.correctByTask) {
       this.student_index = 0;
       this.task_index = this.task_index + param;
+      this.current_task = this.tasks[this.task_index];
       this.current_student = this.students[this.student_index];
     }
     else if (this.groupmode && !this.correctByTask) {
@@ -248,14 +250,22 @@ export class CorrectionComponent implements OnInit {
     if (this.show_previous) {
       this.last_thing = false;
     }
-    else if (this.show_next) {
+    if (this.show_next) {
       this.next_thing = false;
     }
-    else if (!this.show_previous) {
-      this.last_thing = true;
+    if (!this.show_previous) {
+      if (this.groupmode && this.correctByTask && this.task_index != 0) {
+        this.last_thing = true;
+      }
+      if(!this.groupmode && this.correctByTask && this.task_index != 0) {
+        this.last_thing = true;
+      }
+
     }
-    else if (!this.show_next) {
-      this.next_thing = true
+    if (!this.show_next) {
+      if(this.groupmode && this.correctByTask && this.task_index != (this.tasks.length-1)){
+        this.next_thing = true;
+      }
     }
   }
 
