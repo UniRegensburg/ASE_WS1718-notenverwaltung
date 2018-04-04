@@ -156,16 +156,36 @@ export class StudentsComponent implements OnInit {
             break;
         }
       }
-      students.push(student)
+      let check = true
+      this.current_project.teilnehmer.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
+      students.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
       cell += 1
       address = String.fromCharCode(65 + row) + cell;
-      this.dataService.setNewStudents(student);
+      if(check == true){
+          students.push(student)
+          this.dataService.setNewStudents(student);
+      }
     }
     this.studentNumber = students.length;
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
-      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studenten.");
+      if(this.studentNumber!=0){
+      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studierenden.");
+      }
+      else{
+        this.toastService.setError("Konnte keine Studierenden importieren.")
+      }
     });
   }
 
