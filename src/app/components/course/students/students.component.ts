@@ -116,7 +116,7 @@ export class StudentsComponent implements OnInit {
         "fachsemester": 0,
         "mail": 0,
         "status": 0
-      }}
+      }
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
         address = String.fromCharCode(65 + row + i) + cell;
@@ -149,6 +149,12 @@ export class StudentsComponent implements OnInit {
       }
       let check = true
       this.current_project.teilnehmer.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
+      students.forEach((existing_student)=>{
           if(existing_student.mtknr == student.mtknr){
               check = false
               // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
