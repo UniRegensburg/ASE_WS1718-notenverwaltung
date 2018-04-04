@@ -107,16 +107,21 @@ export class StudentsComponent implements OnInit {
     // as long as there are numbers (= students)
     var students = []
     while (worksheet[address].v !== "") {
+        let user_id = 0;
+        try{
+            user_id = this.participants[this.participants.length -1].id + 1;
+        }
+        finally{
       var student = {
-        "id": 0,
+        "id": user_id,
         "mtknr": 0,
-        "name": 0,
-        "vorname": 0,
-        "studiengang": 0,
+        "name": "",
+        "vorname": "",
+        "studiengang": "",
         "fachsemester": 0,
-        "mail": 0,
-        "status": 0
-      }
+        "mail": "",
+        "status": ""
+      }}
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
         address = String.fromCharCode(65 + row + i) + cell;
@@ -147,10 +152,19 @@ export class StudentsComponent implements OnInit {
             break;
         }
       }
-      students.push(student)
+      let check = true
+      this.current_project.teilnehmer.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
+          }
+      });
       cell += 1
       address = String.fromCharCode(65 + row) + cell;
-      this.dataService.setNewStudents(student);
+      if(check == true){
+          students.push(student)
+          this.dataService.setNewStudents(student);
+      }
     }
     this.studentNumber = students.length;
     this.zone.run(() => {
