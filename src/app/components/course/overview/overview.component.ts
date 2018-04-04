@@ -29,56 +29,32 @@ export class OverviewComponent implements OnInit {
   private sum_grade: number = 0;
   private barChart: any;
 
-  @ViewChild('elementOneId') elementOne: ElementRef;
-  @ViewChild('elementTwoId') elementTwo: ElementRef;
-  @ViewChild('elementThreeId') elementThree: ElementRef;
-  @ViewChild('elementFourId') elementFour: ElementRef;
-  @ViewChild('elementFiveId') elementFive: ElementRef;
+  @ViewChild('progressBar') progressBar: ElementRef;
+  @ViewChild('studentTable') studentTable: ElementRef;
+
 
   doTour() {      
     var tour = {
-      id: "hello-hopscotch",
+      id: "overview-tutorial",
       steps: [
         {
-          title: "Willkommen!",
-          content: "In diesem Tutorial werden Ihnen die einzelnen Funktionen dieser Notenverwaltungs-Software präsentiert.",
-          target: this.elementOne.nativeElement,
+          title: "Übersicht",
+          content: "Dieser Bereich bietet Ihnen einen detaillierten Einblick in den aktuellen Kursstand. Hier sehen Sie Teilnehmeranzahl, Notendurchschnitt und ihren bisherigen Korrekturfortschritt.",
+          target: this.progressBar.nativeElement,
           placement: "bottom"
         },
         {
-          title: "Auswählen und Erstellen von Dateien...",
-          content: "Üblicherweise beginnen Sie ihre Arbeit indem Sie einen neuen Kurs erstellen oder auf eine bereits angelegte Datei zugreifen.",
-          target: this.elementTwo.nativeElement,
-          placement: "right"
+          title: "Noten-Diagramm",
+          content: "Ein Balkendiagramm zeigt Ihnen wieviele Studenten bisher welche Note erreicht haben.",
+          target: this.graphCanvas.nativeElement,
+          placement: "left"
         },
         {
-          title: "Zuletzt verwendete Dateien...",
-          content: "Die Ansicht der zuletzt geöffneten Dateien ermöglicht Ihnen Listen- oder Symboldarstellung.",
-          target: this.elementThree.nativeElement,
+          title: "Teilnehmerübersicht",
+          content: "In dieser Tabelle erhalten Sie Details über alle Kursteilnehmer. Anhand der drei Symbole rechts können Sie die Korrektur bei einem bestimmten Studenten fortsetzen, erhalten vertiefte Details über den Studenten, oder gelangen zur Ergebnisübersicht.",
+          target: this.studentTable.nativeElement,
           placement: "bottom"
         },
-        {
-          title: "Eine Datei auswählen...",
-          content: "Klicken Sie nun auf Datei auswählen und öffnen Sie die Datei Example-Project.json.",
-          target: this.elementFour.nativeElement,
-          placement: "bottom",
-          showNextButton:false,
-          nextOnTargetClick:true,
-          //showCTAButton: true,
-          //ctaLabel: "Example öffnen",
-          //onCTA: function() {
-            //document.getElementById('file_selector').click();
-          //}
-        },
-        {
-          title: "Glückwunsch!",
-          content: "Sie haben den ersten Teil des Tutorials abgeschlossen. Abhängig davon welchen Bereich der Software Sie gerade betrachten, können Sie sich bei Bedarf die zugehörigen Funktionen per Klick auf den Tutorial-Button erläutern lassen.",
-          target: this.elementFive.nativeElement,
-          placement: "left",
-          yOffset: -130, 
-          arrowOffset: 150,
-        },
-        
       ]
     };
 
