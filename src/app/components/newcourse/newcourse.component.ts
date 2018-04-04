@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 import { File } from '../../models/index'
-import { GlobalDataService } from '../../providers/index';
+import { GlobalDataService, ToastService} from '../../providers/index';
 import { Observable } from 'rxjs/Observable';
 import { readdir, stat, writeFile } from 'fs';
 import { resolve } from 'path';
@@ -29,7 +29,7 @@ export class NewCourseComponent implements OnInit {
 
   };
 
-  constructor(public dataService: GlobalDataService, public router: Router, private location: Location) { }
+  constructor(public dataService: GlobalDataService, public router: Router, private location: Location, private toastService: ToastService) { }
 
   ngOnInit() { }
 
@@ -45,11 +45,13 @@ export class NewCourseComponent implements OnInit {
       dialog.showOpenDialog({ properties: ['openDirectory'] }, (fileNames) => {
         if (fileNames === undefined) {
           //TODO: Toast
+          this.toastService.setError("Kein Ordner ausgewählt.")
           reject("No filename selected");
         }
         this.course_file.path = fileNames[0];
         this.new_course.title = this.course_file.title;
         //TODO: Toast
+        this.toastService.success("Neuer Kurs erstellt.")
         console.log("Speicherort festgelegt.");
         resolve();
       });
