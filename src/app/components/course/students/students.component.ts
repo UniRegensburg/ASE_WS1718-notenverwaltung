@@ -109,7 +109,12 @@ export class StudentsComponent implements OnInit {
     while (worksheet[address].v !== "") {
         let user_id = 0;
         try{
+          if(this.current_project.teilnehmer.length!=0){
             user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length -1].id + 1;
+          }
+          else{
+            user_id = students.length
+          }
         }
         finally{
       var student = {
