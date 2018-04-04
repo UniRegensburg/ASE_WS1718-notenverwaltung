@@ -16,7 +16,7 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -44,17 +44,18 @@ import { ToastComponent } from './directives/toast.directive/toast.directive';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule   
+    NgxPaginationModule
   ],
   providers: [
-    ElectronService, 
-    GlobalDataService, 
-    ChartService, 
-    LastOpened, 
-    gripsExportService, 
+    ElectronService,
+    GlobalDataService,
+    ChartService,
+    LastOpened,
+    gripsExportService,
     SearchStudentPipe,
     flexNowExportService,
-    ToastService
+    ToastService,
+    lastSavedService
   ],
   bootstrap: [AppComponent]
 })

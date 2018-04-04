@@ -1,3 +1,4 @@
+export * from './lastSaved.service'
 export * from './electron.service';
 export * from './global-data.service';
 export * from './chart.service';
