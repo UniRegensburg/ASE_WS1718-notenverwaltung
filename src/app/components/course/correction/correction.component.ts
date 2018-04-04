@@ -162,6 +162,10 @@ export class CorrectionComponent implements OnInit {
     this.setCurrentCorrection();
   }
 
+  pinkChevronClick(direction): void {
+    
+  }
+
   setNextView(direction): void {
     let param = 0;
     if (direction == "backwards") param = -1;
