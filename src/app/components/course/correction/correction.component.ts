@@ -163,7 +163,8 @@ export class CorrectionComponent implements OnInit {
 
     if (!this.no_groups && this.groupmode) {
       try {
-        this.current_student = this.students[this.current_group.studenten[0]];
+        this.setCurrentGroupMembers();
+        this.current_student = this.groupmembers[0];
       } catch (err) {
         errormsg = "Dieser Gruppe sind noch keine Studierenden zugeteilt.";
         this.groupmode = !this.groupmode;
