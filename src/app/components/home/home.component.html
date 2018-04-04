@@ -1,6 +1,7 @@
 <div class="container">
   <h1>WILLKOMMEN!</h1>
   <hr class="hr_welcome">
+  <toast></toast>
   <br>
   <h5>NOTENVERWALTUNG</h5>
   <div class="row">
@@ -15,11 +16,11 @@
       </div>
       <div *ngIf="!view_mode">
         <a class="btn z-depth-1" (click)="view_mode = true">
-            <i class="material-icons home-icon">apps</i>
-          </a>
+          <i class="material-icons home-icon">apps</i>
+        </a>
         <a class="btn z-depth-1" (click)="view_mode = false">
-            <i class="material-icons home-icon active">list</i>
-          </a>
+          <i class="material-icons home-icon active">list</i>
+        </a>
       </div>
     </div>
   </div>
@@ -35,58 +36,51 @@
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
         <div class="col s12 m6" *ngFor="let file of last_files">
-          <div class="card home-card z-depth-1" [routerLink]="'course/' + file.id + '/overview'">
+          <div class="card home-card z-depth-1" (click)="onChange([{path:file.path}])" style="height: 200px;">
             <div class="card-content black-text ">
               <span class="card-title">{{file.file_name}}</span>
-              <p>Zuletzt geöffnet: {{file.last_opened}}</p>
               <p>Titel: {{file.title}}</p>
+              <br>
+              <p style="color:gray; font-size: 12px; position: absolute;bottom: 15px">Zuletzt geöffnet: {{file.last_opened}}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col l8" *ngIf="!view_mode">
-        <div class="row">
-          <div class="col s12">
-            <div class="row">
+    <div class="col l8" *ngIf="!view_mode">
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s4">
+              Name
+            </div>
+            <div class="col s4">
+              Pfad
+            </div>
+            <div class="col s4">
+              Zuletzt geöffnet
+            </div>
+          </div>
+          <hr class="hr_table">
+          <div *ngFor="let file of last_files">
+            <div class="row row_hover" (click)="onChange([{path:file.path}])">
               <div class="col s4">
-                Name
+                {{file.title}}
+              </div>
+              <div class="col s4" style="word-wrap: break-word">
+                {{file.path}}
               </div>
               <div class="col s4">
-                Titel
-              </div>
-              <div class="col s4">
-                Zuletzt geöffnet
+                {{file.last_opened}}
               </div>
             </div>
             <hr class="hr_table">
-            <div *ngFor="let file of last_files">
-              <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
-                <div class="col s4">
-                  {{file.file_name}}
-                </div>
-                <div class="col s4">
-                  {{file.title}}
-                </div>
-                <div class="col s4">
-                  {{file.last_opened}}
-                </div>
-              </div>
-              <hr class="hr_table">
-            </div>
-          </div>
-          <div class="col s12 m6" *ngIf="last_files.length == 0">
-            No recent opened files available.
           </div>
         </div>
+
       </div>
     </div>
-  </div>
-
-    <div  class="col s10">
-      <toast></toast>
-      <router-outlet></router-outlet>
+    <div class="col s12 m6" *ngIf="last_files.length == 0">
+      No recent opened files available.
     </div>
-
-</div>
+  </div>
