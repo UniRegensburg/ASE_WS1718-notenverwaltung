@@ -201,7 +201,10 @@ export class CorrectionComponent implements OnInit {
     if (direction == "forwards") param = 1;
     if (color == "black") this.setNextContinue(param);
     if (color == "pink") this.setNextJump(param);
-
+    if (color == "any"){
+      if ((this.show_next && param == 1) || (this.show_previous && param == -1)) this.setNextContinue(param);
+      else if ((this.next_thing && param == 1) ||(this.last_thing && param == -1)) this.setNextJump(param);
+    }
     this.checkLimits();
     this.setCurrentCorrection();
   }
@@ -381,10 +384,10 @@ export class CorrectionComponent implements OnInit {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.chevronClick("forwards", "any");
+      this.chevronClick("any", "forwards");
     }
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.chevronClick("backwards", "any");
+      this.chevronClick("any", "backwards");
     }
   }
 }
