@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GlobalDataService} from './index';
+import { GlobalDataService, ToastService} from './index';
 
 declare var require: any;
 
@@ -14,7 +14,7 @@ export class gripsExportService{
     private current_project_results: any;
     private current_project_students: any;
 
-    constructor(private dataService: GlobalDataService) {}
+    constructor(private dataService: GlobalDataService, private toastService: ToastService) {}
 
     public export():void{
         this.dataService.getCurrentProject().subscribe(current_project =>{
@@ -23,7 +23,6 @@ export class gripsExportService{
             this.current_project_students = this.current_project.teilnehmer;
             this.current_project_results = this.current_project.bewertung;
             this.filePath = this.current_project_name.substring(0,this.current_project_name.lastIndexOf("\\")+1)+ "grips_export.csv";
-
             //  https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
             var self = this;
             var stream = fs.createWriteStream(this.filePath);
@@ -43,8 +42,7 @@ export class gripsExportService{
                 }
                 stream.end();
             });
-            // TODO: schöner machen
-            alert("File written to:" + this.filePath);
+            this.toastService.success("Datei erfolgreich gespeichert")
         });
     }
 }

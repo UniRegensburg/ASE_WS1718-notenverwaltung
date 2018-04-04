@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
 
-import { GlobalDataService, LastOpened } from '../../providers/index';
+import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
 
 declare var require: any;
@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
     public dataService: GlobalDataService,
     public router: Router,
     public lastOpened: LastOpened,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    public toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -34,14 +35,15 @@ export class HomeComponent implements OnInit {
     this.dataService.getLocalFile(file['0'].path).subscribe(
       data => {
         if(this.dataService.checkJsonValidity() == 1){
-            alert("file not recognized. please select a valid file.")
+            this.toastService.setError("Datei nicht erkannt. Bitte wählen Sie eine valide Datei aus.")
         }
         else{
             this.router.navigate(['course/overview']);
         }
       },
       err => {
-        alert("File not recognized. Please select a valid file.")
+        this.toastService.setError("Datei nicht erkannt. Bitte wählen Sie eine valide Datei aus.")
+
       }
     );
   }
@@ -51,7 +53,8 @@ export class HomeComponent implements OnInit {
 
     dialog.showOpenDialog((fileNames) => {
       if (fileNames === undefined) {
-        console.log("No file selected")
+          this.toastService.setError("Keine Datei ausgewählt. Bitte wählen Sie eine Datei aus.")
+
         return;
       }
       this.router.navigate(['course/overview']);
