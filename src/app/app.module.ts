@@ -16,13 +16,16 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService, CheckOsService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
 import { SearchStudentPipe } from './pipes/index';
 
 import { ToastComponent } from './directives/toast.directive/toast.directive';
+
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { ToastComponent } from './directives/toast.directive/toast.directive';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DeviceDetectorModule.forRoot() 
   ],
   providers: [
     ElectronService,
@@ -54,6 +58,7 @@ import { ToastComponent } from './directives/toast.directive/toast.directive';
     gripsExportService,
     SearchStudentPipe,
     flexNowExportService,
+    CheckOsService,
     ToastService,
     lastSavedService
   ],
