@@ -212,6 +212,19 @@ export class GlobalDataService {
     return of(students);
   }
 
+  public getStudentsByGroup(groupname): any {
+    let groupmembers = [];
+    let students = this.current_project.teilnehmer;
+
+    students.forEach(student => {
+      if (student.group == groupname) {
+        groupmembers.push(student);
+      }
+    });
+
+    return (groupmembers);
+  }
+
   /**
   * Validations methods
   */
@@ -426,17 +439,30 @@ export class GlobalDataService {
     this.saveJson();
   }
 
+  public getGroupIdByName(name): number {
+    let groups = this.current_project.gruppen;
+    let id = -1;
+    let position = -1;
+    groups.forEach(group => {
+      position++;
+      if (group.name == name) {
+        id = position;
+      }
+    });
+    return id;
+  }
+
   public setNewCorrection(correction): void {
     this.current_project.bewertung = correction;
     this.saveJson();
   }
+
   public processImport(file): Observable<any> {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
       return this.current_project;
     })
-
   }
 
 }

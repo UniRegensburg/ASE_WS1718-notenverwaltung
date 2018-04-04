@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone, ViewChild
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
-import {SearchStudentPipe} from '../../../pipes/index';
+import { SearchStudentPipe } from '../../../pipes/index';
 import { log } from 'util';
 import { ToastService } from '../../../providers/toast.service';
 
@@ -97,8 +97,8 @@ export class StudentsComponent implements OnInit {
 
   //*********************************  FUNCTIONS ********************************************** */
   deleteStudent(participant): void {
-    this.participants.forEach((student, i) =>{     
-      if(student.id == participant.id){
+    this.participants.forEach((student, i) => {
+      if (student.id == participant.id) {
         this.participants.splice(i, 1);
       }
     });
@@ -115,7 +115,7 @@ export class StudentsComponent implements OnInit {
         console.log("No file selected")
         return;
       }
-        this.processData(fileNames[0]);        
+      this.processData(fileNames[0]);
     });
   }
 
@@ -220,9 +220,11 @@ export class StudentsComponent implements OnInit {
   addGroup(): void {
     this.groups.push({
       "name": "",
-      "studenten": []
+      "punkte": "",
+      "studenten": [],
+      "comment_privat": "",
+      "comment_public": ""
     });
-    // console.log("added group")
   }
 
   enableGroups(): void { }

@@ -45,7 +45,6 @@
       </div>
       <hr class="hr_table">
     </div>
-
     <div #studentTable class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
       <div class="row row_hover">
         <div class="col s1">
@@ -73,7 +72,6 @@
     </div>
     <pagination-controls class="center-align my-pagination" style="margin-top: 50px" (pageChange)="p = $event"></pagination-controls>
   </div>
-
   <div class="fixed-action-btn " #elementOneId id="tutorial_button" style="padding:15px">
       <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
           <i class="large material-icons">help</i>
