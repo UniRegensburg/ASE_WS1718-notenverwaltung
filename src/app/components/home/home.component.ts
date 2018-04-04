@@ -17,7 +17,7 @@ declare var $: any;
 export class HomeComponent implements OnInit {
   private title: string = `Notenverwaltung ASE WS17/18 !`;
   private last_files: Array<any> = [];
-  private error_code: string = "File not recognized. Please select a valid file.";
+  private error_code: string = "Datei nicht erkannt. Wählen Sie eine valide Datei aus.";
   private view_mode: boolean = true;
   private tour;
 

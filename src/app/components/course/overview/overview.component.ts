@@ -38,13 +38,13 @@ export class OverviewComponent implements OnInit {
       steps: [
         {
           title: "Übersicht",
-          content: "Dieser Bereich bietet Ihnen einen detaillierten Einblick in den aktuellen Kursstand. Hier sehen Sie Teilnehmeranzahl, Notendurchschnitt und ihren bisherigen Korrekturfortschritt.",
+          content: "Dieser Bereich bietet Ihnen einen detaillierten Einblick in den aktuellen Kursstand. Hier sehen Sie Teilnehmeranzahl, Notendurchschnitt und den bisherigen Korrekturfortschritt.",
           target: this.progressBar.nativeElement,
           placement: "bottom"
         },
         {
           title: "Noten-Diagramm",
-          content: "Ein Balkendiagramm zeigt Ihnen wieviele Studenten bisher welche Note erreicht haben.",
+          content: "Ein Balkendiagramm zeigt Ihnen wie viele Studenten bisher welche Note erreicht haben.",
           target: this.graphCanvas.nativeElement,
           placement: "left"
         },
