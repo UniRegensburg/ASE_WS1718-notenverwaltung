@@ -26,8 +26,8 @@
 
 
   <!--http://materializecss.com/forms.html Autocomplete-->
-  <div class="row">       
-        
+  <div class="row">
+
     <div class="col switch">
       <!--TODO: Diagramme sobald mehrere verfügbar sind-->
       <span>Diagramm</span>
@@ -67,9 +67,10 @@
     </div>
     <table>
       <tr>
-        <th>Mtrknr</th>
         <th>Nachname</th>
         <th>Vorname</th>
+        <th>Mtrknr</th>
+        <th>Korrigiert</th>
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
