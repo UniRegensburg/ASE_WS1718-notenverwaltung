@@ -15,7 +15,7 @@
         <input type="text" [(ngModel)]="current_student.vorname">
       </div>
     </div>
-    <div class="col s12">
+    <div class="col s12" #detailsView>
       <b>Martrikelnummer</b>
       <div class="input-field inline right input_detail">
         <input type="text" [(ngModel)]="current_student.mtknr">
@@ -34,12 +34,12 @@
       </div>
     </div>
     <a *ngIf="create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="addStudent()">Student Hinzufügen</a>
-    <a *ngIf="!create_new_student_mode"class="waves-effect waves-light btn pink darken-2" (click)="saveStudent()" >Speichern</a>
+    <a *ngIf="!create_new_student_mode"class="waves-effect waves-light btn pink darken-2" (click)="saveStudent()" #saveDelete>Speichern</a>
     
     <a *ngIf="!create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="deleteStudent()">Student Löschen</a>
-    <a class="waves-effect waves-light btn pink darken-2 right" [routerLink]="['/course/students']">Abbrechen</a>
+    <a class="waves-effect waves-light btn pink darken-2 right" [routerLink]="['/course/students']" #cancelButton>Abbrechen</a>
   </div>
-  <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+  <div class="fixed-action-btn " id="tutorial_button" style="padding:15px">
       <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
           <i class="large material-icons">help</i>
       </a>
