@@ -53,8 +53,9 @@ export class CorrectionComponent implements OnInit {
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
-  @ViewChild('studentTask') studentTask: ElementRef;
+  @ViewChild('taskStudent') taskStudent: ElementRef;
   @ViewChild('taskDetails') taskDetails: ElementRef;
+  @ViewChild('correctionView') correctionView: ElementRef; 
 
   doTour() {      
     var tour = {
@@ -63,7 +64,15 @@ export class CorrectionComponent implements OnInit {
         {
           title: "Korrektur",
           content: "Beim Korrigieren können sie von Aufgabe zu Aufgabe oder von Student zu Student fortschreiten.",
-          target: this.studentTask.nativeElement,
+          target: this.taskStudent.nativeElement,
+          placement: "bottom",
+          arrowOffset: 250
+        },
+        {
+          title: "Ansicht",
+          content: "Die Ansicht ist anpassbar je nachdem, ob Sie gesamte Gruppen oder einzelne Studenten korrigieren möchten.",
+          target: this.correctionView
+          .nativeElement,
           placement: "bottom"
         },
         {

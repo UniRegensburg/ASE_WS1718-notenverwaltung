@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col s6">
       <label>Ansicht</label>
-      <div #studentTask class="switch">
+      <div #correctionView class="switch">
         <label>
           StudentIn
           <input type="checkbox" [checked]="groupmode" (change)="toggleGroupView()">
@@ -34,7 +34,7 @@
     <!-- Richtungstoggle -->
     <div class="col s6 right-align">
       <label>Korrekturrichtung</label>
-      <div class="switch">
+      <div #taskStudent class="switch">
         <label>
           weiter mit diesen TeilnehmerInnen
           <input type="checkbox" [checked]="correctByTask" (change)="toggleDirection()">
