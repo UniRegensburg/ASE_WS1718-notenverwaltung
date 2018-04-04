@@ -24,6 +24,9 @@ import { SearchStudentPipe } from './pipes/index';
 
 import { ToastComponent } from './directives/toast.directive/toast.directive';
 
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +47,8 @@ import { ToastComponent } from './directives/toast.directive/toast.directive';
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule   
+    NgxPaginationModule,
+    DeviceDetectorModule.forRoot() 
   ],
   providers: [
     ElectronService, 

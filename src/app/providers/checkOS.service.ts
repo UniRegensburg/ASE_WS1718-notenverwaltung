@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Injectable()
 export class CheckOsService{
 
-    public operatingSystem: String;
+    public deviceInfo;
 
-    constructor() {
+    constructor(private deviceService: DeviceDetectorService) {
+        this.deviceInfo = this.deviceService.getDeviceInfo();
     }
    
-    slashFormat(): string {
+    getSlashFormat(): string {
         let returnValue;
-        console.log(process.platform);
-        if(process.platform == 'win32'){
+
+        if(this.deviceInfo.os == 'windows'){
             returnValue = '\\';
         }
         else{

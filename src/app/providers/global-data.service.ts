@@ -35,7 +35,7 @@ import {
 
 import { LastOpened } from './lastOpened.service';
 import { ToastService } from '../providers/toast.service';
-
+import { CheckOsService } from './checkOS.service';
 
 @Injectable()
 export class GlobalDataService {
@@ -57,6 +57,7 @@ export class GlobalDataService {
     private http: Http,
     public lastOpened: LastOpened,
     public toastService: ToastService,
+    public osService: CheckOsService,
     public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
@@ -397,11 +398,10 @@ export class GlobalDataService {
     });
   }
 
-  public checkLastOpendFiles(): void{
-    console.log(JSON.stringify(this.lastOpened));
-    
+  public checkLastOpendFiles(): void{    
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
       lastOpenedFiles => { 
+        console.log("LAST", lastOpenedFiles);
         this.loadedFiles = lastOpenedFiles[0];
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
@@ -474,10 +474,10 @@ export class GlobalDataService {
 }
 
   public saveLoadedFile(): void{
-    let the_arr = __dirname.split("/");
+    let slash = this.osService.getSlashFormat();    
+    let the_arr = __dirname.split(slash);
     the_arr.pop();
-    let path = the_arr.join('/') + "/src/";
-    console.log(this.loadedFiles);
+    let path = the_arr.join(slash) + slash + "src" + slash;
     
 
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {

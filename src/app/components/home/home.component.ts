@@ -58,6 +58,8 @@ export class HomeComponent implements OnInit {
       err => {                
         this.toastService.setError(this.error_code);
         this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
+          console.log("AUCH WICHTIG", files);
+          this.dataService.checkLastOpendFiles();
           this.last_files = files;
         });  
       }
