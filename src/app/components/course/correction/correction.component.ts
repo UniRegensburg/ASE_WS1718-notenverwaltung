@@ -1,32 +1,15 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  HostListener
-} from '@angular/core';
-import {
-  GlobalDataService
-} from '../../../providers/index';
-import {
-  AfterViewInit
-} from '@angular/core/src/metadata/lifecycle_hooks';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { GlobalDataService } from '../../../providers/index';
+import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import electron from 'electron';
-import {
-  log
-} from 'util';
-
-import {
-  ActivatedRoute
-} from '@angular/router';
-
+import { log } from 'util';
+import { ActivatedRoute } from '@angular/router';
+import { ToastService } from '../../../providers/toast.service';
 
 declare var require: any;
-declare var $: any
+declare var $: any;
 
-const {
-  remote
-} = electron;
+const { remote } = electron;
 
 export enum KEY_CODE {
   RIGHT_ARROW = 39,
@@ -38,34 +21,36 @@ export enum KEY_CODE {
   templateUrl: './correction.component.html',
   styleUrls: ['./correction.component.scss']
 })
+
 export class CorrectionComponent implements OnInit {
   @ViewChild('graphCanvas') graphCanvas: ElementRef;
 
   private current_project: any;
   private current_task: any;
   private current_student: any;
+  private current_group: any;
+  private current_correction: any;
 
   private tasks: Array<any>;
   private students: Array<any>;
   private grading: Array<any>;
+  private groups: Array<any>;
+  private groupmembers: Array<any>;
 
-  private correction_mode: string = 'student'; //task
-  private current_correction: any;
-  private old_window_state: any;
+  private task_index: number = 0;
+  private student_index: number = 0;
+  private group_index: number = 0;
 
-  private task_counter: number;
-  private student_counter: number;
-  private current_student_grading;
-
+  private no_groups: boolean = true;
   private no_tasks: boolean = true;
+  private no_students: boolean = true;
+
+  private correctByTask: boolean = true;
+  private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
 
-  private sub: any;
-
-  constructor(
-    public dataService: GlobalDataService,
-    private route: ActivatedRoute) { }
+  constructor(public dataService: GlobalDataService, private route: ActivatedRoute, public toastService: ToastService) { }
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -73,161 +58,206 @@ export class CorrectionComponent implements OnInit {
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.students = this.current_project.teilnehmer;
       this.grading = this.current_project.bewertung;
+      this.groups = this.current_project.gruppen;
 
       try {
-        if (this.tasks.length != 0) {
-          this.sub = this.route.params.subscribe(params => {
-            if (params) {
-              this.task_counter = 0;
-              this.student_counter = Number(params.user_to_edit_id);
-              if (Number.isNaN(this.student_counter)) this.student_counter = 0;
-            }
-            this.setCurrentTask('first');
-          });
-          this.no_tasks = false;
+        this.task_index = 0;
+        this.current_task = this.tasks[this.task_index];
+        this.no_tasks = false;
+      } catch (err) {
+        this.no_tasks = true;
+        console.log("there are no tasks.");
+      }
+
+      try {
+        this.student_index = 0;
+        this.current_student = this.students[this.student_index];
+        if (this.current_student != null) {
+          this.no_students = false;
         }
+      } catch (err) {
+        this.no_students = true;
+        console.log("there are no students");
+      }
+
+      try {
+        this.group_index = 0;
+        this.current_group = this.groups[this.group_index];
+        this.setCurrentGroupMembers();
+        if (this.current_group != null) {
+          this.no_groups = false;
+        }
+      } catch (err) {
+        this.no_groups = true;
+        console.log("there are no groups.")
+      }
+    });
+
+    if (!this.no_tasks && !this.no_students) {
+      this.groupmode = !this.no_groups;
+      this.setCurrentCorrection();
+      this.checkLimits();
+    }
+  }
+
+  setCurrentCorrection(): any {
+    //TODO: das hier ist nicht schön. der Switch für den Gruppenmodus müsste disabled werden, wenn einer der beiden Fehler von toggleGroupView auftritt
+    if (this.current_student == null) {
+      this.current_student = this.students[0];
+    }
+    this.grading.forEach(bewertung => {
+      if (bewertung.student_id == this.current_student.id) {
+        bewertung.einzelwertungen.forEach(einzelwertung => {
+          if (einzelwertung.aufgaben_id == this.current_task.id) {
+            this.current_correction = einzelwertung;
+            return true;
+          }
+        });
+      }
+    });
+
+  }
+
+  toggleGroupView(): void {
+    let errormsg ="";
+
+    if (!this.no_groups && this.groupmode) {
+      try {
+        this.current_student = this.students[this.current_group.studenten[0]];
+      } catch (err) {
+        errormsg = "Dieser Gruppe sind noch keine Studierenden zugeteilt.";
+        this.groupmode = !this.groupmode;
+      }
+    }
+    if (!this.no_groups && !this.groupmode) {
+      try {
+        this.group_index = this.dataService.getGroupIdByName(this.current_student.group);
+        this.setCurrentGroupMembers();
       }
       catch (err) {
-        console.log("no tasks today");
+        errormsg ="Dieser Student ist noch keiner Gruppe zugeteilt.";
+        this.groupmode = !this.groupmode;
       }
-    });
+    }
+    try {
+      this.setCurrentCorrection();
+      this.groupmode = !this.groupmode;
+      this.checkLimits();
+    }
+    catch (err) {
+      this.toastService.setError("Gruppenmodus konnte nicht geändert werden: "+ errormsg);
+    }
   }
 
-  setCorretionMode(value): void {
-    this.correction_mode = value;
-    this.updateShowPermissions();
+  toggleDirection(): void {
+    this.correctByTask = !this.correctByTask;
+    this.checkLimits();
   }
 
+  chevronClick(direction): void {
+    this.setNextView(direction);
+    this.checkLimits();
+    this.setCurrentCorrection();
+  }
 
-  setCurrentTask(direction): void {
-    if (direction === "first") {
-      this.setCounters(0, 0);
+  setNextView(direction): void {
+    let param = 0;
+    if (direction == "backwards") param = -1;
+    if (direction == "forwards") param = 1;
+    if (this.groupmode && this.correctByTask) {
+      this.group_index = this.group_index + param;
+      this.setCurrentGroupMembers();
+    }
+    else if (!this.groupmode && this.correctByTask) {
+      this.student_index = this.student_index + param;
+      this.current_student = this.students[this.student_index];
     }
     else {
-      if (this.correction_mode == "student") {
-        if ((direction === "next") && (this.show_next)) {
-          this.setNext(this.task_counter, this.student_counter, this.tasks, this.students);
-        }
-        if ((direction === "previous") && (this.show_previous)) {
-          this.setPrevious(this.task_counter, this.student_counter, this.tasks, this.students);
-        }
-      }
-      else {
-        if ((direction === "next") && (this.show_next)) {
-          this.setNext(this.student_counter, this.task_counter, this.students, this.tasks);
-        }
-        if ((direction === "previous") && (this.show_previous)) {
-          this.setPrevious(this.student_counter, this.task_counter, this.students, this.tasks);
-        }
-      }
+      this.task_index = this.task_index + param;
+      this.current_task = this.tasks[this.task_index];
     }
-    this.updateShowPermissions();
-    this.setCurrentCorretion();
   }
 
-  updateShowPermissions(): void {
+  setCurrentGroupMembers(): void {
+    this.current_group = this.groups[this.group_index];
+    this.groupmembers = this.dataService.getStudentsByGroup(this.current_group.name);
+  }
 
-    if (this.correction_mode === "student") {
-      if (this.student_counter >= this.students.length - 1) {
-        this.show_next = false;
-      }
-      else {
-        this.show_next = true;
-      }
-
-      if (this.student_counter <= 0) {
+  checkLimits(): void {
+    if (!this.correctByTask) {
+      if (this.task_index == 0) {
         this.show_previous = false;
-      }
-      else {
+      } else {
         this.show_previous = true;
       }
-    }
-    else {
-      if ((this.student_counter >= this.students.length - 1) && (this.task_counter >= this.tasks.length - 1)) {
+      if (this.task_index + 1 == this.tasks.length) {
         this.show_next = false;
-      }
-      else {
+      } else {
         this.show_next = true;
       }
+    }
 
-      if ((this.student_counter <= 0) && (this.task_counter <= 0)) {
+    else if (this.correctByTask && this.groupmode) {
+      if (this.group_index == 0) {
         this.show_previous = false;
-      }
-      else {
+      } else {
         this.show_previous = true;
       }
-    }
-
-  }
-
-  setNext(prim_counter, sec_counter, prim, sec): void {
-    if (prim_counter < prim.length) {
-      prim_counter = prim_counter + 1;
-    }
-    if (prim_counter >= prim.length) {
-      prim_counter = 0;
-      sec_counter = sec_counter + 1;
-      if (sec_counter >= sec.length) {
-        sec_counter = sec.length - 1;
-        prim_counter = prim.length - 1;
+      if (this.group_index + 1 == this.groups.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
       }
     }
-    this.setCounters(prim_counter, sec_counter);
-  }
 
-  setPrevious(prim_counter, sec_counter, prim, sec): void {
-    if (prim_counter >= 0) {
-      prim_counter = prim_counter - 1;
-    }
-    if (prim_counter < 0) {
-      prim_counter = prim.length - 1;
-      sec_counter = sec_counter - 1;
-      if (sec_counter <= 0) {
-        sec_counter = 0;
-        prim_counter = 0;
+    else if (this.correctByTask && !this.groupmode) {
+      if (this.student_index == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.student_index + 1 == this.students.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
       }
     }
-    this.setCounters(prim_counter, sec_counter);
-  }
-
-  setCounters(prim_counter, sec_counter) {
-    if (this.correction_mode == "student") {
-      this.task_counter = prim_counter;
-      this.student_counter = sec_counter;
-    }
-    else {
-      this.student_counter = prim_counter;
-      this.task_counter = sec_counter;
-    }
-  }
-
-  setCurrentCorretion() {
-    this.grading.forEach(student => {
-      if (student.student_id == this.student_counter) {
-        this.current_student = student;
-      }
-    });
-
-    this.current_student["einzelwertungen"].forEach(correction => {
-      if (correction.aufgaben_id == this.task_counter) this.current_correction = correction;
-    });
-
-    this.current_task = this.tasks[this.task_counter];
-    this.current_student = this.students[this.student_counter];
   }
 
   saveCorrection(): void {
+    if (this.groupmode) {
+      this.grading.forEach(bewertung => {
+        this.groupmembers.forEach(groupmember => {
+          if (bewertung.student_id == groupmember.id) {
+            bewertung.einzelwertungen.forEach(einzelwertung => {
+              if (einzelwertung.aufgaben_id == this.current_task.id) {
+                einzelwertung.erreichte_punkte = this.current_group.punkte;
+              }
+            });
+          }
+        });
+      });
+    } else if (!this.groupmode) {
+      this.grading.forEach(bewertung => {
+        if (bewertung.student_id == this.current_student.id) {
+          bewertung.einzelwertungen.forEach(einzelwertung => {
+            if (einzelwertung.aufgaben_id == this.current_task.id) {
+              einzelwertung = this.current_correction;
+            }
+          });
+        }
+      });
+    }
     this.dataService.setNewCorrection(this.grading)
   }
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.setCurrentTask('next');
+      this.chevronClick("forwards");
     }
-
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.setCurrentTask('previous');
+      this.chevronClick("backwards");
     }
   }
 }
