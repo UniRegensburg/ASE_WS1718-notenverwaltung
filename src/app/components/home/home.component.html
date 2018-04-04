@@ -5,33 +5,45 @@
   <br>
   <h5 #siteHeader>NOTENVERWALTUNG</h5>
   <div class="row">
-    <div class="col l8 offset-l4 " #viewIcons>
+    <div class="col l8 offset-l3 " #viewIcons>
       <div *ngIf="view_mode">
-        <a class="btn z-depth-1" (click)="view_mode = true">
-          <i class="material-icons home-icon active">apps</i>
-        </a>
-        <a class="btn z-depth-1" (click)="view_mode = false">
-          <i class="material-icons home-icon">list</i>
-        </a>
+        <div class="col s8">
+          <h6 #lastUsed>Zuletzt verwendet</h6>
+        </div>
+        <div class="col s3">
+          <a class="btn z-depth-1" (click)="view_mode = true">
+
+            <i class="material-icons home-icon active">apps</i>
+          </a>
+          <a class="btn z-depth-1" (click)="view_mode = false">
+            <i class="material-icons home-icon">list</i>
+          </a>
+        </div>
       </div>
       <div *ngIf="!view_mode">
-        <a class="btn z-depth-1" (click)="view_mode = true">
-          <i class="material-icons home-icon">apps</i>
-        </a>
-        <a class="btn z-depth-1" (click)="view_mode = false">
-          <i class="material-icons home-icon active">list</i>
-        </a>
+        <div class="col s8">
+          <h6 #lastUsed>Zuletzt verwendet</h6>
+        </div>
+        <div class="col s3">
+          <a class="btn z-depth-1" (click)="view_mode = true">
+            <i class="material-icons home-icon">apps</i>
+          </a>
+          <a class="btn z-depth-1" (click)="view_mode = false">
+            <i class="material-icons home-icon active">list</i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col l4">
-      <div class="font-active">
-        <h6 #lastUsed class="active">Zuletzt verwendet</h6>
+    <div class="col s3 links">
+      <a class="btn waves-effect waves-light pink darken-2 hombtn" [routerLink]="['/newcourse']">Neu erstellen</a>
+      <div class="btn waves-effect waves-light pink darken-2 hombtn">
+        <label for="file_selector">
+          PROJEKT LADEN
+        </label>
+        <input #fileInput id="file_selector" type="file" accept=".json" #file (change)="onChange(file.files)" />
       </div>
-      <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
-      <!--h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6-->
-      <input #fileInput id="file_selector" type="file" accept=".json" #file (change)="onChange(file.files)" />
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
@@ -82,7 +94,7 @@
     </div>
 
     <div class="col s12 m6" *ngIf="last_files.length == 0">
-      No recent opened files available.
+      Kürzlich geöffnete Dateien nicht verfügbar.
     </div>
 
     <div class="row">
