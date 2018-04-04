@@ -3,6 +3,8 @@ import { GlobalDataService, ChartService, gripsExportService, flexNowExportServi
 import {SearchStudentPipe} from '../../../pipes/index';
 import { log } from 'util';
 
+import * as hopscotch from 'hopscotch';
+
 @Component({
   selector: 'app-results',
   templateUrl: './results.component.html',
@@ -25,6 +27,47 @@ export class ResultsComponent implements OnInit {
 
   public searchValue: string;
 
+  @ViewChild('resultsTable') resultsTable: ElementRef;
+  @ViewChild('searchBar') searchBar: ElementRef;
+  @ViewChild('graphButton') graphButton: ElementRef;
+  @ViewChild('exportButton') exportButton: ElementRef;
+
+
+  doTour() {      
+    var tour = {
+      id: "results-tutorial",
+      steps: [
+        {
+          title: "Ergebnisse",
+          content: "Die nebenstehende Tabelle zeigt die Ergebnisse der einzelnen Teilnehmer auf. Hierbei werden Studenten der Bestehen gefährdet ist farblich abgehoben.",
+          target: this.resultsTable.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Suchleiste",
+          content: "Per Suchleiste kann die Tabelle gezielt nach bestimmten Teilnehmern gefiltert werden.",
+          target: this.searchBar.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Diagramm-Schalter",
+          content: "Zusätzliche Ergebnisinformationen in Diagrammform sind standardmäßig ausgeblendet und können hier zugeschalten werden.",
+          target: this.graphButton.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Exportfunktionen",
+          content: "Kursergebnisse können zur einfacheren Weiterverwendung in speziellen Formaten für Flexnow und Grips exportiert, oder als PDF Datei aufbereitet werden.",
+          target: this.exportButton.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
+
   constructor(
     public dataService: GlobalDataService, 
     public chartService: ChartService, 
@@ -38,9 +81,7 @@ export class ResultsComponent implements OnInit {
       this.participants = this.current_project.teilnehmer;
       this.tasks = this.current_project.bewertungsschema.aufgaben;
       this.results = this.current_project.bewertung;
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
-      console.log(this.grading_list);
-      
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;      
       this.initGraphView();
     });
   }

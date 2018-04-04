@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col s6">
       <label>Ansicht</label>
-      <div class="switch">
+      <div #correctionView class="switch">
         <label>
           StudentIn
           <input type="checkbox" [checked]="groupmode" (change)="toggleGroupView()">
@@ -34,7 +34,7 @@
     <!-- Richtungstoggle -->
     <div class="col s6 right-align">
       <label>Korrekturrichtung</label>
-      <div class="switch">
+      <div #taskStudent class="switch">
         <label>
           weiter mit diesen TeilnehmerInnen
           <input type="checkbox" [checked]="correctByTask" (change)="toggleDirection()">
@@ -123,7 +123,7 @@
     </div>
 
     <!-- Akkordeons -->
-    <div class="row">
+    <div #taskDetails class="row">
       <div class="col s12">
         <div class="card-panel white" (click)="open_1 = !open_1">
           <span>Beschreibung</span>
@@ -177,5 +177,9 @@
     </div>
   </div>
 
+  <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+      <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+          ?
+      </a>
+  </div>
 </div>
-

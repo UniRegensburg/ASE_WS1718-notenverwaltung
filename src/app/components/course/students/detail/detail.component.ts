@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService } from '../../../../providers/index'
 import {
   ActivatedRoute, Router
 } from '@angular/router';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any;
@@ -20,6 +21,42 @@ export class DetailComponent implements OnInit {
   private current_student: any;
   private current_student_index: number;
   private create_new_student_mode: boolean = false;
+
+
+  @ViewChild('detailsView') detailsView: ElementRef;
+  @ViewChild('saveDelete') saveDelete: ElementRef;
+  @ViewChild('cancelButton') cancelButton: ElementRef;
+
+
+
+  doTour() {      
+    var tour = {
+      id: "results-tutorial",
+      steps: [
+        {
+          title: "Detailansicht",
+          content: "Hier haben Sie die Möglichkeit die Details eines Studenten zu bearbeiten.",
+          target: this.detailsView.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Speichern und Löschen",
+          content: "Eventuelle Änderungen können Sie hier speichern. Ebenso besteht die Möglichkeit einen Studenten komplett zu löschen.",
+          target: this.saveDelete.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Abbrechen",
+          content: "Ein Klick auf Abbrechen bringt Sie zur Teilnehmerübersicht.",
+          target: this.cancelButton.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     public dataService: GlobalDataService,

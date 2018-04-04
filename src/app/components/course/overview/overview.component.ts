@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GlobalDataService, ChartService } from '../../../providers/index';
 import { log } from 'util';
 
+import * as hopscotch from 'hopscotch';
+
 
 declare var require: any;
 declare var $: any
@@ -25,7 +27,42 @@ export class OverviewComponent implements OnInit {
   private sum_grade: number = 0;
   private barChart: any;
 
+
+  @ViewChild('progressBar') progressBar: ElementRef;
+  @ViewChild('studentTable') studentTable: ElementRef;
+
+
+  doTour() {      
+    var tour = {
+      id: "overview-tutorial",
+      steps: [
+        {
+          title: "Übersicht",
+          content: "Dieser Bereich bietet Ihnen einen detaillierten Einblick in den aktuellen Kursstand. Hier sehen Sie Teilnehmeranzahl, Notendurchschnitt und den bisherigen Korrekturfortschritt.",
+          target: this.progressBar.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Noten-Diagramm",
+          content: "Ein Balkendiagramm zeigt Ihnen wie viele Studenten bisher welche Note erreicht haben.",
+          target: this.graphCanvas.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Teilnehmerübersicht",
+          content: "In dieser Tabelle erhalten Sie Details über alle Kursteilnehmer. Anhand der drei Symbole rechts können Sie die Korrektur bei einem bestimmten Studenten fortsetzen, erhalten vertiefte Details über den Studenten, oder gelangen zur Ergebnisübersicht.",
+          target: this.studentTable.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
+
   constructor(public dataService: GlobalDataService, public chartService: ChartService) { }
+
 
   ngOnInit() {
     this.dataService.getCurrentProject().subscribe(current_project => {
@@ -135,4 +172,6 @@ export class OverviewComponent implements OnInit {
       console.log("fail in getCurrentStudent")
     }
   }
+
+  
 }

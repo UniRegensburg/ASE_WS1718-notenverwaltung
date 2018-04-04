@@ -8,7 +8,7 @@
     <div class="col l4">
       <h5>{{participants.length}} Teilnehmer</h5>
       <h5>{{sum_grade}} Durchschnittsnote</h5>
-      <div class="progress white-text">
+      <div class="progress white-text" #progressBar>
 
         <div class="determinate" [ngStyle]="{ 'width': completion + '%' }"></div>
         <div style="position: absolute; margin-left: 20px">{{completion}}% bewertet</div>
@@ -45,8 +45,7 @@
       </div>
       <hr class="hr_table">
     </div>
-
-    <div class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
+    <div #studentTable class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
       <div class="row row_hover">
         <div class="col s1">
           {{participant.id}}
@@ -73,5 +72,9 @@
     </div>
     <pagination-controls class="center-align my-pagination" style="margin-top: 50px" (pageChange)="p = $event"></pagination-controls>
   </div>
-
+  <div class="fixed-action-btn " #elementOneId id="tutorial_button" style="padding:15px">
+      <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+          ?
+      </a>
+  </div>
 </div>
