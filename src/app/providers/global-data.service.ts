@@ -401,7 +401,6 @@ export class GlobalDataService {
   public checkLastOpendFiles(): void{    
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
       lastOpenedFiles => { 
-        console.log("LAST", lastOpenedFiles);
         this.loadedFiles = lastOpenedFiles[0];
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
@@ -479,7 +478,6 @@ export class GlobalDataService {
     the_arr.pop();
     let path = the_arr.join(slash) + slash + "src" + slash;
     
-
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
         if (err) {
           alert("An error ocurred creating the file " + err.message);
@@ -489,27 +487,6 @@ export class GlobalDataService {
           // console.log("The file has been saved")
         }
       });
-
-
-
-    /*writeFile(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
-      if (err) {
-        alert("An error ocurred creating the file " + err.message);
-      }
-      else {
-        // alert("The file has been succesfully saved");
-        // console.log("The file has been saved")
-      }
-    });
-    /*
-   fs.outputJson(__dirname + "/" + this.lastOpendFilePath, JSON.stringify(this.loadedFiles))
-    .then(() => fs.readJson(__dirname + "/" + this.lastOpendFilePath))
-    .then(data => {
-      console.log(data.name) // => JP
-    })
-    .catch(err => {
-      console.error(err)
-    })*/
   }
 
 }

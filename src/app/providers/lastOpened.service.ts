@@ -76,7 +76,6 @@ export class LastOpened {
         file.last_opened = new Date();
       }
     });
-    console.log("HERERRER", this.loadedFiles);
     return of([this.loadedFiles, found]);
   }
 
@@ -86,11 +85,9 @@ export class LastOpened {
     }
     this.loadedFiles.forEach((file, i) => {
       if (file.path == file_path) {
-        console.log("YESSSSSSSSSSSSSS");
         this.loadedFiles.splice(i, 1);
       }
     });
-    console.log("KERN", this.loadedFiles);
     return of(this.loadedFiles);
   }
 }
