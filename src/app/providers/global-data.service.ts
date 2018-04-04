@@ -50,7 +50,7 @@ export class GlobalDataService {
   private passKey: any;
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
-  private lastOpendFilePath: string = "assets/data/lastOpend.json";
+  private lastOpendFilePath: string = "assets/data/lastOpened.json";
   private loadedFiles = [];
 
   constructor(
