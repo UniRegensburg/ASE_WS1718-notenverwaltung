@@ -156,23 +156,18 @@ export class CorrectionComponent implements OnInit {
     this.checkLimits();
   }
 
-  chevronClick(direction): void {
-    this.setNextView(direction);
-    this.checkLimits(); 
-    this.setCurrentCorrection();
-  }
+  chevronClick(direction, color): void {
+    let param = 0;
+    if (direction == "backwards") param = -1;
+    if (direction == "forwards") param = 1;
+    if (color == "black") this.setNextContinue(param);
+    if (color == "pink") this.setNextJump(param);
 
-  pinkChevronClick(direction): void {
-    this.setNextThing(direction);
     this.checkLimits();
     this.setCurrentCorrection();
   }
 
-  setNextThing(direction): void {
-    let param = 0;
-    if (direction == "backwards") param = -1;
-    if (direction == "forwards") param = 1;
-
+  setNextJump(param): void {
     if (this.groupmode && this.correctByTask) {
       this.group_index = 0;
       this.task_index = this.task_index + param;
@@ -191,10 +186,7 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  setNextView(direction): void {
-    let param = 0;
-    if (direction == "backwards") param = -1;
-    if (direction == "forwards") param = 1;
+  setNextContinue(param): void {
     if (this.groupmode && this.correctByTask) {
       this.group_index = this.group_index + param;
       this.setCurrentGroupMembers();
@@ -215,18 +207,18 @@ export class CorrectionComponent implements OnInit {
   }
 
   checkPink(): void {
-      if(this.show_previous){
-        this.last_thing = false;
-      }
-      else if (this.show_next){
-        this.next_thing = false;
-      }
-      else if (!this.show_previous){
-        this.last_thing = true;
-      }
-      else if (!this.show_next){
-        this.next_thing = true
-      }
+    if (this.show_previous) {
+      this.last_thing = false;
+    }
+    else if (this.show_next) {
+      this.next_thing = false;
+    }
+    else if (!this.show_previous) {
+      this.last_thing = true;
+    }
+    else if (!this.show_next) {
+      this.next_thing = true
+    }
   }
 
   checkLimits(): void {
@@ -300,13 +292,14 @@ export class CorrectionComponent implements OnInit {
     this.dataService.setNewCorrection(this.grading)
   }
 
+  //TODO: fix params
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.chevronClick("forwards");
+      this.chevronClick("forwards", "any");
     }
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.chevronClick("backwards");
+      this.chevronClick("backwards", "any");
     }
   }
 }
