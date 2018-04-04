@@ -107,20 +107,15 @@ export class StudentsComponent implements OnInit {
     // as long as there are numbers (= students)
     var students = []
     while (worksheet[address].v !== "") {
-        let user_id = 0;
-        try{
-            user_id = this.participants[this.participants.length -1].id + 1;
-        }
-        finally{
       var student = {
-        "id": user_id,
+        "id": 0,
         "mtknr": 0,
-        "name": "",
-        "vorname": "",
-        "studiengang": "",
+        "name": 0,
+        "vorname": 0,
+        "studiengang": 0,
         "fachsemester": 0,
-        "mail": "",
-        "status": ""
+        "mail": 0,
+        "status": 0
       }}
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
