@@ -172,10 +172,10 @@ export class StudentsComponent implements OnInit {
       this.dataService.createGroups();
       this.ngOnInit();
       if(this.studentNumber!=0){
-      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studenten.");
+      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studierenden.");
       }
       else{
-        this.toastService.setError("Konnte keine Studenten importieren.")
+        this.toastService.setError("Konnte keine Studierenden importieren.")
       }
     });
   }
