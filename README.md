@@ -1,9 +1,14 @@
 <a>
-<img align="left" src="https://i.imgur.com/GofAwGb.png" width="400px" alt="" />
-<img align="right" src="https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master" alt="Build status" /><br><hr>
-</a>
+<img align="left" src="https://i.imgur.com/DAMWNib.png" width="400px" alt="" />
+</a><br><br>
 
 # Introduction
+Notenverwaltung is a program that gives lecturers the opportunity to evaluate students consistently and fairly. Particular focus is placed on the independence of Internet services and the encryption of data. 
+The app was developed during the winter semester 2017/2018 at the University of Regensburg, as main project of the course "Advanced Software Engineering".
+<br><br>
+<a>
+<img align="left" src="https://i.imgur.com/yKiF0x9.jpg" alt="" />
+</a><br>
 
 Currently runs with:
 
@@ -12,13 +17,18 @@ Currently runs with:
 - Electron v1.7.6
 - Electron Packager v9.0.1
 
-## Getting Started
+# Features
 
-Clone this repository locally :
+- Rating :pencil2:
+- Group rating :pencil2: :family:
+- Visualization :chart_with_upwards_trend:
+- Export Data :arrow_up:
+- Import Data :arrow_down:
+- Create schema :memo:
+- Change schema :pencil:
+- Overview of students :clipboard:
 
-``` bash
-git clone https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung.git
-```
+# Getting Started
 
 Install dependencies with npm :
 
@@ -29,8 +39,6 @@ or recommended:
 ``` bash
 yarn install
 ```
-
-There is an issue with `yarn` and `node_modules` that are only used in electron on the backend when the application is built by the packager. Please use `npm` as dependencies manager.
 
 If you want to generate Angular components with Angular-cli , you **MUST** install `@angular/cli` in npm global context.  
 Please follow [Angular-cli documentation](https://github.com/angular/angular-cli) if you had installed a previous version of `angular-cli`.
@@ -45,7 +53,6 @@ npm install -g @angular/cli
 
 ## To build for production
 
-- Using development variables (environments/index.ts) :  `npm run electron:dev`
 - Using production variables (environments/index.prod.ts) :  `npm run electron:prod`
 
 Your built files are in the /dist folder.
@@ -61,37 +68,13 @@ Your built files are in the /dist folder.
 
 **Your application is optimised. Only the files of /dist folder are included in the executable.**
 
-## Use NodeJS Native libraries
 
-Actually Angular-Cli doesn't seem to be able to import nodeJS native libs or electron libs at compile time (Webpack error). This is (one of) the reason why webpack.config was ejected of ng-cli.
-If you need to use NodeJS native libraries, you **MUST** add it manually in the file `webpack.config.js` in root folder :
+# Authors
 
-```javascript
-  "externals": {
-    "electron": 'require(\'electron\')',
-    "child_process": 'require(\'child_process\')',
-    "fs": 'require(\'fs\')'
-    ...
-  },
-```
-
-Notice that all NodeJS v7 native libs are already added in this sample. Feel free to remove those you don't need.
-
-
-## Execute E2E tests
-
-You can find end-to-end tests in /e2e folder.
-
-You can run tests with the command lines below : 
-- **in a terminal window** -> First, start a web server on port 4200 : `npm run start:web`  
-- **in another terminal window** -> Then, launch Protractor (E2E framework): `npm run e2e`
-
-# Contributors 
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars3.githubusercontent.com/u/21662088?s=460&v=4" width="100px;"/><br /><sub>Gina Maria Wolf</sub>](https://github.com/GiMaWolf)<br />| [<img src="https://avatars2.githubusercontent.com/u/4850601?s=460&v=4" width="100px;"/><br /><sub>Ewald Reinhardt</sub>](https://github.com/Owlwald)<br />| [<img src="https://avatars0.githubusercontent.com/u/7516526?s=460&v=4" width="100px;"/><br /><sub>Felix Kalley</sub>](https://github.com/FelixKalley)<br />| [<img src="https://avatars2.githubusercontent.com/u/6153088?s=460&v=4" width="100px;"/><br /><sub>Markus Guder</sub>](https://github.com/marc101101)<br /> |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+* **Gina Maria Wolf** - [Github](https://github.com/GiMaWolf) 
+* **Markus Guder** - [Github](https://github.com/marc101101) | [Twitter](https://twitter.com/Markus_Guder)
+* **Ewald Reinhardt** - [Github](https://github.com/Owlwald)
+* **Felix Kalley** - [Github](https://github.com/FelixKalley)
 
 
 ## License
