@@ -5,6 +5,10 @@
 # Introduction
 Notenverwaltung is a program that gives lecturers the opportunity to evaluate students consistently and fairly. Particular focus is placed on the independence of Internet services and the encryption of data. 
 The app was developed during the winter semester 2017/2018 at the University of Regensburg, as main project of the course "Advanced Software Engineering".
+<br><br>
+<a>
+<img align="left" src="https://i.imgur.com/yKiF0x9.jpg" alt="" />
+</a><br>
 
 Currently runs with:
 
@@ -15,6 +19,14 @@ Currently runs with:
 
 # Features
 
+- Rating :pencil2:
+- Group rating :pencil2: :family:
+- Visualization :chart_with_upwards_trend:
+- Export Data :arrow_up:
+- Import Data :arrow_down:
+- Create schema :memo:
+- Change schema :pencil:
+- Overview of students :clipboard:
 
 # Getting Started
 
