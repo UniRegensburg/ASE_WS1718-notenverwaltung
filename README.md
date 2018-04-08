@@ -3,6 +3,8 @@
 </a><br><br>
 
 # Introduction
+Notenverwaltung is a program that gives lecturers the opportunity to evaluate students consistently and fairly. Particular focus is placed on the independence of Internet services and the encryption of data. 
+The app was developed during the winter semester 2017/2018 at the University of Regensburg, as main project of the course "Advanced Software Engineering".
 
 Currently runs with:
 
@@ -11,7 +13,10 @@ Currently runs with:
 - Electron v1.7.6
 - Electron Packager v9.0.1
 
-## Getting Started
+# Features
+
+
+# Getting Started
 
 Install dependencies with npm :
 
@@ -50,6 +55,7 @@ Your built files are in the /dist folder.
 |`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
 
 **Your application is optimised. Only the files of /dist folder are included in the executable.**
+
 
 # Authors
 
