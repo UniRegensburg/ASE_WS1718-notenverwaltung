@@ -58,6 +58,13 @@ Your built files are in the /dist folder.
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+# Authors
+
+* **Gina Maria Wolf** - *Initial work* - [Github](https://github.com/GiMaWolf) 
+* **Markus Guder** - *Initial work* - [Github](https://github.com/marc101101) | [Twitter](https://twitter.com/Markus_Guder)
+* **Ewald Reinhardt** - *Initial work* - [Github](https://github.com/Owlwald)
+* **Felix Kalley** - *Initial work* - [Github](https://github.com/FelixKalley)
+
 
 ## License
 
