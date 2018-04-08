@@ -1,6 +1,5 @@
 <a>
-<img align="left" src="https://i.imgur.com/GofAwGb.png" width="400px" alt="" />
-<img align="right" src="https://travis-ci.com/UniRegensburg/ASE_WS1718-notenverwaltung.svg?token=q4ZzuewzZrMnM6gfyh2w&branch=master" alt="Build status" /><br><hr>
+<img align="left" src="https://i.imgur.com/DAMWNib.png" width="400px" alt="" />
 </a>
 
 # Introduction
