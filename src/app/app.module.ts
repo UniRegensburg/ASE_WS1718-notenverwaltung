@@ -10,13 +10,28 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/index';
 import { NewCourseComponent } from './components/newcourse/newcourse.component';
 import { CourseComponent } from './components/course/course.component';
-
-import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent,DetailComponent } from './components/course/index'
-
-
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService, CheckOsService } from './providers/index';
+import { 
+  OverviewComponent, 
+  StudentsComponent, 
+  GradingComponent, 
+  ResultsComponent, 
+  CorrectionComponent, 
+  DetailComponent, 
+  SingleResultComponent 
+} from './components/course/index'
+
+import { 
+  ElectronService, 
+  GlobalDataService, 
+  ChartService, 
+  LastOpened, 
+  gripsExportService, 
+  flexNowExportService, 
+  ToastService,
+  lastSavedService, 
+  CheckOsService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -37,6 +52,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     GradingComponent,
     NewCourseComponent,
     ResultsComponent,
+    SingleResultComponent,
     CorrectionComponent,
     DetailComponent,
     SearchStudentPipe,
