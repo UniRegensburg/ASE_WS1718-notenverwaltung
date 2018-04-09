@@ -110,7 +110,7 @@ export class ResultsComponent implements OnInit {
     this.grade_participants = this.dataService.getGradesPerStep(this.grade_steps.length);
 
     this.task_steps = this.dataService.getTaskSteps(); 
-    this.task_dataset = this.dataService.getTaskDataset();
+    this.task_dataset = this.dataService.getTaskDataset(false);
   }
 
   export(string): void {
