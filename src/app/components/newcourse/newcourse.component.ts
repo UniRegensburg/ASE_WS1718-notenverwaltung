@@ -69,19 +69,17 @@ export class NewCourseComponent implements OnInit {
   createCourse(): void {
     var app = require('electron').remote;
     var dialog = app.dialog
-
     var chooseFolder = new Promise((resolve, reject) => {
       dialog.showOpenDialog({
         properties: ['openDirectory']
       }, (fileNames) => {
         if (fileNames === undefined) {
-          //TODO: Toast
           this.toastService.setError("Kein Ordner ausgewählt.")
-          reject("No filename selected");
-        }
+        }else{
         this.course_file.path = fileNames[0];
         this.new_course.title = this.course_file.title;
         resolve();
+        }
       });
     });
 
