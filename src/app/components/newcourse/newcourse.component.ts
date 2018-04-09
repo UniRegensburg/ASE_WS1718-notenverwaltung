@@ -69,6 +69,10 @@ export class NewCourseComponent implements OnInit {
   createCourse(): void {
     var app = require('electron').remote;
     var dialog = app.dialog
+    if(this.course_file.title ===""){
+        this.toastService.setError("Kein Name ausgewählt.")
+    }else{
+
     var chooseFolder = new Promise((resolve, reject) => {
       dialog.showOpenDialog({
         properties: ['openDirectory']
@@ -101,5 +105,6 @@ export class NewCourseComponent implements OnInit {
         });
       }
     });
+    }
   }
 }
