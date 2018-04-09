@@ -5,7 +5,7 @@ import { CourseComponent } from './components/course/course.component';
 import {APP_BASE_HREF} from '@angular/common';
 
 
-import { OverviewComponent, StudentsComponent, GradingComponent, CorrectionComponent, ResultsComponent, DetailComponent, SingleResultComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, CorrectionComponent, ResultsComponent, DetailComponent } from './components/course/index'
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -42,10 +42,6 @@ const routes: Routes = [
             {
                 path: 'results',
                 component: ResultsComponent,
-            },
-            {
-                path: 'single-result',
-                component: SingleResultComponent,
             },
             {
                 path: 'grading',
