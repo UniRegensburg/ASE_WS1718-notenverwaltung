@@ -3,7 +3,7 @@
 </a><br><br>
 
 # Introduction
-Notenverwaltung is a program that gives lecturers the opportunity to evaluate students consistently and fairly. Particular focus is placed on the independence of Internet services and the encryption of data. 
+Notenverwaltung is an application that gives lecturers the opportunity to evaluate students consistently and fairly. Particular focus is placed on the independence of Internet services and the encryption of data. 
 The app was developed during the winter semester 2017/2018 at the University of Regensburg, as main project of the course "Advanced Software Engineering".
 <br><br>
 <a>
