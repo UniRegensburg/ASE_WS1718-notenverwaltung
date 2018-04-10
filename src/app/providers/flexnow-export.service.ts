@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { GlobalDataService, ToastService} from './index';
+import { GlobalDataService, ToastService, CheckOsService } from './index';
 
 declare var require: any;
 
@@ -15,11 +15,12 @@ export class flexNowExportService {
   private current_project_students: any;
   private current_project_grading: any;
 
-  constructor(private dataService: GlobalDataService, private toastService: ToastService) { }
+  constructor(private dataService: GlobalDataService, private toastService: ToastService, private osService: CheckOsService) { }
 
   public export(): void {
       var app = require('electron').remote;
       var dialog = app.dialog
+      var slash = this.osService.getSlashFormat()
     this.dataService.getCurrentProject().subscribe(current_project => {
       this.current_project = current_project;
       this.current_project_name = this.current_project.title;
@@ -31,7 +32,7 @@ export class flexNowExportService {
           if (fileNames === undefined) {
              this.toastService.setError("Keinen Ordner ausgewählt.")
         }else{
-        this.filePath = fileNames[0]+ "\\FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
+        this.filePath = fileNames[0]+ slash +"FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
         resolve();
         }
         });
