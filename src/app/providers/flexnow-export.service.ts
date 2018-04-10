@@ -30,10 +30,10 @@ export class flexNowExportService {
         dialog.showOpenDialog({ properties: ['openDirectory'] }, (fileNames) => {
           if (fileNames === undefined) {
              this.toastService.setError("Keinen Ordner ausgewählt.")
-            reject("No filename selected");
-          }
-          this.filePath = fileNames[0]+ "\\FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
-          resolve();
+        }else{
+        this.filePath = fileNames[0]+ "\\FlexNow_export_"+ this.current_project_name.replace(/\W/g,"_")+".csv";
+        resolve();
+        }
         });
       });
       chooseFolder.then(() => {
