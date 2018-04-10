@@ -66,25 +66,25 @@ export class DetailComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-      this.sub = this.route.params.subscribe(params => {
-        this.dataService.getCurrentProject().subscribe(current_project => {
-          this.participants = current_project["teilnehmer"];
-          if (params) {
-            if(params.student_id == "createNewStudent"){
-              this.getNewStudent();
-              this.create_new_student_mode = true;
-            }
-            else{
-              this.setCurrentStudent(params.student_id);
-            }
+    this.sub = this.route.params.subscribe(params => {
+      this.dataService.getCurrentProject().subscribe(current_project => {
+        this.participants = current_project["teilnehmer"];
+        if (params) {
+          if (params.student_id == "createNewStudent") {
+            this.getNewStudent();
+            this.create_new_student_mode = true;
           }
-        });
+          else {
+            this.setCurrentStudent(params.student_id);
+          }
+        }
       });
+    });
   }
 
-  setCurrentStudent(id): void{
+  setCurrentStudent(id): void {
     this.participants.forEach(student => {
-      if(student.id == id){
+      if (student.id == id) {
         this.current_student = student;
         this.current_student_index = id;
       }
@@ -92,44 +92,44 @@ export class DetailComponent implements OnInit {
 
   }
 
-  saveStudent():void{
-      let check = true;
-      this.participants.forEach((existing_student)=>{
-          if(existing_student.mtknr == this.current_student.mtknr){
-              check = false
-          }
-      });
-      if(check == true){
-          this.dataService.setNewStudentsComplete(this.participants)
-          this.router.navigate(['/course/students']);
+  saveStudent(): void {
+    let check = true;
+    this.participants.forEach((existing_student) => {
+      if (existing_student.mtknr == this.current_student.mtknr) {
+        check = false
       }
-      else{
-          this.toastService.setError("Student mit der Matrikelnummer "+this.current_student.mtknr+" ist bereits in der Teilnehmerliste.")
-      }
+    });
+    if (check == true) {
+      this.dataService.setNewStudentsComplete(this.participants)
+      this.router.navigate(['/course/students']);
+    }
+    else {
+      this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
+    }
   }
-  getNewStudent(): void{
+  getNewStudent(): void {
     this.dataService.createNewStudent().subscribe(student => {
       this.current_student = student;
     });
   }
 
-  addStudent(): void{
+  addStudent(): void {
     let check = true;
-    this.participants.forEach((existing_student)=>{
-        if(existing_student.mtknr == this.current_student.mtknr){
-            check = false
-        }
+    this.participants.forEach((existing_student) => {
+      if (existing_student.mtknr == this.current_student.mtknr) {
+        check = false
+      }
     });
-    if(check == true){
-        this.dataService.setNewStudents(this.current_student);
-        this.router.navigate(['/course/students']);
+    if (check == true) {
+      this.dataService.setNewStudents(this.current_student);
+      this.router.navigate(['/course/students']);
     }
-    else{
-        this.toastService.setError("Student mit der Matrikelnummer "+this.current_student.mtknr+" ist bereits in der Teilnehmerliste.")
+    else {
+      this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
     }
   }
 
-  deleteStudent(): void{
+  deleteStudent(): void {
     this.participants.splice(this.current_student_index, 1);
     this.dataService.setNewStudents(this.participants);
     this.router.navigate(['/course/students']);
