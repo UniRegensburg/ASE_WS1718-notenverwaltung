@@ -438,9 +438,10 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewStudentsComplete(students): void {
-    this.current_project.teilnehmer = students;
-    this.saveJson();
+  public setNewStudentsComplete(students): void { 
+    this.current_project.teilnehmer = students; 
+    this.checkCurrentValidity(); 
+    this.saveJson(); 
   }
 
   public setNewGrading(schema): void {
