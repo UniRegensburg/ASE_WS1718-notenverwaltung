@@ -1,4 +1,14 @@
-<div class="container">
+<div class="container" *ngIf="no_tasks">
+<p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
+<br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
+</div>
+
+<div class="container" *ngIf="no_students">
+<p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen.
+Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
+</div>
+
+<div class="container" *ngIf="!no_tasks&&!no_students">
   <h1>Ergebnisse</h1>
   <hr class="hr_welcome">
   <br>
@@ -85,7 +95,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="!no_tasks&&!no_students">
   Informationen zu Farbeinstufungen:
   <div class="row">
     <div class="col l6 s12">
