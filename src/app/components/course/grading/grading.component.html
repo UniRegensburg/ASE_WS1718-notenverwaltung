@@ -1,7 +1,7 @@
 <div class="container">
-  <h1 #schemeHeader>Bewertungsschema</h1>
-  <hr class="hr_welcome">
-  <div class="row">
+  <h1 #schemeHeader *ngIf="!no_data_available">Bewertungsschema</h1>
+  <hr class="hr_welcome" *ngIf="!no_data_available">
+  <!-- <div class="row">
     <div class="col s12">
       <span *ngIf="no_data_available" (click)="importScheme()" class="edit-btn clickHover">
         <i class="material-icons">import_export</i> Bewertungsschema importieren
@@ -10,9 +10,11 @@
         <i class="material-icons">create</i> Bewertungsschema erstellen
       </span>
     </div>
-  </div>
-  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <h5>We're sorry but no data is available!</h5>
+  </div> -->
+  <div class="container" *ngIf="no_data_available">
+    <p class="empty">
+    Es ist noch kein Bewertungsschema erstellt.<br>Bewertungsschema <a class="hnrot clickHover" (click)="createScheme()"><i class="material-icons">create</i>erstellen</a> oder <a class="hnrot clickHover" (click)="importScheme()"><i class="material-icons">import_export</i>importieren.</a>
+    </p>
   </div>
   <div *ngIf="!no_data_available">
     <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
