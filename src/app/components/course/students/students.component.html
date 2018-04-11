@@ -75,10 +75,10 @@
               </select>
             </div>
             <div class="col s1">
-              <i class="material-icons right edit-btn clickHover" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
+              <i class="material-icons right edit-btn clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
             </div>
             <div class="col s1">
-              <i class="material-icons clickHover" (click)="deleteStudent(participant)">delete</i>
+              <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Teilnehmer löschen" (click)="deleteStudent(participant)">delete</i>
             </div>
           </div>
           <hr class="hr_table">
@@ -116,7 +116,7 @@
               {{group.studenten.length}}
             </div>
             <div class="col s3">
-              <i class="material-icons clickHover" (click)="deleteGroup(i)">delete</i>
+              <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Gruppe löschen" (click)="deleteGroup(i)">delete</i>
             </div>
           </div>
           <hr class="hr_table">

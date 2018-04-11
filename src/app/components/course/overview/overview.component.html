@@ -63,9 +63,9 @@
           {{participant.grade}}
         </div>
         <div class="col s3">
-          <i class="material-icons right edit-btn" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
-          <i class="material-icons right edit-btn" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
-          <i class="material-icons right edit-btn" [routerLink]="['/course/results']">pie_chart</i>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Korrektur fortsetzen" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen" [routerLink]="['/course/results']">pie_chart</i>
         </div>
       </div>
       <hr class="hr_table">

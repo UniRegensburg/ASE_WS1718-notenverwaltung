@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
 import * as hopscotch from 'hopscotch';
-import * as tooltips from 'angular-tooltips';
 declare var require: any;
 declare var $: any;
 
