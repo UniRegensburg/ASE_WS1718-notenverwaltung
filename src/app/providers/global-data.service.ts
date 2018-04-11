@@ -76,7 +76,7 @@ export class GlobalDataService {
         this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
-        var string = bytes.toString(this.CryptoJS.enc.Utf8);        
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);
         this.current_project = JSON.parse(string);
         this._error = 0;
         for (let property in this.requiredProperties) {
@@ -399,7 +399,7 @@ export class GlobalDataService {
     });
   }
 
-  public saveNewFile(path, json): any {    
+  public saveNewFile(path, json): any {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
     writeFile(path, encryptedJSON, (err) => {
       if (err) {
@@ -415,16 +415,16 @@ export class GlobalDataService {
     });
   }
 
-  public checkLastOpendFiles(): void{    
+  public checkLastOpendFiles(): void{
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
-      lastOpenedFiles => { 
+      lastOpenedFiles => {
         this.loadedFiles = lastOpenedFiles[0];
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
         }
         else{
         }
-        this.saveLoadedFile();       
+        this.saveLoadedFile();
       }
     );
   }
@@ -503,11 +503,11 @@ export class GlobalDataService {
 }
 
   public saveLoadedFile(): void{
-    let slash = this.osService.getSlashFormat();    
+    let slash = this.osService.getSlashFormat();
     let the_arr = __dirname.split(slash);
     the_arr.pop();
     let path = the_arr.join(slash) + slash + "src" + slash;
-    
+
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
         if (err) {
           alert("An error ocurred creating the file " + err.message);
@@ -517,6 +517,16 @@ export class GlobalDataService {
           // console.log("The file has been saved")
         }
       });
+  }
+
+  public checkMtknr(mtknr):boolean{
+    let check = true;
+    this.current_project.teilnehmer.forEach((existing_student) => {
+      if (existing_student.mtknr == mtknr) {
+        check = false
+      }
+    });
+    return check;
   }
 
 }

@@ -93,12 +93,7 @@ export class DetailComponent implements OnInit {
   }
 
   saveStudent(): void {
-    let check = true;
-    this.participants.forEach((existing_student) => {
-      if (existing_student.mtknr == this.current_student.mtknr) {
-        check = false
-      }
-    });
+    let check = this.dataService.checkMtknr(this.current_student.mtknr)
     if (check == true) {
       this.dataService.setNewStudentsComplete(this.participants)
       this.router.navigate(['/course/students']);
@@ -114,12 +109,7 @@ export class DetailComponent implements OnInit {
   }
 
   addStudent(): void {
-    let check = true;
-    this.participants.forEach((existing_student) => {
-      if (existing_student.mtknr == this.current_student.mtknr) {
-        check = false
-      }
-    });
+    let check = this.dataService.checkMtknr(this.current_student.mtknr);
     if (check == true) {
       this.dataService.setNewStudents(this.current_student);
       this.router.navigate(['/course/students']);
