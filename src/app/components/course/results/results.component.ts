@@ -40,7 +40,6 @@ export class ResultsComponent implements OnInit {
   @ViewChild('graphButton') graphButton: ElementRef;
   @ViewChild('exportButton') exportButton: ElementRef;
 
-
   doTour() {
     var tour = {
       id: "results-tutorial",
@@ -106,7 +105,7 @@ export class ResultsComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
       this.results = this.current_project.bewertung;
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
       this.initGraphView();
     });
   }
@@ -151,6 +150,10 @@ export class ResultsComponent implements OnInit {
   checkColorGrading(div, grade) {
     var element = document.getElementById(div);
 
+    if(this.grading_list == undefined){
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
+    }
+    
     if(element != null){
       if(this.grading_list.length > 2){
         if(grade == this.grading_list[this.grading_list.length-2].note){
