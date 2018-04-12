@@ -134,7 +134,7 @@ export class OverviewComponent implements OnInit {
       let context: CanvasRenderingContext2D = this.graphCanvas.nativeElement.getContext("2d");
       let grade_steps = this.dataService.getGradingSteps();
       let grade_participants = this.dataService.getGradesPerStep(grade_steps.length);
-      this.chartService.initBarChart(grade_steps, grade_participants, context);
+      this.chartService.initGradeChart(grade_steps, grade_participants, context);
     }
   }
 

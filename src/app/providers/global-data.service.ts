@@ -120,6 +120,7 @@ export class GlobalDataService {
   public getFilePath() {
     return this.filePath;
   }
+
   public getGradingSteps(): any {
     var gradingSteps = [];
 
@@ -146,6 +147,99 @@ export class GlobalDataService {
       }
     });
     return gradesPerStep;
+  }
+
+  public getTaskSteps():any{
+    let tasks = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      tasks.push(task.name);
+    });
+
+    return tasks;
+  }
+
+  public getTaskDataset(single_student, student_id?): any{
+    if(single_student){
+      return [this.getLabelMaxPoints(), this.getLabelStudentPoints(student_id)];
+    }
+    else{
+      return [this.getLabelMaxPoints(), this.getLabelAveragePoints()];
+    }    
+  }
+
+  private getLabelMaxPoints(): any{
+    let labelMaxPointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      labelMaxPointsData.push(task.max_punkt);
+    });
+
+    let labelMaxPoints = {
+      "label": "Max. erreichbare Punkte",
+      "backgroundColor": "#c2185b",
+      "data": labelMaxPointsData
+    };
+
+    return labelMaxPoints;
+  }
+
+  private getLabelAveragePoints(): any{
+    let labelAveragePointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      let task_id = task.id;
+      let taskPointsAverage = (this.getTaskPoints(task_id) / this.current_project.teilnehmer.length).toFixed(2);
+      labelAveragePointsData.push(taskPointsAverage);
+    });
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelAveragePointsData
+    };
+
+    return labelAveragePoints;
+  }
+
+  private getLabelStudentPoints(student_id): any{
+    let labelStudentPointsData = [];
+    
+    this.current_project.bewertung.forEach(student => {
+      if(student.student_id == student_id){        
+        student.einzelwertungen.forEach(element => {
+          let points = element.erreichte_punkte;
+          if(points == null){
+            points = 0;
+          }
+          labelStudentPointsData.push(points);
+        });
+      }
+    });   
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelStudentPointsData
+    };
+
+    console.log(labelAveragePoints);
+    
+    return labelAveragePoints;
+  }
+
+  public getTaskPoints(task_id): any{
+    let taskPoints = 0;
+    
+    this.current_project.bewertung.forEach(student => {
+      student.einzelwertungen.forEach(student_task => {
+        if(student_task.aufgaben_id == task_id){
+          taskPoints = taskPoints + student_task.erreichte_punkte;
+        }
+      });
+    });
+    
+    return taskPoints;
   }
 
   public getStudentGrading(): Observable<any> {
@@ -427,6 +521,20 @@ export class GlobalDataService {
         this.saveLoadedFile();
       }
     );
+  }
+
+  public getStudentTotalPoints(student_id): any{
+    let total_points = 0;
+
+    this.current_project.bewertung.forEach(element => {
+      if(element.student_id == student_id){
+        element.einzelwertungen.forEach(task => {
+          total_points = total_points + task.erreichte_punkte;
+        });
+      }
+    });
+
+    return total_points;
   }
 
   /**
