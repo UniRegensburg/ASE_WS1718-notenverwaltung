@@ -26,6 +26,10 @@ import { ToastComponent } from './directives/toast.directive/toast.directive';
 
 import { DeviceDetectorModule } from 'ngx-device-detector';
 
+import 'materialize-css';
+
+import { MaterializeModule} from 'angular2-materialize';
+
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     HttpModule,
     AppRoutingModule,
     NgxPaginationModule,
-    DeviceDetectorModule.forRoot() 
+    DeviceDetectorModule.forRoot() ,
+    MaterializeModule
   ],
   providers: [
     ElectronService,

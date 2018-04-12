@@ -27,14 +27,7 @@
           <div class="col s4 table-header">
             Mindestwert
           </div>
-          <div class="col s2 center">
-            <div class="table-header">Löschen</div>
-          </div>
-          <div class="col s1 left">
-              <div class="table-header">Auf</div>
-            </div>
-            <div class="col s1 left">
-                <div class="table-header">Ab</div>
+          <div class="col s4">
               </div>
         </div>
         <div #gradingKey class="col s12" style="height: 300px;  overflow: scroll;">
@@ -47,16 +40,16 @@
                 <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
               </div>
               <div class="col s2 center" style="margin-top: 20px" id="deleteBtn">
-                <i class="material-icons clickHover" (click)="deleteGrade(i)">delete</i>
+                <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Notenstufe löschen" (click)="deleteGrade(i)">delete</i>
               </div>
               <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="!first">
-                  <i class="material-icons right clickHover" (click)="moveUpGrade(i)">arrow_upward</i>
+                  <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpGrade(i)">arrow_upward</i>
                 </div>
                 <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="first">
                     <i class="material-icons right grey-text">arrow_upward</i>
                   </div>
                 <div class="col s1 center" style="margin-top: 20px" id="downBtn"  *ngIf="i!=this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
-                    <i class="material-icons right clickHover" (click)="moveDownGrade(i)">arrow_downward</i>
+                    <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownGrade(i)">arrow_downward</i>
                   </div>
                   <div class="col s1 center" style="margin-top: 20px" id="downBtn" *ngIf="i==this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
                       <i class="material-icons right grey-text">arrow_downward</i>
@@ -135,15 +128,15 @@
               <i class="material-icons right" *ngIf="openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_up</i>
             </div>
             <div class="col s1" id="deleteTaskBtn">
-              <i class="material-icons right clickHover" (click)="deleteTask(i)">delete</i>
+              <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufgabe löschen" (click)="deleteTask(i)">delete</i>
             </div>
             <div class="col s2" id="upDownTaskBtn" *ngIf="last">
-                <i class="material-icons center clickHover" (click)="moveUpTask(i)">arrow_upward</i>
+                <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpTask(i)">arrow_upward</i>
                 <i class="material-icons center grey-text" >arrow_downward</i>
               </div>
               <div class="col s2" id="upDownTaskBtn" *ngIf="!last">
-                  <i class="material-icons center clickHover" (click)="moveUpTask(i)">arrow_upward</i>
-                  <i class="material-icons center clickHover" (click)="moveDownTask(i)" >arrow_downward</i>
+                  <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpTask(i)">arrow_upward</i>
+                  <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownTask(i)" >arrow_downward</i>
                 </div>
           </div>
         </div>
@@ -162,7 +155,7 @@
               </div>
               <div class="col s2" id="upDownTaskBtns">
                   <i class="material-icons grey-text center">arrow_upward</i>
-                  <i class="material-icons clickHover center" (click)="moveDownTask(i)">arrow_downward</i>
+                  <i class="material-icons clickHover center tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownTask(i)">arrow_downward</i>
                   </div>
             </div>
           </div>
