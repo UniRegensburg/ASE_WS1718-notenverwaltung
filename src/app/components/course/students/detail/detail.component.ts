@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { GlobalDataService, ChartService } from '../../../../providers/index'
+import { GlobalDataService, ChartService, ToastService } from '../../../../providers/index'
 import {
   ActivatedRoute, Router
 } from '@angular/router';
@@ -35,7 +35,8 @@ export class DetailComponent implements OnInit {
   @ViewChild('saveDelete') saveDelete: ElementRef;
   @ViewChild('cancelButton') cancelButton: ElementRef;
 
-  doTour() {      
+
+  doTour() {
     var tour = {
       id: "results-tutorial",
       steps: [
@@ -69,6 +70,7 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     public router: Router,
     public chartService: ChartService, 
+    private toastService: ToastService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -86,12 +88,12 @@ export class DetailComponent implements OnInit {
           }
           this.initGraphView();
         });
-      });
+    });
   }
 
-  setCurrentStudent(id): void{
+  setCurrentStudent(id): void {
     this.participants.forEach(student => {
-      if(student.id == id){
+      if (student.id == id) {
         this.current_student = student;
         this.current_student_index = id;
       }
@@ -117,23 +119,36 @@ export class DetailComponent implements OnInit {
     this.total_points = this.dataService.getStudentTotalPoints(this.current_student.id);
   }
 
-  saveStudent():void{
-    this.dataService.setNewStudentsComplete(this.participants)
-    this.router.navigate(['/course/students']);
-  }
 
-  getNewStudent(): void{
+  saveStudent(): void {
+    let check = this.dataService.checkMtknr(this.current_student.mtknr)
+    if (check == true) {
+      this.dataService.setNewStudentsComplete(this.participants)
+      this.router.navigate(['/course/students']);
+    }
+    else {
+      this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
+    }
+  }
+  
+  getNewStudent(): void {
     this.dataService.createNewStudent().subscribe(student => {
       this.current_student = student;
     });
   }
 
-  addStudent(): void{
-    this.dataService.setNewStudents(this.current_student);
-    this.router.navigate(['/course/students']);
+  addStudent(): void {
+    let check = this.dataService.checkMtknr(this.current_student.mtknr);
+    if (check == true) {
+      this.dataService.setNewStudents(this.current_student);
+      this.router.navigate(['/course/students']);
+    }
+    else {
+      this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
+    }
   }
 
-  deleteStudent(): void{
+  deleteStudent(): void {
     this.participants.splice(this.current_student_index, 1);
     this.dataService.setNewStudents(this.participants);
     this.router.navigate(['/course/students']);

@@ -1,0 +1,146 @@
+Arguments: 
+  /Users/markusguder/.nvm/versions/node/v9.0.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js add -g depcheck
+
+PATH: 
+  /Users/markusguder/mongodb/bin:/Users/markusguder/.nvm/versions/node/v9.0.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:/Users/markusguder/Library/Android/sdk/tools:/Users/markusguder/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  9.0.0
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "ASE-Notenverwaltung",
+    "version": "0.0.0",
+    "description": "Tool for grade management.",
+    "author": {},
+    "keywords": [
+      "angular",
+      "angular 5",
+      "electron",
+      "typescript",
+      "sass"
+    ],
+    "main": "main.js",
+    "private": true,
+    "scripts": {
+      "ng": "ng",
+      "lint": "ng lint",
+      "start": "npm-run-all --parallel webpack:watch electron:serve",
+      "webpack:watch": "webpack --watch",
+      "start:web": "webpack-dev-server --content-base . --port 4200 --inline",
+      "build:electron:main": "tsc main.ts --outDir dist && copyfiles package.json dist && cd dist && npm install --prod && cd ..",
+      "build": "webpack --display-error-details && npm run build:electron:main",
+      "build:prod": "cross-env NODE_ENV=production npm run build",
+      "electron:serve": "npm run build:electron:main && electron ./dist --serve",
+      "electron:test": "electron ./dist",
+      "electron:dev": "npm run build && electron ./dist",
+      "electron:linux": "npm run build && node package.js --asar --platform=linux --arch=x64",
+      "electron:windows": "npm run build && node package.js --asar --platform=win32 --arch=ia32",
+      "electron:mac": "npm run build && node package.js --asar --platform=darwin --arch=x64",
+      "pree2e": "webdriver-manager update --standalone false --gecko false --quiet && npm run build",
+      "e2e": "protractor ./protractor.conf.js"
+    },
+    "dependencies": {
+      "@angular/animations": "^5.2.9",
+      "@angular/common": "5.0.1",
+      "@angular/compiler": "5.0.1",
+      "@angular/core": "5.0.1",
+      "@angular/forms": "5.0.1",
+      "@angular/http": "5.0.1",
+      "@angular/platform-browser": "5.0.1",
+      "@angular/platform-browser-dynamic": "5.0.1",
+      "@angular/router": "5.0.1",
+      "@ngtools/webpack": "^1.5.1",
+      "@types/pouchdb": "^6.3.2",
+      "angular2-csv": "^0.2.5",
+      "angular2-indexeddb": "^1.2.2",
+      "babel-polyfill": "^6.26.0",
+      "chart.js": "^2.7.1",
+      "core-js": "2.4.1",
+      "crypto-js": "^3.1.9-1",
+      "enhanced-resolve": "3.3.0",
+      "file-system": "^2.2.2",
+      "fs": "0.0.1-security",
+      "hopscotch": "^0.3.1",
+      "materialize-css": "^0.100.2",
+      "ng2-pagination": "^2.0.2",
+      "ngx-device-detector": "^1.2.2",
+      "ngx-pagination": "^3.0.3",
+      "pouchdb": "^6.4.1",
+      "rxdb": "^7.3.1",
+      "rxjs": "5.5.2",
+      "ts-xlsx": "^0.0.11",
+      "webpack": "^3.10.0",
+      "zone.js": "0.8.17"
+    },
+    "devDependencies": {
+      "@angular/cli": "1.5.0",
+      "@angular/compiler-cli": "5.0.1",
+      "@types/core-js": "0.9.36",
+      "@types/jasmine": "2.5.54",
+      "@types/node": "7.0.7",
+      "autoprefixer": "7.1.4",
+      "codelyzer": "4.0.1",
+      "copyfiles": "1.2.0",
+      "cross-env": "5.0.5",
+      "css-loader": "0.28.7",
+      "cssnano": "3.10.0",
+      "electron": "1.7.11",
+      "electron-packager": "9.1.0",
+      "electron-reload": "1.2.1",
+      "exports-loader": "0.6.4",
+      "extract-text-webpack-plugin": "^3.0.2",
+      "file-loader": "0.11.2",
+      "html-loader": "0.5.1",
+      "html-webpack-plugin": "^2.30.1",
+      "istanbul-instrumenter-loader": "3.0.0",
+      "jasmine-core": "2.8.0",
+      "jasmine-spec-reporter": "4.2.1",
+      "json-loader": "0.5.7",
+      "less-loader": "4.0.5",
+      "minimist": "1.2.0",
+      "mkdirp": "0.5.1",
+      "npm-run-all": "^4.1.1",
+      "postcss-loader": "2.0.6",
+      "postcss-url": "7.1.2",
+      "protractor": "5.1.2",
+      "raw-loader": "0.5.1",
+      "sass-loader": "6.0.6",
+      "script-loader": "0.7.1",
+      "source-map-loader": "0.2.1",
+      "style-loader": "0.18.2",
+      "stylus-loader": "3.0.1",
+      "ts-node": "3.3.0",
+      "tslint": "5.7.0",
+      "typescript": "2.4.2",
+      "url-loader": "0.5.9",
+      "webdriver-manager": "12.0.6",
+      "webpack-dev-server": "2.8.2"
+    },
+    "license": "SEE LICENSE IN LICENSE.md"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Missing list of packages to add to your project.
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
+      at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:40587:13)
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:116:14
+      at new Promise (<anonymous>)
+      at new F (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:23451:28)
+      at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:95:12)
+      at Object.run (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:40599:19)
+      at run (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:89113:20)

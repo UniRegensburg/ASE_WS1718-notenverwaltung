@@ -33,7 +33,7 @@ export class StudentsComponent implements OnInit {
 
 
 
-  doTour() {      
+  doTour() {
     var tour = {
       id: "students-tutorial",
       steps: [
@@ -192,17 +192,15 @@ export class StudentsComponent implements OnInit {
             break;
         }
       }
-      let check = true
-      this.current_project.teilnehmer.forEach((existing_student)=>{
-          if(existing_student.mtknr == student.mtknr){
-              check = false
-              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
-          }
-      });
+        let check = true
+        let temp = this.dataService.checkMtknr(student.mtknr)
+        if(temp == false){
+          check= false
+        }
+
       students.forEach((existing_student)=>{
           if(existing_student.mtknr == student.mtknr){
               check = false
-              // this.toastService.setError("Import des Studenten mit der Matrikelnummer "+student.mtknr+" fehlgeschlagen. Matrikelnummer ist bereits vergeben.")
           }
       });
       cell += 1
