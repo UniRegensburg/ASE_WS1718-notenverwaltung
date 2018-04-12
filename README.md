@@ -71,10 +71,11 @@ Your built files are in the /dist folder.
 
 # Authors
 
-* **Gina Maria Wolf** - [Github](https://github.com/GiMaWolf) 
-* **Markus Guder** - [Github](https://github.com/marc101101) | [Twitter](https://twitter.com/Markus_Guder)
-* **Ewald Reinhardt** - [Github](https://github.com/Owlwald)
-* **Felix Kalley** - [Github](https://github.com/FelixKalley)
+* **Markus Guder** - [Github](https://github.com/marc101101) | [Twitter](https://twitter.com/Markus_Guder) | markus.guder@stud.uni-regensburg.de
+* **Felix Kalley** - [Github](https://github.com/FelixKalley) | felix.kalley@stud.uni-regensburg.de
+* **Ewald Reinhardt** - [Github](https://github.com/Owlwald) | ewald.reinhardt@stud.uni-regensburg.de
+* **Gina Maria Wolf** - [Github](https://github.com/GiMaWolf) | gina-maria.wolf@stud.uni-regensburg.de
+
 
 
 ## License
