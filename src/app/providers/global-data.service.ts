@@ -76,7 +76,7 @@ export class GlobalDataService {
         this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
-        var string = bytes.toString(this.CryptoJS.enc.Utf8);        
+        var string = bytes.toString(this.CryptoJS.enc.Utf8);
         this.current_project = JSON.parse(string);
         this._error = 0;
         for (let property in this.requiredProperties) {
@@ -120,6 +120,7 @@ export class GlobalDataService {
   public getFilePath() {
     return this.filePath;
   }
+
   public getGradingSteps(): any {
     var gradingSteps = [];
 
@@ -146,6 +147,99 @@ export class GlobalDataService {
       }
     });
     return gradesPerStep;
+  }
+
+  public getTaskSteps():any{
+    let tasks = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      tasks.push(task.name);
+    });
+
+    return tasks;
+  }
+
+  public getTaskDataset(single_student, student_id?): any{
+    if(single_student){
+      return [this.getLabelMaxPoints(), this.getLabelStudentPoints(student_id)];
+    }
+    else{
+      return [this.getLabelMaxPoints(), this.getLabelAveragePoints()];
+    }    
+  }
+
+  private getLabelMaxPoints(): any{
+    let labelMaxPointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      labelMaxPointsData.push(task.max_punkt);
+    });
+
+    let labelMaxPoints = {
+      "label": "Max. erreichbare Punkte",
+      "backgroundColor": "#c2185b",
+      "data": labelMaxPointsData
+    };
+
+    return labelMaxPoints;
+  }
+
+  private getLabelAveragePoints(): any{
+    let labelAveragePointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      let task_id = task.id;
+      let taskPointsAverage = (this.getTaskPoints(task_id) / this.current_project.teilnehmer.length).toFixed(2);
+      labelAveragePointsData.push(taskPointsAverage);
+    });
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelAveragePointsData
+    };
+
+    return labelAveragePoints;
+  }
+
+  private getLabelStudentPoints(student_id): any{
+    let labelStudentPointsData = [];
+    
+    this.current_project.bewertung.forEach(student => {
+      if(student.student_id == student_id){        
+        student.einzelwertungen.forEach(element => {
+          let points = element.erreichte_punkte;
+          if(points == null){
+            points = 0;
+          }
+          labelStudentPointsData.push(points);
+        });
+      }
+    });   
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelStudentPointsData
+    };
+
+    console.log(labelAveragePoints);
+    
+    return labelAveragePoints;
+  }
+
+  public getTaskPoints(task_id): any{
+    let taskPoints = 0;
+    
+    this.current_project.bewertung.forEach(student => {
+      student.einzelwertungen.forEach(student_task => {
+        if(student_task.aufgaben_id == task_id){
+          taskPoints = taskPoints + student_task.erreichte_punkte;
+        }
+      });
+    });
+    
+    return taskPoints;
   }
 
   public getStudentGrading(): Observable<any> {
@@ -399,7 +493,7 @@ export class GlobalDataService {
     });
   }
 
-  public saveNewFile(path, json): any {    
+  public saveNewFile(path, json): any {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
     writeFile(path, encryptedJSON, (err) => {
       if (err) {
@@ -415,18 +509,32 @@ export class GlobalDataService {
     });
   }
 
-  public checkLastOpendFiles(): void{    
+  public checkLastOpendFiles(): void{
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
-      lastOpenedFiles => { 
+      lastOpenedFiles => {
         this.loadedFiles = lastOpenedFiles[0];
         if(!lastOpenedFiles[1]){
           this.createNewLastOpenedFile(this.filePath);
         }
         else{
         }
-        this.saveLoadedFile();       
+        this.saveLoadedFile();
       }
     );
+  }
+
+  public getStudentTotalPoints(student_id): any{
+    let total_points = 0;
+
+    this.current_project.bewertung.forEach(element => {
+      if(element.student_id == student_id){
+        element.einzelwertungen.forEach(task => {
+          total_points = total_points + task.erreichte_punkte;
+        });
+      }
+    });
+
+    return total_points;
   }
 
   /**
@@ -438,9 +546,10 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewStudentsComplete(students): void {
-    this.current_project.teilnehmer = students;
-    this.saveJson();
+  public setNewStudentsComplete(students): void { 
+    this.current_project.teilnehmer = students; 
+    this.checkCurrentValidity(); 
+    this.saveJson(); 
   }
 
   public setNewGrading(schema): void {
@@ -503,11 +612,11 @@ export class GlobalDataService {
 }
 
   public saveLoadedFile(): void{
-    let slash = this.osService.getSlashFormat();    
+    let slash = this.osService.getSlashFormat();
     let the_arr = __dirname.split(slash);
     the_arr.pop();
     let path = the_arr.join(slash) + slash + "src" + slash;
-    
+
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
         if (err) {
           alert("An error ocurred creating the file " + err.message);
@@ -517,6 +626,16 @@ export class GlobalDataService {
           // console.log("The file has been saved")
         }
       });
+  }
+
+  public checkMtknr(mtknr):boolean{
+    let check = true;
+    this.current_project.teilnehmer.forEach((existing_student) => {
+      if (existing_student.mtknr == mtknr) {
+        check = false
+      }
+    });
+    return check;
   }
 
 }

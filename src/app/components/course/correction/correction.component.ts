@@ -52,12 +52,14 @@ export class CorrectionComponent implements OnInit {
   private groupmode: boolean = true;
   private show_next: boolean = true;
   private show_previous: boolean = true;
+  private next_thing: boolean = false;
+  private last_thing: boolean = false;
 
   @ViewChild('taskStudent') taskStudent: ElementRef;
   @ViewChild('taskDetails') taskDetails: ElementRef;
-  @ViewChild('correctionView') correctionView: ElementRef; 
+  @ViewChild('correctionView') correctionView: ElementRef;
 
-  doTour() {      
+  doTour() {
     var tour = {
       id: "correction-tutorial",
       steps: [
@@ -72,7 +74,7 @@ export class CorrectionComponent implements OnInit {
           title: "Ansicht",
           content: "Die Ansicht ist anpassbar je nachdem, ob Sie gesamte Gruppen oder einzelne Studenten korrigieren möchten.",
           target: this.correctionView
-          .nativeElement,
+            .nativeElement,
           placement: "bottom"
         },
         {
@@ -157,11 +159,12 @@ export class CorrectionComponent implements OnInit {
   }
 
   toggleGroupView(): void {
-    let errormsg ="";
+    let errormsg = "";
 
     if (!this.no_groups && this.groupmode) {
       try {
-        this.current_student = this.students[this.current_group.studenten[0]];
+        this.setCurrentGroupMembers();
+        this.current_student = this.groupmembers[0];
       } catch (err) {
         errormsg = "Dieser Gruppe sind noch keine Studierenden zugeteilt.";
         this.groupmode = !this.groupmode;
@@ -173,7 +176,7 @@ export class CorrectionComponent implements OnInit {
         this.setCurrentGroupMembers();
       }
       catch (err) {
-        errormsg ="Dieser Student ist noch keiner Gruppe zugeteilt.";
+        errormsg = "Dieser Student ist noch keiner Gruppe zugeteilt.";
         this.groupmode = !this.groupmode;
       }
     }
@@ -183,7 +186,7 @@ export class CorrectionComponent implements OnInit {
       this.checkLimits();
     }
     catch (err) {
-      this.toastService.setError("Gruppenmodus konnte nicht geändert werden: "+ errormsg);
+      this.toastService.setError("Gruppenmodus konnte nicht geändert werden: " + errormsg);
     }
   }
 
@@ -192,16 +195,68 @@ export class CorrectionComponent implements OnInit {
     this.checkLimits();
   }
 
-  chevronClick(direction): void {
-    this.setNextView(direction);
+  chevronClick(color, direction): void {
+    let param = 0;
+    if (direction == "backwards") param = -1;
+    if (direction == "forwards") param = 1;
+    if (color == "black") this.setNextContinue(param);
+    if (color == "pink") this.setNextJump(param);
+    if (color == "any"){
+      if ((this.show_next && param == 1) || (this.show_previous && param == -1)) this.setNextContinue(param);
+      else if ((this.next_thing && param == 1) ||(this.last_thing && param == -1)) this.setNextJump(param);
+    }
     this.checkLimits();
     this.setCurrentCorrection();
   }
 
-  setNextView(direction): void {
-    let param = 0;
-    if (direction == "backwards") param = -1;
-    if (direction == "forwards") param = 1;
+  setNextJump(param): void {
+    if (this.groupmode && this.correctByTask) {
+      if (this.group_index == 0) {
+        this.group_index = this.groups.length - 1;
+      } else
+        if (this.group_index == this.groups.length - 1) {
+          this.group_index = 0;
+        }
+        this.task_index = this.task_index + param;
+    }
+
+    else if (this.groupmode && !this.correctByTask) {
+      if(this.task_index == this.tasks.length-1){
+        this.task_index = 0;
+      } else if (this.task_index == 0){
+        this.task_index = this.tasks.length-1;
+      }
+     this.group_index = this.group_index + param;
+    }
+
+    else if (!this.groupmode && this.correctByTask) {
+      if (this.student_index == 0) {
+        this.student_index = this.students.length - 1;
+      } else
+        if (this.student_index == this.students.length - 1) {
+          this.student_index = 0;
+        } 
+        this.task_index = this.task_index + param;
+    }
+
+    else if (!this.groupmode && !this.correctByTask) {
+      if(this.task_index == this.tasks.length-1){
+        this.task_index = 0;
+      } else if (this.task_index == 0){
+        this.task_index = this.tasks.length-1;
+      }
+      this.student_index = this.student_index + param;
+    }
+
+    if (this.groupmode) {
+      this.setCurrentGroupMembers();
+    } else {
+      this.current_student = this.students[this.student_index];
+    }
+    this.current_task = this.tasks[this.task_index];
+  }
+
+  setNextContinue(param): void {
     if (this.groupmode && this.correctByTask) {
       this.group_index = this.group_index + param;
       this.setCurrentGroupMembers();
@@ -221,6 +276,39 @@ export class CorrectionComponent implements OnInit {
     this.groupmembers = this.dataService.getStudentsByGroup(this.current_group.name);
   }
 
+  checkPink(): void {
+    if (this.show_previous) this.last_thing = false;
+    if (this.show_next) this.next_thing = false;
+
+    if (!this.show_previous) {
+      if (this.correctByTask && this.task_index != 0) {
+        this.last_thing = true;
+      }
+      if (this.groupmode && !this.correctByTask && this.group_index != 0) {
+        this.last_thing = true;
+      }
+      if (!this.groupmode && !this.correctByTask && this.student_index != 0) {
+        this.last_thing = true;
+      }
+    }
+
+    if (!this.show_next) {
+      if (this.correctByTask && this.task_index != (this.tasks.length - 1)) {
+        this.next_thing = true;
+      }
+      if (this.groupmode) {
+        if (!this.correctByTask && this.group_index != (this.groups.length - 1)) {
+          this.next_thing = true;
+        }
+      }
+      else if (!this.groupmode) {
+        if (!this.correctByTask && this.student_index != (this.students.length - 1)) {
+          this.next_thing = true;
+        }
+      }
+    }
+  }
+
   checkLimits(): void {
     if (!this.correctByTask) {
       if (this.task_index == 0) {
@@ -233,6 +321,7 @@ export class CorrectionComponent implements OnInit {
       } else {
         this.show_next = true;
       }
+      this.checkPink();
     }
 
     else if (this.correctByTask && this.groupmode) {
@@ -260,6 +349,8 @@ export class CorrectionComponent implements OnInit {
         this.show_next = true;
       }
     }
+
+    this.checkPink();
   }
 
   saveCorrection(): void {
@@ -289,13 +380,14 @@ export class CorrectionComponent implements OnInit {
     this.dataService.setNewCorrection(this.grading)
   }
 
+  //TODO: fix params
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
-      this.chevronClick("forwards");
+      this.chevronClick("any", "forwards");
     }
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
-      this.chevronClick("backwards");
+      this.chevronClick("any", "backwards");
     }
   }
 }

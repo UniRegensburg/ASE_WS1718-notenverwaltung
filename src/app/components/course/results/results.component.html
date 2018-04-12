@@ -1,4 +1,14 @@
-<div class="container">
+<div class="container" *ngIf="no_tasks">
+<p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
+<br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
+</div>
+
+<div class="container" *ngIf="no_students">
+<p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen.
+Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
+</div>
+
+<div class="container" *ngIf="!no_tasks&&!no_students">
   <h1>Ergebnisse</h1>
   <hr class="hr_welcome">
   <br>
@@ -9,15 +19,15 @@
     <div class="col s2">
       <span>Downloads</span>
     </div>
-    <div class="col 3">
+    <div class="col s3">
       <a class="btn waves-effect waves-light pink darken-2" (click)="export('flexnow')">
         <i class="material-icons left">file_download</i> FLEXNOW </a>
     </div>
-    <div class="col 3">
+    <div class="col s3">
       <a #exportButton class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
         <i class="material-icons left">file_download</i> GRIPS </a>
     </div>
-    <div class="col 3">
+    <div class="col s3">
       <a class="btn waves-effect waves-light pink darken-2" (click)="export('print')">
         <i class="material-icons left">print</i> PRINT </a>
     </div>
@@ -40,21 +50,19 @@
     </div>
   </div>
   <div class="diagrams" [hidden]="display_diagrams">
-    <!-- http://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/ -->
     <div class="row" style="margin-top: 40px">
-      <h2 class="diagramm">Notenspiegel</h2>
-      <canvas #barchart width="800" height="450"></canvas>
+      <div class="col s12">
+        <h2 class="diagramm">Notenspiegel</h2>
+        <canvas #gradeChart width="800" height="450"></canvas>
+      </div>
+      <hr>
+      <div class="col s12">
+        <h2 class="diagramm">Erreichte Punkte pro Aufgabe</h2>
+        <canvas #taskChart width="800" height="450"></canvas>
+      </div>
+      <hr>
     </div>
-    <!--
-        <div class="row" style="margin-top: 40px">
-            <h2 class="diagramm">Durchschnittlich erreichte Prozent pro Aufgabe</h2>
-            <canvas id="polar-chart" width="800" height="450"></canvas>
-        </div>
 
-        <div class="row" style="margin-top: 40px">
-            <h2 class="diagramm">Erreichte Prozent pro Aufgabe</h2>
-            <canvas id="scatter-chart" width="800" height="450"></canvas>
-        </div>-->
   </div>
   <div class="row" class="participants">
     <h2>Aufgaben vs. Teilnehmer</h2>
@@ -85,7 +93,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="!no_tasks&&!no_students">
   Informationen zu Farbeinstufungen:
   <div class="row">
     <div class="col l6 s12">

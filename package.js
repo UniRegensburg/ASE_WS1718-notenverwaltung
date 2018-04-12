@@ -25,7 +25,6 @@ pack(platform, arch, function done(err, appPath) {
     } else {
         console.log('Application packaged successfuly!', appPath);
     }
-
 });
 
 function pack(plat, arch, cb) {

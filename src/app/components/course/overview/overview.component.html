@@ -1,8 +1,9 @@
 <div class="container">
-  <h1>ÜBERSICHT</h1>
+  <h1 *ngIf="!no_data_available">ÜBERSICHT</h1>
+  <h1 *ngIf="no_data_available">{{kurstitel}}</h1>
   <hr class="hr_welcome">
   <br>
-  <h5>{{kurstitel}}</h5>
+  <h5 *ngIf="!no_data_available">{{kurstitel}}</h5>
 
   <div class="row" style="margin-top: 40px" [hidden]="no_data_available">
     <div class="col l4">
@@ -19,8 +20,10 @@
     </div>
   </div>
 
-  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <p>In diesem Kurs gibt es noch keine Studierenden.</p>
+  <div class="container" style="margin-left: 0px" *ngIf="no_data_available">
+    <p class="empty">
+    In diesem Kurs gibt es noch keine Studierenden. <br>Teilnehmer können im Menüpunkt <a  class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a> erstellt oder importiert werden.
+    </p>
   </div>
   <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
     <div class="col l12">
