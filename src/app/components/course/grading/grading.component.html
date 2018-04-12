@@ -1,7 +1,7 @@
 <div class="container">
-  <h1>Bewertungsschema</h1>
-  <hr class="hr_welcome">
-  <div class="row">
+  <h1 #schemeHeader *ngIf="!no_data_available">Bewertungsschema</h1>
+  <hr class="hr_welcome" *ngIf="!no_data_available">
+  <!-- <div class="row">
     <div class="col s12">
       <span *ngIf="no_data_available" (click)="importScheme()" class="edit-btn clickHover">
         <i class="material-icons">import_export</i> Bewertungsschema importieren
@@ -10,59 +10,77 @@
         <i class="material-icons">create</i> Bewertungsschema erstellen
       </span>
     </div>
-  </div>
-  <div class="row" style="margin-left: 0px" *ngIf="no_data_available">
-    <h5>We're sorry but no data is available!</h5>
+  </div> -->
+  <div class="container" *ngIf="no_data_available">
+    <p class="empty">
+    Es ist noch kein Bewertungsschema erstellt.<br>Bewertungsschema <a class="hnrot clickHover" (click)="createScheme()"><i class="material-icons">create</i>erstellen</a> oder <a class="hnrot clickHover" (click)="importScheme()"><i class="material-icons">import_export</i>importieren.</a>
+    </p>
   </div>
   <div *ngIf="!no_data_available">
     <div class="row title-block" style="padding:10px">Notenschlüssel / Einheit</div>
     <div class="row">
-      <div class="col s6">
+      <div class="col s7">
         <div class="row row_hover">
-          <div class="col s5 table-header">
+          <div class="col s4 table-header">
             Notenstufe
           </div>
-          <div class="col s5 table-header">
+          <div class="col s4 table-header">
             Mindestwert
           </div>
-          <div class="col s2 table-header">
-            Löschen
-          </div>
+          <div class="col s4">
+              </div>
         </div>
-        <div class="col s12" style="height: 300px;  overflow: scroll;">
-          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index; let last=last">
+        <div #gradingKey class="col s12" style="height: 300px;  overflow: scroll;">
+          <div class="row row_hover card" *ngFor="let entry of this.current_project.bewertungsschema.allgemeine_infos.notenschluessel; let i=index; let last=last; let first=first;">
             <div *ngIf="!last">
-              <div class="col s5">
+              <div class="col s4">
                 <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
               </div>
-              <div class="col s5">
+              <div class="col s4">
                 <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
               </div>
-              <div class="col s2" style="margin-top: 20px" id="deleteBtn" (click)="deleteGrade(i)">
-                <i class="material-icons right">delete</i>
+              <div class="col s2 center" style="margin-top: 20px" id="deleteBtn">
+                <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Notenstufe löschen" (click)="deleteGrade(i)">delete</i>
               </div>
+              <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="!first">
+                  <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpGrade(i)">arrow_upward</i>
+                </div>
+                <div class="col s1 center" style="margin-top: 20px" id="upBtn" *ngIf="first">
+                    <i class="material-icons right grey-text">arrow_upward</i>
+                  </div>
+                <div class="col s1 center" style="margin-top: 20px" id="downBtn"  *ngIf="i!=this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
+                    <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownGrade(i)">arrow_downward</i>
+                  </div>
+                  <div class="col s1 center" style="margin-top: 20px" id="downBtn" *ngIf="i==this.current_project.bewertungsschema.allgemeine_infos.notenschluessel.length-2">
+                      <i class="material-icons right grey-text">arrow_downward</i>
+                    </div>
             </div>
             <div *ngIf="last">
-              <div class="col s5">
-                <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
-              </div>
-              <div class="col s5">
-                <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)"
-                  disabled>
-              </div>
-              <div class="col s2" style="margin-top: 20px" id="deleteBtn">
-                <i class="material-icons grey-text right">delete</i>
-              </div>
+                <div class="col s4">
+                    <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
+                  </div>
+                  <div class="col s4">
+                    <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+                  </div>
+                  <div class="col s2 center grey-text" style="margin-top: 20px" id="deleteBtn">
+                    <i class="material-icons">delete</i>
+                  </div>
+                  <div class="col s1 center grey-text" style="margin-top: 20px" id="upBtn">
+                      <i class="material-icons right">arrow_upward</i>
+                    </div>
+                    <div class="col s1 center grey-text" style="margin-top: 20px" id="downBtn">
+                        <i class="material-icons right">arrow_downward</i>
+                      </div>
             </div>
           </div>
         </div>
       </div>
       <div class='col s2'></div>
-      <div class='col s6 center' id='grading-unit'>
+      <div class='col s5 center' id='grading-unit'>
         <div class="table-header">
           Bewertungseinheit
         </div>
-        <form action="#" id='grading-form'>
+        <form #gradingUnit action="#" id='grading-form'>
           <p class="center">
             <input class="with-gap" name="radio-group1" id="grading-unit1" type="radio" (click)="pointsSelected()" value="0" (change)="changeDetected($event)"
               checked/>
@@ -75,7 +93,7 @@
           </p>
         </form>
       </div>
-      <div class='col s6 center' id='grading-maxpoints' style="padding-top: 30px">
+      <div class='col s5 center' id='grading-maxpoints' style="padding-top: 30px">
         <div class="table-header">
           Maximale Punktzahl
         </div>
@@ -83,8 +101,8 @@
           {{max_points}}
         </div>
       </div>
-      <div class="col s6" style="padding: 15px">
-        <a class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px"
+      <div class="col s5" style="padding: 15px">
+        <a #stepButton class="waves-effect waves-light btn pink darken-2 right" type="submit" (click)="addNewGrade()" style="margin-bottom: 15px"
           (mouseup)="onKeyUp($event)">
           <i class="material-icons left">add</i>Notenstufe hinzufügen</a>
       </div>
@@ -97,36 +115,48 @@
         <i class="material-icons left">add</i>Aufgabe hinzufügen</a>
     </div>
     <div class="row">
-      <div class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first"
+      <div #taskDetails class="col s12" *ngFor="let question of this.current_project.bewertungsschema.aufgaben; let i=index; let first=first; let last=last;"
         (change)="changeDetected($event)">
         <div *ngIf="!first">
-          <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
-            <div class="col s9">
+          <div class="card-panel white row">
+            <div class="col s7">
               <span>{{question.name}}</span>
               <br>
             </div>
             <div class="col s2">
-              <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
-              <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+              <i class="material-icons right" *ngIf="!openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_down</i>
+              <i class="material-icons right" *ngIf="openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_up</i>
             </div>
-            <div class="col s1" id="deleteTaskBtn" (click)="deleteTask(i)">
-              <i class="material-icons right">delete</i>
+            <div class="col s1" id="deleteTaskBtn">
+              <i class="material-icons right clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufgabe löschen" (click)="deleteTask(i)">delete</i>
             </div>
+            <div class="col s2" id="upDownTaskBtn" *ngIf="last">
+                <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpTask(i)">arrow_upward</i>
+                <i class="material-icons center grey-text" >arrow_downward</i>
+              </div>
+              <div class="col s2" id="upDownTaskBtn" *ngIf="!last">
+                  <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Aufwärts bewegen" (click)="moveUpTask(i)">arrow_upward</i>
+                  <i class="material-icons center clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownTask(i)" >arrow_downward</i>
+                </div>
           </div>
         </div>
         <div *ngIf="first">
-            <div class="card-panel white row" (click)="openCollapsible[i] = !openCollapsible[i]">
-              <div class="col s9">
+            <div class="card-panel white row">
+              <div class="col s7">
                 <span>{{question.name}}</span>
                 <br>
               </div>
               <div class="col s2">
-                <i class="material-icons right" *ngIf="!openCollapsible[i]">keyboard_arrow_down</i>
-                <i class="material-icons right" *ngIf="openCollapsible[i]">keyboard_arrow_up</i>
+                <i class="material-icons right" *ngIf="!openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_down</i>
+                <i class="material-icons right" *ngIf="openCollapsible[i]" (click)="openCloseCollapsibles(i)">keyboard_arrow_up</i>
               </div>
               <div class="col s1" id="deleteTaskBtn">
                 <i class="material-icons grey-text right">delete</i>
               </div>
+              <div class="col s2" id="upDownTaskBtns">
+                  <i class="material-icons grey-text center">arrow_upward</i>
+                  <i class="material-icons clickHover center tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Abwärts bewegen" (click)="moveDownTask(i)">arrow_downward</i>
+                  </div>
             </div>
           </div>
           <div *ngIf="openCollapsible[i]" class="card-panel grey lighten-2">
@@ -190,5 +220,10 @@
           </div>
       </div>
     </div>
+  </div>
+  <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+      <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+          ?
+      </a>
   </div>
 </div>

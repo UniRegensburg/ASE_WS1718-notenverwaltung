@@ -1,6 +1,6 @@
-import { Injectable, group } from '@angular/core';
+import { Injectable, group, NgZone } from '@angular/core';
 import { log } from 'util';
-
+import { lastSavedService } from './index'
 import {
   Http,
   Response
@@ -33,6 +33,10 @@ import {
   resolve
 } from 'path';
 
+import { LastOpened } from './lastOpened.service';
+import { ToastService } from '../providers/toast.service';
+import { CheckOsService } from './checkOS.service';
+
 @Injectable()
 export class GlobalDataService {
   public current_project: any; //this is the project data object
@@ -46,9 +50,16 @@ export class GlobalDataService {
   private passKey: any;
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
+  private lastOpendFilePath: string = "assets/data/lastOpened.json";
+  private loadedFiles = [];
 
   constructor(
-    private http: Http) {
+    private http: Http,
+    public lastOpened: LastOpened,
+    public toastService: ToastService,
+    public osService: CheckOsService,
+    public saveService: lastSavedService,
+    public zone: NgZone) {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
@@ -58,6 +69,7 @@ export class GlobalDataService {
    */
 
   public getLocalFile(file_path): Observable<Schema> {
+    this.current_project = null;
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
@@ -78,8 +90,9 @@ export class GlobalDataService {
         this.current_project_name = file_path;
         this.current_project_name = this.current_project.title;
         this.filePath = file_path;
+        this.checkLastOpendFiles();
+        this.saveJson();
       })
-      //...errors if any
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
@@ -107,6 +120,7 @@ export class GlobalDataService {
   public getFilePath() {
     return this.filePath;
   }
+
   public getGradingSteps(): any {
     var gradingSteps = [];
 
@@ -133,6 +147,99 @@ export class GlobalDataService {
       }
     });
     return gradesPerStep;
+  }
+
+  public getTaskSteps():any{
+    let tasks = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      tasks.push(task.name);
+    });
+
+    return tasks;
+  }
+
+  public getTaskDataset(single_student, student_id?): any{
+    if(single_student){
+      return [this.getLabelMaxPoints(), this.getLabelStudentPoints(student_id)];
+    }
+    else{
+      return [this.getLabelMaxPoints(), this.getLabelAveragePoints()];
+    }    
+  }
+
+  private getLabelMaxPoints(): any{
+    let labelMaxPointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      labelMaxPointsData.push(task.max_punkt);
+    });
+
+    let labelMaxPoints = {
+      "label": "Max. erreichbare Punkte",
+      "backgroundColor": "#c2185b",
+      "data": labelMaxPointsData
+    };
+
+    return labelMaxPoints;
+  }
+
+  private getLabelAveragePoints(): any{
+    let labelAveragePointsData = [];
+
+    this.current_project.bewertungsschema.aufgaben.forEach(task => {
+      let task_id = task.id;
+      let taskPointsAverage = (this.getTaskPoints(task_id) / this.current_project.teilnehmer.length).toFixed(2);
+      labelAveragePointsData.push(taskPointsAverage);
+    });
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelAveragePointsData
+    };
+
+    return labelAveragePoints;
+  }
+
+  private getLabelStudentPoints(student_id): any{
+    let labelStudentPointsData = [];
+    
+    this.current_project.bewertung.forEach(student => {
+      if(student.student_id == student_id){        
+        student.einzelwertungen.forEach(element => {
+          let points = element.erreichte_punkte;
+          if(points == null){
+            points = 0;
+          }
+          labelStudentPointsData.push(points);
+        });
+      }
+    });   
+
+    let labelAveragePoints = {
+      "label": "Erreichte Punkte",
+      "backgroundColor": "#900150",
+      "data": labelStudentPointsData
+    };
+
+    console.log(labelAveragePoints);
+    
+    return labelAveragePoints;
+  }
+
+  public getTaskPoints(task_id): any{
+    let taskPoints = 0;
+    
+    this.current_project.bewertung.forEach(student => {
+      student.einzelwertungen.forEach(student_task => {
+        if(student_task.aufgaben_id == task_id){
+          taskPoints = taskPoints + student_task.erreichte_punkte;
+        }
+      });
+    });
+    
+    return taskPoints;
   }
 
   public getStudentGrading(): Observable<any> {
@@ -212,6 +319,19 @@ export class GlobalDataService {
     return of(students);
   }
 
+  public getStudentsByGroup(groupname): any {
+    let groupmembers = [];
+    let students = this.current_project.teilnehmer;
+
+    students.forEach(student => {
+      if (student.group == groupname) {
+        groupmembers.push(student);
+      }
+    });
+
+    return (groupmembers);
+  }
+
   /**
   * Validations methods
   */
@@ -219,7 +339,6 @@ export class GlobalDataService {
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
     this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
-
   }
 
   private checkStudentsInGrading(): void {
@@ -347,8 +466,8 @@ export class GlobalDataService {
       "allgemeine_infos": {
         "notenschluessel": [
           {
-            "note": 1.0,
-            "wert_min": 90
+            "note": 5.0,
+            "wert_min": 0
           }
         ],
         "bewertungseinheit": "Punkte"
@@ -367,6 +486,7 @@ export class GlobalDataService {
         alert("An error ocurred creating the file " + err.message);
       }
       else {
+          this.saveService.save()
         // alert("The file has been succesfully saved");
         // console.log("The file has been saved")
       }
@@ -381,12 +501,40 @@ export class GlobalDataService {
         return -1
       }
       else {
+         this.saveService.save()
         // alert("The file has been succesfully saved");
         return 1;
         // console.log("The file has been saved")
       }
     });
+  }
 
+  public checkLastOpendFiles(): void{
+    this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
+      lastOpenedFiles => {
+        this.loadedFiles = lastOpenedFiles[0];
+        if(!lastOpenedFiles[1]){
+          this.createNewLastOpenedFile(this.filePath);
+        }
+        else{
+        }
+        this.saveLoadedFile();
+      }
+    );
+  }
+
+  public getStudentTotalPoints(student_id): any{
+    let total_points = 0;
+
+    this.current_project.bewertung.forEach(element => {
+      if(element.student_id == student_id){
+        element.einzelwertungen.forEach(task => {
+          total_points = total_points + task.erreichte_punkte;
+        });
+      }
+    });
+
+    return total_points;
   }
 
   /**
@@ -398,9 +546,10 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewStudentsComplete(students): void {
-    this.current_project.teilnehmer = students;
-    this.saveJson();
+  public setNewStudentsComplete(students): void { 
+    this.current_project.teilnehmer = students; 
+    this.checkCurrentValidity(); 
+    this.saveJson(); 
   }
 
   public setNewGrading(schema): void {
@@ -427,17 +576,66 @@ export class GlobalDataService {
     this.saveJson();
   }
 
+  public getGroupIdByName(name): number {
+    let groups = this.current_project.gruppen;
+    let id = -1;
+    let position = -1;
+    groups.forEach(group => {
+      position++;
+      if (group.name == name) {
+        id = position;
+      }
+    });
+    return id;
+  }
+
   public setNewCorrection(correction): void {
     this.current_project.bewertung = correction;
     this.saveJson();
   }
+
   public processImport(file): Observable<any> {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
       return this.current_project;
     })
+  }
 
+  private createNewLastOpenedFile(file_path: String){
+    let newFile = {
+              "last_opened": new Date(),
+              "title": this.current_project_name,
+              "path": file_path
+    }
+    this.loadedFiles.push(newFile);
+}
+
+  public saveLoadedFile(): void{
+    let slash = this.osService.getSlashFormat();
+    let the_arr = __dirname.split(slash);
+    the_arr.pop();
+    let path = the_arr.join(slash) + slash + "src" + slash;
+
+    writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
+        if (err) {
+          alert("An error ocurred creating the file " + err.message);
+        }
+        else {
+          // alert("The file has been succesfully saved");
+          // console.log("The file has been saved")
+        }
+      });
+  }
+
+  public checkMtknr(mtknr):boolean{
+    let check = true;
+    this.current_project.teilnehmer.forEach((existing_student) => {
+      if (existing_student.mtknr == mtknr) {
+        check = false
+      }
+    });
+    return check;
   }
 
 }

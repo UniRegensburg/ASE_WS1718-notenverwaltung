@@ -1,9 +1,11 @@
-import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked, AfterViewInit} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef, ChangeDetectionStrategy, NgZone, AfterContentChecked, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { GlobalDataService } from '../../../providers/index';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { log } from 'util';
+
+import * as hopscotch from "hopscotch";
 
 declare var require: any;
 const app = require('electron').remote;
@@ -26,6 +28,55 @@ export class GradingComponent implements OnInit, AfterViewInit {
   private openCollapsible: any = {};
   private no_data_available: boolean = true;
   private max_points: number = 0;
+
+
+  @ViewChild('schemeHeader') schemeHeader: ElementRef;
+  @ViewChild('gradingKey') gradingKey: ElementRef;
+  @ViewChild('gradingUnit') gradingUnit: ElementRef;
+  @ViewChild('stepButton') stepButton: ElementRef;
+  @ViewChild('taskDetails') taskDetails: ElementRef;
+
+
+  doTour() {      
+    var tour = {
+      id: "scheme-tutorial",
+      steps: [
+        {
+          title: "Bewertungsschema",
+          content: "Hier legen Sie fest welche Aufgaben und nach welchen Kriterien Sie bewerten möchten.",
+          target: this.schemeHeader.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Notenschlüssel",
+          content: "Um Ihren Notenschlüssel festzulegen können Sie jede Notenstufe samt Mindestwert bearbeiten und bei Bedarf anders anordnen oder löschen.",
+          target: this.gradingKey.nativeElement,
+          placement: "right"
+        },
+        {
+          title: "Bewertungseinheit",
+          content: "Je nach Präferenz können Sie dem Notenschlüssel Punkte oder Prozentzahlen als Einheit zu Grunde legen.",
+          target: this.gradingUnit.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Notenstufen hinzufügen",
+          content: "Sollten Sie weitere Notenstufen benötigen, so können Sie diese über diesen Button anfügen.",
+          target: this.stepButton.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Aufgaben",
+          content: "Aufgaben mitsamt allen wichtigen Details können Sie hier erstellen, hinzufügen, bearbeiten, in der Reihenfolge verändern oder löschen.",
+          target: this.taskDetails.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     private dataService: GlobalDataService,
@@ -74,8 +125,7 @@ export class GradingComponent implements OnInit, AfterViewInit {
     this.grades.splice(this.grades.length-1, 0, {
       'note': 4.9,
       'wert_min': 1
-    } );
-    
+    } ); 
   }
 
   changeDetected(event): void {
@@ -146,5 +196,43 @@ export class GradingComponent implements OnInit, AfterViewInit {
   logIndex(ind):void{
     //console.log("DAS IST COLLAPSIBLE:" + ind);
   }
+
+  openCloseCollapsibles(indexColl):void{
+   if (this.openCollapsible[indexColl] != "true"){
+      this.openCollapsible={};
+      this.openCollapsible[indexColl] = "true";
+   } else{
+    this.openCollapsible={};
+   }
+  }
+
+  moveUpGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade-1, 0, this.grades.splice(indexGrade, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveDownGrade(indexGrade){
+    this.grades = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+    this.grades.splice(indexGrade+1, 0, this.grades.splice(indexGrade, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveUpTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask-1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+  moveDownTask(indexTask){
+    this.tasks = this.current_project.bewertungsschema.aufgaben;
+    this.tasks.splice(indexTask+1, 0, this.tasks.splice(indexTask, 1)[0]);
+    this.onKeyUp(null);
+  }
+
+
+
+
+
 }
  

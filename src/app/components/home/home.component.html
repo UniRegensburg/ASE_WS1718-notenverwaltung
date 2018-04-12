@@ -1,19 +1,30 @@
 <div class="container">
   <h1>WILLKOMMEN!</h1>
   <hr class="hr_welcome">
+  <toast></toast>
   <br>
-  <h5>NOTENVERWALTUNG</h5>
+  <h5 #siteHeader>NOTENVERWALTUNG</h5>
   <div class="row">
-    <div class="col l8 offset-l4 ">
+    <div class="col l8 offset-l3 " #viewIcons>
       <div *ngIf="view_mode">
-        <a class="btn z-depth-1" (click)="view_mode = true">
-          <i class="material-icons home-icon active">apps</i>
-        </a>
-        <a class="btn z-depth-1" (click)="view_mode = false">
-          <i class="material-icons home-icon">list</i>
-        </a>
+        <div class="col s8">
+          <h6 #lastUsed>Zuletzt verwendet</h6>
+        </div>
+        <div class="col s3">
+          <a class="btn z-depth-1" (click)="view_mode = true" tooltips tooltip-template="tooltip">
+
+            <i class="material-icons home-icon active">apps</i>
+          </a>
+          <a class="btn z-depth-1" (click)="view_mode = false">
+            <i class="material-icons home-icon">list</i>
+          </a>
+        </div>
       </div>
       <div *ngIf="!view_mode">
+        <div class="col s8">
+          <h6 #lastUsed>Zuletzt verwendet</h6>
+        </div>
+        <div class="col s3">
           <a class="btn z-depth-1" (click)="view_mode = true">
             <i class="material-icons home-icon">apps</i>
           </a>
@@ -21,63 +32,79 @@
             <i class="material-icons home-icon active">list</i>
           </a>
         </div>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col l4">
-      <div class="font-active">
-        <h6 class="active">Zuletzt verwendet</h6>
+    <div class="col s3 links">
+      <a class="btn waves-effect waves-light pink darken-2 hombtn" [routerLink]="['/newcourse']">Neu erstellen</a>
+      <div class="btn waves-effect waves-light pink darken-2 hombtn">
+        <label for="file_selector">
+          PROJEKT LADEN
+        </label>
+        <input #fileInput id="file_selector" type="file" accept=".json" #file (change)="onChange(file.files)" />
       </div>
-      <h6 class="sidebar_hover" [routerLink]="['/newcourse']">Neu erstellen</h6>
-      <!--h6 class="sidebar_hover" (click)="openDialog()"> Datei öffnen</h6-->
-      <input type="file" accept=".json" #file (change)="onChange(file.files)"/>
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
         <div class="col s12 m6" *ngFor="let file of last_files">
-          <div class="card home-card z-depth-1" [routerLink]="'course/' + file.id + '/overview'">
+          <div class="card home-card z-depth-1" (click)="onChange([{path:file.path}])" style="height: 200px;">
             <div class="card-content black-text ">
               <span class="card-title">{{file.file_name}}</span>
-              <p>Zuletzt geöffnet: {{file.last_opened}}</p>
               <p>Titel: {{file.title}}</p>
+              <br>
+              <p style="color:gray; font-size: 12px; position: absolute;bottom: 15px">Zuletzt geöffnet: {{file.last_opened}}</p>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="col l8" *ngIf="!view_mode">
+      <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="col s4">
+              Name
+            </div>
+            <div class="col s4">
+              Pfad
+            </div>
+            <div class="col s4">
+              Zuletzt geöffnet
+            </div>
+          </div>
+          <hr class="hr_table">
+          <div *ngFor="let file of last_files">
+            <div class="row row_hover" (click)="onChange([{path:file.path}])">
+              <div class="col s4">
+                {{file.title}}
+              </div>
+              <div class="col s4" style="word-wrap: break-word">
+                {{file.path}}
+              </div>
+              <div class="col s4">
+                {{file.last_opened}}
+              </div>
+            </div>
+            <hr class="hr_table">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col s12 m6" *ngIf="last_files.length == 0">
+      Kürzlich geöffnete Dateien nicht verfügbar.
+    </div>
+
     <div class="row">
-        <div class="col l8" *ngIf="!view_mode">
-            <div class="row">
-                <div class="col s12">
-                    <div class="row">
-                        <div class="col s4">
-                            Name
-                        </div>
-                        <div class="col s4">
-                            Titel
-                        </div>
-                        <div class="col s4">
-                            Zuletzt geöffnet
-                        </div>
-                    </div>
-                    <hr class="hr_table">
-                    <div *ngFor="let file of last_files">
-                        <div class="row row_hover" [routerLink]="'course/' + file.id + '/overview'">
-                            <div class="col s4">
-                                {{file.file_name}}
-                            </div>
-                            <div class="col s4">
-                                {{file.title}}
-                            </div>
-                            <div class="col s4">
-                                {{file.last_opened}}
-                            </div>
-                        </div>
-                        <hr class="hr_table">
-                    </div>
-                </div>
-                <div class="col s12 m6" *ngIf="last_files.length == 0">
-                    No recent opened files available.
-                </div>
-            </div>
+      <div class="col l12" style="margin-top:50px; ">
+        <div class="fixed-action-btn " #tutButton id="tutorial_button" style="padding:15px">
+          <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+            ?
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </div>

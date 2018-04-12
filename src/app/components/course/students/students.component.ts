@@ -1,10 +1,12 @@
-import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ApplicationRef, NgZone, ViewChild, ElementRef } from '@angular/core';
 import * as XLSX from 'ts-xlsx'
 import { GlobalDataService } from '../../../providers/index'
 import { ActivatedRoute, Router } from '@angular/router';
-import {SearchStudentPipe} from '../../../pipes/index';
+import { SearchStudentPipe } from '../../../pipes/index';
 import { log } from 'util';
+import { ToastService } from '../../../providers/toast.service';
 
+import * as hopscotch from 'hopscotch';
 
 declare var require: any;
 declare var $: any;
@@ -23,11 +25,48 @@ export class StudentsComponent implements OnInit {
   private group_mode: boolean = false;
   private no_data_available: boolean = true;
   public searchValue: string;
+  private studentNumber: number;
+
+  @ViewChild('studentsTable') studentsTable: ElementRef;
+  @ViewChild('groupsButton') groupsButton: ElementRef;
+  @ViewChild('importAdd') importAdd: ElementRef;
+
+
+
+  doTour() {
+    var tour = {
+      id: "students-tutorial",
+      steps: [
+        {
+          title: "Teilnehmer",
+          content: "In dieser Tabelle können Sie die Teilnehmer ihres Kurses verwalten.",
+          target: this.studentsTable.nativeElement,
+          placement: "left"
+        },
+        {
+          title: "Gruppen",
+          content: "Sollten Sie Gruppen bewerten, können Sie diese hier optional erstellen und in der unten aufgeführten Tabelle den Studenten zuweisen.",
+          target: this.groupsButton.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Hinzufügen und Importieren",
+          content: "Es steht ihnen frei, Teilnehmer einzeln hinzuzufügen oder aus einer Teilnehmerliste zu importieren. Beachten Sie hierzu die auch die Example_Teilnehmerliste - Datei.",
+          target: this.importAdd.nativeElement,
+          placement: "bottom"
+        },
+      ]
+    };
+
+    hopscotch.startTour(tour);
+
+  }
 
   constructor(
     public dataService: GlobalDataService,
     private searchStudentPipe: SearchStudentPipe,
     private changeDetectorRef: ChangeDetectorRef,
+    public toastService: ToastService,
     public router: Router,
     public zone: NgZone) { }
 
@@ -58,8 +97,8 @@ export class StudentsComponent implements OnInit {
 
   //*********************************  FUNCTIONS ********************************************** */
   deleteStudent(participant): void {
-    this.participants.forEach((student, i) =>{     
-      if(student.id == participant.id){
+    this.participants.forEach((student, i) => {
+      if (student.id == participant.id) {
         this.participants.splice(i, 1);
       }
     });
@@ -76,7 +115,7 @@ export class StudentsComponent implements OnInit {
         console.log("No file selected")
         return;
       }
-      this.processData(fileNames[0])
+      this.processData(fileNames[0]);
     });
   }
 
@@ -104,22 +143,31 @@ export class StudentsComponent implements OnInit {
     // as long as there are numbers (= students)
     var students = []
     while (worksheet[address].v !== "") {
+        let user_id = 0;
+        try{
+          if(this.current_project.teilnehmer.length!=0){
+            user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length -1].id + 1;
+          }
+          else{
+            user_id = students.length
+          }
+        }
+        finally{
       var student = {
-        "id": 0,
+        "id": user_id,
         "mtknr": 0,
-        "name": 0,
-        "vorname": 0,
-        "studiengang": 0,
+        "name": "",
+        "vorname": "",
+        "studiengang": "",
         "fachsemester": 0,
-        "mail": 0,
-        "status": 0
-      }
+        "mail": "",
+        "status": ""
+      }}
       // move through the cells, saving data accordingly
       for (var i = 0; i < 8; i++) {
         address = String.fromCharCode(65 + row + i) + cell;
         switch (i) {
           case 0:
-            student.id = worksheet[address].v
             break;
           case 1:
             student.mtknr = worksheet[address].v
@@ -144,14 +192,34 @@ export class StudentsComponent implements OnInit {
             break;
         }
       }
-      students.push(student)
+        let check = true
+        let temp = this.dataService.checkMtknr(student.mtknr)
+        if(temp == false){
+          check= false
+        }
+
+      students.forEach((existing_student)=>{
+          if(existing_student.mtknr == student.mtknr){
+              check = false
+          }
+      });
       cell += 1
       address = String.fromCharCode(65 + row) + cell;
-      this.dataService.setNewStudents(student);
+      if(check == true){
+          students.push(student)
+          this.dataService.setNewStudents(student);
+      }
     }
+    this.studentNumber = students.length;
     this.zone.run(() => {
       this.dataService.createGroups();
       this.ngOnInit();
+      if(this.studentNumber!=0){
+      this.toastService.success("Erfolgreicher Import von " + this.studentNumber + " neuen Studierenden.");
+      }
+      else{
+        this.toastService.setError("Konnte keine Studierenden importieren.")
+      }
     });
   }
 
@@ -179,9 +247,11 @@ export class StudentsComponent implements OnInit {
   addGroup(): void {
     this.groups.push({
       "name": "",
-      "studenten": []
+      "punkte": "",
+      "studenten": [],
+      "comment_privat": "",
+      "comment_public": ""
     });
-    // console.log("added group")
   }
 
   enableGroups(): void { }

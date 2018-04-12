@@ -10,14 +10,14 @@
           <a *ngIf="!group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = false; getGroups()">Teilnehmer</a>
           <a *ngIf="group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = false; getGroups()">Teilnehmer</a>
         </div>
-        <div class="col s6" *ngIf="!no_data_available">
+        <div class="col s6" *ngIf="!no_data_available" #groupsButton>
           <a *ngIf="!group_mode" class='btn waves-effect waves-light grey light left' (click)="group_mode = true; getGroups()">Gruppen</a>
           <a *ngIf="group_mode" class='btn waves-effect waves-light pink darken-2 left' (click)="group_mode = true; getGroups()">Gruppen</a>
         </div>
       </div>
     </div>
     <div class="col s6">
-      <span *ngIf="!group_mode" class="right clickHover" [routerLink]="['/course/student_detail', {student_id: 'createNewStudent'}]">
+      <span *ngIf="!group_mode" #importAdd class="right clickHover" [routerLink]="['/course/student_detail', {student_id: 'createNewStudent'}]">
         <i class="material-icons left">add</i> Teilnehmer hinzufügen
       </span>
       <span *ngIf="!group_mode" (click)="openDialog()" class="right clickHover">
@@ -57,7 +57,7 @@
           </div>
           <hr class="hr_table">
         </div>
-        <div class="col l12" *ngFor="let participant of (participants | searchStudent: searchValue); let i = index">
+        <div #studentsTable class="col l12" *ngFor="let participant of (participants | searchStudent: searchValue); let i = index">
           <div class="row row_hover">
             <div class="col s2">
               {{participant.name}}, {{participant.vorname}}
@@ -75,10 +75,10 @@
               </select>
             </div>
             <div class="col s1">
-              <i class="material-icons right edit-btn clickHover" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
+              <i class="material-icons right edit-btn clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
             </div>
             <div class="col s1">
-              <i class="material-icons clickHover" (click)="deleteStudent(participant)">delete</i>
+              <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Teilnehmer löschen" (click)="deleteStudent(participant)">delete</i>
             </div>
           </div>
           <hr class="hr_table">
@@ -116,11 +116,17 @@
               {{group.studenten.length}}
             </div>
             <div class="col s3">
-              <i class="material-icons clickHover" (click)="deleteGroup(i)">delete</i>
+              <i class="material-icons clickHover tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Gruppe löschen" (click)="deleteGroup(i)">delete</i>
             </div>
           </div>
           <hr class="hr_table">
         </div>
       </div>
+    </div>
+
+    <div class="fixed-action-btn " id="tutorial_button" style="padding:15px">
+        <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+            ?
+        </a>
     </div>
   </div>

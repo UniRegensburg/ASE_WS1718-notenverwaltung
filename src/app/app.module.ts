@@ -16,11 +16,20 @@ import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponen
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService } from './providers/index';
+import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExportService, flexNowExportService, ToastService, lastSavedService, CheckOsService } from './providers/index';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import {SearchStudentPipe} from './pipes/index';
+import { SearchStudentPipe } from './pipes/index';
+
+import { ToastComponent } from './directives/toast.directive/toast.directive';
+
+import { DeviceDetectorModule } from 'ngx-device-detector';
+
+import 'materialize-css';
+
+import { MaterializeModule} from 'angular2-materialize';
+
 
 @NgModule({
   declarations: [
@@ -34,23 +43,29 @@ import {SearchStudentPipe} from './pipes/index';
     ResultsComponent,
     CorrectionComponent,
     DetailComponent,
-    SearchStudentPipe
+    SearchStudentPipe,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    DeviceDetectorModule.forRoot() ,
+    MaterializeModule
   ],
   providers: [
-    ElectronService, 
-    GlobalDataService, 
-    ChartService, 
-    LastOpened, 
-    gripsExportService, 
+    ElectronService,
+    GlobalDataService,
+    ChartService,
+    LastOpened,
+    gripsExportService,
     SearchStudentPipe,
-    flexNowExportService
+    flexNowExportService,
+    CheckOsService,
+    ToastService,
+    lastSavedService
   ],
   bootstrap: [AppComponent]
 })

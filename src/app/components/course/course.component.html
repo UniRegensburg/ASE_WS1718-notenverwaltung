@@ -34,7 +34,9 @@
           Bewertungsschema
         </a>
       </li>
-      <div style="position: absolute; height: 175px; bottom: 0; right: 0;  left: 0; ">
+      <div style="position: absolute; height: 250px; bottom: 0; right: 0;  left: 0; ">
+          <p class="white-text" style="font-size: 1em;padding: 0 32px;line-height:normal;">Zuletzt gespeichert:
+             <br>{{lastSaved}}</p>
         <li>
           <a class="white-text" [routerLink]="['']">
             <i class="material-icons home-icon white-text">close</i> Kurs schließen
@@ -105,10 +107,8 @@
     </ul>
   </div>
 
-
   <div  class="col s10">
+    <toast></toast>
     <router-outlet></router-outlet>
   </div>
-
-  
 </div>

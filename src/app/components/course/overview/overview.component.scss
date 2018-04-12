@@ -1,33 +1,40 @@
-@media only screen and (max-width: 992px){
-.side-nav.fixed {
+@media only screen and (max-width: 992px) {
+  .side-nav.fixed {
     transform: translateX(0%) !important;
-}
+  }
 }
 
-.side-nav.fixed{
-    transform: translateX(0%) !important;
+.side-nav.fixed {
+  transform: translateX(0%) !important;
 }
 
 .progress {
-    margin-top: 15px;
-    background-color: lightgray;
-    height: 20px;
+  margin-top: 15px;
+  background-color: lightgray;
+  height: 20px;
 }
 
 .progress .determinate {
-    background-color: #C2185B;
+  background-color: #C2185B;
 }
 
-h5{
-    font-size: 1.34rem;
+.hnrot {
+  color: #C2185B;
+}
+
+.empty {
+  margin-top: 100px;
+  font-size: 24px;
+}
+h5 {
+  font-size: 1.34rem;
 }
 
 .my-pagination /deep/ .ngx-pagination .current {
-    background: #C2185B !important;
+  background: #C2185B !important;
 }
 
-.edit-btn:hover{
+.edit-btn:hover {
   color: #C2185B;
   cursor: pointer;
 }
-

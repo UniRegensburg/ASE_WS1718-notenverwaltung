@@ -11,6 +11,9 @@
 .table-header {
     font-weight: bold;
 }
+.hnrot {
+  color: #C2185B;
+}
 
 #grading-key {
     color: black;
@@ -45,4 +48,14 @@
 .edit-btn:hover{
     color: #C2185B;
     cursor: pointer;
+  }
+
+  .clickHover:hover {
+    cursor: pointer;
+    color: #C2185B;
+  }
+
+  .empty {
+    margin-top: 100px;
+    font-size: 24px;
   }
