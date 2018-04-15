@@ -1,6 +1,14 @@
-import { Injectable, group, NgZone } from '@angular/core';
-import { log } from 'util';
-import { lastSavedService } from './index'
+import {
+  Injectable,
+  group,
+  NgZone
+} from '@angular/core';
+import {
+  log
+} from 'util';
+import {
+  lastSavedService
+} from './index'
 import {
   Http,
   Response
@@ -11,8 +19,7 @@ import {
 import {
   Observable
 } from 'rxjs/Observable';
-import {
-  of
+import { of
 } from 'rxjs/observable/of';
 import {
   File
@@ -33,25 +40,35 @@ import {
   resolve
 } from 'path';
 
-import { LastOpened } from './lastOpened.service';
-import { ToastService } from '../providers/toast.service';
-import { CheckOsService } from './checkOS.service';
+import {
+  LastOpened
+} from './lastOpened.service';
+import {
+  ToastService
+} from '../providers/toast.service';
+import {
+  CheckOsService
+} from './checkOS.service';
 
 @Injectable()
 export class GlobalDataService {
-  public current_project: any; //this is the project data object
+
+  public current_project: any; 
   public current_project_name: any;
-  private pouch: any;
-  public teilnehmer: Array<any>;
-  private temp: Array<any>;
-  private filePath: any;
-  private requiredProperties: Array<any>;
+
+  private requiredProperties: Array <any> = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen'] ;
   private _error: any;
+
   private passKey: any;
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
+
   private lastOpendFilePath: string = "assets/data/lastOpened.json";
-  private loadedFiles = [];
+  private loadedFiles: Array<any> = [];
+  private filePath: any;
+
+  public teilnehmer: Array <any > ;
+  private temp: Array <any> ;
 
   constructor(
     private http: Http,
@@ -68,12 +85,11 @@ export class GlobalDataService {
    * and to dispatch data to each component
    */
 
-  public getLocalFile(file_path): Observable<Schema> {
+  public getLocalFile(file_path): Observable < Schema > {
     this.current_project = null;
     return this.http.get(file_path)
       // ...and calling .json() on the response to return data
       .map((res: Response) => {
-        this.requiredProperties = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen']
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
         var string = bytes.toString(this.CryptoJS.enc.Utf8);
@@ -82,8 +98,7 @@ export class GlobalDataService {
         for (let property in this.requiredProperties) {
           if (this.current_project.hasOwnProperty(this.requiredProperties[property])) {
             continue;
-          }
-          else {
+          } else {
             this._error = 1
           }
         }
@@ -104,16 +119,17 @@ export class GlobalDataService {
     }
     return this._error;
   }
-  public getCurrentProject(): Observable<Schema> {
+
+  public getCurrentProject(): Observable < Schema > {
     this.checkCurrentValidity();
     return of(this.current_project);
   }
 
-  public getCurrentProjectName(): Observable<String> {
+  public getCurrentProjectName(): Observable < String > {
     return of(this.current_project_name);
   }
 
-  public getParticipants(): Observable<Array<any>> {
+  public getParticipants(): Observable < Array < any >> {
     return of(this.current_project.teilnehmer);
   }
 
@@ -129,13 +145,12 @@ export class GlobalDataService {
         gradingSteps.push(step.note);
       });
       return gradingSteps;
-    }
-    catch (err) {
+    } catch (err) {
       console.log("fail in getGradingSteps")
     }
   }
 
-  public getGradesPerStep(nSteps): Array<any> {
+  public getGradesPerStep(nSteps): Array < any > {
     var gradesPerStep = new Array(nSteps).fill(0);
     var gradingSteps = this.getGradingSteps();
 
@@ -149,7 +164,7 @@ export class GlobalDataService {
     return gradesPerStep;
   }
 
-  public getTaskSteps():any{
+  public getTaskSteps(): any {
     let tasks = [];
 
     this.current_project.bewertungsschema.aufgaben.forEach(task => {
@@ -159,16 +174,15 @@ export class GlobalDataService {
     return tasks;
   }
 
-  public getTaskDataset(single_student, student_id?): any{
-    if(single_student){
+  public getTaskDataset(single_student, student_id ? ): any {
+    if (single_student) {
       return [this.getLabelMaxPoints(), this.getLabelStudentPoints(student_id)];
-    }
-    else{
+    } else {
       return [this.getLabelMaxPoints(), this.getLabelAveragePoints()];
-    }    
+    }
   }
 
-  private getLabelMaxPoints(): any{
+  private getLabelMaxPoints(): any {
     let labelMaxPointsData = [];
 
     this.current_project.bewertungsschema.aufgaben.forEach(task => {
@@ -184,7 +198,7 @@ export class GlobalDataService {
     return labelMaxPoints;
   }
 
-  private getLabelAveragePoints(): any{
+  private getLabelAveragePoints(): any {
     let labelAveragePointsData = [];
 
     this.current_project.bewertungsschema.aufgaben.forEach(task => {
@@ -202,20 +216,20 @@ export class GlobalDataService {
     return labelAveragePoints;
   }
 
-  private getLabelStudentPoints(student_id): any{
+  private getLabelStudentPoints(student_id): any {
     let labelStudentPointsData = [];
-    
+
     this.current_project.bewertung.forEach(student => {
-      if(student.student_id == student_id){        
+      if (student.student_id == student_id) {
         student.einzelwertungen.forEach(element => {
           let points = element.erreichte_punkte;
-          if(points == null){
+          if (points == null) {
             points = 0;
           }
           labelStudentPointsData.push(points);
         });
       }
-    });   
+    });
 
     let labelAveragePoints = {
       "label": "Erreichte Punkte",
@@ -224,25 +238,25 @@ export class GlobalDataService {
     };
 
     console.log(labelAveragePoints);
-    
+
     return labelAveragePoints;
   }
 
-  public getTaskPoints(task_id): any{
+  public getTaskPoints(task_id): any {
     let taskPoints = 0;
-    
+
     this.current_project.bewertung.forEach(student => {
       student.einzelwertungen.forEach(student_task => {
-        if(student_task.aufgaben_id == task_id){
+        if (student_task.aufgaben_id == task_id) {
           taskPoints = taskPoints + student_task.erreichte_punkte;
         }
       });
     });
-    
+
     return taskPoints;
   }
 
-  public getStudentGrading(): Observable<any> {
+  public getStudentGrading(): Observable < any > {
     let gradings = this.current_project.bewertung;
     let task_counter = parseFloat(this.current_project.bewertungsschema.aufgaben.length);
 
@@ -300,7 +314,7 @@ export class GlobalDataService {
     return returnValue;
   }
 
-  public getStudentsWithGroup(): Observable<Array<any>> {
+  public getStudentsWithGroup(): Observable < Array < any >> {
     let students = this.current_project.teilnehmer;
     let groups = this.current_project.gruppen;
     students.forEach(student => {
@@ -333,8 +347,8 @@ export class GlobalDataService {
   }
 
   /**
-  * Validations methods
-  */
+   * Validations methods
+   */
 
   private checkCurrentValidity(): void {
     this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
@@ -396,13 +410,12 @@ export class GlobalDataService {
     this.current_project.gruppen = [];
   }
 
-  public createNewStudent(): Observable<any> {
+  public createNewStudent(): Observable < any > {
     let user_id = 0;
 
     try {
       user_id = this.current_project.teilnehmer[this.current_project.teilnehmer.length - 1].id + 1;
-    }
-    finally {
+    } finally {
       let user = {
         "id": user_id,
         "mtknr": 1234,
@@ -442,12 +455,10 @@ export class GlobalDataService {
           corrections.push(this.createTaskCorrection(task.id));
         });
         return corrections;
-      }
-      else {
+      } else {
         return [];
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log("could not create current corrections")
     }
   }
@@ -461,19 +472,16 @@ export class GlobalDataService {
     }
   }
 
-  public createSchema(): Observable<any> {
+  public createSchema(): Observable < any > {
     this.current_project.bewertungsschema = {
       "allgemeine_infos": {
-        "notenschluessel": [
-          {
-            "note": 5.0,
-            "wert_min": 0
-          }
-        ],
+        "notenschluessel": [{
+          "note": 5.0,
+          "wert_min": 0
+        }],
         "bewertungseinheit": "Punkte"
       },
-      "aufgaben": [
-      ]
+      "aufgaben": []
     };
 
     return of(this.current_project);
@@ -484,9 +492,8 @@ export class GlobalDataService {
     writeFile(this.filePath, encryptedJSON, (err) => {
       if (err) {
         alert("An error ocurred creating the file " + err.message);
-      }
-      else {
-          this.saveService.save()
+      } else {
+        this.saveService.save()
         // alert("The file has been succesfully saved");
         // console.log("The file has been saved")
       }
@@ -499,9 +506,8 @@ export class GlobalDataService {
       if (err) {
         alert("An error ocurred creating the file " + err.message);
         return -1
-      }
-      else {
-         this.saveService.save()
+      } else {
+        this.saveService.save()
         // alert("The file has been succesfully saved");
         return 1;
         // console.log("The file has been saved")
@@ -509,25 +515,23 @@ export class GlobalDataService {
     });
   }
 
-  public checkLastOpendFiles(): void{
+  public checkLastOpendFiles(): void {
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
       lastOpenedFiles => {
         this.loadedFiles = lastOpenedFiles[0];
-        if(!lastOpenedFiles[1]){
+        if (!lastOpenedFiles[1]) {
           this.createNewLastOpenedFile(this.filePath);
-        }
-        else{
-        }
+        } else {}
         this.saveLoadedFile();
       }
     );
   }
 
-  public getStudentTotalPoints(student_id): any{
+  public getStudentTotalPoints(student_id): any {
     let total_points = 0;
 
     this.current_project.bewertung.forEach(element => {
-      if(element.student_id == student_id){
+      if (element.student_id == student_id) {
         element.einzelwertungen.forEach(task => {
           total_points = total_points + task.erreichte_punkte;
         });
@@ -546,10 +550,10 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public setNewStudentsComplete(students): void { 
-    this.current_project.teilnehmer = students; 
-    this.checkCurrentValidity(); 
-    this.saveJson(); 
+  public setNewStudentsComplete(students): void {
+    this.current_project.teilnehmer = students;
+    this.checkCurrentValidity();
+    this.saveJson();
   }
 
   public setNewGrading(schema): void {
@@ -594,7 +598,7 @@ export class GlobalDataService {
     this.saveJson();
   }
 
-  public processImport(file): Observable<any> {
+  public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
       this.current_project.bewertungsschema = res.json().bewertungsschema;
@@ -602,33 +606,32 @@ export class GlobalDataService {
     })
   }
 
-  private createNewLastOpenedFile(file_path: String){
+  private createNewLastOpenedFile(file_path: String) {
     let newFile = {
-              "last_opened": new Date(),
-              "title": this.current_project_name,
-              "path": file_path
+      "last_opened": new Date(),
+      "title": this.current_project_name,
+      "path": file_path
     }
     this.loadedFiles.push(newFile);
-}
+  }
 
-  public saveLoadedFile(): void{
+  public saveLoadedFile(): void {
     let slash = this.osService.getSlashFormat();
     let the_arr = __dirname.split(slash);
     the_arr.pop();
     let path = the_arr.join(slash) + slash + "src" + slash;
 
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
-        if (err) {
-          alert("An error ocurred creating the file " + err.message);
-        }
-        else {
-          // alert("The file has been succesfully saved");
-          // console.log("The file has been saved")
-        }
-      });
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+      } else {
+        // alert("The file has been succesfully saved");
+        // console.log("The file has been saved")
+      }
+    });
   }
 
-  public checkMtknr(mtknr):boolean{
+  public checkMtknr(mtknr): boolean {
     let check = true;
     this.current_project.teilnehmer.forEach((existing_student) => {
       if (existing_student.mtknr == mtknr) {
