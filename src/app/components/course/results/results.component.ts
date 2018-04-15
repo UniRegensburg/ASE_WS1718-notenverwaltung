@@ -105,7 +105,8 @@ export class ResultsComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
       this.results = this.current_project.bewertung;
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;  
+        
       this.initGraphView();
     });
   }

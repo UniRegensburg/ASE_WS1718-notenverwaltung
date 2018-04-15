@@ -1,11 +1,13 @@
 <div class="container" *ngIf="no_tasks">
-<p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
-<br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
+  <p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
+    <br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt
+    <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
 </div>
 
 <div class="container" *ngIf="no_students">
-<p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen.
-Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
+  <p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen. Erstellen Sie bitte Aufgaben unter dem Menüpunkt
+    <a
+      class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
 </div>
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
@@ -93,17 +95,15 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
   </div>
 </div>
 
-<div class="container" *ngIf="!no_tasks&&!no_students">
-  Informationen zu Farbeinstufungen:
-  <div class="row">
-    <div class="col l6 s12">
-      <i class="material-icons red-text">view_agenda</i>
-      Student ist durchgefallen (Note: {{grading_list[grading_list.length-1].note}})
-    </div>
-    <div class="col l6 s12">
-      <i class="material-icons orange-text">view_agenda</i>Student an Grenze zum Durchfallen (Note: {{grading_list[grading_list.length-2].note}})
-    </div>
-  </div>
+<div class="fixed-action-btn" style="padding:15px; margin-bottom: 75px" *ngIf="!no_tasks&&!no_students">
+    <a class="btn-floating btn-large waves-effect orange tooltipped" materialize="tooltip" data-position="top" data-delay="50" 
+    [attr.data-tooltip]="'Student ist durchgefallen (Note: ' + grading_list[grading_list.length-1].note + ')'" style="border-radius: 2px;">
+        <i class="material-icons white-text">error</i>
+    </a>
+    <a class="btn-floating btn-large waves-effect red tooltipped" materialize="tooltip" data-position="top" data-delay="50" 
+    [attr.data-tooltip]="'Student fast durchgefallen (Note: ' + grading_list[grading_list.length-2].note + ')'" style="border-radius: 2px;">
+      <i class="material-icons white-text">warning</i>
+    </a>  
 </div>
 
 <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
