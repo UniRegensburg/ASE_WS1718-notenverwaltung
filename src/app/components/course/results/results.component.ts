@@ -24,13 +24,13 @@ export class ResultsComponent implements OnInit {
   private grade_steps: any;
   private grade_participants: any;
   public grading_list: any;
-  
+
   private task_steps: any;
   private task_dataset: any;
 
   private no_tasks: boolean = true;
   private no_students: boolean = true;
-  
+
   private display_diagrams: boolean = true;
 
   public searchValue: string;
@@ -105,8 +105,12 @@ export class ResultsComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
       this.results = this.current_project.bewertung;
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
-      this.initGraphView();
+
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
+      // this.initGraphView();
+      this.dataService.getStudentGrading().subscribe(data => {
+          this.initGraphView();
+      });
     });
   }
 
@@ -125,10 +129,10 @@ export class ResultsComponent implements OnInit {
   }
 
   getDiagramData(): void {
-    this.grade_steps = this.dataService.getGradingSteps();   
+    this.grade_steps = this.dataService.getGradingSteps();
     this.grade_participants = this.dataService.getGradesPerStep(this.grade_steps.length);
 
-    this.task_steps = this.dataService.getTaskSteps(); 
+    this.task_steps = this.dataService.getTaskSteps();
     this.task_dataset = this.dataService.getTaskDataset(false);
   }
 
@@ -151,9 +155,9 @@ export class ResultsComponent implements OnInit {
     var element = document.getElementById(div);
 
     if(this.grading_list == undefined){
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     }
-    
+
     if(element != null){
       if(this.grading_list.length > 2){
         if(grade == this.grading_list[this.grading_list.length-2].note){
