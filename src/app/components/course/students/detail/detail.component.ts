@@ -69,25 +69,25 @@ export class DetailComponent implements OnInit {
     public dataService: GlobalDataService,
     private route: ActivatedRoute,
     public router: Router,
-    public chartService: ChartService, 
+    public chartService: ChartService,
     private toastService: ToastService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-      this.sub = this.route.params.subscribe(params => {
-        this.dataService.getCurrentProject().subscribe(current_project => {          
-          this.participants = current_project["teilnehmer"];
-          if (params) {
-            if(params.student_id == "createNewStudent"){
-              this.getNewStudent();
-              this.create_new_student_mode = true;
-            }
-            else{
-              this.setCurrentStudent(params.student_id);
-            }
+    this.sub = this.route.params.subscribe(params => {
+      this.dataService.getCurrentProject().subscribe(current_project => {
+        this.participants = current_project["teilnehmer"];
+        if (params) {
+          if (params.student_id == "createNewStudent") {
+            this.getNewStudent();
+            this.create_new_student_mode = true;
           }
-          this.initGraphView();
-        });
+          else {
+            this.setCurrentStudent(params.student_id);
+          }
+        }
+        this.initGraphView();
+      });
     });
   }
 
@@ -109,11 +109,11 @@ export class DetailComponent implements OnInit {
   }
 
   getDiagramData(): void {
-    this.task_steps = this.dataService.getTaskSteps(); 
+    this.task_steps = this.dataService.getTaskSteps();
     this.task_dataset = this.dataService.getTaskDataset(true, this.current_student.id);
   }
 
-  getStudentData(): void {    
+  getStudentData(): void {
     this.completion = parseFloat(this.current_student.finish) * 100;
     this.grade = this.current_student.grade;
     this.total_points = this.dataService.getStudentTotalPoints(this.current_student.id);
@@ -130,7 +130,7 @@ export class DetailComponent implements OnInit {
       this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
     }
   }
-  
+
   getNewStudent(): void {
     this.dataService.createNewStudent().subscribe(student => {
       this.current_student = student;
@@ -138,13 +138,17 @@ export class DetailComponent implements OnInit {
   }
 
   addStudent(): void {
-    let check = this.dataService.checkMtknr(this.current_student.mtknr);
-    if (check == true) {
-      this.dataService.setNewStudents(this.current_student);
-      this.router.navigate(['/course/students']);
-    }
-    else {
-      this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
+    if (this.current_student.mtknr == "" || this.current_student.studiengang == "" || this.current_student.status == "" || this.current_student.vorname == "" || this.current_student.name == "") {
+      this.toastService.setError("Bitte alle Felder ausfüllen.")
+    } else {
+      let check = this.dataService.checkMtknr(this.current_student.mtknr);
+      if (check == true) {
+        this.dataService.setNewStudents(this.current_student);
+        this.router.navigate(['/course/students']);
+      }
+      else {
+        this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
+      }
     }
   }
 
