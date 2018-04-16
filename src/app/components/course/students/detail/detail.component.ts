@@ -121,6 +121,9 @@ export class DetailComponent implements OnInit {
 
 
   saveStudent(): void {
+      if (this.current_student.mtknr == "" || this.current_student.studiengang == "" || this.current_student.status == "" || this.current_student.vorname == "" || this.current_student.name == "") {
+        this.toastService.setError("Bitte alle Felder ausfüllen.")
+      } else {
     let check = this.dataService.checkMtknr(this.current_student.mtknr)
     if (check == true) {
       this.dataService.setNewStudentsComplete(this.participants)
@@ -128,7 +131,7 @@ export class DetailComponent implements OnInit {
     }
     else {
       this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
-    }
+  }}
   }
 
   getNewStudent(): void {
