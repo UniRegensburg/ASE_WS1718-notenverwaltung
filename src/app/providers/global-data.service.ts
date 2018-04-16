@@ -117,7 +117,7 @@ export class GlobalDataService {
       });
       return gradingSteps;
     } catch (err) {
-      console.log("fail in getGradingSteps")
+      this.toastService.setError("Fail in getGradingSteps()");
     }
   }
 
@@ -207,9 +207,6 @@ export class GlobalDataService {
       "backgroundColor": "#900150",
       "data": labelStudentPointsData
     };
-
-    console.log(labelAveragePoints);
-
     return labelAveragePoints;
   }
 
@@ -456,7 +453,7 @@ export class GlobalDataService {
       });
       this.current_project.bewertung = grading;
     } catch (err) {
-      console.log("could not get available tasks")
+      this.toastService.setError("Konnte keine verfügbaren Aufgaben erhalten.");
     }
   }
 
@@ -513,7 +510,7 @@ export class GlobalDataService {
         return [];
       }
     } catch (err) {
-      console.log("could not create current corrections")
+      this.toastService.setError("Konnte keine aktuellen Korrekturen erstellen.");
     }
   }
 
@@ -580,7 +577,7 @@ export class GlobalDataService {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
     writeFile(this.filePath, encryptedJSON, (err) => {
       if (err) {
-        alert("An error ocurred creating the file " + err.message);
+        this.toastService.setError("Beim Erstellen der Datei ist ein Fehler aufgetreten " + err.message);
       } else {
         this.saveService.save();       
       }
@@ -591,7 +588,7 @@ export class GlobalDataService {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
     writeFile(path, encryptedJSON, (err) => {
       if (err) {
-        alert("An error ocurred creating the file " + err.message);
+        this.toastService.setError("Beim Erstellen der Datei ist ein Fehler aufgetreten " + err.message);
         return -1
       } else {
         this.saveService.save()
@@ -608,11 +605,8 @@ export class GlobalDataService {
 
     writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
       if (err) {
-        alert("An error ocurred creating the file " + err.message);
-      } else {
-        // alert("The file has been succesfully saved");
-        // console.log("The file has been saved")
-      }
+        this.toastService.setError("Beim Erstellen der Datei ist ein Fehler aufgetreten " + err.message);
+      } else {}
     });
   }
 
