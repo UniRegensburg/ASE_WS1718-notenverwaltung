@@ -237,7 +237,6 @@ export class StudentsComponent implements OnInit {
 
   changeDetected(event): void {
     this.dataService.setNewGroups(this.participants);
-    console.log("change detected");
   }
 
   deleteGroup(element_index): void {
