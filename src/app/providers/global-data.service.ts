@@ -480,6 +480,10 @@ export class GlobalDataService {
     return check;
   }
 
+  /** ---------------------------------------------------------------------
+  * CREATE methods
+  * Main task is to create new objects for the data service.
+  * --------------------------------------------------------------------- */
   public createGroups(): void {
     this.current_project.gruppen = [];
   }
