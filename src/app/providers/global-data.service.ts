@@ -51,11 +51,11 @@ export class GlobalDataService {
     this.passKey = '394rwe78fudhwqpwriufdhr8ehyqr9pe8fud';
   }
 
-  /**
-   * Getter methods to load local projects
-   * and to dispatch data to each component
+  /** ---------------------------------------------------------------------
+   * GET methods
+   * Main task is to load local projects and to dispatch data to each component.
+   * Further these methods provide special grad calculation for diffretn components.
    */
-
   public getLocalFile(file_path): Observable < Schema > {
     this.current_project = null;
     return this.http.get(file_path)
@@ -317,15 +317,97 @@ export class GlobalDataService {
     return (groupmembers);
   }
 
-  /**
-   * Validations methods
-   */
+  public getStudentTotalPoints(student_id): any {
+    let total_points = 0;
 
-  private checkCurrentValidity(): void {
-    this.checkStudentsInGrading(); //checks if all students are in grading object if not adds them
-    this.checkTasksInGrading(); //checks if all tasks are in student grading object if not adds them
+    this.current_project.bewertung.forEach(element => {
+      if (element.student_id == student_id) {
+        element.einzelwertungen.forEach(task => {
+          total_points = total_points + task.erreichte_punkte;
+        });
+      }
+    });
+
+    return total_points;
   }
 
+  public getGroupIdByName(name): number {
+    let groups = this.current_project.gruppen;
+    let id = -1;
+    let position = -1;
+    groups.forEach(group => {
+      position++;
+      if (group.name == name) {
+        id = position;
+      }
+    });
+    return id;
+  }
+
+  /**
+  * SET methods to update global project
+  * Operations like adding new groups, students and gradings 
+  * are outsourced into those methods.
+  */
+  public setNewStudents(students): void {
+    this.current_project.teilnehmer.push(students);
+    this.saveJson();
+  }
+
+  public setNewStudentsComplete(students): void {
+    this.current_project.teilnehmer = students;
+    this.checkCurrentValidity();
+    this.saveJson();
+  }
+
+  public setNewGrading(schema): void {
+    this.current_project.bewertungsschema = schema;
+    this.saveJson();
+  }
+
+  public setNewGroups(grouped_students): void {
+    let groups = this.current_project.gruppen;
+    groups.forEach(group => {
+      group.studenten = [];
+      grouped_students.forEach(student => {
+        if (student.group == group.name) {
+          group.studenten.push(student.id);
+        }
+      });
+    });
+    this.current_project.gruppen = groups;
+    this.saveJson();
+  }
+
+  public setNewGroupsComplete(groups): void {
+    this.current_project.gruppen = groups;
+    this.saveJson();
+  }
+
+  public setNewCorrection(correction): void {
+    this.current_project.bewertung = correction;
+    this.saveJson();
+  }
+
+  public processImport(file): Observable < any > {
+    this.current_project;
+    return this.http.get(file).map((res: Response) => {
+      this.current_project.bewertungsschema = res.json().bewertungsschema;
+      return this.current_project;
+    })
+  }
+
+  /** ---------------------------------------------------------------------
+  * VALIDATE methods
+  * Main task is to update indirect relationships in global data object, 
+  * such as single student gradings.
+  */
+  private checkCurrentValidity(): void {
+    this.checkStudentsInGrading(); 
+    this.checkTasksInGrading(); 
+  }
+
+  /** Checks if all students are in grading object if not adds them. */
   private checkStudentsInGrading(): void {
     let grading = [];
 
@@ -345,6 +427,7 @@ export class GlobalDataService {
     this.current_project.bewertung = grading;
   }
 
+  /** Checks if all tasks are in student grading object if not adds them. */
   private checkTasksInGrading(): void {
     let grading = [];
 
@@ -458,34 +541,6 @@ export class GlobalDataService {
     return of(this.current_project);
   }
 
-  private saveJson(): void {
-    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
-    writeFile(this.filePath, encryptedJSON, (err) => {
-      if (err) {
-        alert("An error ocurred creating the file " + err.message);
-      } else {
-        this.saveService.save()
-        // alert("The file has been succesfully saved");
-        // console.log("The file has been saved")
-      }
-    });
-  }
-
-  public saveNewFile(path, json): any {
-    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
-    writeFile(path, encryptedJSON, (err) => {
-      if (err) {
-        alert("An error ocurred creating the file " + err.message);
-        return -1
-      } else {
-        this.saveService.save()
-        // alert("The file has been succesfully saved");
-        return 1;
-        // console.log("The file has been saved")
-      }
-    });
-  }
-
   public checkLastOpendFiles(): void {
     this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
       lastOpenedFiles => {
@@ -498,83 +553,14 @@ export class GlobalDataService {
     );
   }
 
-  public getStudentTotalPoints(student_id): any {
-    let total_points = 0;
-
-    this.current_project.bewertung.forEach(element => {
-      if (element.student_id == student_id) {
-        element.einzelwertungen.forEach(task => {
-          total_points = total_points + task.erreichte_punkte;
-        });
+  public checkMtknr(mtknr): boolean {
+    let check = true;
+    this.current_project.teilnehmer.forEach((existing_student) => {
+      if (existing_student.mtknr == mtknr) {
+        check = false
       }
     });
-
-    return total_points;
-  }
-
-  /**
-   * Setter methods to update global project
-   */
-
-  public setNewStudents(students): void {
-    this.current_project.teilnehmer.push(students);
-    this.saveJson();
-  }
-
-  public setNewStudentsComplete(students): void {
-    this.current_project.teilnehmer = students;
-    this.checkCurrentValidity();
-    this.saveJson();
-  }
-
-  public setNewGrading(schema): void {
-    this.current_project.bewertungsschema = schema;
-    this.saveJson();
-  }
-
-  public setNewGroups(grouped_students): void {
-    let groups = this.current_project.gruppen;
-    groups.forEach(group => {
-      group.studenten = [];
-      grouped_students.forEach(student => {
-        if (student.group == group.name) {
-          group.studenten.push(student.id);
-        }
-      });
-    });
-    this.current_project.gruppen = groups;
-    this.saveJson();
-  }
-
-  public setNewGroupsComplete(groups): void {
-    this.current_project.gruppen = groups;
-    this.saveJson();
-  }
-
-  public getGroupIdByName(name): number {
-    let groups = this.current_project.gruppen;
-    let id = -1;
-    let position = -1;
-    groups.forEach(group => {
-      position++;
-      if (group.name == name) {
-        id = position;
-      }
-    });
-    return id;
-  }
-
-  public setNewCorrection(correction): void {
-    this.current_project.bewertung = correction;
-    this.saveJson();
-  }
-
-  public processImport(file): Observable < any > {
-    this.current_project;
-    return this.http.get(file).map((res: Response) => {
-      this.current_project.bewertungsschema = res.json().bewertungsschema;
-      return this.current_project;
-    })
+    return check;
   }
 
   private createNewLastOpenedFile(file_path: String) {
@@ -585,6 +571,34 @@ export class GlobalDataService {
     }
     this.loadedFiles.push(newFile);
   }
+
+  /** ---------------------------------------------------------------------
+  * FILE interaction methods
+  * Main task is to store and encrypt any data permanently to the hard drive.
+  */
+  private saveJson(): void {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
+    writeFile(this.filePath, encryptedJSON, (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+      } else {
+        this.saveService.save();       
+      }
+    });
+  }
+
+  public saveNewFile(path, json): any {
+    var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(json), this.passKey);
+    writeFile(path, encryptedJSON, (err) => {
+      if (err) {
+        alert("An error ocurred creating the file " + err.message);
+        return -1
+      } else {
+        this.saveService.save()
+        return 1;
+      }
+    });
+  } 
 
   public saveLoadedFile(): void {
     let slash = this.osService.getSlashFormat();
@@ -600,16 +614,6 @@ export class GlobalDataService {
         // console.log("The file has been saved")
       }
     });
-  }
-
-  public checkMtknr(mtknr): boolean {
-    let check = true;
-    this.current_project.teilnehmer.forEach((existing_student) => {
-      if (existing_student.mtknr == mtknr) {
-        check = false
-      }
-    });
-    return check;
   }
 
 }
