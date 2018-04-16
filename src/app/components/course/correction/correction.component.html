@@ -82,14 +82,15 @@
         <i class="material-icons left card-panel chevron hnrot" (click)="chevronClick('pink', 'backwards')" *ngIf="last_thing">chevron_left</i>
       </div>
       <!-- Punkte oben Mitte -->
+      <!-- Duplikation der Max-Attribute nötig: https://github.com/yuyang041060120/ng2-validation/issues/61 -->
       <div class="col s4">
         <div class="row">
           <div class="col s8" *ngIf="!groupmode">
-            <input class="right" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt"
+            <input class="right" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
               min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
           </div>
           <div class="col s8" *ngIf="groupmode">
-            <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt"
+            <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
               min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
           </div>
           <div class="col s4" style="margin-top: 5px">
