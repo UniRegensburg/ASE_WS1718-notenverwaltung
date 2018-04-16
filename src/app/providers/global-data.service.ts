@@ -458,6 +458,28 @@ export class GlobalDataService {
     }
   }
 
+  public checkLastOpendFiles(): void {
+    this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
+      lastOpenedFiles => {
+        this.loadedFiles = lastOpenedFiles[0];
+        if (!lastOpenedFiles[1]) {
+          this.createNewLastOpenedFile(this.filePath);
+        } else {}
+        this.saveLoadedFile();
+      }
+    );
+  }
+
+  public checkMtknr(mtknr): boolean {
+    let check = true;
+    this.current_project.teilnehmer.forEach((existing_student) => {
+      if (existing_student.mtknr == mtknr) {
+        check = false
+      }
+    });
+    return check;
+  }
+
   public createGroups(): void {
     this.current_project.gruppen = [];
   }
@@ -539,27 +561,6 @@ export class GlobalDataService {
     return of(this.current_project);
   }
 
-  public checkLastOpendFiles(): void {
-    this.lastOpened.updateLastOpendFiles(this.filePath).subscribe(
-      lastOpenedFiles => {
-        this.loadedFiles = lastOpenedFiles[0];
-        if (!lastOpenedFiles[1]) {
-          this.createNewLastOpenedFile(this.filePath);
-        } else {}
-        this.saveLoadedFile();
-      }
-    );
-  }
-
-  public checkMtknr(mtknr): boolean {
-    let check = true;
-    this.current_project.teilnehmer.forEach((existing_student) => {
-      if (existing_student.mtknr == mtknr) {
-        check = false
-      }
-    });
-    return check;
-  }
 
   private createNewLastOpenedFile(file_path: String) {
     let newFile = {
