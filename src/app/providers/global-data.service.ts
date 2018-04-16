@@ -52,8 +52,8 @@ export class GlobalDataService {
   }
 
   /** ---------------------------------------------------------------------
-   * GET methods
-   * Main task is to load local projects and to dispatch data to each component.
+   * GET
+   * Methods to load local projects and to dispatch data to each component.
    * Furthermore these methods provide special grade calculation for different components.
    * --------------------------------------------------------------------- */
 
@@ -342,9 +342,8 @@ export class GlobalDataService {
   }
 
   /** ---------------------------------------------------------------------
-  * SET methods to update global project
-  * Operations like adding new groups, students and gradings
-  * are outsourced into those methods.
+  * SET
+  * Methods to update global project, like adding new groups, students and gradings.
   * --------------------------------------------------------------------- */
 
   public setNewStudents(students): void {
@@ -396,8 +395,8 @@ export class GlobalDataService {
   }
 
   /** ---------------------------------------------------------------------
-  * VALIDATE methods
-  * Main task is to update indirect relationships in global data object,
+  * VALIDATE
+  * Methods to update indirect relationships in global data object,
   * such as single student gradings.
   * --------------------------------------------------------------------- */
   private checkCurrentValidity(): void {
@@ -481,8 +480,8 @@ export class GlobalDataService {
   }
 
   /** ---------------------------------------------------------------------
-  * CREATE methods
-  * Main task is to create new objects for the data service.
+  * CREATE
+  * Methods to create new objects for the data service.
   * --------------------------------------------------------------------- */
   public createGroups(): void {
     this.current_project.gruppen = [];
@@ -576,8 +575,8 @@ export class GlobalDataService {
   }
 
   /** ---------------------------------------------------------------------
-  * FILE interaction methods
-  * Main task is to store and encrypt any data permanently to the hard drive.
+  * FILE
+  * Methods to store and encrypt any data permanently to the hard drive.
   * --------------------------------------------------------------------- */
   private saveJson(): void {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
