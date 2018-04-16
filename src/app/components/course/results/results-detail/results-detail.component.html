@@ -1,44 +1,6 @@
 <div class="container">
 
-  <h1>Detailansicht - {{current_student.vorname}}, {{current_student.name}}</h1>
-
-  <div class="row" style="margin-top:50px">
-    <div class="col s12">
-      <b>Name</b>
-      <div class="input-field inline right input_detail">
-        <input type="text" [(ngModel)]="current_student.name">
-      </div>
-    </div>
-    <div class="col s12">
-      <b>Vorname</b>
-      <div class="input-field inline right input_detail">
-        <input type="text" [(ngModel)]="current_student.vorname">
-      </div>
-    </div>
-    <div class="col s12" #detailsView>
-      <b>Martrikelnummer</b>
-      <div class="input-field inline right input_detail">
-        <input type="text" [(ngModel)]="current_student.mtknr">
-      </div>
-    </div>
-    <div class="col s12">
-      <b>Status</b>
-      <div class="input-field inline right input_detail">
-        <input type="text" [(ngModel)]="current_student.status">
-      </div>
-    </div>
-    <div class="col s12">
-      <b>Studiengang</b>
-      <div class="input-field inline right input_detail">
-        <input type="text" [(ngModel)]="current_student.studiengang">
-      </div>
-    </div>
-    <a *ngIf="create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="addStudent()">Student Hinzufügen</a>
-    <a *ngIf="!create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="saveStudent()" #saveDelete>Speichern</a>
-
-    <a *ngIf="!create_new_student_mode" class="waves-effect waves-light btn pink darken-2" (click)="deleteStudent()">Student Löschen</a>
-    <a class="waves-effect waves-light btn pink darken-2 right" [routerLink]="['/course/students']" #cancelButton>Abbrechen</a>
-  </div>
+  <h1>Ergebnisansicht - {{current_student.vorname}}, {{current_student.name}}</h1>
   <div class="fixed-action-btn " id="tutorial_button" style="padding:15px">
     <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
       ?
@@ -46,7 +8,7 @@
   </div>
 
   <hr>
-  <div class="row">
+  <div class="row" style="margin-top: 30px">
     <div class="col s12 m4">
       <div class="card-panel pink darken-2">
         <span class="white-text">Bewertet
@@ -55,7 +17,7 @@
       </div>
     </div>
     <div class="col s12 m4">
-      <div class="card-panel pink darken-2">
+      <div class="card-panel pink darken-2" [attr.style]="checkColorGrading()">
         <span class="white-text">Note
           <h4>{{grade}}</h4>
         </span>
