@@ -22,62 +22,44 @@
 
   <div class="container" style="margin-left: 0px" *ngIf="no_data_available">
     <p class="empty">
-    In diesem Kurs gibt es noch keine Studierenden. <br>Teilnehmer können im Menüpunkt <a  class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a> erstellt oder importiert werden.
+      In diesem Kurs gibt es noch keine Studierenden.
+      <br>Teilnehmer können im Menüpunkt
+      <a class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a> erstellt oder importiert werden.
     </p>
   </div>
-  <div class="row" style="margin-top: 150px" *ngIf="!no_data_available">
-    <div class="col l12">
-      <div class="row row_hover">
-        <div class="col s1">
-          <b>ID</b>
-        </div>
-        <div class="col s3">
-          <b>Name, Vorname</b>
-        </div>
-        <div class="col s2">
-          <b>Martrikelnr</b>
-        </div>
-        <div class="col s2">
-          <b>Korrigiert</b>
-        </div>
-        <div class="col s1">
-          <b>Note</b>
-        </div>
-        <div class="col s3">
-        </div>
-      </div>
-      <hr class="hr_table">
-    </div>
-    <div #studentTable class="col l12 margin-top-10" *ngFor="let participant of participants | paginate: { itemsPerPage: 30, currentPage: p }; let i = index">
-      <div class="row row_hover">
-        <div class="col s1">
-          {{participant.id}}
-        </div>
-        <div class="col s3">
-          {{participant.name}}, {{participant.vorname}}
-        </div>
-        <div class="col s2">
-          {{participant.mtknr}}
-        </div>
-        <div class="col s2">
-          {{participant.finish * 100}}%
-        </div>
-        <div class="col s1">
-          {{participant.grade}}
-        </div>
-        <div class="col s3">
-          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Korrektur fortsetzen" [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
-          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten" [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
-          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen" [routerLink]="['/course/results']">pie_chart</i>
-        </div>
-      </div>
-      <hr class="hr_table">
-    </div>
-    <pagination-controls class="center-align my-pagination" style="margin-top: 50px" (pageChange)="p = $event"></pagination-controls>
+
+  <div class="row" *ngIf="!no_data_available">
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name, Vorname</th>
+        <th>Mtrknr</th>
+        <th>Korrigiert</th>
+        <th>Note</th>
+        <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
+      </tr>
+
+      <tr #studentTable *ngFor="let participant of participants; let i = index">
+        <td> {{participant.id}}</td>
+        <td> {{participant.name}}, {{participant.vorname}}</td>
+        <td> {{participant.mtknr}}</td>
+        <td> {{participant.finish * 100}}%</td>
+        <td> {{participant.grade}}</td>
+        <td>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Korrektur fortsetzen"
+            [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten"
+            [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
+          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen"
+            [routerLink]="['/course/results']">pie_chart</i>
+        </td>
+      </tr>
+    </table>
   </div>
+
   <div class="fixed-action-btn " #elementOneId id="tutorial_button" style="padding:15px">
-      <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
-          ?
-      </a>
+    <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+      ?
+    </a>
   </div>
 </div>
