@@ -96,14 +96,14 @@
 </div>
 
 <div class="fixed-action-btn" style="padding:15px; margin-bottom: 75px" *ngIf="!no_tasks&&!no_students">
-    <a class="btn-floating btn-large waves-effect red tooltipped" materialize="tooltip" data-position="top" data-delay="50" 
-    [attr.data-tooltip]="'Student ist durchgefallen (Note: ' + grading_list[grading_list.length-1].note + ')'" style="border-radius: 2px;">
+  <a class="btn-floating btn-large waves-effect orange tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50" 
+  [attr.data-tooltip]="'Student fast durchgefallen (Note: ' + grading_list[grading_list.length-2].note + ')'" style="border-radius: 2px;">
+    <i class="material-icons white-text">warning</i>
+  </a>  
+    <a class="btn-floating btn-large waves-effect red tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50" 
+    [attr.data-tooltip]="'Student durchgefallen (Note: ' + grading_list[grading_list.length-1].note + ')'" style="border-radius: 2px;">
         <i class="material-icons white-text">error</i>
     </a>
-    <a class="btn-floating btn-large waves-effect orange tooltipped" materialize="tooltip" data-position="top" data-delay="50" 
-    [attr.data-tooltip]="'Student fast durchgefallen (Note: ' + grading_list[grading_list.length-2].note + ')'" style="border-radius: 2px;">
-      <i class="material-icons white-text">warning</i>
-    </a>  
 </div>
 
 <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
