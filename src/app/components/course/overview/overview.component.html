@@ -38,7 +38,6 @@
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
-
       <tr #studentTable *ngFor="let participant of participants; let i = index">
         <td> {{participant.id}}</td>
         <td> {{participant.name}}, {{participant.vorname}}</td>
