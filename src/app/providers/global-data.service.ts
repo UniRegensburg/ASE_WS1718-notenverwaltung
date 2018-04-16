@@ -24,7 +24,7 @@ import { lastSavedService } from './index';
 @Injectable()
 export class GlobalDataService {
 
-  public current_project: any; 
+  public current_project: any;
   public current_project_name: any;
 
   private requiredProperties: Array <any> = ['title', 'teilnehmer', 'bewertungsschema', 'bewertung', 'gruppen'] ;
@@ -54,12 +54,12 @@ export class GlobalDataService {
   /** ---------------------------------------------------------------------
    * GET methods
    * Main task is to load local projects and to dispatch data to each component.
-   * Further these methods provide special grad calculation for diffretn components.
-   */
+   * Furthermore these methods provide special grade calculation for different components.
+   * --------------------------------------------------------------------- */
+
   public getLocalFile(file_path): Observable < Schema > {
     this.current_project = null;
     return this.http.get(file_path)
-      // ...and calling .json() on the response to return data
       .map((res: Response) => {
         var encryptedJSON = res.text();
         var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
@@ -341,11 +341,12 @@ export class GlobalDataService {
     return id;
   }
 
-  /**
+  /** ---------------------------------------------------------------------
   * SET methods to update global project
-  * Operations like adding new groups, students and gradings 
+  * Operations like adding new groups, students and gradings
   * are outsourced into those methods.
-  */
+  * --------------------------------------------------------------------- */
+
   public setNewStudents(students): void {
     this.current_project.teilnehmer.push(students);
     this.saveJson();
@@ -396,15 +397,15 @@ export class GlobalDataService {
 
   /** ---------------------------------------------------------------------
   * VALIDATE methods
-  * Main task is to update indirect relationships in global data object, 
+  * Main task is to update indirect relationships in global data object,
   * such as single student gradings.
-  */
+  * --------------------------------------------------------------------- */
   private checkCurrentValidity(): void {
-    this.checkStudentsInGrading(); 
-    this.checkTasksInGrading(); 
+    this.checkStudentsInGrading();
+    this.checkTasksInGrading();
   }
 
-  /** Checks if all students are in grading object if not adds them. */
+  /** Checks if all students are in grading object. If not, adds them. */
   private checkStudentsInGrading(): void {
     let grading = [];
 
@@ -424,7 +425,7 @@ export class GlobalDataService {
     this.current_project.bewertung = grading;
   }
 
-  /** Checks if all tasks are in student grading object if not adds them. */
+  /** Checks if all tasks are in student grading object. If not, adds them. */
   private checkTasksInGrading(): void {
     let grading = [];
 
@@ -572,14 +573,14 @@ export class GlobalDataService {
   /** ---------------------------------------------------------------------
   * FILE interaction methods
   * Main task is to store and encrypt any data permanently to the hard drive.
-  */
+  * --------------------------------------------------------------------- */
   private saveJson(): void {
     var encryptedJSON = this.CryptoJS.AES.encrypt(JSON.stringify(this.current_project), this.passKey);
     writeFile(this.filePath, encryptedJSON, (err) => {
       if (err) {
         this.toastService.setError("Beim Erstellen der Datei ist ein Fehler aufgetreten " + err.message);
       } else {
-        this.saveService.save();       
+        this.saveService.save();
       }
     });
   }
@@ -595,7 +596,7 @@ export class GlobalDataService {
         return 1;
       }
     });
-  } 
+  }
 
   public saveLoadedFile(): void {
     let slash = this.osService.getSlashFormat();
