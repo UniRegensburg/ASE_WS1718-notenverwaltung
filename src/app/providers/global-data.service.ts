@@ -1,74 +1,25 @@
-import {
-  Injectable,
-  group,
-  NgZone
-} from '@angular/core';
-import {
-  log
-} from 'util';
-import {
-  lastSavedService
-} from './index'
-import {
-  Http,
-  Response
-} from '@angular/http';
-import {
-  Schema
-} from '../models/schema';
-import {
-  Observable
-} from 'rxjs/Observable';
-import { of
-} from 'rxjs/observable/of';
-import {
-  File
-} from '../models/index'
-
-import "rxjs/add/observable/of";
-import 'rxjs/add/observable/throw';
-
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import {
-  readdir,
-  stat,
-  writeFile
-} from 'fs';
-import {
-  resolve
-} from 'path';
-
-import {
-  LastOpened
-} from './lastOpened.service';
-import {
-  ToastService
-} from '../providers/toast.service';
-import {
-  CheckOsService
-} from './checkOS.service';
-
-/**
- * 
 import { Injectable, group, NgZone } from '@angular/core';
 import { log } from 'util';
 import { Http, Response } from '@angular/http';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import "rxjs/add/observable/of";
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { Schema } from '../models/schema';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
+import { File } from '../models/index'
 import { readdir, stat, writeFile } from 'fs';
 import { resolve } from 'path';
 
-import { Schema, File } from '../models/index'
-import { LastOpened, ToastService, CheckOsService, lastSavedService} from './index';
- */
+import { LastOpened } from './lastOpened.service';
+import { ToastService } from '../providers/toast.service';
+import { CheckOsService } from './checkOS.service';
+import { lastSavedService } from './index';
+
 
 @Injectable()
 export class GlobalDataService {
