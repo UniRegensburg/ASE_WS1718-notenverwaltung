@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   private view_mode: boolean = true;
   private tour;
 
+  @ViewChild('welcome') welcome: ElementRef;
   @ViewChild('siteHeader') siteHeader: ElementRef;
   @ViewChild('lastUsed') lastUsed: ElementRef;
   @ViewChild('viewIcons') viewIcons: ElementRef;
@@ -33,6 +34,12 @@ export class HomeComponent implements OnInit {
         {
           title: "Willkommen!",
           content: "In diesem Tutorial werden Ihnen die einzelnen Funktionen dieser Notenverwaltungs-Software präsentiert.",
+          target: this.welcome.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Einführende Informationen...",
+          content: "Vorab drei kleine Hinweise: Diese Software funktioniert komplett unabhängig von Internetverfügbarkeit. Jeder von Ihnen vorgenommene Arbeitsschritt wird automatisch gespeichert. Gespeicherte Daten werden sicher verschlüsselt und können nur innerhalb dieser Software ausgelesen werden. All dies geschieht im Hintergrund, um Ihnen höchsten Komfort und Ihren Daten die größtmögliche Sicherheit zukommen zu lassen.",
           target: this.siteHeader.nativeElement,
           placement: "bottom"
         },
