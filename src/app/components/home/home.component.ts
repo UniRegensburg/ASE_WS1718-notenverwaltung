@@ -131,10 +131,8 @@ export class HomeComponent implements OnInit {
     dialog.showOpenDialog((fileNames) => {
       if (fileNames === undefined) {
           this.toastService.setError("Keine Datei ausgewählt. Bitte wählen Sie eine Datei aus.")
-
         return;
       }
-      this.router.navigate(['course/overview']);
 
       this.dataService.getLocalFile(fileNames[0]).subscribe(
         data => {        
