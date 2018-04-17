@@ -181,17 +181,6 @@ export class ResultsComponent implements OnInit {
       }
    }
   }
-  // getTaskResult(participant_id,task_id):any{
-  //   this.current_project.bewertung.forEach((student) => {
-  //     if(student.student_id == participant_id){
-  //       student.einzelwertungen.forEach((wertung) => {
-  //         if(wertung.aufgaben_id == task_id){
-  //           let result = wertung.erreichte_punkte
-  //           return result
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
+  
 
 }
