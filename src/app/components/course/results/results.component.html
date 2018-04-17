@@ -88,6 +88,7 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
         <td class="number">{{participant.finish * 100}}%</td>
         <td class="number">{{participant.grade}}</td>
         <td *ngFor="let bewertung of participant.bewertungen; let i = index">{{bewertung.erreichte_punkte}}</td>
+        <td class="last-icon"><i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen" [routerLink]="['/course/results-detail', {student_id: participant.id}]">pie_chart</i></td>
       </tr>
     </table>
   </div>
