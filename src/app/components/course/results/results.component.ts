@@ -122,7 +122,6 @@ export class ResultsComponent implements OnInit {
         }
       });
     });
-    console.log(this.participants)
   }
   switch_diagrams(): any {
     this.display_diagrams = !this.display_diagrams;
@@ -181,6 +180,6 @@ export class ResultsComponent implements OnInit {
       }
    }
   }
-  
+
 
 }
