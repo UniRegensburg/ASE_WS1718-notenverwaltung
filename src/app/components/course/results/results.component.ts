@@ -105,7 +105,7 @@ export class ResultsComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       }
       this.results = this.current_project.bewertung;
-
+      this.mapResults();
       this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
       // this.initGraphView();
       this.dataService.getStudentGrading().subscribe(data => {
@@ -114,6 +114,15 @@ export class ResultsComponent implements OnInit {
     });
   }
 
+  mapResults():any{
+    this.participants.forEach((participant) =>{
+      this.results.forEach((bewertung) =>{
+        if(participant.id == bewertung.student_id){
+          participant.bewertungen = bewertung.einzelwertungen
+        }
+      });
+    });
+  }
   switch_diagrams(): any {
     this.display_diagrams = !this.display_diagrams;
   }
@@ -171,5 +180,6 @@ export class ResultsComponent implements OnInit {
       }
    }
   }
+
 
 }
