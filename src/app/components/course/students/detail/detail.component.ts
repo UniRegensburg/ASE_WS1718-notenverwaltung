@@ -16,8 +16,6 @@ declare var $: any;
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit {
-  @ViewChild("taskChart") taskChart: ElementRef;
-
   private sub: any;
   private participants: any;
   private current_student: any;
@@ -86,7 +84,6 @@ export class DetailComponent implements OnInit {
               this.setCurrentStudent(params.student_id);
             }
           }
-          this.initGraphView();
         });
     });
   }
@@ -99,26 +96,7 @@ export class DetailComponent implements OnInit {
       }
     });
   }
-
-  initGraphView(): void {
-    this.getDiagramData();
-    this.getStudentData();
-
-    let contextTaskChart: CanvasRenderingContext2D = this.taskChart.nativeElement.getContext("2d");
-    this.chartService.initTaskChart(this.task_steps, this.task_dataset, contextTaskChart);
-  }
-
-  getDiagramData(): void {
-    this.task_steps = this.dataService.getTaskSteps(); 
-    this.task_dataset = this.dataService.getTaskDataset(true, this.current_student.id);
-  }
-
-  getStudentData(): void {    
-    this.completion = parseFloat(this.current_student.finish) * 100;
-    this.grade = this.current_student.grade;
-    this.total_points = this.dataService.getStudentTotalPoints(this.current_student.id);
-  }
-
+ 
 
   saveStudent(): void {
     let check = this.dataService.checkMtknr(this.current_student.mtknr)

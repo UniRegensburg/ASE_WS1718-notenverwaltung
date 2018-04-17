@@ -60,7 +60,7 @@
                     <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
                   </div>
                   <div class="col s4">
-                    <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+                    <input [(ngModel)]="entry.wert_min" disabled type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
                   </div>
                   <div class="col s2 center grey-text" style="margin-top: 20px" id="deleteBtn">
                     <i class="material-icons">delete</i>

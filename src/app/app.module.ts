@@ -11,7 +11,7 @@ import { HomeComponent } from './components/home/index';
 import { NewCourseComponent } from './components/newcourse/newcourse.component';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent,DetailComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent, DetailComponent, ResultsDetailComponent } from './components/course/index'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,7 +44,8 @@ import { MaterializeModule} from 'angular2-materialize';
     CorrectionComponent,
     DetailComponent,
     SearchStudentPipe,
-    ToastComponent
+    ToastComponent,
+    ResultsDetailComponent
   ],
   imports: [
     BrowserModule,
