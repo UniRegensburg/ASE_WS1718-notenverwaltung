@@ -87,7 +87,7 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
         <td class="number">{{participant.mtknr}}</td>
         <td class="number">{{participant.finish * 100}}%</td>
         <td class="number">{{participant.grade}}</td>
-        <td *ngFor="let task of tasks; let i = index"> Note</td>
+        <td *ngFor="let bewertung of participant.bewertungen; let i = index">{{bewertung.erreichte_punkte}}</td>
       </tr>
     </table>
   </div>
