@@ -201,9 +201,9 @@ export class CorrectionComponent implements OnInit {
     if (direction == "forwards") param = 1;
     if (color == "black") this.setNextContinue(param);
     if (color == "pink") this.setNextJump(param);
-    if (color == "any"){
+    if (color == "any") {
       if ((this.show_next && param == 1) || (this.show_previous && param == -1)) this.setNextContinue(param);
-      else if ((this.next_thing && param == 1) ||(this.last_thing && param == -1)) this.setNextJump(param);
+      else if ((this.next_thing && param == 1) || (this.last_thing && param == -1)) this.setNextJump(param);
     }
     this.checkLimits();
     this.setCurrentCorrection();
@@ -217,16 +217,16 @@ export class CorrectionComponent implements OnInit {
         if (this.group_index == this.groups.length - 1) {
           this.group_index = 0;
         }
-        this.task_index = this.task_index + param;
+      this.task_index = this.task_index + param;
     }
 
     else if (this.groupmode && !this.correctByTask) {
-      if(this.task_index == this.tasks.length-1){
+      if (this.task_index == this.tasks.length - 1) {
         this.task_index = 0;
-      } else if (this.task_index == 0){
-        this.task_index = this.tasks.length-1;
+      } else if (this.task_index == 0) {
+        this.task_index = this.tasks.length - 1;
       }
-     this.group_index = this.group_index + param;
+      this.group_index = this.group_index + param;
     }
 
     else if (!this.groupmode && this.correctByTask) {
@@ -235,15 +235,15 @@ export class CorrectionComponent implements OnInit {
       } else
         if (this.student_index == this.students.length - 1) {
           this.student_index = 0;
-        } 
-        this.task_index = this.task_index + param;
+        }
+      this.task_index = this.task_index + param;
     }
 
     else if (!this.groupmode && !this.correctByTask) {
-      if(this.task_index == this.tasks.length-1){
+      if (this.task_index == this.tasks.length - 1) {
         this.task_index = 0;
-      } else if (this.task_index == 0){
-        this.task_index = this.tasks.length-1;
+      } else if (this.task_index == 0) {
+        this.task_index = this.tasks.length - 1;
       }
       this.student_index = this.student_index + param;
     }
@@ -353,7 +353,28 @@ export class CorrectionComponent implements OnInit {
     this.checkPink();
   }
 
+  //check if entered value is valid
+  checkPoints(): void {
+    if (!this.groupmode) {
+      if (this.current_correction.erreichte_punkte > this.current_task.max_punkt) {
+        this.current_correction.erreichte_punkte = this.current_task.max_punkt;
+      }
+      else if (this.current_correction.erreichte_punkte < 0) {
+        this.current_correction.erreichte_punkte = 0;
+      }
+    }
+    else if (this.groupmode) {
+      if (this.current_group.punkte > this.current_task.max_punkt) {
+        this.current_group.punkte = this.current_task.max_punkt;
+      }
+      else if (this.current_group.punkte < 0) {
+        this.current_group.punkte = 0;
+      }
+    }
+  }
+
   saveCorrection(): void {
+    this.checkPoints();
     if (this.groupmode) {
       this.grading.forEach(bewertung => {
         this.groupmembers.forEach(groupmember => {
