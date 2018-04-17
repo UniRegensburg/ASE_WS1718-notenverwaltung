@@ -38,12 +38,10 @@
   <div class="row">
     <div class="col s3 links">
       <a class="btn waves-effect waves-light pink darken-2 hombtn" [routerLink]="['/newcourse']">Neu erstellen</a>
-      <div class="btn waves-effect waves-light pink darken-2 hombtn">
-        <label for="file_selector">
+      <a class="btn waves-effect waves-light pink darken-2 hombtn" (click)="openDialog()">
           PROJEKT LADEN
-        </label>
-        <input #fileInput id="file_selector" type="file" accept=".json" #file (change)="onChange(file.files)" />
-      </div>
+        <!--input #fileInput id="file_selector" type="file" accept=".json" #file (change)="onChange(file.files)" /-->
+      </a>
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
