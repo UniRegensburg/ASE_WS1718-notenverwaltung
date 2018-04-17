@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { GlobalDataService, ChartService, ToastService } from '../../../../providers/index'
-import {
-  ActivatedRoute, Router
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { GlobalDataService, ChartService, ToastService } from '../../../../providers/index';
 
 import * as hopscotch from 'hopscotch';
 import { log } from 'util';
@@ -67,25 +67,30 @@ export class DetailComponent implements OnInit {
     public dataService: GlobalDataService,
     private route: ActivatedRoute,
     public router: Router,
-    public chartService: ChartService, 
+    private location: Location,
+    public chartService: ChartService,
     private toastService: ToastService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-      this.sub = this.route.params.subscribe(params => {
-        this.dataService.getCurrentProject().subscribe(current_project => {          
-          this.participants = current_project["teilnehmer"];
-          if (params) {
-            if(params.student_id == "createNewStudent"){
-              this.getNewStudent();
-              this.create_new_student_mode = true;
-            }
-            else{
-              this.setCurrentStudent(params.student_id);
-            }
+    this.sub = this.route.params.subscribe(params => {
+      this.dataService.getCurrentProject().subscribe(current_project => {
+        this.participants = current_project["teilnehmer"];
+        if (params) {
+          if (params.student_id == "createNewStudent") {
+            this.getNewStudent();
+            this.create_new_student_mode = true;
           }
-        });
+          else {
+            this.setCurrentStudent(params.student_id);
+          }
+        }
+      });
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   setCurrentStudent(id): void {
@@ -96,7 +101,6 @@ export class DetailComponent implements OnInit {
       }
     });
   }
- 
 
   saveStudent(): void {
     let check = this.dataService.checkMtknr(this.current_student.mtknr)
@@ -108,7 +112,7 @@ export class DetailComponent implements OnInit {
       this.toastService.setError("Student mit der Matrikelnummer " + this.current_student.mtknr + " ist bereits in der Teilnehmerliste.")
     }
   }
-  
+
   getNewStudent(): void {
     this.dataService.createNewStudent().subscribe(student => {
       this.current_student = student;
@@ -129,7 +133,7 @@ export class DetailComponent implements OnInit {
   deleteStudent(): void {
     this.participants.splice(this.current_student_index, 1);
     this.dataService.setNewStudents(this.participants);
-    this.router.navigate(['/course/students']);
+    this.location.back();
   }
 
 }
