@@ -20,7 +20,7 @@ import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExpo
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { SearchStudentPipe } from './pipes/index';
+import { SearchStudentPipe, ReversePipe} from './pipes/index';
 
 import { ToastComponent } from './directives/toast.directive/toast.directive';
 
@@ -44,6 +44,7 @@ import { MaterializeModule} from 'angular2-materialize';
     CorrectionComponent,
     DetailComponent,
     SearchStudentPipe,
+    ReversePipe,
     ToastComponent,
     ResultsDetailComponent
   ],
@@ -63,6 +64,7 @@ import { MaterializeModule} from 'angular2-materialize';
     LastOpened,
     gripsExportService,
     SearchStudentPipe,
+    ReversePipe,
     flexNowExportService,
     CheckOsService,
     ToastService,
