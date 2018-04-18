@@ -1,6 +1,6 @@
 <div class="container">
   <h1 #welcome>WILLKOMMEN!</h1>
-  <hr class="hr_welcome">
+  <div class="divider"></div>
   <toast></toast>
   <br>
   <h5 #siteHeader>NOTENVERWALTUNG</h5>
@@ -47,7 +47,7 @@
     </div>
     <div class="col l8" *ngIf="view_mode">
       <div class="row">
-        <div class="col s12 m6" *ngFor="let file of last_files">
+        <div class="col s12 m6" *ngFor="let file of last_files | reverse">
           <div class="card home-card z-depth-1" (click)="onChange([{path:file.path}])" style="height: 200px;">
             <i class="material-icons row_hover right" (click)="clearFileFromList(file.path)">clear</i>
             <div class="card-content black-text ">

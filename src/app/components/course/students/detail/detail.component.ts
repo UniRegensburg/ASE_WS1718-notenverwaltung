@@ -138,8 +138,12 @@ export class DetailComponent implements OnInit {
   }
 
   deleteStudent(): void {
-    this.participants.splice(this.current_student_index, 1);
-    this.dataService.setNewStudents(this.participants);
+    this.participants.forEach((student, i) => {
+      if (student.id == this.current_student.id) {
+        this.participants.splice(i, 1);
+      }
+    });
+    this.dataService.setNewStudentsComplete(this.participants);
     this.location.back();
   }
 
