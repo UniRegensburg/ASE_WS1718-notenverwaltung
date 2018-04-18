@@ -1,6 +1,7 @@
 <div class="container">
-  <h1 #schemeHeader *ngIf="!no_data_available">Bewertungsschema</h1>
-  <hr class="hr_welcome" *ngIf="!no_data_available">
+  <h3 class="header">BEWERTUNGSSCHEMA</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <hr class="hr_welcome">
   <!-- <div class="row">
     <div class="col s12">
       <span *ngIf="no_data_available" (click)="importScheme()" class="edit-btn clickHover">
