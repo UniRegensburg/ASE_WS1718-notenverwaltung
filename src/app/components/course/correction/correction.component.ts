@@ -58,6 +58,10 @@ export class CorrectionComponent implements OnInit {
   @ViewChild('taskStudent') taskStudent: ElementRef;
   @ViewChild('taskDetails') taskDetails: ElementRef;
   @ViewChild('correctionView') correctionView: ElementRef;
+  @ViewChild('leftgrey', {read: ElementRef}) leftGrey: ElementRef;
+  @ViewChild('lefthnrot', {read: ElementRef}) leftHNRot: ElementRef;
+  @ViewChild('rightgrey', {read: ElementRef}) rightGrey: ElementRef;
+  @ViewChild('righthnrot', {read: ElementRef}) rightHNRot: ElementRef;
 
   doTour() {
     var tour = {
@@ -142,7 +146,6 @@ export class CorrectionComponent implements OnInit {
 
   // put current correction as active and displayable
   setCurrentCorrection(): any {
-    //TODO: das hier ist nicht schön. der Switch für den Gruppenmodus müsste disabled werden, wenn einer der beiden Fehler von toggleGroupView auftritt
     if (this.current_student == null) {
       this.current_student = this.students[0];
     }
@@ -161,9 +164,9 @@ export class CorrectionComponent implements OnInit {
   // change between group and single student view
   toggleGroupView(): void {
     let errormsg = "";
-
     if (!this.no_groups && this.groupmode) {
       try {
+
         this.setCurrentGroupMembers();
         this.current_student = this.groupmembers[0];
       } catch (err) {
@@ -191,11 +194,12 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  //change correction direction 
+  //change correction direction
   toggleDirection(): void {
     this.correctByTask = !this.correctByTask;
     this.checkLimits();
   }
+  
 
   //is called when any arrow is clicked
   chevronClick(color, direction): void {

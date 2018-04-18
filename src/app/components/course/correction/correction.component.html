@@ -1,203 +1,272 @@
 <div class="container" *ngIf="no_tasks||no_students">
-  <h3 class="header">KORREKTUR</h3>
-  <h5 class="name">{{current_project.title}}</h5>
-  <div class="divider"></div>
-</div>
-<div class="container" *ngIf="no_tasks">
-  <p class="empty">
-    Da es noch keine Aufgaben gibt, ist keine Korrektur möglich.
-    <br /> Erstellen Sie bitte Aufgaben unter dem Menüpunkt
-    <a class="hnrot" [routerLink]="['../grading']">Bewertungsschema</a>.
-  </p>
-</div>
-
-<div class="container" *ngIf="no_students">
-  <p class="empty">
-    Da es noch keine Teilnehmer gibt, ist keine Korrektur möglich.
-    <br /> Erstellen Sie bitte Teilnehmer unter dem Menüpunkt
-    <a class="hnrot" [routerLink]="['../students']">Teilnehmer</a>.
-  </p>
-</div>
-
-<div class="container" *ngIf="!no_tasks&&!no_students">
-  <h3 class="header">KORREKTUR</h3>
-  <h5 class="name">{{current_project.title}}</h5>
-  <div class="divider"></div>
-  <!-- Gruppentoggle -->
-  <div class="row">
-    <div class="col s6">
-      <label>Ansicht</label>
-      <div #correctionView class="switch">
-        <label>
-          StudentIn
-          <input type="checkbox" [checked]="groupmode" (change)="toggleGroupView()">
-          <span class="lever"></span>
-          Gruppe
-        </label>
-      </div>
-    </div>
-    <!-- Richtungstoggle -->
-    <div class="col s6 right-align">
-      <label>Korrekturrichtung</label>
-      <div #taskStudent class="switch">
-        <label>
-          weiter mit diesen TeilnehmerInnen
-          <input type="checkbox" [checked]="correctByTask" (change)="toggleDirection()">
-          <span class="lever"></span>
-          weiter in dieser Aufgabe
-        </label>
-      </div>
-    </div>
+    <h3 class="header">KORREKTUR</h3>
+    <h5 class="name">{{current_project.title}}</h5>
+    <div class="divider"></div>
   </div>
-  <br>
-
-  <div class="divider"></div>
-  <br />
-
-  <!-- Gruppenansicht, wenn keine Gruppen existieren -->
-  <div *ngIf="groupmode && no_groups">
+  <div class="container" *ngIf="no_tasks">
     <p class="empty">
-      Es wurden noch keine Gruppen erstellt und Teilnehmern zugewiesen.
-      <br /> Sie können Gruppen erstellen und zuweisen unter
-      <span class="hnrot">Teilnehmer</span>.
+      Da es noch keine Aufgaben gibt, ist keine Korrektur möglich.
+      <br /> Erstellen Sie bitte Aufgaben unter dem Menüpunkt
+      <a class="hnrot" [routerLink]="['../grading']">Bewertungsschema</a>.
     </p>
   </div>
-
-  <div *ngIf="!no_groups || no_groups && !groupmode">
-    <div class="row center-align" style="margin-top: 40px">
-      <p *ngIf="!correctByTasks&&!groupmode">
-        <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
-      </p>
-      <p *ngIf="correctByTasks&&!groupmode">{{current_student.name}}, {{current_student.vorname}} /
-        <span class="hnrot">Aufgabe: {{current_task.name}}</span>
-      </p>
-      <p *ngIf="!correctByTasks&&groupmode">
-        <span class="hnrot">Gruppenname: {{current_group.name}} </span> / Aufgabe: {{current_task.name}}
-      </p>
-      <p *ngIf="correctByTasks&&groupmode">Gruppenname: {{current_group.name}} /
-        <span class="hnrot">Aufgabe: {{current_task.name}}</span>
-      </p>
-    </div>
-
+  
+  <div class="container" *ngIf="no_students">
+    <p class="empty">
+      Da es noch keine Teilnehmer gibt, ist keine Korrektur möglich.
+      <br /> Erstellen Sie bitte Teilnehmer unter dem Menüpunkt
+      <a class="hnrot" [routerLink]="['../students']">Teilnehmer</a>.
+    </p>
+  </div>
+  
+  <div class="container" *ngIf="!no_tasks&&!no_students">
+    <h3 class="header">KORREKTUR</h3>
+    <h5 class="name">{{current_project.title}}</h5>
+    <div class="divider"></div>
+    <!-- Gruppentoggle -->
     <div class="row">
-      <!-- Pfeil nach links -->
-      <div class="col s4">
-        <div class="btn white cornav" *ngIf="show_previous" (click)="chevronClick('black', 'backwards')">
-          <i class="material-icons black-text iconnav">chevron_left</i>
-        </div >
-        <div class="btn white cornav" *ngIf="!show_previous&&!last_thing" disabled>
-         <i class="material-icons grey-text iconnav">chevron_left</i>
-        </div>
-        <div class="btn white cornav" *ngIf="last_thing" (click)="chevronClick('pink', 'backwards')">
-          <i class="material-icons hnrot iconnav">chevron_left</i>
+      <div class="col s6">
+        <label>Ansicht</label>
+        <div #correctionView class="switch">
+          <label>
+            StudentIn
+            <input type="checkbox" [checked]="groupmode" (change)="toggleGroupView()">
+            <span class="lever"></span>
+            Gruppe
+          </label>
         </div>
       </div>
-      <!-- Punkte oben Mitte -->
-      <!-- Duplikation der Max-Attribute nötig: https://github.com/yuyang041060120/ng2-validation/issues/61 -->
-      <div class="col s4">
-        <div class="row">
-          <div class="col s8" *ngIf="!groupmode">
-            <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
-              min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+      <!-- Richtungstoggle -->
+      <div class="col s6 right-align">
+        <label>Korrekturrichtung</label>
+        <div #taskStudent class="switch">
+          <label>
+            weiter mit diesen TeilnehmerInnen
+            <input type="checkbox" [checked]="correctByTask" (change)="toggleDirection()">
+            <span class="lever"></span>
+            weiter in dieser Aufgabe
+          </label>
+        </div>
+      </div>
+    </div>
+    <br>
+  
+    <div class="divider"></div>
+    <br />
+  
+    <!-- Gruppenansicht, wenn keine Gruppen existieren -->
+    <div *ngIf="groupmode && no_groups">
+      <p class="empty">
+        Es wurden noch keine Gruppen erstellt und Teilnehmern zugewiesen.
+        <br /> Sie können Gruppen erstellen und zuweisen unter
+        <span class="hnrot">Teilnehmer</span>.
+      </p>
+    </div>
+  
+    <div *ngIf="!no_groups || no_groups && !groupmode">
+      <div class="row center-align" style="margin-top: 40px">
+        <p *ngIf="!correctByTasks&&!groupmode">
+          <span class="hnrot">{{current_student.name}}, {{current_student.vorname}}</span> / Aufgabe: {{current_task.name}}
+        </p>
+        <p *ngIf="correctByTasks&&!groupmode">{{current_student.name}}, {{current_student.vorname}} /
+          <span class="hnrot">Aufgabe: {{current_task.name}}</span>
+        </p>
+        <p *ngIf="!correctByTasks&&groupmode">
+          <span class="hnrot">Gruppenname: {{current_group.name}} </span> / Aufgabe: {{current_task.name}}
+        </p>
+        <p *ngIf="correctByTasks&&groupmode">Gruppenname: {{current_group.name}} /
+          <span class="hnrot">Aufgabe: {{current_task.name}}</span>
+        </p>
+      </div>
+  
+      <div class="row">
+        <!-- Pfeil nach links -->
+        <div class="col s4">
+          <div class="btn white cornav" *ngIf="show_previous" (click)="chevronClick('black', 'backwards')">
+            <i class="material-icons black-text iconnav">chevron_left</i>
           </div>
-          <div class="col s8" *ngIf="groupmode">
-            <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
-              min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+          <div *ngIf="groupmode && !correctByTask">
+            <div class="btn white cornav tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine vorherige Aufgabe vorhanden"
+              *ngIf="!show_previous&&!last_thing">
+              <i class="material-icons grey-text iconnav">chevron_left</i>
+            </div>
+            <div class="btn white cornav tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorherige Gruppe"
+              *ngIf="last_thing" (click)="chevronClick('pink', 'backwards')">
+              <i class="material-icons hnrot iconnav">chevron_left</i>
+            </div>
           </div>
-          <div class="col s4" style="margin-top: 5px">
-            <span class="left">
-              <p>/{{current_task.max_punkt}}</p>
+          <div *ngIf="!groupmode && correctByTask">
+            <div class="btn white cornav tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein vorheriger Studierender vorhanden"
+              *ngIf="!show_previous&&!last_thing" >
+              <i class="material-icons grey-text iconnav">chevron_left</i>
+            </div>
+            <div class="btn white cornav tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorherige Aufgabe"
+              *ngIf="last_thing" (click)="chevronClick('pink', 'backwards')">
+              <i class="material-icons hnrot iconnav">chevron_left</i>
+            </div>
+          </div>
+          <div *ngIf="groupmode && correctByTask">
+            <div class="btn white cornav tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine vorherige Gruppe vorhanden"
+              *ngIf="!show_previous&&!last_thing" >
+              <i class="material-icons grey-text iconnav">chevron_left</i>
+            </div>
+            <div class="btn white cornav tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorherige Aufgabe"
+              *ngIf="last_thing" (click)="chevronClick('pink', 'backwards')">
+              <i class="material-icons hnrot iconnav">chevron_left</i>
+            </div>
+          </div>
+          <div *ngIf="!groupmode && !correctByTask">
+            <div class="btn white cornav tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein vorherige Aufgabe vorhanden"
+              *ngIf="!show_previous&&!last_thing">
+              <i class="material-icons grey-text iconnav">chevron_left</i>
+            </div>
+            <div class="btn white cornav tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorheriger Studierender"
+              *ngIf="last_thing" (click)="chevronClick('pink', 'backwards')">
+              <i class="material-icons hnrot iconnav">chevron_left</i>
+            </div>
+          </div>
+        </div>
+        <!-- Punkte oben Mitte -->
+        <!-- Duplikation der Max-Attribute nötig: https://github.com/yuyang041060120/ng2-validation/issues/61 -->
+        <div class="col s4">
+          <div class="row">
+            <div class="col s8" *ngIf="!groupmode">
+              <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt"
+                [max]="current_task.max_punkt" min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+            </div>
+            <div class="col s8" *ngIf="groupmode">
+              <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt"
+                [max]="current_task.max_punkt" min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+            </div>
+            <div class="col s4" style="margin-top: 5px">
+              <span class="left">
+                <p>/{{current_task.max_punkt}}</p>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- Pfeil nach rechts -->
+        <div class="col s4">
+          <div class="btn white cornav right" *ngIf="show_next" (click)="chevronClick('black', 'forwards')">
+            <i class="material-icons black-text" style="font-size: 40px;">chevron_right</i>
+          </div>
+          <div *ngIf="groupmode && !correctByTask">
+            <div class="btn white cornav right tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Aufgabe vorhanden"
+              *ngIf="!show_next&&!next_thing">
+              <i class="material-icons grey-text" style="font-size: 40px;">chevron_right</i>
+            </div>
+            <div class="btn white cornav right tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Gruppe"
+              *ngIf="next_thing" (click)="chevronClick('pink', 'forwards')">
+              <i class="material-icons hnrot" style="font-size: 40px;">chevron_right</i>
+            </div>
+          </div>
+          <div *ngIf="!groupmode && correctByTask">
+            <div class="btn white cornav right tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein nächster Studierender vorhanden"
+              *ngIf="!show_next&&!next_thing">
+              <i class="material-icons grey-text" style="font-size: 40px;">chevron_right</i>
+            </div>
+            <div class="btn white cornav right tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Aufgabe"
+              *ngIf="next_thing" (click)="chevronClick('pink', 'forwards')">
+              <i class="material-icons hnrot" style="font-size: 40px;">chevron_right</i>
+            </div>
+          </div>
+          <div *ngIf="groupmode && correctByTask">
+            <div class="btn white cornav right tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Gruppe vorhanden"
+              *ngIf="!show_next&&!next_thing">
+              <i class="material-icons grey-text" style="font-size: 40px;">chevron_right</i>
+            </div>
+            <div class="btn white cornav right tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Aufgabe"
+              *ngIf="next_thing" (click)="chevronClick('pink', 'forwards')">
+              <i class="material-icons hnrot" style="font-size: 40px;">chevron_right</i>
+            </div>
+          </div>
+          <div *ngIf="!groupmode && !correctByTask">
+            <div class="btn white cornav right tooltipped deactivated" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Aufgabe vorhanden"
+              *ngIf="!show_next&&!next_thing">
+              <i class="material-icons grey-text" style="font-size: 40px;">chevron_right</i>
+            </div>
+            <div class="btn white cornav right tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächster Studierender"
+              *ngIf="next_thing" (click)="chevronClick('pink', 'forwards')">
+              <i class="material-icons hnrot" style="font-size: 40px;">chevron_right</i>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Aufzählung Gruppenmitglieder mit Punkten -->
+      <div class="row center-align" *ngIf="groupmode">
+        <p>Gruppenmitglieder</p>
+        <div class="groupmember" *ngFor="let groupmember of groupmembers">
+          <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
+          <div *ngFor="let grade of grading">
+            <div class="memberpoints col s2" *ngIf="grade.student_id == groupmember.id">
+              <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte" [attr.max]="current_task.max_punkt"
+                [max]="current_task.max_punkt" min="0" class="validate">
+              <span class="maxpoints"> /{{current_task.max_punkt}} </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Akkordeons -->
+      <div #taskDetails class="row">
+        <div class="col s12">
+          <div class="card-panel white" (click)="open_1 = !open_1">
+            <span>Beschreibung</span>
+            <i class="material-icons right" *ngIf="!open_1">keyboard_arrow_down</i>
+            <i class="material-icons right" *ngIf="open_1">keyboard_arrow_up</i>
+          </div>
+          <div *ngIf="open_1" class="card-panel grey lighten-2">
+            <span class="black-text">{{current_task.beschreibung}}
             </span>
           </div>
         </div>
-      </div>
-      <!-- Pfeil nach rechts -->
-      <div class="col s4">
-        <div class="btn white cornav right" *ngIf="show_next" (click)="chevronClick('black', 'forwards')">
-          <i class="material-icons black-text" style="font-size: 40px;">chevron_right</i>
-        </div >
-        <div class="btn white cornav right" *ngIf="!show_next&&!next_thing" disabled>
-          <i class="material-icons grey-text" style="font-size: 40px;">chevron_right</i>
-        </div>
-        <div class="btn white cornav right" *ngIf="next_thing" (click)="chevronClick('pink', 'forwards')">
-          <i class="material-icons hnrot" style="font-size: 40px;">chevron_right</i>
-        </div>
-      </div>
-    </div>
-
-    <!-- Aufzählung Gruppenmitglieder mit Punkten -->
-    <div class="row center-align" *ngIf="groupmode">
-      <p>Gruppenmitglieder</p>
-      <div class="groupmember" *ngFor="let groupmember of groupmembers">
-        <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
-        <div *ngFor="let grade of grading" >
-          <div  class="memberpoints col s2" *ngIf="grade.student_id == groupmember.id">
-          <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte"
-          [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt" min="0" class="validate">
-          <span class="maxpoints"> /{{current_task.max_punkt}} </span>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Akkordeons -->
-    <div #taskDetails class="row">
-      <div class="col s12">
-        <div class="card-panel white" (click)="open_1 = !open_1">
-          <span>Beschreibung</span>
-          <i class="material-icons right" *ngIf="!open_1">keyboard_arrow_down</i>
-          <i class="material-icons right" *ngIf="open_1">keyboard_arrow_up</i>
-        </div>
-        <div *ngIf="open_1" class="card-panel grey lighten-2">
-          <span class="black-text">{{current_task.beschreibung}}
-          </span>
-        </div>
-      </div>
-
-      <div class="col s12">
-        <div class="card-panel white" (click)="open_2 = !open_2">
-          <span>Bewertungshinweis</span>
-          <i class="material-icons right" *ngIf="!open_2">keyboard_arrow_down</i>
-          <i class="material-icons right" *ngIf="open_2">keyboard_arrow_up</i>
-        </div>
-        <div *ngIf="open_2" class="card-panel grey lighten-2">
-          <span class="black-text">{{current_task.bewertungs_hinweis}}
-          </span>
-        </div>
-      </div>
-
-      <div class="col s12" *ngIf="current_task.comment_public&&!groupmode">
-        <div class="card-panel white" (click)="open_3 = !open_3">
-          <span>Öffentlicher Kommentar</span>
-          <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
-          <i class="material-icons right" *ngIf="open_3">keyboard_arrow_up</i>
-        </div>
-        <div *ngIf="open_3" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
-          <div class="input-field col s12">
-            <textarea [(ngModel)]="current_correction.comment_public" class="materialize-textarea" placeholder="Öffentlicher Kommentar"
-              (keyup)="saveCorrection()"></textarea>
+  
+        <div class="col s12">
+          <div class="card-panel white" (click)="open_2 = !open_2">
+            <span>Bewertungshinweis</span>
+            <i class="material-icons right" *ngIf="!open_2">keyboard_arrow_down</i>
+            <i class="material-icons right" *ngIf="open_2">keyboard_arrow_up</i>
+          </div>
+          <div *ngIf="open_2" class="card-panel grey lighten-2">
+            <span class="black-text">{{current_task.bewertungs_hinweis}}
+            </span>
           </div>
         </div>
-      </div>
-
-      <div class="col s12" *ngIf="current_task.comment_privat&&!groupmode">
-        <div class="card-panel white" (click)="open_4 = !open_4">
-          <span>Privater Kommentar</span>
-          <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
-          <i class="material-icons right" *ngIf="open_4">keyboard_arrow_up</i>
+  
+        <div class="col s12" *ngIf="current_task.comment_public&&!groupmode">
+          <div class="card-panel white" (click)="open_3 = !open_3">
+            <span>Öffentlicher Kommentar</span>
+            <i class="material-icons right" *ngIf="!open_3">keyboard_arrow_down</i>
+            <i class="material-icons right" *ngIf="open_3">keyboard_arrow_up</i>
+          </div>
+          <div *ngIf="open_3" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
+            <div class="input-field col s12">
+              <textarea [(ngModel)]="current_correction.comment_public" class="materialize-textarea" placeholder="Öffentlicher Kommentar"
+                (keyup)="saveCorrection()"></textarea>
+            </div>
+          </div>
         </div>
-        <div *ngIf="open_4" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
-          <div class="input-field col s12">
-            <textarea [(ngModel)]="current_correction.comment_privat" class="materialize-textarea" placeholder="Privater Kommentar" (keyup)="saveCorrection()"></textarea>
+  
+        <div class="col s12" *ngIf="current_task.comment_privat&&!groupmode">
+          <div class="card-panel white" (click)="open_4 = !open_4">
+            <span>Privater Kommentar</span>
+            <i class="material-icons right" *ngIf="!open_4">keyboard_arrow_down</i>
+            <i class="material-icons right" *ngIf="open_4">keyboard_arrow_up</i>
+          </div>
+          <div *ngIf="open_4" class="card-panel grey lighten-2" style="height:auto; overflow:auto;">
+            <div class="input-field col s12">
+              <textarea [(ngModel)]="current_correction.comment_privat" class="materialize-textarea" placeholder="Privater Kommentar" (keyup)="saveCorrection()"></textarea>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+  
+    <div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
       <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
-          ?
+        ?
       </a>
+    </div>
   </div>
-</div>
+  
