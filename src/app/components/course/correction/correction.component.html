@@ -118,9 +118,7 @@
       <!-- Pfeil nach rechts -->
       <div class="col s4">
         <i class="material-icons right card-panel chevron" (click)="chevronClick('black', 'forwards')" *ngIf="show_next">chevron_right</i>
-        <!--i #rightgrey name="rightgrey" class="material-icons right card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Gruppe vorhanden" *ngIf="!show_next&&!next_thing">chevron_right</i>
-        <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Gruppe" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i-->
-          <div *ngIf="groupmode && !correctByTask">
+        <div *ngIf="groupmode && !correctByTask">
             <i #rightgrey name="rightgrey" class="material-icons right card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Aufgabe vorhanden" *ngIf="!show_next&&!next_thing">chevron_right</i>
             <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Gruppe" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i>
           </div>
