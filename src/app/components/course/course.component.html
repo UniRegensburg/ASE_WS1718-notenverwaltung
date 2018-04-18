@@ -1,5 +1,5 @@
-<div class="row">
-  <div *ngIf="collpase" class="navbar-fixed col s2">
+<div class="row ">
+  <div *ngIf="collpase" class="navbar-fixed col s2 dontprint">
     <a (click)="setCollpased(false)" class="btn-floating btn-large waves-effect waves-light grey z-depth-1">
       <i class="material-icons">chevron_left</i>
     </a>
@@ -53,7 +53,7 @@
   </div>
 
 
-  <div *ngIf="!collpase" class="navbar-fixed col s1">
+  <div *ngIf="!collpase" class="navbar-fixed col s1 dontprint">
     <a (click)="setCollpased(true)" class="btn-floating btn-large waves-effect btn-floating-collapse waves-light grey z-depth-1">
       <i class="material-icons">chevron_right</i>
     </a>
