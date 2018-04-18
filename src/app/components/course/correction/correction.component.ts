@@ -156,7 +156,6 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-
   }
 
   // change between group and single student view
@@ -364,6 +363,7 @@ export class CorrectionComponent implements OnInit {
 
   // write points
   saveCorrection(): void {
+    this.checkPoints();
     if (this.groupmode) {
       this.grading.forEach(bewertung => {
         this.groupmembers.forEach(groupmember => {
@@ -388,6 +388,26 @@ export class CorrectionComponent implements OnInit {
       });
     }
     this.dataService.setNewCorrection(this.grading)
+  }
+
+  //check if entered value is valid
+  checkPoints(): void {
+    if (!this.groupmode) {
+      if (this.current_correction.erreichte_punkte > this.current_task.max_punkt) {
+        this.current_correction.erreichte_punkte = this.current_task.max_punkt;
+      }
+      else if (this.current_correction.erreichte_punkte < 0) {
+        this.current_correction.erreichte_punkte = 0;
+      }
+    }
+    else if (this.groupmode) {
+      if (this.current_group.punkte > this.current_task.max_punkt) {
+        this.current_group.punkte = this.current_task.max_punkt;
+      }
+      else if (this.current_group.punkte < 0) {
+        this.current_group.punkte = 0;
+      }
+    }
   }
 
   @HostListener('window:keyup', ['$event'])
