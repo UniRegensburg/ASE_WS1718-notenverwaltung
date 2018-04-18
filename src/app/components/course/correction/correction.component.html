@@ -86,12 +86,12 @@
       <div class="col s4">
         <div class="row">
           <div class="col s8" *ngIf="!groupmode">
-            <input class="right" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
-              min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+            <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_correction.erreichte_punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
+              min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
           </div>
           <div class="col s8" *ngIf="groupmode">
-            <input class="right" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
-              min="0" lass="validate" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
+            <input class="right validate" placeholder="0" type="number" [(ngModel)]="current_group.punkte" [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt"
+              min="0" (change)="saveCorrection()" (keyup)="saveCorrection()" (mouseup)="saveCorrection()">
           </div>
           <div class="col s4" style="margin-top: 5px">
             <span class="left">
@@ -115,8 +115,8 @@
         <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
         <div *ngFor="let grade of grading" >
           <div  class="memberpoints col s2" *ngIf="grade.student_id == groupmember.id">
-          <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte"
-            [attr.max]="current_task.max_punkt" min="0" lass="validate">
+          <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte" 
+          [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt" min="0" class="validate">
           <span class="maxpoints"> /{{current_task.max_punkt}} </span>
         </div>
         </div>
