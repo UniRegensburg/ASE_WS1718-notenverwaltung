@@ -58,6 +58,10 @@ export class CorrectionComponent implements OnInit {
   @ViewChild('taskStudent') taskStudent: ElementRef;
   @ViewChild('taskDetails') taskDetails: ElementRef;
   @ViewChild('correctionView') correctionView: ElementRef;
+  @ViewChild('leftgrey', {read: ElementRef}) leftGrey: ElementRef;
+  @ViewChild('lefthnrot', {read: ElementRef}) leftHNRot: ElementRef;
+  @ViewChild('rightgrey', {read: ElementRef}) rightGrey: ElementRef;
+  @ViewChild('righthnrot', {read: ElementRef}) rightHNRot: ElementRef;
 
   doTour() {
     var tour = {
@@ -142,7 +146,6 @@ export class CorrectionComponent implements OnInit {
 
   // put current correction as active and displayable
   setCurrentCorrection(): any {
-    //TODO: das hier ist nicht schön. der Switch für den Gruppenmodus müsste disabled werden, wenn einer der beiden Fehler von toggleGroupView auftritt
     if (this.current_student == null) {
       this.current_student = this.students[0];
     }
@@ -161,9 +164,10 @@ export class CorrectionComponent implements OnInit {
   // change between group and single student view
   toggleGroupView(): void {
     let errormsg = "";
-
+    this.changeTooltips();
     if (!this.no_groups && this.groupmode) {
       try {
+
         this.setCurrentGroupMembers();
         this.current_student = this.groupmembers[0];
       } catch (err) {
@@ -191,10 +195,37 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  //change correction direction 
+  //change correction direction
   toggleDirection(): void {
     this.correctByTask = !this.correctByTask;
     this.checkLimits();
+    this.changeTooltips();
+  }
+  changeTooltips(): void{
+    if(this.correctByTask && !this.groupmode){
+      this.leftGrey.nativeElement.setAttribute("data-tooltip","Kein vorheriger Student vorhanden")
+      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorheriger Student")
+      this.rightGrey.nativeElement.setAttribute("data-tooltip","Kein nächster Student vorhanden")
+      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächster Student")
+    }
+    else if(!this.correctByTask && !this.groupmode){
+      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Aufgabe vorhanden")
+      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Aufgabe")
+      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Aufgabe vorhanden")
+      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Aufgabe")
+    }
+    if(this.correctByTask && this.groupmode){
+      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Gruppe vorhanden")
+      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Gruppe")
+      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Gruppe vorhanden")
+      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Gruppe")
+    }
+    else if(!this.correctByTask && this.groupmode){
+      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Aufgabe vorhanden")
+      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Aufgabe")
+      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Aufgabe vorhanden")
+      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Aufgabe")
+    }
   }
 
   //is called when any arrow is clicked
