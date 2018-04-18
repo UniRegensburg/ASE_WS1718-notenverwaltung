@@ -21,16 +21,14 @@
 
 [Neuer Kurs](#new)
 
+![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.JPG)
 
 <a name="start1"></a>
 ## Startseite des Programms
-![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.JPG)
-
-
 Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Nach einer Neuinstallation wird bei den zuletzt geöffneten Projekten ein Beispielprojekt aufgeführt. In diesem Projekt sind Aufgaben, Notenspiegel und Teilnehmer bereits eingepflegt.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
-
+![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.JPG)
 <a name="sidebar"></a>
 ## Sidebar-Menü
 Das Menü an der linken Seite ist standardmäßig geöffnet und ermöglicht die Navigation zwischen den unterschiedlichen Seiten des Programms. Im oberen Block sind die Seiten, die innerhalb eines Kurses erreichbar sind aufgeführt.
