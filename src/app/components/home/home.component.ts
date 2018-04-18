@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
+import { ReversePipe } from '../../pipes/index';
 
 import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
@@ -85,6 +86,7 @@ export class HomeComponent implements OnInit {
     public router: Router,
     public lastOpened: LastOpened,
     public toastService: ToastService,
+    public reversePipe: ReversePipe,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
