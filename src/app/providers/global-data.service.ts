@@ -394,6 +394,7 @@ export class GlobalDataService {
       var string = bytes.toString(this.CryptoJS.enc.Utf8);
       let temp = JSON.parse(string);
       this.current_project.bewertungsschema = temp.bewertungsschema;
+      this.saveJson();
       return this.current_project;
     })
   }
