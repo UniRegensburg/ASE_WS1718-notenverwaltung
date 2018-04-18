@@ -45,12 +45,10 @@
         <td> {{participant.finish * 100}}%</td>
         <td> {{participant.grade}}</td>
         <td>
-          <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Korrektur fortsetzen"
-            [routerLink]="['/course/correction',  {user_to_edit_id: participant.id}]">playlist_add_check</i>
           <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Details bearbeiten"
             [routerLink]="['/course/student_detail', {student_id: participant.id}]">create</i>
           <i class="material-icons right edit-btn tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen"
-            [routerLink]="['/course/results']">pie_chart</i>
+          [routerLink]="['/course/results-detail', {student_id: participant.id}]">pie_chart</i>
         </td>
       </tr>
     </table>
