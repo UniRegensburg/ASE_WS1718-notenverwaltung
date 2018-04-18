@@ -1,7 +1,7 @@
 <div class="container" *ngIf="no_tasks||no_students">
   <h3 class="header">KORREKTUR</h3>
   <h5 class="name">{{current_project.title}}</h5>
-  <hr class="hr_welcome">
+  <div class="divider"></div>
 </div>
 <div class="container" *ngIf="no_tasks">
   <p class="empty">
@@ -22,7 +22,7 @@
 <div class="container" *ngIf="!no_tasks&&!no_students">
   <h3 class="header">KORREKTUR</h3>
   <h5 class="name">{{current_project.title}}</h5>
-  <hr class="hr_welcome">
+  <div class="divider"></div>
   <!-- Gruppentoggle -->
   <div class="row">
     <div class="col s6">
