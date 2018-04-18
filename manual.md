@@ -36,6 +36,7 @@ Darunter wird angezeigt, wann das Projekt zuletzt gespeichert wurde.
 Weiter unten kann man den Kurs schließen oder einen neuen Kurs erstellen.
 Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, welcher teilweise das heidenelkenrote Menü überlagert, betätigt.
 
+![Neuer Kurs](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/new.JPG)
 <a name="start2"></a>
 ## Startseite eines Kurses
 Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten...
