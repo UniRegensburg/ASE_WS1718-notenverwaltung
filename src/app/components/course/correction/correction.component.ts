@@ -156,7 +156,6 @@ export class CorrectionComponent implements OnInit {
         });
       }
     });
-
   }
 
   // change between group and single student view
@@ -392,7 +391,7 @@ export class CorrectionComponent implements OnInit {
   }
 
   //check if entered value is valid
-  checkPoints(): void {    
+  checkPoints(): void {
     if (!this.groupmode) {
       if (this.current_correction.erreichte_punkte > this.current_task.max_punkt) {
         this.current_correction.erreichte_punkte = this.current_task.max_punkt;
