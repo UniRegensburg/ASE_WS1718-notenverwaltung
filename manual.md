@@ -2,24 +2,25 @@
 :warning: In dem Programm ist von jeder Seite ein interaktives Tutorial über die Fragezeichenschaltfläche unten rechts erreichbar.
 
 **Inhaltsverzeichnis**
-Startseite des Programms
-Startseite eines Kurses
-Korrekturansicht
-Ergebnisansicht
-Teilnehmeransicht
-Schemaansicht
-Kurs schließen
-Neuer Kurs	
-Schlagwortverzeichnis
+[Startseite des Programms](#start1)
+[Startseite eines Kurses](#start2)
+[Korrekturansicht]
+[Ergebnisansicht]
+[Teilnehmeransicht]
+[Schemaansicht]
+[Kurs schließen]
+[Neuer Kurs]
+[Schlagwortverzeichnis]
 
 
-
+<a name="start1"></a>
 ## Startseite des Programms
 ![Startseite](https://images.unsplash.com/photo-1522199780729-a356c844222a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bd52b437d57c3bfa14ccb7c6985b02e&auto=format&fit=crop&w=500&q=60)
 Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Nach einer Neuinstallation wird bei den zuletzt geöffneten Projekten ein Beispielprojekt aufgeführt. In diesem Projekt sind Aufgaben, Notenspiegel und Teilnehmer bereits eingepflegt.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
 
+<a name="start2"></a>
 ## Sidebar-Menü
 Das Menü an der linken Seite ist standardmäßig geöffnet und ermöglicht die Navigation zwischen den unterschiedlichen Seiten des Programms. Im oberen Block sind die Seiten, die innerhalb eines Kurses erreichbar sind aufgeführt.
 Darunter wird angezeigt, wann das Projekt zuletzt gespeichert wurde.
@@ -29,15 +30,23 @@ Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, wel
 ## Startseite eines Kurses
 Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten...
 
-
 ## Korrekturansicht
+Die zuvor angelegten Aufgaben zuvor angelegter Teilnehmer können in dieser Ansicht bepunktet werden.
 
 ## Ergebnisansicht
+In dieser Ansicht sieht man alle Studierende in einer Tabelle. Sind diese durchgefallen oder kurz davor, sind sie farbig hinterlegt (orange = gefährdet, rot = durchgefallen).
+Über ein Texteingabefeld können einzelne Studierende gesucht werden.
+Von hier können die Ergebnisse in verschiedene Formate exportiert werden.
+
 
 ## Teilnehmeransicht
+In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder manuell angelegt werden.
 
 ## Schemaansicht
+In dieser Ansicht können Notenspiegel, Aufgaben und deren Punkte festgelegt werden.
 
 ## Kurs schließen
+Um zurück auf die Startseite des Programms zu gelangen ohne es zu schließen und wieder zu öffnen kann man im Menü unten links "Kurs schließen" betätigen.
 
 ## Neuer Kurs	
+Um einen neuen Kurs anzulegen, muss man zunächst über eine der Schaltflächen "Neuer Kurs" (entweder von der Startseite des Programms oder aus dem Menü heraus) die Seite aufrufen. Anschließend vergibt man einen Kursnamen (bspw. "ASE WiSe1718"), klickt anschließend "Kurs erstellen" und wählt einen Speicherort aus und bestätigt diesen. War dies erfoglreich wird man auf die Startseite des Kurses weitergeleitet. Trat ein Problem auf, öffnet sich eine Fehlermeldung rechts oben mit der jeweiligen Fehlerbeschreibung.
