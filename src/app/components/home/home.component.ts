@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { log, error } from 'util';
 import { Router } from '@angular/router';
+import { ReversePipe } from '../../pipes/index';
 
 import { GlobalDataService, LastOpened, ToastService } from '../../providers/index';
 
@@ -17,9 +18,11 @@ export class HomeComponent implements OnInit {
   private title: string = `Notenverwaltung ASE WS17/18 !`;
   private last_files: Array<any> = [];
   private error_code: string = "Datei nicht erkannt. Wählen Sie eine valide Datei aus.";
+  private file_not_found: string = "Projekt konnte nicht gefunden werden.";
   private view_mode: boolean = true;
   private tour;
 
+  @ViewChild('welcome') welcome: ElementRef;
   @ViewChild('siteHeader') siteHeader: ElementRef;
   @ViewChild('lastUsed') lastUsed: ElementRef;
   @ViewChild('viewIcons') viewIcons: ElementRef;
@@ -33,6 +36,12 @@ export class HomeComponent implements OnInit {
         {
           title: "Willkommen!",
           content: "In diesem Tutorial werden Ihnen die einzelnen Funktionen dieser Notenverwaltungs-Software präsentiert.",
+          target: this.welcome.nativeElement,
+          placement: "bottom"
+        },
+        {
+          title: "Einführende Informationen...",
+          content: "Vorab drei kleine Hinweise: Diese Software funktioniert komplett unabhängig von Internetverfügbarkeit. Jeder von Ihnen vorgenommene Arbeitsschritt wird automatisch gespeichert. Gespeicherte Daten werden sicher verschlüsselt und können nur innerhalb dieser Software ausgelesen werden. All dies geschieht im Hintergrund, um Ihnen höchsten Komfort und Ihren Daten die größtmögliche Sicherheit zukommen zu lassen.",
           target: this.siteHeader.nativeElement,
           placement: "bottom"
         },
@@ -77,22 +86,17 @@ export class HomeComponent implements OnInit {
     public router: Router,
     public lastOpened: LastOpened,
     public toastService: ToastService,
+    public reversePipe: ReversePipe,
     private changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    console.log("before");
+    
     this.lastOpened.getLastOpendFiles().subscribe(
       data => {
         this.last_files = data;  
-        this.last_files.forEach(file => {
-          file.file_name = file.path.replace(/^.*[\\\/]/, '');
-          let dateObj = new Date(file.last_opened);
-          file.last_opened = String(dateObj.getDate()) + "." 
-          + String(dateObj.getMonth() + 1) + "." 
-          + dateObj.getFullYear() + " um " 
-          + dateObj.getHours() + ":" 
-          + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
-        });      
+        this.parseData();    
       }
     );
   }
@@ -108,13 +112,29 @@ export class HomeComponent implements OnInit {
         }
       },
       err => {                
-        this.toastService.setError(this.error_code);
-        this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
-          this.dataService.checkLastOpendFiles();
-          this.last_files = files;
-        });  
+        this.toastService.setError(this.file_not_found);
+        this.clearFileFromList(file['0'].path);       
       }
     );
+  }
+  
+  parseData(): void{
+    this.last_files.forEach(file => {
+      file.file_name = file.path.replace(/^.*[\\\/]/, '');
+      let dateObj = new Date(file.last_opened);
+      file.last_opened = String(dateObj.getDate()) + "." 
+      + String(dateObj.getMonth() + 1) + "." 
+      + dateObj.getFullYear() + " um " 
+      + dateObj.getHours() + ":" 
+      + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
+    });  
+  }
+
+  clearFileFromList(file_path):void{
+    this.lastOpened.deleteFileFromList(file_path);
+    this.last_files = this.lastOpened.loadedFiles;
+    this.parseData();
+    this.ngOnInit(); 
   }
   
   openDialog() {

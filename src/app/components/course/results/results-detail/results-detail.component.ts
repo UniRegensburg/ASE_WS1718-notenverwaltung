@@ -4,6 +4,8 @@ import {
   ActivatedRoute, Router
 } from '@angular/router';
 
+import { Location } from '@angular/common';
+
 import * as hopscotch from 'hopscotch';
 import { log } from 'util';
 
@@ -19,7 +21,7 @@ export class ResultsDetailComponent implements OnInit {
   @ViewChild("taskChart") taskChart: ElementRef;
 
   private current_project: any;
-  
+
   private sub: any;
   private participants: any;
   private current_student: any;
@@ -55,7 +57,7 @@ export class ResultsDetailComponent implements OnInit {
           content: "Eventuelle Änderungen können Sie hier speichern. Ebenso besteht die Möglichkeit einen Studenten komplett zu löschen.",
           target: this.graphView.nativeElement,
           placement: "bottom"
-        }       
+        }
       ]
     };
 
@@ -67,22 +69,27 @@ export class ResultsDetailComponent implements OnInit {
     public dataService: GlobalDataService,
     private route: ActivatedRoute,
     public router: Router,
-    public chartService: ChartService, 
+    public chartService: ChartService,
     private toastService: ToastService,
+    private location: Location,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
       this.sub = this.route.params.subscribe(params => {
-        this.dataService.getCurrentProject().subscribe(current_project => {          
+        this.dataService.getCurrentProject().subscribe(current_project => {
           this.participants = current_project["teilnehmer"];
           this.current_project = current_project;
-          this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;    
+          this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
           if (params) {
             this.setCurrentStudent(params.student_id);
           }
           this.initGraphView();
         });
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   setCurrentStudent(id): void {
@@ -103,11 +110,11 @@ export class ResultsDetailComponent implements OnInit {
   }
 
   getDiagramData(): void {
-    this.task_steps = this.dataService.getTaskSteps(); 
+    this.task_steps = this.dataService.getTaskSteps();
     this.task_dataset = this.dataService.getTaskDataset(true, this.current_student.id);
   }
 
-  getStudentData(): void {    
+  getStudentData(): void {
     this.completion = parseFloat(this.current_student.finish) * 100;
     this.grade = this.current_student.grade;
     this.total_points = this.dataService.getStudentTotalPoints(this.current_student.id);
@@ -116,9 +123,9 @@ export class ResultsDetailComponent implements OnInit {
   checkColorGrading() {
 
     if(this.grading_list == undefined){
-      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;     
+      this.grading_list = this.current_project.bewertungsschema.allgemeine_infos.notenschluessel;
     }
-    
+
     if(this.grading_list.length > 2){
       if(this.grade == this.grading_list[this.grading_list.length-2].note){
         return ("background-color: #ff9800 !important");
