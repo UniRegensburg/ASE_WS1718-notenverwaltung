@@ -389,7 +389,11 @@ export class GlobalDataService {
   public processImport(file): Observable < any > {
     this.current_project;
     return this.http.get(file).map((res: Response) => {
-      this.current_project.bewertungsschema = res.json().bewertungsschema;
+      var encryptedJSON = res.text();
+      var bytes = this.CryptoJS.AES.decrypt(encryptedJSON, this.passKey);
+      var string = bytes.toString(this.CryptoJS.enc.Utf8);
+      let temp = JSON.parse(string);
+      this.current_project.bewertungsschema = temp.bewertungsschema;
       return this.current_project;
     })
   }
