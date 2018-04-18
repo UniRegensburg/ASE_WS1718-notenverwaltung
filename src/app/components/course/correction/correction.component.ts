@@ -164,7 +164,6 @@ export class CorrectionComponent implements OnInit {
   // change between group and single student view
   toggleGroupView(): void {
     let errormsg = "";
-    this.changeTooltips();
     if (!this.no_groups && this.groupmode) {
       try {
 
@@ -199,34 +198,8 @@ export class CorrectionComponent implements OnInit {
   toggleDirection(): void {
     this.correctByTask = !this.correctByTask;
     this.checkLimits();
-    this.changeTooltips();
   }
-  changeTooltips(): void{
-    if(this.correctByTask && !this.groupmode){
-      this.leftGrey.nativeElement.setAttribute("data-tooltip","Kein vorheriger Student vorhanden")
-      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorheriger Student")
-      this.rightGrey.nativeElement.setAttribute("data-tooltip","Kein nächster Student vorhanden")
-      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächster Student")
-    }
-    else if(!this.correctByTask && !this.groupmode){
-      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Aufgabe vorhanden")
-      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Aufgabe")
-      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Aufgabe vorhanden")
-      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Aufgabe")
-    }
-    if(this.correctByTask && this.groupmode){
-      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Gruppe vorhanden")
-      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Gruppe")
-      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Gruppe vorhanden")
-      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Gruppe")
-    }
-    else if(!this.correctByTask && this.groupmode){
-      this.leftGrey.nativeElement.setAttribute("data-tooltip","Keine vorherige Aufgabe vorhanden")
-      this.leftHNRot.nativeElement.setAttribute("data-tooltip","Vorherige Aufgabe")
-      this.rightGrey.nativeElement.setAttribute("data-tooltip","Keine nächste Aufgabe vorhanden")
-      this.rightHNRot.nativeElement.setAttribute("data-tooltip","Nächste Aufgabe")
-    }
-  }
+  
 
   //is called when any arrow is clicked
   chevronClick(color, direction): void {
