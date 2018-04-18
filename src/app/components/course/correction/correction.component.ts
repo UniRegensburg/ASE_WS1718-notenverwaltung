@@ -140,6 +140,7 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
+  // put current correction as active and displayable
   setCurrentCorrection(): any {
     //TODO: das hier ist nicht schön. der Switch für den Gruppenmodus müsste disabled werden, wenn einer der beiden Fehler von toggleGroupView auftritt
     if (this.current_student == null) {
@@ -158,6 +159,7 @@ export class CorrectionComponent implements OnInit {
 
   }
 
+  // change between group and single student view
   toggleGroupView(): void {
     let errormsg = "";
 
@@ -190,72 +192,28 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
+  //change correction direction 
   toggleDirection(): void {
     this.correctByTask = !this.correctByTask;
     this.checkLimits();
   }
 
+  //is called when any arrow is clicked
   chevronClick(color, direction): void {
     let param = 0;
     if (direction == "backwards") param = -1;
     if (direction == "forwards") param = 1;
     if (color == "black") this.setNextContinue(param);
     if (color == "pink") this.setNextJump(param);
-    if (color == "any"){
+    if (color == "any") {
       if ((this.show_next && param == 1) || (this.show_previous && param == -1)) this.setNextContinue(param);
-      else if ((this.next_thing && param == 1) ||(this.last_thing && param == -1)) this.setNextJump(param);
+      else if ((this.next_thing && param == 1) || (this.last_thing && param == -1)) this.setNextJump(param);
     }
     this.checkLimits();
     this.setCurrentCorrection();
   }
 
-  setNextJump(param): void {
-    if (this.groupmode && this.correctByTask) {
-      if (this.group_index == 0) {
-        this.group_index = this.groups.length - 1;
-      } else
-        if (this.group_index == this.groups.length - 1) {
-          this.group_index = 0;
-        }
-        this.task_index = this.task_index + param;
-    }
-
-    else if (this.groupmode && !this.correctByTask) {
-      if(this.task_index == this.tasks.length-1){
-        this.task_index = 0;
-      } else if (this.task_index == 0){
-        this.task_index = this.tasks.length-1;
-      }
-     this.group_index = this.group_index + param;
-    }
-
-    else if (!this.groupmode && this.correctByTask) {
-      if (this.student_index == 0) {
-        this.student_index = this.students.length - 1;
-      } else
-        if (this.student_index == this.students.length - 1) {
-          this.student_index = 0;
-        } 
-        this.task_index = this.task_index + param;
-    }
-
-    else if (!this.groupmode && !this.correctByTask) {
-      if(this.task_index == this.tasks.length-1){
-        this.task_index = 0;
-      } else if (this.task_index == 0){
-        this.task_index = this.tasks.length-1;
-      }
-      this.student_index = this.student_index + param;
-    }
-
-    if (this.groupmode) {
-      this.setCurrentGroupMembers();
-    } else {
-      this.current_student = this.students[this.student_index];
-    }
-    this.current_task = this.tasks[this.task_index];
-  }
-
+  //if black arrow is clicked go in current direction to next item
   setNextContinue(param): void {
     if (this.groupmode && this.correctByTask) {
       this.group_index = this.group_index + param;
@@ -271,14 +229,109 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
+  //if pink jump arrow is clicked go on in current direction in correction
+  setNextJump(param): void {
+    if (this.groupmode && this.correctByTask) {
+      if (this.group_index == 0) {
+        this.group_index = this.groups.length - 1;
+      } else
+        if (this.group_index == this.groups.length - 1) {
+          this.group_index = 0;
+        }
+      this.task_index = this.task_index + param;
+    }
+
+    else if (this.groupmode && !this.correctByTask) {
+      if (this.task_index == this.tasks.length - 1) {
+        this.task_index = 0;
+      } else if (this.task_index == 0) {
+        this.task_index = this.tasks.length - 1;
+      }
+      this.group_index = this.group_index + param;
+    }
+
+    else if (!this.groupmode && this.correctByTask) {
+      if (this.student_index == 0) {
+        this.student_index = this.students.length - 1;
+      } else
+        if (this.student_index == this.students.length - 1) {
+          this.student_index = 0;
+        }
+      this.task_index = this.task_index + param;
+    }
+
+    else if (!this.groupmode && !this.correctByTask) {
+      if (this.task_index == this.tasks.length - 1) {
+        this.task_index = 0;
+      } else if (this.task_index == 0) {
+        this.task_index = this.tasks.length - 1;
+      }
+      this.student_index = this.student_index + param;
+    }
+
+    if (this.groupmode) {
+      this.setCurrentGroupMembers();
+    } else {
+      this.current_student = this.students[this.student_index];
+    }
+    this.current_task = this.tasks[this.task_index];
+  }
+
   setCurrentGroupMembers(): void {
     this.current_group = this.groups[this.group_index];
     this.groupmembers = this.dataService.getStudentsByGroup(this.current_group.name);
   }
 
+  //check if arrow buttons are active
+  checkLimits(): void {
+    if (!this.correctByTask) {
+      if (this.task_index == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.task_index + 1 == this.tasks.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
+      }
+      this.checkPink();
+    }
+    else if (this.correctByTask && this.groupmode) {
+      if (this.group_index == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.group_index + 1 == this.groups.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
+      }
+      this.checkPink();
+    }
+    else if (this.correctByTask && !this.groupmode) {
+      if (this.student_index == 0) {
+        this.show_previous = false;
+      } else {
+        this.show_previous = true;
+      }
+      if (this.student_index + 1 == this.students.length) {
+        this.show_next = false;
+      } else {
+        this.show_next = true;
+      }
+      this.checkPink();
+    }
+    else {
+      this.checkPink();
+    }
+  }
+
+  //check if pink jump arrow has to be displayed
   checkPink(): void {
-    if (this.show_previous) this.last_thing = false;
-    if (this.show_next) this.next_thing = false;
+    this.last_thing = false;
+    this.next_thing = false;
 
     if (!this.show_previous) {
       if (this.correctByTask && this.task_index != 0) {
@@ -309,50 +362,7 @@ export class CorrectionComponent implements OnInit {
     }
   }
 
-  checkLimits(): void {
-    if (!this.correctByTask) {
-      if (this.task_index == 0) {
-        this.show_previous = false;
-      } else {
-        this.show_previous = true;
-      }
-      if (this.task_index + 1 == this.tasks.length) {
-        this.show_next = false;
-      } else {
-        this.show_next = true;
-      }
-      this.checkPink();
-    }
-
-    else if (this.correctByTask && this.groupmode) {
-      if (this.group_index == 0) {
-        this.show_previous = false;
-      } else {
-        this.show_previous = true;
-      }
-      if (this.group_index + 1 == this.groups.length) {
-        this.show_next = false;
-      } else {
-        this.show_next = true;
-      }
-    }
-
-    else if (this.correctByTask && !this.groupmode) {
-      if (this.student_index == 0) {
-        this.show_previous = false;
-      } else {
-        this.show_previous = true;
-      }
-      if (this.student_index + 1 == this.students.length) {
-        this.show_next = false;
-      } else {
-        this.show_next = true;
-      }
-    }
-
-    this.checkPink();
-  }
-
+  // write points
   saveCorrection(): void {
     if (this.groupmode) {
       this.grading.forEach(bewertung => {
@@ -380,7 +390,6 @@ export class CorrectionComponent implements OnInit {
     this.dataService.setNewCorrection(this.grading)
   }
 
-  //TODO: fix params
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {

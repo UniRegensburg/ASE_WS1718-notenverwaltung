@@ -1,0 +1,38 @@
+<div class="container">
+
+  <h1>Ergebnisansicht - {{current_student.vorname}}, {{current_student.name}}</h1>
+  <div class="fixed-action-btn " id="tutorial_button" style="padding:15px">
+    <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
+      ?
+    </a>
+  </div>
+
+  <hr>
+  <div class="row" style="margin-top: 30px">
+    <div class="col s12 m4">
+      <div class="card-panel pink darken-2">
+        <span class="white-text">Bewertet
+          <h4>{{completion}} %</h4>
+        </span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card-panel pink darken-2" [attr.style]="checkColorGrading()">
+        <span class="white-text">Note
+          <h4>{{grade}}</h4>
+        </span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card-panel pink darken-2">
+        <span class="white-text">Gesamtpunktzahl
+          <h4>{{total_points}}</h4>
+        </span>
+      </div>
+    </div>
+    <div class="col s12">
+      <h2 class="diagramm">Erreichte Punkte pro Aufgabe</h2>
+      <canvas #taskChart width="800" height="450"></canvas>
+    </div>
+  </div>
+</div>
