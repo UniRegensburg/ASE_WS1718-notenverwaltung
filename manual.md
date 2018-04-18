@@ -44,7 +44,7 @@ Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramm
 <a name="correction"></a>
 ## Korrekturansicht
 Die zuvor angelegten Aufgaben zuvor angelegter Teilnehmer können in dieser Ansicht bepunktet werden.
-![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/toggle.JPG)
+![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/toggles.JPG)
 
 
 <a name="results"></a>
