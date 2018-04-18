@@ -2,6 +2,7 @@
 :warning: In dem Programm ist von jeder Seite ein interaktives Tutorial über die Fragezeichenschaltfläche unten rechts erreichbar.
 
 **Inhaltsverzeichnis**
+
 [Startseite des Programms](#start1)
 
 [Sidebar-Menü](#sidebar)
@@ -24,6 +25,7 @@
 <a name="start1"></a>
 ## Startseite des Programms
 ![Startseite](https://images.unsplash.com/photo-1522199780729-a356c844222a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bd52b437d57c3bfa14ccb7c6985b02e&auto=format&fit=crop&w=500&q=60)
+
 Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Nach einer Neuinstallation wird bei den zuletzt geöffneten Projekten ein Beispielprojekt aufgeführt. In diesem Projekt sind Aufgaben, Notenspiegel und Teilnehmer bereits eingepflegt.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
