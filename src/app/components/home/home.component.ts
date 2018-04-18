@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   private title: string = `Notenverwaltung ASE WS17/18 !`;
   private last_files: Array<any> = [];
   private error_code: string = "Datei nicht erkannt. Wählen Sie eine valide Datei aus.";
+  private file_not_found: string = "Projekt konnte nicht gefunden werden.";
   private view_mode: boolean = true;
   private tour;
 
@@ -88,18 +89,12 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("before");
+    
     this.lastOpened.getLastOpendFiles().subscribe(
       data => {
         this.last_files = data;  
-        this.last_files.forEach(file => {
-          file.file_name = file.path.replace(/^.*[\\\/]/, '');
-          let dateObj = new Date(file.last_opened);
-          file.last_opened = String(dateObj.getDate()) + "." 
-          + String(dateObj.getMonth() + 1) + "." 
-          + dateObj.getFullYear() + " um " 
-          + dateObj.getHours() + ":" 
-          + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
-        });      
+        this.parseData();    
       }
     );
   }
@@ -115,13 +110,29 @@ export class HomeComponent implements OnInit {
         }
       },
       err => {                
-        this.toastService.setError(this.error_code);
-        this.lastOpened.deleteFileFromList(file['0'].path).subscribe(files => {
-          this.dataService.checkLastOpendFiles();
-          this.last_files = files;
-        });  
+        this.toastService.setError(this.file_not_found);
+        this.clearFileFromList(file['0'].path);       
       }
     );
+  }
+  
+  parseData(): void{
+    this.last_files.forEach(file => {
+      file.file_name = file.path.replace(/^.*[\\\/]/, '');
+      let dateObj = new Date(file.last_opened);
+      file.last_opened = String(dateObj.getDate()) + "." 
+      + String(dateObj.getMonth() + 1) + "." 
+      + dateObj.getFullYear() + " um " 
+      + dateObj.getHours() + ":" 
+      + (dateObj.getMinutes()<10?'0':'') + dateObj.getMinutes();
+    });  
+  }
+
+  clearFileFromList(file_path):void{
+    this.lastOpened.deleteFileFromList(file_path);
+    this.last_files = this.lastOpened.loadedFiles;
+    this.parseData();
+    this.ngOnInit(); 
   }
   
   openDialog() {
