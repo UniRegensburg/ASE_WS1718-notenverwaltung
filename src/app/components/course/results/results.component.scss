@@ -1,45 +1,63 @@
-.container {
-  color: black;
-  padding: 20px;
-}
 
-.exports {
-  a{
-    width: 140px;
-    padding: 0 15px;
+@media screen {
+  h5{
+  font-size: 1.34rem;
+}
+  .exports {
+    a {
+      width: 140px;
+      padding: 0 15px;
+    }
+  }
+  .diagramm {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .switch {
+    margin-left: 30px;
+  }
+  .participants {
+    th,
+    td {
+      width: 125px;
+    }
+  }
+  .view-btn:hover {
+    color: #C2185B;
+    cursor: pointer;
+  }
+  .number {
+    text-align: center;
+  }
+  .empty {
+    margin-top: 100px;
+    font-size: 24px;
+  }
+  .hnrot {
+    color: #C2185B;
+  }
+  .noHover {
+    cursor: default;
+  }
+  .edit-btn:hover {
+    color: #C2185B;
+    cursor: pointer;
+  }
+  .last-icon {
+    padding: 10px
   }
 }
 
-.diagramm {
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.switch {
-  margin-left: 30px;
-}
-
-.participants{
-  th, td{
-    width: 125px;
+@media print {
+  td {
+    border-top: 0.3px solid #C2185B;
   }
-}
-
-.view-btn:hover{
-  color: #C2185B;
-  cursor: pointer;
-}
-
-.number{
-  text-align: center;
-}
-
-.empty {
-  margin-top: 100px;
-  font-size: 24px;
-}
-
-.hnrot {
-  color: #C2185B;
+  .dontprint {
+    display: none !important;
+  } //WIESO GEHT DAS NICHT
+  .material-tooltip {
+    display: none !important;
+    visibility: hidden;
+  }
 }

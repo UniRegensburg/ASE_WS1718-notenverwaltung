@@ -11,7 +11,7 @@ import { HomeComponent } from './components/home/index';
 import { NewCourseComponent } from './components/newcourse/newcourse.component';
 import { CourseComponent } from './components/course/course.component';
 
-import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent,DetailComponent } from './components/course/index'
+import { OverviewComponent, StudentsComponent, GradingComponent, ResultsComponent, CorrectionComponent, DetailComponent, ResultsDetailComponent } from './components/course/index'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,7 @@ import { ElectronService, GlobalDataService, ChartService, LastOpened, gripsExpo
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { SearchStudentPipe } from './pipes/index';
+import { SearchStudentPipe, ReversePipe} from './pipes/index';
 
 import { ToastComponent } from './directives/toast.directive/toast.directive';
 
@@ -44,7 +44,9 @@ import { MaterializeModule} from 'angular2-materialize';
     CorrectionComponent,
     DetailComponent,
     SearchStudentPipe,
-    ToastComponent
+    ReversePipe,
+    ToastComponent,
+    ResultsDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { MaterializeModule} from 'angular2-materialize';
     LastOpened,
     gripsExportService,
     SearchStudentPipe,
+    ReversePipe,
     flexNowExportService,
     CheckOsService,
     ToastService,

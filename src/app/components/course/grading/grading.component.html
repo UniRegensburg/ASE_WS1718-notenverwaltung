@@ -1,6 +1,7 @@
 <div class="container">
-  <h1 #schemeHeader *ngIf="!no_data_available">Bewertungsschema</h1>
-  <hr class="hr_welcome" *ngIf="!no_data_available">
+  <h3 class="header">BEWERTUNGSSCHEMA</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
   <!-- <div class="row">
     <div class="col s12">
       <span *ngIf="no_data_available" (click)="importScheme()" class="edit-btn clickHover">
@@ -60,7 +61,7 @@
                     <input [(ngModel)]="entry.note" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)">
                   </div>
                   <div class="col s4">
-                    <input [(ngModel)]="entry.wert_min" type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
+                    <input [(ngModel)]="entry.wert_min" disabled type="number" step="any" min="0" class="validate" (keyup)="onKeyUp($event)" (mouseup)="onKeyUp($event)">
                   </div>
                   <div class="col s2 center grey-text" style="margin-top: 20px" id="deleteBtn">
                     <i class="material-icons">delete</i>

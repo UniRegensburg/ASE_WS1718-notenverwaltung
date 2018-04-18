@@ -24,9 +24,12 @@ import {
 } from 'util';
 
 import {
-  CheckOsService
+  CheckOsService,
 } from './checkOS.service';
 
+import {
+  ToastService,
+} from './toast.service';
 import {
   readdir,
   stat,
@@ -41,14 +44,15 @@ export class LastOpened {
 
   private isInstantiated: boolean;
   private lastOpendFilePath: string = "assets/data/lastOpened.json";
-  private loadedFiles;
+  public loadedFiles;
   private demoData = [];
 
   public constructor(
     public http: Http,
+    public toastService: ToastService,
     public osService: CheckOsService) {}
 
-  public getLastOpendFiles(): Observable < any > {
+  public getLastOpendFiles(): Observable <any> {
     let slash = this.osService.getSlashFormat();
     let the_arr = __dirname.split(slash);
     the_arr.pop();
@@ -64,7 +68,7 @@ export class LastOpened {
       .catch((error: any) => Observable.throw(error || 'Reading error'));
   }
 
-  public updateLastOpendFiles(file_path: String): Observable < any > {
+  public updateLastOpendFiles(file_path: String): Observable <any> {
     let found = false;
     let test = new Observable();
     if (this.loadedFiles == undefined) {
@@ -79,7 +83,7 @@ export class LastOpened {
     return of([this.loadedFiles, found]);
   }
 
-  public deleteFileFromList(file_path: String): Observable < any > {
+  public deleteFileFromList(file_path: String): any {
     if (this.loadedFiles == undefined) {
       this.loadedFiles = [];
     }
@@ -88,6 +92,19 @@ export class LastOpened {
         this.loadedFiles.splice(i, 1);
       }
     });
-    return of(this.loadedFiles);
+    this.saveLoadedFile();
+  }
+
+  public saveLoadedFile(): void {
+    let slash = this.osService.getSlashFormat();
+    let the_arr = __dirname.split(slash);
+    the_arr.pop();
+    let path = the_arr.join(slash) + slash + "src" + slash;
+
+    writeFile(path + this.lastOpendFilePath, JSON.stringify(this.loadedFiles), (err) => {
+      if (err) {
+        this.toastService.setError("Beim Erstellen der Datei ist ein Fehler aufgetreten " + err.message);
+      } else {}
+    });
   }
 }

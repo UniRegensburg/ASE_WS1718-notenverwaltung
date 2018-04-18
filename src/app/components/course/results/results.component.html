@@ -1,19 +1,28 @@
+<div class="container" *ngIf="no_tasks||no_students">
+  <h3 class="header">ERGEBNISSE</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
+  <br />
+</div>
 <div class="container" *ngIf="no_tasks">
-<p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
-<br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
+  <p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
+    <br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt
+    <a class="hnrot clickHover" [routerLink]="['../grading']">Bewertungsschema</a>.</p>
 </div>
 
 <div class="container" *ngIf="no_students">
-<p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen.
-Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
+  <p class="empty">Da es noch keine Studenten gibt, sind keine Ergebnisse einzusehen. Erstellen Sie bitte Aufgaben unter dem Menüpunkt
+    <a
+      class="hnrot clickHover" [routerLink]="['../students']">Teilnehmer</a>.</p>
 </div>
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
-  <h1>Ergebnisse</h1>
-  <hr class="hr_welcome">
-  <br>
+  <h3 class="header">ERGEBNISSE</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
+  <br />
 
-  <div class="row exports">
+  <div class="row exports dontprint">
     <div ng-show="condition()">{{value2}}</div>
 
     <div class="col s2">
@@ -24,7 +33,8 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
         <i class="material-icons left">file_download</i> FLEXNOW </a>
     </div>
     <div class="col s3">
-      <a #exportButton class="btn waves-effect waves-light pink darken-2" (click)="export('grips')">
+      <!-- Wenn das GRIPS-Format implementiert ist, hier "(click)="export('grips')" einfügen -->
+      <a #exportButton class="btn grey lighten-2 grey-text"  materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="GRIPS-Format nicht implementiert.">
         <i class="material-icons left">file_download</i> GRIPS </a>
     </div>
     <div class="col s3">
@@ -34,8 +44,7 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
   </div>
 
   <!--http://materializecss.com/forms.html Autocomplete-->
-  <div class="row">
-
+  <div class="row dontprint">
     <div class="col switch">
       <!--TODO: Diagramme sobald mehrere verfügbar sind-->
       <span>Diagramm</span>
@@ -49,7 +58,8 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
       </div>
     </div>
   </div>
-  <div class="diagrams" [hidden]="display_diagrams">
+
+  <div class="diagrams dontprint" [hidden]="display_diagrams">
     <div class="row" style="margin-top: 40px">
       <div class="col s12">
         <h2 class="diagramm">Notenspiegel</h2>
@@ -62,15 +72,17 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
       </div>
       <hr>
     </div>
-
   </div>
+
   <div class="row" class="participants">
+    <div class = "dontprint">
     <h2>Aufgaben vs. Teilnehmer</h2>
     <div class="input-field col s6">
       <i class="material-icons prefix">search</i>
       <input id="icon_prefix" type="text" class="validate" [(ngModel)]="searchValue" #searchBar>
       <label for="icon_prefix">Suche Studierende</label>
     </div>
+  </div>
     <table>
       <tr>
         <th>Nachname</th>
@@ -80,33 +92,33 @@ Erstellen Sie bitte Aufgaben unter dem Menüpunkt <a class="hnrot clickHover" [r
         <th>Note</th>
         <th *ngFor="let task of tasks; let i = index"> {{task.name}}</th>
       </tr>
-      <tr #resultsTable *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i"
+      <tr class="result-rows" #resultsTable *ngFor="let participant of (participants | searchStudent: searchValue); let i = index" [attr.id]="'element_' + i"
         [attr.style]="checkColorGrading('element_' + i, participant.grade)">
         <td>{{participant.name}}</td>
         <td>{{participant.vorname}}</td>
         <td class="number">{{participant.mtknr}}</td>
         <td class="number">{{participant.finish * 100}}%</td>
         <td class="number">{{participant.grade}}</td>
-        <td *ngFor="let task of tasks; let i = index"> Note</td>
+        <td *ngFor="let bewertung of participant.bewertungen; let i = index">{{bewertung.erreichte_punkte}}</td>
+        <td class="last-icon"><i class="material-icons right edit-btn tooltipped dontprint" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Ergebnisse anzeigen" [routerLink]="['/course/results-detail', {student_id: participant.id}]">pie_chart</i></td>
       </tr>
     </table>
   </div>
 </div>
 
-<div class="container" *ngIf="!no_tasks&&!no_students">
-  Informationen zu Farbeinstufungen:
-  <div class="row">
-    <div class="col l6 s12">
-      <i class="material-icons red-text">view_agenda</i>
-      Student ist durchgefallen (Note: {{grading_list[grading_list.length-1].note}})
-    </div>
-    <div class="col l6 s12">
-      <i class="material-icons orange-text">view_agenda</i>Student an Grenze zum Durchfallen (Note: {{grading_list[grading_list.length-2].note}})
-    </div>
-  </div>
+
+<div class="fixed-action-btn dontprint" style="padding:15px; margin-bottom: 75px" *ngIf="!no_tasks&&!no_students">
+  <a class="btn-floating btn-large orange tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50" 
+  [attr.data-tooltip]="'Student fast durchgefallen (Note: ' + grading_list[grading_list.length-2].note + ')'" style="border-radius: 2px;">
+    <i class="material-icons white-text">warning</i>
+  </a>
+    <a class="btn-floating btn-large red tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50"
+    [attr.data-tooltip]="'Student durchgefallen (Note: ' + grading_list[grading_list.length-1].note + ')'" style="border-radius: 2px;">
+        <i class="material-icons white-text">error</i>
+    </a>
 </div>
 
-<div class="fixed-action-btn " #elementFiveId id="tutorial_button" style="padding:15px">
+<div class="fixed-action-btn dontprint" #elementFiveId id="tutorial_button" style="padding:15px">
   <a class="btn-floating btn-large pink waves-effect waves-light darken-2" (click)="doTour()">
     ?
   </a>
