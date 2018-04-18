@@ -1,3 +1,9 @@
+<div class="container" *ngIf="no_tasks||no_students">
+  <h3 class="header">ERGEBNISSE</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
+  <br />
+</div>
 <div class="container" *ngIf="no_tasks">
   <p class="empty">Da es noch keine Aufgaben gibt, sind keine Ergebnisse einzusehen.
     <br />Erstellen Sie bitte Aufgaben unter dem Menüpunkt
@@ -11,9 +17,10 @@
 </div>
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
-  <h1>Ergebnisse</h1>
-  <hr class="hr_welcome">
-  <br>
+  <h3 class="header">ERGEBNISSE</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
+  <br />
 
   <div class="row exports dontprint">
     <div ng-show="condition()">{{value2}}</div>
@@ -99,12 +106,13 @@
   </div>
 </div>
 
+
 <div class="fixed-action-btn dontprint" style="padding:15px; margin-bottom: 75px" *ngIf="!no_tasks&&!no_students">
   <a class="btn-floating btn-large orange tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50" 
   [attr.data-tooltip]="'Student fast durchgefallen (Note: ' + grading_list[grading_list.length-2].note + ')'" style="border-radius: 2px;">
     <i class="material-icons white-text">warning</i>
-  </a>  
-    <a class="btn-floating btn-large red tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50" 
+  </a>
+    <a class="btn-floating btn-large red tooltipped noHover" materialize="tooltip" data-position="top" data-delay="50"
     [attr.data-tooltip]="'Student durchgefallen (Note: ' + grading_list[grading_list.length-1].note + ')'" style="border-radius: 2px;">
         <i class="material-icons white-text">error</i>
     </a>

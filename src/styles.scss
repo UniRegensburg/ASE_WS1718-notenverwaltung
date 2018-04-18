@@ -1,4 +1,12 @@
 .hnrot {
   color: #C2185B;
 }
-
+.header{
+  line-height:0.6;
+}
+.name{
+  line-height:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}

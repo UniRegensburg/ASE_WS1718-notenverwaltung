@@ -1,3 +1,8 @@
+<div class="container" *ngIf="no_tasks||no_students">
+  <h3 class="header">KORREKTUR</h3>
+  <h5 class="name">{{current_project.title}}</h5>
+  <div class="divider"></div>
+</div>
 <div class="container" *ngIf="no_tasks">
   <p class="empty">
     Da es noch keine Aufgaben gibt, ist keine Korrektur möglich.
@@ -15,9 +20,9 @@
 </div>
 
 <div class="container" *ngIf="!no_tasks&&!no_students">
-  <h1>KORREKTUR</h1>
+  <h3 class="header">KORREKTUR</h3>
+  <h5 class="name">{{current_project.title}}</h5>
   <div class="divider"></div>
-  <br />
   <!-- Gruppentoggle -->
   <div class="row">
     <div class="col s6">
@@ -127,7 +132,7 @@
         <span class="membername"> {{groupmember.name}}, {{groupmember.vorname}}</span>
         <div *ngFor="let grade of grading" >
           <div  class="memberpoints col s2" *ngIf="grade.student_id == groupmember.id">
-          <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte" 
+          <input type="number" placeholder="0" [(ngModel)]="grade.einzelwertungen[task_index].erreichte_punkte"
           [attr.max]="current_task.max_punkt" [max]="current_task.max_punkt" min="0" class="validate">
           <span class="maxpoints"> /{{current_task.max_punkt}} </span>
         </div>
