@@ -25,24 +25,24 @@ export class gripsExportService{
             this.filePath = this.current_project_name.substring(0,this.current_project_name.lastIndexOf("\\")+1)+ "grips_export.csv";
             //  https://stackoverflow.com/questions/20279484/how-to-access-the-correct-this-inside-a-callback
             var self = this;
-            // var stream = fs.createWriteStream(this.filePath);
-            // stream.once('open', function(fd){
-            //     // stream.write("StudentID,StudentName,StudentVorname,Aufgabe,Punkte,PrivaterKommentar,OeffentlicherKommentar\n")
-            //     //
-            //     // for (let result of self.current_project_results){
-            //     //     for (let student of self.current_project_students){
-            //     //         if (result.student_id === student.id){
-            //     //             for (let aufgabe of result.einzelwertungen){
-            //     //                 // var line = student.id+","+student.name+","+student.vorname+","+aufgabe.aufgaben_id+";"+aufgabe.erreichte_punkte+","+aufgabe.comment_privat+","+aufgabe.comment_public+"\n";
-            //     //                 // stream.write(line);
-            //     //             }
-            //     //
-            //     //         }
-            //     //     }
-            //     // }
-            //     stream.end();
-            // });
-            this.toastService.setError("Datenexport zu GRIPS noch nicht implementiert")
+            var stream = fs.createWriteStream(this.filePath);
+            stream.once('open', function(fd){
+                stream.write("StudentID,StudentName,StudentVorname,Aufgabe,Punkte,PrivaterKommentar,OeffentlicherKommentar\n")
+
+                for (let result of self.current_project_results){
+                    for (let student of self.current_project_students){
+                        if (result.student_id === student.id){
+                            for (let aufgabe of result.einzelwertungen){
+                                var line = student.id+","+student.name+","+student.vorname+","+aufgabe.aufgaben_id+";"+aufgabe.erreichte_punkte+","+aufgabe.comment_privat+","+aufgabe.comment_public+"\n";
+                                stream.write(line);
+                            }
+
+                        }
+                    }
+                }
+                stream.end();
+            });
+            this.toastService.success("Datei erfolgreich gespeichert")
         });
     }
 }
