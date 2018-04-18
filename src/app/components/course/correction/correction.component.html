@@ -83,7 +83,7 @@
           <i #lefthnrot name="lefthnrot" class="material-icons left card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorherige Gruppe" (click)="chevronClick('pink', 'backwards')" *ngIf="last_thing">chevron_left</i>
         </div>
         <div *ngIf="!groupmode && correctByTask">
-          <i #leftgrey name="leftgrey" class="material-icons left card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein vorheriger Student vorhanden" *ngIf="!show_previous&&!last_thing">chevron_left</i>
+          <i #leftgrey name="leftgrey" class="material-icons left card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein vorheriger Studierender vorhanden" *ngIf="!show_previous&&!last_thing">chevron_left</i>
           <i #lefthnrot name="lefthnrot" class="material-icons left card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorherige Aufgabe" (click)="chevronClick('pink', 'backwards')" *ngIf="last_thing">chevron_left</i>
         </div>
         <div *ngIf="groupmode && correctByTask">
@@ -92,7 +92,7 @@
         </div>
         <div *ngIf="!groupmode && !correctByTask">
           <i #leftgrey name="leftgrey" class="material-icons left card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein vorherige Aufgabe vorhanden" *ngIf="!show_previous&&!last_thing">chevron_left</i>
-          <i #lefthnrot name="lefthnrot" class="material-icons left card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorheriger Student" (click)="chevronClick('pink', 'backwards')" *ngIf="last_thing">chevron_left</i>
+          <i #lefthnrot name="lefthnrot" class="material-icons left card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Vorheriger Studierender" (click)="chevronClick('pink', 'backwards')" *ngIf="last_thing">chevron_left</i>
         </div>
        
       </div>
@@ -125,7 +125,7 @@
             <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Gruppe" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i>
           </div>
           <div *ngIf="!groupmode && correctByTask">
-            <i #rightgrey name="rightgrey" class="material-icons right card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein nächster Student vorhanden" *ngIf="!show_next&&!next_thing">chevron_right</i>
+            <i #rightgrey name="rightgrey" class="material-icons right card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Kein nächster Studierender vorhanden" *ngIf="!show_next&&!next_thing">chevron_right</i>
             <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächste Aufgabe" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i>
           </div>
           <div *ngIf="groupmode && correctByTask">
@@ -134,7 +134,7 @@
           </div>
           <div *ngIf="!groupmode && !correctByTask">
             <i #rightgrey name="rightgrey" class="material-icons right card-panel chevron inactive tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Keine nächste Aufgabe vorhanden" *ngIf="!show_next&&!next_thing">chevron_right</i>
-            <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächster Student" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i>
+            <i #righthnrot name="righthnrot" class="material-icons right card-panel chevron hnrot tooltipped" materialize="tooltip" data-position="bottom" data-delay="50" data-tooltip="Nächster Studierender" (click)="chevronClick('pink', 'forwards')" *ngIf="next_thing">chevron_right</i>
           </div>
       </div>
     </div>
