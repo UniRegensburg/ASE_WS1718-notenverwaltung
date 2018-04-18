@@ -495,7 +495,7 @@ export class GlobalDataService {
     } finally {
       let user = {
         "id": user_id,
-        "mtknr": 1234,
+        "mtknr": "",
         "name": "",
         "vorname": "",
         "studiengang": "",
