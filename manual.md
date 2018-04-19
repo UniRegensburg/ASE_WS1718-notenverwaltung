@@ -13,7 +13,11 @@
 
 [Ergebnisansicht](#results)
 
+[Ergebnisdetails](#resultsdetails)
+
 [Teilnehmeransicht](#partypants)
+
+[Student bearbeiten](#participantsdetails)
 
 [Schemaansicht](#scheme)
 
@@ -34,13 +38,13 @@ Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhande
 Das Menü an der linken Seite ist standardmäßig geöffnet und ermöglicht die Navigation zwischen den unterschiedlichen Seiten des Programms. Im oberen Block sind die Seiten, die innerhalb eines Kurses erreichbar sind aufgeführt.
 Darunter wird angezeigt, wann das Projekt zuletzt gespeichert wurde.
 Weiter unten kann man den Kurs schließen oder einen neuen Kurs erstellen.
-Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, welcher teilweise das heidenelkenrote Menü überlagert, betätigt.
+Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, welcher teilweise das heidenelkenrote Menü überlagert, betätigt.  
 
 <a name="start2"></a>
 ## Startseite eines Kurses
-![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.JPG)
+![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.PNG)
 
-Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten...
+Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten [Ergebnisdetails](#resultsdetails) und [Student bearbeiten](#participantsdetails)
 
 <a name="correction"></a>
 ## Korrekturansicht
@@ -54,9 +58,17 @@ In dieser Ansicht sieht man alle Studierende in einer Tabelle. Sind diese durchg
 Über ein Texteingabefeld können einzelne Studierende gesucht werden.
 Von hier können die Ergebnisse in verschiedene Formate exportiert werden.
 
+<a name="resultsdetails"></a>
+## Ergebnisdetails
+
+
 <a name="partypants"></a>
 ## Teilnehmeransicht
 In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder manuell angelegt werden.
+
+<a name="participantsdetails"></a>
+## Student bearbeiten
+
 
 <a name="scheme"></a>
 ## Schemaansicht
