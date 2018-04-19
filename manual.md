@@ -48,7 +48,7 @@ Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramm
 
 <a name="correction"></a>
 ## Korrekturansicht
-Die zuvor angelegten Aufgaben zuvor angelegter Teilnehmer können in dieser Ansicht bepunktet werden.
+Die zuvor angelegten Aufgaben zuvor angelegter Teilnehmer können in dieser Ansicht bepunktet werden. Im oberen Bereich der Seite gibt es zwei Toggles. Mit ihnen kann man die Gruppenansicht an und ausschalten, sowie die Korrekturrichtung ändern. Als Korrekturrichtung ist es sowohl möglich erst alle Aufgaben eines Studierenden zu korrigieren, oder erst eine Aufgabe bei jedem Studierenden.
 ![Korrektureinstellungen](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/toggles.JPG)
 
 In der Gruppenkorrektur kann der kompletten Gruppe eine Punktzahl für eine Aufgabe gegeben werden, sowie einzelnen Studenten eine abweichende Punktzahl zugewiesen werden können.
