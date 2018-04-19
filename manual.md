@@ -30,7 +30,7 @@
 ## Startseite des Programms
 ![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.PNG)
 
-Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Über einen Klick auf den Button oben links kann die Ansicht gewechselt werden, sodass die zuletzt geöffneten Kurse in einer Liste angezeigt werden.
+Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Über einen Klick auf den Button oben links kann diese Ansicht in einer Liste angezeigt werden.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
 <a name="sidebar"></a>
