@@ -28,9 +28,9 @@
 
 <a name="start1"></a>
 ## Startseite des Programms
-![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.JPG)
+![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.PNG)
 
-Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Nach einer Neuinstallation wird bei den zuletzt geöffneten Projekten ein Beispielprojekt aufgeführt. In diesem Projekt sind Aufgaben, Notenspiegel und Teilnehmer bereits eingepflegt.
+Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
 <a name="sidebar"></a>
@@ -49,22 +49,34 @@ Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramm
 <a name="correction"></a>
 ## Korrekturansicht
 Die zuvor angelegten Aufgaben zuvor angelegter Teilnehmer können in dieser Ansicht bepunktet werden.
-![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/toggles.JPG)
+![Korrektureinstellungen](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/toggles.JPG)
 
+In der Gruppenkorrektur kann der kompletten Gruppe eine Punktzahl für eine Aufgabe gegeben werden, sowie einzelnen Studenten eine abweichende Punktzahl zugewiesen werden können.
+![Gruppenkorrektur](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/korrektur1.PNG)
+
+Werden die Menüs im unteren Teil der Seite ausgeklappt, können Beschreibungen oder Bewertungshinweise der Aufgabe angezeigt werden, oder öffentliche/private Kommentare zu einer Bewertung hinzugefügt werden.
+![Korrekturhinweise](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/korrektur2.PNG)
 
 <a name="results"></a>
 ## Ergebnisansicht
 In dieser Ansicht sieht man alle Studierende in einer Tabelle. Sind diese durchgefallen oder kurz davor, sind sie farbig hinterlegt (orange = gefährdet, rot = durchgefallen).
 Über ein Texteingabefeld können einzelne Studierende gesucht werden.
+Über das Icon rechts in der Zeile eines Studierenden gelangt man in die [Detailansicht eines Studenten](#resultsdetails)
+![Resultate](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/results1.PNG)
+
 Von hier können die Ergebnisse in verschiedene Formate exportiert werden.
+![Export](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/results2.PNG)
+
 
 <a name="resultsdetails"></a>
 ## Ergebnisdetails
+In dieser Ansicht können die Ergebnisse eines Studenten im Detail angesehen werden.
+![Resultdetails](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/resultdetail.PNG)
 
 
 <a name="partypants"></a>
 ## Teilnehmeransicht
-In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder manuell angelegt werden.
+In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder [manuell angelegt werden](#participantsdetails).
 
 <a name="participantsdetails"></a>
 ## Student bearbeiten
