@@ -21,14 +21,14 @@
 
 [Neuer Kurs](#new)
 
-![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.JPG)
 
 <a name="start1"></a>
 ## Startseite des Programms
+![Startseite des Programms](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start1.JPG)
+
 Auf der Startseite werden die zuletzt geöffneten Kurse angezeigt. Nach einer Neuinstallation wird bei den zuletzt geöffneten Projekten ein Beispielprojekt aufgeführt. In diesem Projekt sind Aufgaben, Notenspiegel und Teilnehmer bereits eingepflegt.
 
 Es gibt außerdem Buttons um ein neues Projekt zu öffnen, sowie um ein vorhandenes Projekt über den Filemanager zu öffnen.
-![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.JPG)
 <a name="sidebar"></a>
 ## Sidebar-Menü
 Das Menü an der linken Seite ist standardmäßig geöffnet und ermöglicht die Navigation zwischen den unterschiedlichen Seiten des Programms. Im oberen Block sind die Seiten, die innerhalb eines Kurses erreichbar sind aufgeführt.
@@ -36,9 +36,10 @@ Darunter wird angezeigt, wann das Projekt zuletzt gespeichert wurde.
 Weiter unten kann man den Kurs schließen oder einen neuen Kurs erstellen.
 Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, welcher teilweise das heidenelkenrote Menü überlagert, betätigt.
 
-![Neuer Kurs](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/new.JPG)
 <a name="start2"></a>
 ## Startseite eines Kurses
+![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.JPG)
+
 Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten...
 
 <a name="correction"></a>
@@ -67,6 +68,7 @@ Um zurück auf die Startseite des Programms zu gelangen ohne es zu schließen un
 
 <a name="new"></a>
 ## Neuer Kurs	
+![Neuer Kurs](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/new.JPG)
 Um einen neuen Kurs anzulegen, muss man zunächst über eine der Schaltflächen "Neuer Kurs" (entweder von der Startseite des Programms oder aus dem Menü heraus) die Seite aufrufen. Anschließend vergibt man einen Kursnamen (bspw. "ASE WiSe1718"), klickt anschließend "Kurs erstellen" und wählt einen Speicherort aus und bestätigt diesen. War dies erfoglreich wird man auf die Startseite des Kurses weitergeleitet. Trat ein Problem auf, öffnet sich eine Fehlermeldung rechts oben mit der jeweiligen Fehlerbeschreibung.
 
 
