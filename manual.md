@@ -77,14 +77,27 @@ In dieser Ansicht können die Ergebnisse eines Studenten im Detail angesehen wer
 <a name="partypants"></a>
 ## Teilnehmeransicht
 In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder [manuell angelegt werden](#participantsdetails).
+Sind Gruppen angelegt, können die Teilnehmer einer Gruppe über ein Dropdown zugewiesen werden.
+![Students](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students1.PNG)
+
+Mit einem Klick auf den Gruppen-Button gelangt kann man neue Gruppen anlegen oder vorhandene Gruppen bearbeiten. 
+![Gruppen](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students2.PNG)
+
 
 <a name="participantsdetails"></a>
 ## Student bearbeiten
+In dieser Ansicht kann man die Details eines einzelnen Studenten bearbeiten.
+![Studentdetail](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/studentdetail.PNG)
 
 
 <a name="scheme"></a>
 ## Schemaansicht
 In dieser Ansicht können Notenspiegel, Aufgaben und deren Punkte festgelegt werden.
+![Bewertungsschema](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/scheme1.PNG)
+
+Für jede Aufgabe können verschiedene Optionen festgelegt werden. So kann man neben dem Titel und der maximal erreichbaren Punktzahl festlegen, welche Prozentuale Gewichtung eine Aufgabe besitzt. Zudem kann die Aufgabenbeschreibung und ein Bewertungshinweis angegeben werden, welche dem Korrigierenden in der Korrekturansicht angezeigt werden. Es kann weiterhin festgelegt werden, ob zu der Aufgabe Kommentare abgegeben werden können. Private Kommentare werden dann nur in der Notenverwaltung angezeigt und nicht exportiert.
+![Aufgabe](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/scheme2.PNG)
+
 
 <a name="close"></a>
 ## Kurs schließen
