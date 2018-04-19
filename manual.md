@@ -44,7 +44,7 @@ Das Menü ist minimierbar, in dem man den weißen Pfeil in dem grauen Kreis, wel
 ## Startseite eines Kurses
 ![Startseite des Kurses](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/start2.PNG)
 
-Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden gelangt man in die Ansichten [Ergebnisdetails](#resultsdetails) und [Student bearbeiten](#participantsdetails)
+Auf der Startseite des Kurses wird ein Notenspiegel in Form eines Balkendiagramms angeführt, sowie alle Teilnehmer in einer Tabelle. In dieser Tabelle sieht man die aktuelle Bepunktung sowie den Korrekturfortschritt eines Studierenden. Über die Icons rechts in der Zeile eines Studierenden man in die Ansichten [Ergebnisdetails](#resultsdetails) und [Student bearbeiten](#participantsdetails)
 
 <a name="correction"></a>
 ## Korrekturansicht
@@ -80,7 +80,7 @@ In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden ode
 Sind Gruppen angelegt, können die Teilnehmer einer Gruppe über ein Dropdown zugewiesen werden.
 ![Students](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students1.png)
 
-Mit einem Klick auf den Gruppen-Button gelangt kann man neue Gruppen anlegen oder vorhandene Gruppen bearbeiten. 
+Mit einem Klick auf den Gruppen-Button kann man neue Gruppen anlegen oder vorhandene Gruppen bearbeiten. 
 ![Gruppen](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students2.PNG)
 
 
@@ -94,6 +94,8 @@ In dieser Ansicht kann man die Details eines einzelnen Studenten bearbeiten.
 ## Schemaansicht
 In dieser Ansicht können Notenspiegel, Aufgaben und deren Punkte festgelegt werden.
 ![Bewertungsschema](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/scheme1.PNG)
+
+Es können neue Notenstufen für den Notenspiegel angelegt und geändert werden. Die Punkte jeder Notenstufe außer der untersten sind bearbeitbar. Über die Pfeile rechts kann die Reihenfolge der Noten geändert werden.
 
 Für jede Aufgabe können verschiedene Optionen festgelegt werden. So kann man neben dem Titel und der maximal erreichbaren Punktzahl festlegen, welche Prozentuale Gewichtung eine Aufgabe besitzt. Zudem kann die Aufgabenbeschreibung und ein Bewertungshinweis angegeben werden, welche dem Korrigierenden in der Korrekturansicht angezeigt werden. Es kann weiterhin festgelegt werden, ob zu der Aufgabe Kommentare abgegeben werden können. Private Kommentare werden dann nur in der Notenverwaltung angezeigt und nicht exportiert.
 ![Aufgabe](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/scheme2.PNG)
