@@ -61,7 +61,7 @@ Werden die Menüs im unteren Teil der Seite ausgeklappt, können Beschreibungen 
 ## Ergebnisansicht
 In dieser Ansicht sieht man alle Studierende in einer Tabelle. Sind diese durchgefallen oder kurz davor, sind sie farbig hinterlegt (orange = gefährdet, rot = durchgefallen).
 Über ein Texteingabefeld können einzelne Studierende gesucht werden.
-Über das Icon rechts in der Zeile eines Studierenden gelangt man in die [Detailansicht eines Studenten](#resultsdetails)
+Über das Icon rechts in der Zeile eines Studierenden gelangt man in die [Detailansicht eines Studenten](#resultsdetails).
 ![Resultate](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/results1.PNG)
 
 Von hier können die Ergebnisse in verschiedene Formate exportiert werden.
@@ -78,7 +78,7 @@ In dieser Ansicht können die Ergebnisse eines Studenten im Detail angesehen wer
 ## Teilnehmeransicht
 In dieser Ansicht können Teilnehmer aus einer Excel-Datei importiert werden oder [manuell angelegt werden](#participantsdetails).
 Sind Gruppen angelegt, können die Teilnehmer einer Gruppe über ein Dropdown zugewiesen werden.
-![Students](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students1.PNG)
+![Students](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students1.png)
 
 Mit einem Klick auf den Gruppen-Button gelangt kann man neue Gruppen anlegen oder vorhandene Gruppen bearbeiten. 
 ![Gruppen](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/students2.PNG)
