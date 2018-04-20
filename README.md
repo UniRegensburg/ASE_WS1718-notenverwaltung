@@ -48,7 +48,7 @@ Please follow [Angular-cli documentation](https://github.com/angular/angular-cli
 
 ``` bash
 npm install -g @angular/cli
-```s
+```
 
 ## To build for development
 
