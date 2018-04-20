@@ -28,10 +28,13 @@ Currently runs with:
 - Change schema :pencil:
 - Overview of students :clipboard:
 
+# Installation
+
+Recommended steps to install software can be found [here](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/tree/final/build-folder/build).
+
 # Getting Started
 
 Install dependencies with npm :
-
 ``` bash
 npm install
 ```
@@ -45,7 +48,7 @@ Please follow [Angular-cli documentation](https://github.com/angular/angular-cli
 
 ``` bash
 npm install -g @angular/cli
-```
+```s
 
 ## To build for development
 
