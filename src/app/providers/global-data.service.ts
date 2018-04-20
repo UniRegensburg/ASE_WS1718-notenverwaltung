@@ -34,7 +34,7 @@ export class GlobalDataService {
   private cryptoConfig: any;
   private CryptoJS = require("crypto-js");
 
-  private lastOpendFilePath: string = "../lastOpened.json";
+  private lastOpendFilePath: string = "assets/data/lastOpened.json";
   private loadedFiles: Array<any> = [];
   private filePath: any;
 

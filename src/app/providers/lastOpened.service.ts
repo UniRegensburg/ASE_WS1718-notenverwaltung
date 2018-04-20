@@ -43,7 +43,7 @@ import {
 export class LastOpened {
 
   private isInstantiated: boolean;
-  private lastOpendFilePath: string = "../lastOpened.json";
+  private lastOpendFilePath: string = "assets/data/lastOpened.json";
   public loadedFiles;
   private demoData = [];
 
