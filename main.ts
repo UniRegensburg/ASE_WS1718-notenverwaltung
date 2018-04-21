@@ -20,7 +20,8 @@ function createWindow() {
     x: 0,
     y: 0,
     width: size.width,
-    height: size.height
+    height: size.height,
+    icon : "assets/icons/win/ase-logo.ico", //Needed for windows
   });
 
   // and load the index.html of the app.
