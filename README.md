@@ -30,7 +30,7 @@ Currently runs with:
 
 # Installation
 
-Recommended steps to install software can be found [here](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/final/build-folder/build/install_instructions.md).
+Recommended steps to install software can be found [here](build/install_instructions.md).
 
 
 # User Manual
