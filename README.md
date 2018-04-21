@@ -28,10 +28,19 @@ Currently runs with:
 - Change schema :pencil:
 - Overview of students :clipboard:
 
+# Installation
+
+Recommended steps to install software can be found [here](build/install_instructions.md).
+
+
+# User Manual
+
+A detailed description of the software can be found [here](docs/manual.md)
+
+
 # Getting Started
 
 Install dependencies with npm :
-
 ``` bash
 npm install
 ```
@@ -61,10 +70,12 @@ Your built files are in the /dist folder.
 
 |Command|Description|
 |--|--|
+|`npm start`| Start developer mode |
+|`npm run build`| Builds sources and places them in ./dist folder |
 |`npm run start:web`| Execute the app in the brower |
-|`npm run electron:linux`| Builds your application and creates an app consumable on linux system |
-|`npm run electron:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
-|`npm run electron:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
+|`npm run build:binary:linux`| Builds your application and creates an app consumable on linux system |
+|`npm run build:binary:windows`| On a Windows OS, builds your application and creates an app consumable in windows 32/64 bit systems |
+|`npm run build:binary:mac`|  On a MAC OS, builds your application and generates a `.app` file of your application that can be run on Mac |
 
 **Your application is optimised. Only the files of /dist folder are included in the executable.**
 
