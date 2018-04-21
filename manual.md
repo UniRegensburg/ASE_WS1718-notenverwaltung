@@ -110,5 +110,3 @@ Um zurück auf die Startseite des Programms zu gelangen ohne es zu schließen un
 ![Neuer Kurs](https://github.com/UniRegensburg/ASE_WS1718-notenverwaltung/blob/manual/manual_imgs/new.JPG)
 Um einen neuen Kurs anzulegen, muss man zunächst über eine der Schaltflächen "Neuer Kurs" (entweder von der Startseite des Programms oder aus dem Menü heraus) die Seite aufrufen. Anschließend vergibt man einen Kursnamen (bspw. "ASE WiSe1718"), klickt anschließend "Kurs erstellen" und wählt einen Speicherort aus und bestätigt diesen. War dies erfoglreich wird man auf die Startseite des Kurses weitergeleitet. Trat ein Problem auf, öffnet sich eine Fehlermeldung rechts oben mit der jeweiligen Fehlerbeschreibung.
 
-
-![Startseite](https://images.unsplash.com/photo-1522199780729-a356c844222a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1bd52b437d57c3bfa14ccb7c6985b02e&auto=format&fit=crop&w=500&q=60)
